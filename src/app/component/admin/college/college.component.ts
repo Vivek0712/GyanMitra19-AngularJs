@@ -71,11 +71,12 @@ export class CollegeComponent implements OnInit {
     }
   });
   }
-  updateCollege(id: string, name: string ) {
+  updateCollege(id: string, name: string,locale:String ) {
     this.Button = 'Update';
     this.collegeForm.setValue({
       _id: id,
-      name: name
+      name: name,
+      locale: locale
     });
   }
 
