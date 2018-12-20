@@ -24,11 +24,9 @@
                         ],
                         "styles": [
                             "src/public/css/vendors.css",
-                            "src/public/vendors/css/charts/chartist.css",
                             "src/public/css/app-lite.css",
                             "src/public/css/core/menu/menu-types/vertical-menu.css",
-                            "src/public/css/core/colors/palette-gradient.css",
-                            "src/public/css/pages/dashboard-ecommerce.css",
+                            "src/public/css/core/colors/palette-gradient.css",   
                             "src/public/css/mycss.css"
 
                         ],
