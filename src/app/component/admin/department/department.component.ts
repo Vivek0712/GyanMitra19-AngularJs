@@ -1,49 +1,50 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators , FormBuilder , FormArray, NgForm } from '@angular/forms';
-import { CollegeService } from 'src/app/services/college/college.service';
+import { DepartmentService } from 'src/app/services/department/department.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
 declare var M: any;
 @Component({
-  selector: 'app-college',
-  templateUrl: './college.component.html',
-  styleUrls: ['./college.component.css']
+  selector: 'app-department',
+  templateUrl: './department.component.html',
+  styleUrls: ['./department.component.css']
 })
-export class CollegeComponent implements OnInit {
-  constructor(private collegeService: CollegeService, private authService: AuthService, private formBuilder: FormBuilder) { }
-  collegeForm: FormGroup;
-  colleges: any;
+export class DepartmentComponent implements OnInit {
+
+  constructor(private departmentService: DepartmentService, private authService: AuthService, private formBuilder: FormBuilder) { }
+  departmentForm: FormGroup;
+  departments: any;
   Button: any;
   submitted:boolean;
   ngOnInit() {
     this.submitted=false;
     this.createForm();
-    this.getColleges();
+    this.getDepartments();
   }
-  get f() { return this.collegeForm.controls; }
+  get f() { return this.departmentForm.controls; }
   onSubmit(form: NgForm) {
     this.submitted=true;
     if(form.valid){
       if ( form.value._id === '') {
-        this.collegeService.createCollege( this.collegeForm.get('name').value,this.collegeForm.get('locale').value ).subscribe((response: any) => {
+        this.departmentService.createDepartment( this.departmentForm.get('name').value).subscribe((response: any) => {
           if ( response.error ) {
             M.toast({ html: response.msg , classes: 'roundeds'});
-            this.getColleges();
+            this.getDepartments();
             this.createForm();
           } else {
             M.toast({ html: response.msg , classes: 'roundeds'});
-            this.getColleges();
+            this.getDepartments();
             this.createForm();
           }
         });
       } else {
-        this.collegeService.updateCollege(form.value._id, form.value.name,form.value.locale).subscribe((response: any) => {
+        this.departmentService.updateDepartment(form.value._id, form.value.name).subscribe((response: any) => {
           if ( response.error ) {
             M.toast({ html: response.msg , classes: 'roundeds'});
-            this.getColleges();
+            this.getDepartments();
             this.createForm();
           } else {
             M.toast({ html: response.msg , classes: 'roundeds'});
-            this.getColleges();
+            this.getDepartments();
             this.createForm();
           }
         });
@@ -52,44 +53,40 @@ export class CollegeComponent implements OnInit {
     {
       M.toast({ html: 'Please Check The Form' , classes: 'roundeds'});
     }
-   
   }
   createForm() {
     this.submitted=false;
-    this.collegeForm = this.formBuilder.group({
+    this.departmentForm = this.formBuilder.group({
       _id: '',
-      name: ['',Validators.required],
-      locale:['',Validators.required]
+      name: ['',Validators.required]
     });
     this.Button = 'Create';
   }
-  getColleges() {
-    this.collegeService.readCollege().subscribe((response: any) => {
-     this.colleges = response.docs;
+  getDepartments() {
+    this.departmentService.readDepartment().subscribe((response: any) => {
+     this.departments = response.docs;
     });
 
   }
-  deleteCollege(id: string) {
-  this.collegeService.deleteCollege(id).subscribe((response: any) => {
+  deleteDepartment(id: string) {
+  this.departmentService.deleteDepartment(id).subscribe((response: any) => {
     if ( response.error ) {
       M.toast({ html: response.msg , classes: 'roundeds'});
-      this.getColleges();
+      this.getDepartments();
       this.createForm();
     } else {
       M.toast({ html: response.msg , classes: 'roundeds'});
-      this.getColleges();
+      this.getDepartments();
       this.createForm();
     }
   });
   }
-  updateCollege(id: string, name: string,locale:String ) {
+  updateDepartment(id: string, name: string,locale:String ) {
     this.Button = 'Update';
-    this.collegeForm.setValue({
+    this.departmentForm.setValue({
       _id: id,
-      name: name,
-      locale: locale
+      name: name
     });
   }
-
 
 }

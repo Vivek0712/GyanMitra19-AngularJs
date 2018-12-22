@@ -32,12 +32,18 @@
                                      <form class="form" [formGroup]="collegeForm" (ngSubmit)=onSubmit(collegeForm)>
                                          <input type="hidden" formControlName="_id">
                                          <div class="form-group">
-                                      
-                                             <input type="text" class="form-control" placeholder="College Name" formControlName="name" required pattern="[a-zA-Z ]*">
-                                         </div>
+                                             <input type="text" class="form-control" placeholder="College Name" formControlName="name" required pattern="[a-zA-Z ]*" [ngClass]="{'is-invalid': submitted &&f.name.errors}">
+                                             <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                                                <div *ngIf="f.name.errors.required">College Name is required</div>
+                                                <div *ngIf="f.name.errors && !f.name.errors.required">Only Alpahabets</div>
+                                            </div>
+                                        </div>
                                          <div class="form-group">
-               
-                                             <input type="text" class="form-control" placeholder="College Locale" formControlName="locale" required pattern="[a-zA-Z ]*">
+                                             <input type="text" class="form-control" placeholder="College Locale" formControlName="locale" required pattern="[a-zA-Z ]*" [ngClass]="{'is-invalid': submitted &&f.locale.errors}">
+                                             <div *ngIf="submitted && f.locale.errors" class="invalid-feedback">
+                                                <div *ngIf="f.locale.errors.required">College locale is required</div>
+                                                <div *ngIf="f.locale.errors&& !f.locale.errors.required">Only Alpahabets</div>
+                                            </div>
                                          </div>
                                          <div class="form-action left row">
                                              <div class="col">
@@ -45,7 +51,7 @@
  
                                              </div>
                                              <div class="col">
-                                                 <button type="submit" class="btn btn-outline-success right" [disabled]="!collegeForm.valid">{{this.Button}}</button>
+                                                 <button type="submit" class="btn btn-outline-success right">{{this.Button}}</button>
                                              </div>
                                          </div>
                                      </form>
