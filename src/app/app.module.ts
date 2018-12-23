@@ -48,7 +48,7 @@ import { SearchfilterPipe } from './pipes/searchfilter.pipe';
     DepartmentComponent,
     AdminEventComponent,
     CourseComponent,
-    SearchfilterPipe
+    SearchfilterPipe,
   ],
   imports: [
     BrowserModule,
