@@ -77,6 +77,8 @@
                          </div>
                          <div class="card-content collapse show">
                              <div class="card-body">
+                            Search : <input [(ngModel)]="searchText" placeholder="Search Colleges" class="form-control">
+
                                  <div class="table-responsive">
                                      <table class="table">
                                          <thead>
@@ -89,7 +91,7 @@
                                              </tr>
                                          </thead>
                                          <tbody>
-                                             <tr *ngFor="let college of colleges; let i = index;">
+                                             <tr *ngFor="let college of colleges | searchfilter : searchText ; let i = index;">
  
                                                  <th scope="row">{{i+1}}</th>
                                                  <td>{{college.name}}</td>
