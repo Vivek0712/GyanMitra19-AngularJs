@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators , FormBuilder , FormArray, NgForm } from '@angular/forms';
 import { DepartmentService } from 'src/app/services/department/department.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { SearchfilterPipe } from 'src/app/pipes/searchfilter.pipe';
+
 declare var M: any;
 @Component({
   selector: 'app-department',

@@ -57,7 +57,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Department Tables</h4>
+                            <h4 class="card-title">Departments</h4>
                             <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                             <div class="heading-elements">
                                 <ul class="list-inline mb-0">
@@ -69,18 +69,19 @@
                         </div>
                         <div class="card-content collapse show">
                             <div class="card-body">
+                                    <input [(ngModel)]="searchText" placeholder="Search Departments" class="form-control">
                                 <div class="table-responsive">
                                     <table class="table">
                                         <thead>
                                             <tr>
-                                                <th>#</th>
+                                                <th>Sl. No</th>
                                                 <th>Department Name</th>
                                                 <th>Update</th>
                                                 <th>Delete</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr *ngFor="let department of departments; let i = index;">
+                                            <tr *ngFor="let department of departments | searchfilter : searchText ; let i = index;">
   
                                                 <th scope="row">{{i+1}}</th>
                                                 <td>{{department.name}}</td>
