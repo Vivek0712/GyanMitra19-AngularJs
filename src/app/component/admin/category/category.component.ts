@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators , FormBuilder , FormArray, NgForm } from '@angular/forms';
 import { CategoryService } from 'src/app/services/category/category.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
+
+import { SearchfilterPipe } from 'src/app/pipes/searchfilter.pipe';
+
 declare var M: any;
 @Component({
   selector: 'app-category',

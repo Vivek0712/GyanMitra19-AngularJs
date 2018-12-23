@@ -69,18 +69,19 @@
                       </div>
                       <div class="card-content collapse show">
                           <div class="card-body">
+                          Search : <input [(ngModel)]="searchText" placeholder="Search Categories" class="form-control">
                               <div class="table-responsive">
                                   <table class="table">
                                       <thead>
                                           <tr>
-                                              <th>#</th>
+                                              <th>Sl. No</th>
                                               <th>Category Name</th>
                                               <th>Update</th>
                                               <th>Delete</th>
                                           </tr>
                                       </thead>
                                       <tbody>
-                                          <tr *ngFor="let category of categories; let i = index;">
+                                          <tr *ngFor="let category of categories | searchfilter : searchText ; let i = index;   ">
 
                                               <th scope="row">{{i+1}}</th>
                                               <td>{{category.name}}</td>
