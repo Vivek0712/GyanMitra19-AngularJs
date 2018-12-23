@@ -62,8 +62,9 @@ export class AdminEventComponent implements OnInit {
 
   get f() { return this.eventForm.controls; }
     
-  onSumbit(form: NgForm) {
-    console.log('hello')
+  onSubmit(form: NgForm) {
+    console.log('hello');
+    console.log(form.value);
   }
 
   // onSubmit(form: NgForm) {

@@ -40,10 +40,14 @@
                                             <input type="text" class="form-control" placeholder="Event Name" formControlName="title" required pattern="[a-zA-Z ]*" [ngClass]="{'is-invalid': submitted && f.title.errors}">
                                             <br />
                                             Conducted By 
-                                            <select class="form-control" placeholder="Department" formControlName="department_id">
-                                                <option *ngFor="let department of departments" id={{department._id}}>{{department.name}}</option>
-                                            </select>
-                                            <br />
+                                            <div class="form-group">
+                                                <div class="col-6">
+                                                    <select class="custom-select" formControlName="department_id" >
+                                                        <option disabled value="">Department...</option>
+                                                        <option *ngFor="let department of departments"  [value]="department._id">{{department.name}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
                                             Event Category 
                                             <select class="form-control" placeholder="Category" formControlName="category_id" ng-model="selectedCategory">
                                                 <option *ngFor="let category of categories" id={{category._id}}>{{category.name}}</option>
