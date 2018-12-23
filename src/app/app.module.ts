@@ -29,6 +29,7 @@ import { DegreeService } from './services/degree/degree.service';
 import { DepartmentService } from './services/department/department.service';
 import { CourseComponent } from './component/admin/course/course.component';
 import { SearchfilterPipe } from './pipes/searchfilter.pipe';
+import { ResolveCategoryPipe } from './pipes/resolve-category.pipe';
 /////////////////////////////////////////////////////////////////
 
 
@@ -49,6 +50,7 @@ import { SearchfilterPipe } from './pipes/searchfilter.pipe';
     AdminEventComponent,
     CourseComponent,
     SearchfilterPipe,
+    ResolveCategoryPipe,
   ],
   imports: [
     BrowserModule,

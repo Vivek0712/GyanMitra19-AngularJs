@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators , FormBuilder , FormArray, NgForm } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder, FormArray, NgForm } from '@angular/forms';
 import { EventService } from '../../../services/event/event.service';
 import { CategoryService } from 'src/app/services/category/category.service';
 import { DepartmentService } from 'src/app/services/department/department.service';
@@ -28,12 +28,12 @@ export class AdminEventComponent implements OnInit {
   categories: Array<Category>;
   departments: Array<Department>;
   Button: any;
-  submitted:boolean;
-  selectedCategory:Category;
-  selectedDepartment:Department;
+  submitted: boolean;
+  selectedCategory: Category;
+  selectedDepartment: Department;
   allow_gender_mixing: Boolean;
 
-  constructor(private eventService: EventService,private formBuilder: FormBuilder, private categoryService: CategoryService, private departmentService: DepartmentService) { }
+  constructor(private eventService: EventService, private formBuilder: FormBuilder, private categoryService: CategoryService, private departmentService: DepartmentService) { }
 
   ngOnInit() {
     this.getCategories();
@@ -44,7 +44,7 @@ export class AdminEventComponent implements OnInit {
     this.allow_gender_mixing = false;
   }
 
-  changeGenderMixing(){
+  changeGenderMixing() {
     this.allow_gender_mixing = !this.allow_gender_mixing;
   }
 
@@ -53,7 +53,7 @@ export class AdminEventComponent implements OnInit {
       this.categories = response.docs;
     });
   }
-  
+
   getDepartments() {
     this.departmentService.readDepartment().subscribe((response: any) => {
       this.departments = response.docs;
@@ -61,74 +61,83 @@ export class AdminEventComponent implements OnInit {
   }
 
   get f() { return this.eventForm.controls; }
-    
+
+
   onSubmit(form: NgForm) {
-    console.log('hello');
-    console.log(form.value);
+    this.submitted = true;
+    // console.log(form.value);
+    // const data = form.value;
+    // this.eventService.createEvent( data.title, data.category_id, data.department_id,data.description, data.image_name, data.rules, data.start_time, data.end_time, data.event_date, data.prelims, data.round_1, data.round_2, data.finals, data.min_members, data.max_members, data.max_limit, data.contact_email, data.venue, data.amount, this.allow_gender_mixing ).subscribe((response: any) => {
+    //         if ( response.error ) {
+    //           M.toast({ html: response.msg , classes: 'roundeds'});
+    //           this.getEvents();
+    //           this.createForm();
+    //         } else {
+    //           M.toast({ html: response.msg , classes: 'roundeds'});
+    //           this.getEvents();
+    //           this.createForm();
+    //         }
+    //       });
+    if (form.value._id === '') {
+      const data = form.value;
+      this.eventService.createEvent(data.title, data.category_id, data.department_id, data.description, data.image_name, data.rules, data.start_time, data.end_time, data.event_date, data.prelims, data.round_1, data.round_2, data.finals, data.min_members, data.max_members, data.max_limit, data.contact_email, data.venue, data.amount, this.allow_gender_mixing).subscribe((response: any) => {
+        if (response.error) {
+          M.toast({ html: response.msg, classes: 'roundeds' });
+          this.getEvents();
+          this.createForm();
+        } else {
+          M.toast({ html: response.msg, classes: 'roundeds' });
+          this.getEvents();
+          this.createForm();
+        }
+      });
+    } else {
+      const data = form.value;
+      this.eventService.updateEvent(data._id, data.title, data.category_id, data.department_id, data.description, data.image_name, data.rules, data.start_time, data.end_time, data.event_date, data.prelims, data.round_1, data.round_2, data.finals, data.min_members, data.max_members, data.max_limit, data.contact_email, data.venue, data.amount, this.allow_gender_mixing).subscribe((response: any) => {
+        if (response.error) {
+          M.toast({ html: response.msg, classes: 'roundeds' });
+          this.getEvents();
+          this.createForm();
+        } else {
+          M.toast({ html: response.msg, classes: 'roundeds' });
+          this.getEvents();
+          this.createForm();
+        }
+      });
+    }
   }
 
-  // onSubmit(form: NgForm) {
-  //   this.submitted=true;
-  //   if(form.valid){
-  //     if ( form.value._id === '') {
-  //       this.eventService.createEvent( this.eventForm.get('title').value, this.eventForm.get('') ).subscribe((response: any) => {
-  //         if ( response.error ) {
-  //           M.toast({ html: response.msg , classes: 'roundeds'});
-  //           this.getEvents();
-  //           this.createForm();
-  //         } else {
-  //           M.toast({ html: response.msg , classes: 'roundeds'});
-  //           this.getEvents();
-  //           this.createForm();
-  //         }
-  //       });
-  //     } else {
-  //       this.eventService.updateEvent(form.value._id, form.value.name).subscribe((response: any) => {
-  //         if ( response.error ) {
-  //           M.toast({ html: response.msg , classes: 'roundeds'});
-  //           this.getEvents();
-  //           this.createForm();
-  //         } else {
-  //           M.toast({ html: response.msg , classes: 'roundeds'});
-  //           this.getEvents();
-  //           this.createForm();
-  //         }
-  //       });
-  //     }
-  //   }else
-  //   {
-  //     M.toast({ html: 'Please Check The Form' , classes: 'roundeds'});
-  //   }
-  // }
 
-  createForm(){
-    this.submitted=false;
+  createForm() {
+    this.submitted = false;
     this.eventForm = this.formBuilder.group({
+      __v: '',
       _id: '',
-      title: ['',Validators.required],
-      category_id:['',Validators.required],
-      department_id:['',Validators.required],
-      description:['',Validators.required],
-      rules:['',Validators.required],
-      start_time:['',Validators.required],
-      end_time:['',Validators.required],
-      event_date:['',Validators.required],
-      prelims:[''],
-      round_1:[''],
-      round_2:[''],
-      finals:[''],
-      min_members:[''],
-      max_members:[''],
-      max_limit:[''],
-      contact_email:['',Validators.required,Validators.email],
-      venue:['',Validators.required],
-      amount:['',Validators.required],
-      allow_gender_mixing:['',Validators.required]
+      title: '',
+      category_id: '',
+      department_id: '',
+      description: '',
+      rules: '',
+      image_name: '',
+      start_time: '',
+      end_time: '',
+      event_date: '',
+      prelims: '',
+      round_1: '',
+      round_2: '',
+      finals: '',
+      min_members: '',
+      max_members: '',
+      max_limit: '',
+      contact_email: '',
+      venue: '',
+      amount: '',
+      allow_gender_mixing: ''
     });
     this.Button = 'Create';
   }
 
-  getEvents(){
+  getEvents() {
     this.eventService.readEvent().subscribe((response: any) => {
       this.events = response.docs;
     });
@@ -136,23 +145,23 @@ export class AdminEventComponent implements OnInit {
 
   deleteEvent(id: string) {
     this.eventService.deleteEvent(id).subscribe((response: any) => {
-      if ( response.error ) {
-        M.toast({ html: response.msg , classes: 'roundeds'});
+      if (response.error) {
+        M.toast({ html: response.msg, classes: 'roundeds' });
         this.getEvents();
         this.createForm();
       } else {
-        M.toast({ html: response.msg , classes: 'roundeds'});
+        M.toast({ html: response.msg, classes: 'roundeds' });
         this.getEvents();
         this.createForm();
       }
     });
-    }
+  }
 
-    updateEvent(id: string, name: string,locale:String ) {
-      this.Button = 'Update';
-      this.eventForm.setValue({
-        _id: id,
-        name: name
-      });
-    }
+  updateEvent(id: string) {
+    this.Button = 'Update';
+    const data = this.events.filter(eventName => {
+      return eventName._id === id;
+    });
+    this.eventForm.setValue(data[0]);
+  }
 }

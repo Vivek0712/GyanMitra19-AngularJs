@@ -30,29 +30,29 @@
                                 </div>
                                 <div class="card-body">
                                     <form class="form" [formGroup]="eventForm" (ngSubmit) = onSubmit(eventForm)>
-                                        <input type="hidden" formControlName="_id">
+                                      <input type="hidden" formControlName="_id">
+                                      <input type="hidden" formControlName="__v">
                                         <div class="form-group">
-                                            <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
-                                                <div *ngIf="f.name.errors.required">Category Name is required</div>
-                                                <div *ngIf="f.name.errors && !f.name.errors.required">Only Alpahabets</div>
-                                            </div>
                                             Event Name 
-                                            <input type="text" class="form-control" placeholder="Event Name" formControlName="title" required pattern="[a-zA-Z ]*" [ngClass]="{'is-invalid': submitted && f.title.errors}">
+                                            <input type="text" class="form-control" placeholder="Event Name" formControlName="title" value=" " >
                                             <br />
-                                            Conducted By 
                                             <div class="form-group">
-                                                <div class="col-6">
-                                                    <select class="custom-select" formControlName="department_id" >
-                                                        <option disabled value="">Department...</option>
-                                                        <option *ngFor="let department of departments"  [value]="department._id">{{department.name}}</option>
-                                                    </select>
+                                                <div class="row">   
+                                                        <div class="col-6">
+                                                                Conducted By 
+                                                                <select class="form-control" formControlName="department_id" >
+                                                                    <option disabled value="">Department</option>
+                                                                    <option *ngFor="let department of departments"  value={{department._id}}>{{department.name}}</option>
+                                                                </select>
+                                                        </div>
+                                                        <div class="col-6">
+                                                                Event Category 
+                                                                <select class="form-control" placeholder="Category" formControlName="category_id" ng-model="selectedCategory">
+                                                                        <option *ngFor="let category of categories"  value={{category._id}} >{{category.name}}</option>
+                                                                </select>
+                                                        </div>
                                                 </div>
                                             </div>
-                                            Event Category 
-                                            <select class="form-control" placeholder="Category" formControlName="category_id" ng-model="selectedCategory">
-                                                <option *ngFor="let category of categories" id={{category._id}}>{{category.name}}</option>
-                                            </select>
-                                            <br />
                                             Description 
                                             <textarea class="form-control" placeholder="Describe the Event Here" formControlName="description" [ngClass]="{'is-invalid': submitted && f.title.errors}" >
                                             </textarea>
@@ -62,43 +62,46 @@
                                             </textarea>
                                             <br />
                                             Starting Time 
-                                            <input type="time" class="form-control" value="" placeholder="Start Time" formControlName="start_time" required pattern="[a-zA-Z ]*" [ngClass]="{'is-invalid': submitted && f.title.errors}">
+                                            <input type="time" class="form-control" value="" placeholder="Start Time" formControlName="start_time"  >
                                             <br />
                                             Ending Time
-                                            <input type="time" class="form-control" value="" placeholder="Ending Time" formControlName="end_time" required pattern="[a-zA-Z ]*" [ngClass]="{'is-invalid': submitted && f.title.errors}">
+                                            <input type="time" class="form-control" value="" placeholder="Ending Time" formControlName="end_time"  >
                                             <br />
                                             Event Date
-                                            <input type="date" class="form-control" value="" placeholder="Event Date" formControlName="event_date" required pattern="[a-zA-Z ]*" [ngClass]="{'is-invalid': submitted && f.title.errors}">
+                                            <input type="date" class="form-control" value="" placeholder="Event Date" formControlName="event_date"  >
+                                            <br />
+                                            Image
+                                            <input type="text" class="form-control" value="" placeholder="Event Image" formControlName="image_name" />
                                             <br />
                                             Prelims
-                                            <input type="text" class="form-control" placeholder="Prelims" formControlName="prelims" required pattern="[a-zA-Z ]*" [ngClass]="{'is-invalid': submitted && f.title.errors}">
+                                            <input type="text" class="form-control" placeholder="Prelims" formControlName="prelims"  >
                                             <br />
                                             Round 1
-                                            <input type="text" class="form-control" placeholder="Round 1" formControlName="round_1" required pattern="[a-zA-Z ]*" [ngClass]="{'is-invalid': submitted && f.title.errors}">
+                                            <input type="text" class="form-control" placeholder="Round 1" formControlName="round_1"  >
                                             <br />
                                             Round 2
-                                            <input type="text" class="form-control" placeholder="Round 2" formControlName="round_2" required pattern="[a-zA-Z ]*" [ngClass]="{'is-invalid': submitted && f.title.errors}">
+                                            <input type="text" class="form-control" placeholder="Round 2" formControlName="round_2"  >
                                             <br />
                                             Finals
-                                            <input type="text" class="form-control" placeholder="Finals" formControlName="finals" required pattern="[a-zA-Z ]*" [ngClass]="{'is-invalid': submitted && f.title.errors}">
+                                            <input type="text" class="form-control" placeholder="Finals" formControlName="finals"  >
                                             <br />
                                             Minimum Members
-                                            <input type="number" class="form-control" placeholder="Minimum Members" formControlName="min_members" required pattern="[a-zA-Z ]*" [ngClass]="{'is-invalid': submitted && f.title.errors}">
+                                            <input type="number" class="form-control" placeholder="Minimum Members" formControlName="min_members"  >
                                             <br />
                                             Maximum Members
-                                            <input type="number" class="form-control" placeholder="Maximum Members" formControlName="max_members" required pattern="[a-zA-Z ]*" [ngClass]="{'is-invalid': submitted && f.title.errors}">
+                                            <input type="number" class="form-control" placeholder="Maximum Members" formControlName="max_members"  >
                                             <br />
                                             Maximum Limit
-                                            <input type="number" class="form-control" placeholder="Maximum Limit" formControlName="max_limit" required pattern="[a-zA-Z ]*" [ngClass]="{'is-invalid': submitted && f.title.errors}">
+                                            <input type="number" class="form-control" placeholder="Maximum Limit" formControlName="max_limit"  >
                                             <br />
                                             Contact Email Address
-                                            <input type="email" class="form-control" placeholder="Contact mail Address" formControlName="contact_email" required pattern="[a-zA-Z ]*" [ngClass]="{'is-invalid': submitted && f.title.errors}">
+                                            <input type="email" class="form-control" placeholder="Contact mail Address" formControlName="contact_email"  >
                                             <br />
                                             Venue
-                                            <input type="text" class="form-control" placeholder="Venue" formControlName="venue" required pattern="[a-zA-Z ]*" [ngClass]="{'is-invalid': submitted && f.title.errors}">
+                                            <input type="text" class="form-control" placeholder="Venue" formControlName="venue"  >
                                             <br />
                                             Amount
-                                            <input type="number" class="form-control" placeholder="Amount" formControlName="amount" required pattern="[a-zA-Z ]*" [ngClass]="{'is-invalid': submitted && f.title.errors}">
+                                            <input type="number" class="form-control" placeholder="Amount" formControlName="amount"  >
                                             <br />
                                             <span  class="btn left" [ngClass]="{'btn-danger' : allow_gender_mixing , 'btn-success' : !allow_gender_mixing }">
                                                 <span (click)="changeGenderMixing()" *ngIf="allow_gender_mixing">
@@ -141,29 +144,29 @@
                         </div>
                         <div class="card-content collapse show">
                             <div class="card-body">
-                            Search : <input [(ngModel)]="searchText" placeholder="Search Categories" class="form-control">
+                            Search : <input [(ngModel)]="searchText" placeholder="Search Events" class="form-control">
                                 <div class="table-responsive">
                                     <table class="table">
                                         <thead>
                                             <tr>
                                                 <th>Sl. No</th>
-                                                <th>Category Name</th>
+                                                <th>Event Name</th>
                                                 <th>Update</th>
                                                 <th>Delete</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr *ngFor="let category of categories | searchfilter : searchText ; let i = index;   ">
+                                            <tr *ngFor="let event of events | searchfilter : searchText ; let i = index;   ">
   
                                                 <th scope="row">{{i+1}}</th>
-                                                <td>{{category.name}}</td>
+                                                <td>{{event.title}}</td>
                                                 <td>
                                                     <div class="fonticon-wrap icon-shadow icon-shadow-warning">
-                                                        <a (click)="updateCategory(category._id,category.name)"> <i class="la la-pencil la-2x"></i></a>
+                                                        <a (click)="updateEvent(event._id)"> <i class="la la-pencil la-2x"></i></a>
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <div class="fonticon-wrap icon-shadow icon-shadow-danger" (click)="deleteCategory(category._id)">
+                                                    <div class="fonticon-wrap icon-shadow icon-shadow-danger" (click)="deleteCategory(event._id)">
                                                         <a> <i class="la la-trash la-2x"></i></a>
                                                     </div>
                                                 </td>
