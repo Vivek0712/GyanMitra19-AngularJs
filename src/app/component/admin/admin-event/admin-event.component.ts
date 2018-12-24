@@ -23,6 +23,7 @@ export interface Department {
 
 export class AdminEventComponent implements OnInit {
   eventForm: FormGroup;
+  imageForm: FormGroup;
   events: Array<any>;
   categories: Array<Category>;
   departments: Array<Department>;
@@ -68,6 +69,11 @@ export class AdminEventComponent implements OnInit {
 
   get f() { return this.eventForm.controls; }
 
+  onImageUpload(form: NgForm){
+    this.image_uploaded = true;
+    
+  }
+
 
   onSubmit(form: NgForm) {
     this.submitted = true;
@@ -101,6 +107,12 @@ export class AdminEventComponent implements OnInit {
     }
   }
 
+  createImageUploadForm() {
+    this.image_uploaded = false;
+    this.imageForm = this.formBuilder.group({
+      image_name: ''
+    })
+  }
 
   createForm() {
     this.submitted = false;
