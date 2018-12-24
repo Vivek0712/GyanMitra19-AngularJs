@@ -1,4 +1,4 @@
-/*=========================================================================================
+/*=====
   File Name: app-menu.js
   Description: Menu navigation, custom scrollbar, hover scroll bar, multilevel menu
   initialization and manipulations
@@ -7,7 +7,7 @@
   Version: 1.0
   Author: ThemeSelection
   Author URL: https://themeselection.com/
-==========================================================================================*/
+======*/
 (function(window, document, $) {
   'use strict';
 

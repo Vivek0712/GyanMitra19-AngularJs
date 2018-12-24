@@ -20,7 +20,12 @@ import { HomeComponent } from './component/admin/home/home.component';
 import { CollegeComponent } from './component/admin/college/college.component';
 /////////////////////////////////////////////////////////////////
 import { AuthService } from './services/auth/auth.service';
+
 import { AppService } from './services/app/app.service';
+
+import { AccomodationService } from './services/accomodation/accomodation.service'
+import { CourseService } from './services/course/course.service';
+
 import { CollegeService } from './services/college/college.service';
 import { CategoryComponent } from './component/admin/category/category.component';
 import { DegreeComponent } from './component/admin/degree/degree.component';
@@ -28,8 +33,16 @@ import { DepartmentComponent } from './component/admin/department/department.com
 import { DegreeService } from './services/degree/degree.service';
 import { DepartmentService } from './services/department/department.service';
 import { CourseComponent } from './component/admin/course/course.component';
+
 import { SearchfilterPipe } from './pipes/searchfilter.pipe';
 import { ResolveCategoryPipe } from './pipes/resolve-category.pipe';
+
+import { RegistrationService } from './services/registration/registration.service';
+import { RoleService } from './services/role/role.service';
+import { RoleUserService } from './services/role_user/role-user.service';
+import { TeamService } from './services/team/team.service';
+import { TeamMemberService } from './services/team_member/team-member.service';
+
 /////////////////////////////////////////////////////////////////
 
 
@@ -66,7 +79,15 @@ import { ResolveCategoryPipe } from './pipes/resolve-category.pipe';
     AppService,
     CollegeService,
     DegreeService,
-    DepartmentService
+    DepartmentService,
+    AccomodationService,
+    CourseService,
+    RegistrationService,
+    RoleService,
+    RoleUserService,
+    TeamService,
+    TeamMemberService
+
   ],
   bootstrap: [AppComponent]
 })

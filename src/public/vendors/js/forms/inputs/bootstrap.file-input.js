@@ -1,6 +1,6 @@
 /*
   Bootstrap - File Input
-  ======================
+  =
 
   This is meant to convert all file input tags into a set of elements that displays consistently in all browsers.
 

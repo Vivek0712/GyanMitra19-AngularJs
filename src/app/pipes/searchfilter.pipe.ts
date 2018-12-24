@@ -13,6 +13,8 @@ export class SearchfilterPipe implements PipeTransform {
     return items.filter( it => {
       return it.name.toLowerCase().includes(searchText);
     });
+
    }
 
-}
+
+  }

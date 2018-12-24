@@ -1,4 +1,4 @@
-/*=========================================================================================
+/*=====
     File Name: card-advanced.js
     Description: intialize advance card advanced
     ----------------------------------------------------------------------------------------
@@ -6,7 +6,7 @@
     Version: 1.0
     Author: ThemeSelection
     Author URL: https://themeselection.com/
-==========================================================================================*/
+======*/
 (function(window, document, $) {
     'use strict';
 

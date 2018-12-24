@@ -8,7 +8,7 @@
 ;(function ( $, window, document, undefined ) {
 
   /* Defaults
-  ================================================== */
+  = */
   var pluginName = 'sharrre',
   defaults = {
     className: 'sharrre',
@@ -96,7 +96,7 @@
     }
   },
   /* Json URL to get count number
-  ================================================== */
+  = */
   urlJson = {
     googlePlus: "",
 
@@ -114,7 +114,7 @@
     pinterest: "http://api.pinterest.com/v1/urls/count.json?url={url}&callback=?"
   },
   /* Load share buttons asynchronously
-  ================================================== */
+  = */
   loadButton = {
     googlePlus : function(self){
       var sett = self.options.buttons.googlePlus;
@@ -263,7 +263,7 @@
     }
   },
   /* Tracking for Google Analytics
-  ================================================== */
+  = */
   tracking = {
     googlePlus: function(){},
     facebook: function(){
@@ -316,7 +316,7 @@
     }
   },
   /* Popup for each social network
-  ================================================== */
+  = */
   popup = {
     googlePlus: function(opt){
       window.open("https://plus.google.com/share?hl="+opt.buttons.googlePlus.lang+"&url="+encodeURIComponent((opt.buttons.googlePlus.url !== '' ? opt.buttons.googlePlus.url : opt.url)), "", "toolbar=0, status=0, width=900, height=500");
@@ -345,7 +345,7 @@
   };
 
   /* Plugin constructor
-  ================================================== */
+  = */
   function Plugin( element, options ) {
     this.element = element;
 
@@ -359,7 +359,7 @@
   };
 
   /* Initialization method
-  ================================================== */
+  = */
   Plugin.prototype.init = function () {
     var self = this;
     if(this.options.urlCurl !== ''){
@@ -424,7 +424,7 @@
   };
 
   /* loadButtons methode
-  ================================================== */
+  = */
   Plugin.prototype.loadButtons = function () {
     var self = this;
     $(this.element).append('<div class="buttons"></div>');
@@ -439,7 +439,7 @@
   };
 
   /* getSocialJson methode
-  ================================================== */
+  = */
   Plugin.prototype.getSocialJson = function (name) {
     var self = this,
     count = 0,
@@ -483,7 +483,7 @@
   };
 
   /* launch render methode
-  ================================================== */
+  = */
   Plugin.prototype.rendererPerso = function () {
     //check if this is the last social website to launch render
     var shareCount = 0;
@@ -494,7 +494,7 @@
   };
 
   /* render methode
-  ================================================== */
+  = */
   Plugin.prototype.renderer = function () {
     var total = this.options.total,
     template = this.options.template;
@@ -516,7 +516,7 @@
   };
 
   /* format total numbers like 1.2k or 5M
-  ================================================== */
+  = */
   Plugin.prototype.shorterTotal = function (num) {
     if (num >= 1e6){
       num = (num / 1e6).toFixed(2) + "M"
@@ -527,7 +527,7 @@
   };
 
   /* Methode for open popup
-  ================================================== */
+  = */
   Plugin.prototype.openPopup = function (site) {
     popup[site](this.options);  //open
     if(this.options.enableTracking === true){ //tracking!
@@ -546,14 +546,14 @@
   };
 
   /* Methode for add +1 to a counter
-  ================================================== */
+  = */
   Plugin.prototype.simulateClick = function () {
     var html = $(this.element).html();
     $(this.element).html(html.replace(this.options.total, this.options.total+1));
   };
 
   /* Methode for add +1 to a counter
-  ================================================== */
+  = */
   Plugin.prototype.update = function (url, text) {
     if(url !== ''){
       this.options.url = url;
@@ -564,7 +564,7 @@
   };
 
   /* A really lightweight plugin wrapper around the constructor, preventing against multiple instantiations
-  ================================================== */
+  = */
   $.fn[pluginName] = function ( options ) {
     var args = arguments;
     if (options === undefined || typeof options === 'object') {

@@ -18,15 +18,14 @@ export class CategoryComponent implements OnInit {
   categories: Array<any>;
   Button: any;
   submitted:boolean;
-
   ngOnInit() {
     this.submitted=false;
     this.createForm();
     this.getCategorys();
   }
 
-  get f() { return this.categoryForm.controls; }
 
+  get f() { return this.categoryForm.controls; }
   onSubmit(form: NgForm) {
     this.submitted=true;
     if(form.valid){
@@ -72,6 +71,10 @@ export class CategoryComponent implements OnInit {
     this.categoryService.readCategory().subscribe((response: any) => {
       this.categories = response.docs;
     });
+
+
+    //if(this.categories)
+
   }
   deleteCategory(id: string) {
   this.categoryService.deleteCategory(id).subscribe((response: any) => {

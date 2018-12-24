@@ -26,4 +26,5 @@ export class AdminComponent implements OnInit {
     //     //win.location.reload('?loaded=1');
     // }
   }
-}
+
+  }

@@ -216,7 +216,7 @@ html body .pace .pace-progress {
 }
 
 
-/*=========================================================================================
+/*=====
 	File Name: sidebar.scss
 	Description: content sidebar specific scss.
 	----------------------------------------------------------------------------------------
@@ -224,7 +224,7 @@ html body .pace .pace-progress {
 	Version: 1.0
 	Author: ThemeSelection
 	Author URL: https://themeselection.com/
-==========================================================================================*/
+======*/
 
 .sidebar {
     position: relative;
@@ -281,7 +281,7 @@ footer.footer-dark {
 }
 
 
-/*=========================================================================================
+/*=====
 	File Name: navigations.scss
 	Description: Common mixin for menus, contain dark and light version scss.
 	----------------------------------------------------------------------------------------
@@ -289,7 +289,7 @@ footer.footer-dark {
 	Version: 1.0
 	Author: ThemeSelection
 	Author URL: https://themeselection.com/
-==========================================================================================*/
+======*/
 
 .main-menu {
     position: absolute;
@@ -3783,7 +3783,7 @@ body.vertical-layout.vertical-menu.menu-expanded .main-menu-footer .content {
 }
 
 
-/*=========================================================================================
+/*=====
 	File Name: demo.scss
 	Description: CSS used for demo purpose only. Remove this css from your project.
 	----------------------------------------------------------------------------------------
@@ -3791,7 +3791,7 @@ body.vertical-layout.vertical-menu.menu-expanded .main-menu-footer .content {
 	Version: 1.0
 	Author: ThemeSelection
 	Author URL: https://themeselection.com/
-==========================================================================================*/
+======*/
 
 .fonticon-container>.fonticon-wrap {
     line-height: 4.8rem;
@@ -3917,7 +3917,7 @@ body.vertical-layout.vertical-menu.menu-expanded .main-menu-footer .content {
 }
 
 
-/*=========================================================================================
+/*=====
 	File Name: customizer.scss
 	Description: CSS used for demo purpose only. Remove this css from your project.
 	----------------------------------------------------------------------------------------
@@ -3925,7 +3925,7 @@ body.vertical-layout.vertical-menu.menu-expanded .main-menu-footer .content {
 	Version: 1.0
 	Author: ThemeSelection
 	Author URL: https://themeselection.com/
-==========================================================================================*/
+======*/
 
 .customizer {
     position: fixed;

@@ -14,7 +14,6 @@ export interface Department {
   _id: String,
   name: String
 }
-
 @Component({
   selector: 'app-admin-event',
   templateUrl: './admin-event.component.html',
@@ -32,16 +31,19 @@ export class AdminEventComponent implements OnInit {
   selectedCategory: Category;
   selectedDepartment: Department;
   allow_gender_mixing: Boolean;
+  file_name: any;
 
   constructor(private eventService: EventService, private formBuilder: FormBuilder, private categoryService: CategoryService, private departmentService: DepartmentService) { }
 
   ngOnInit() {
+    this.file_name = "ChooseFileName";
     this.getCategories();
     this.createForm();
     this.getEvents();
     this.getDepartments();
     this.submitted = false;
     this.allow_gender_mixing = false;
+    this.setFileName();
   }
 
   changeGenderMixing() {
@@ -59,13 +61,16 @@ export class AdminEventComponent implements OnInit {
       this.departments = response.docs;
     });
   }
+  setFileName() {
+   this.file_name = this.eventForm.get('image_name').value;
+  }
 
   get f() { return this.eventForm.controls; }
 
 
   onSubmit(form: NgForm) {
     this.submitted = true;
-    // console.log(form.value);
+     console.log(form.value);
     // const data = form.value;
     // this.eventService.createEvent( data.title, data.category_id, data.department_id,data.description, data.image_name, data.rules, data.start_time, data.end_time, data.event_date, data.prelims, data.round_1, data.round_2, data.finals, data.min_members, data.max_members, data.max_limit, data.contact_email, data.venue, data.amount, this.allow_gender_mixing ).subscribe((response: any) => {
     //         if ( response.error ) {
@@ -78,7 +83,7 @@ export class AdminEventComponent implements OnInit {
     //           this.createForm();
     //         }
     //       });
-    if (form.value._id === '') {
+    /*if (form.value._id === '') {
       const data = form.value;
       this.eventService.createEvent(data.title, data.category_id, data.department_id, data.description, data.image_name, data.rules, data.start_time, data.end_time, data.event_date, data.prelims, data.round_1, data.round_2, data.finals, data.min_members, data.max_members, data.max_limit, data.contact_email, data.venue, data.amount, this.allow_gender_mixing).subscribe((response: any) => {
         if (response.error) {
@@ -104,7 +109,7 @@ export class AdminEventComponent implements OnInit {
           this.createForm();
         }
       });
-    }
+    }*/
   }
 
 
