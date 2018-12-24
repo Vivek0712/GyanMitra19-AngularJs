@@ -71,22 +71,9 @@ export class AdminEventComponent implements OnInit {
 
   onSubmit(form: NgForm) {
     this.submitted = true;
-     console.log(form.value);
-    // const data = form.value;
-    // this.eventService.createEvent( data.title, data.category_id, data.department_id,data.description, data.image_name, data.rules, data.start_time, data.end_time, data.event_date, data.prelims, data.round_1, data.round_2, data.finals, data.min_members, data.max_members, data.max_limit, data.contact_email, data.venue, data.amount, this.allow_gender_mixing ).subscribe((response: any) => {
-    //         if ( response.error ) {
-    //           M.toast({ html: response.msg , classes: 'roundeds'});
-    //           this.getEvents();
-    //           this.createForm();
-    //         } else {
-    //           M.toast({ html: response.msg , classes: 'roundeds'});
-    //           this.getEvents();
-    //           this.createForm();
-    //         }
-    //       });
     if (form.value._id === '') {
       const data = form.value;
-      this.eventService.createEvent(data.title, data.category_id, data.department_id, data.description, data.image_name, data.rules, data.start_time, data.end_time, data.event_date, data.prelims, data.round_1, data.round_2, data.finals, data.min_members, data.max_members, data.max_limit, data.contact_email, data.venue, data.amount, this.allow_gender_mixing).subscribe((response: any) => {
+      this.eventService.createEvent(data.title, data.category_id, data.department_id, data.description, 'Not Uploaded', data.rules, data.start_time, data.end_time, data.event_date, data.prelims, data.round_1, data.round_2, data.finals, data.min_members, data.max_members, data.max_limit, data.contact_email, data.venue, data.amount, this.allow_gender_mixing).subscribe((response: any) => {
         if (response.error) {
           M.toast({ html: response.msg, classes: 'roundeds' });
           this.getEvents();
@@ -95,11 +82,12 @@ export class AdminEventComponent implements OnInit {
           M.toast({ html: response.msg, classes: 'roundeds' });
           this.getEvents();
           this.createForm();
+          console.log(response);
         }
       });
     } else {
       const data = form.value;
-      this.eventService.updateEvent(data._id, data.title, data.category_id, data.department_id, data.description, data.image_name, data.rules, data.start_time, data.end_time, data.event_date, data.prelims, data.round_1, data.round_2, data.finals, data.min_members, data.max_members, data.max_limit, data.contact_email, data.venue, data.amount, this.allow_gender_mixing).subscribe((response: any) => {
+      this.eventService.updateEvent(data._id, data.title, data.category_id, data.department_id, data.description, 'Not Uploaded', data.rules, data.start_time, data.end_time, data.event_date, data.prelims, data.round_1, data.round_2, data.finals, data.min_members, data.max_members, data.max_limit, data.contact_email, data.venue, data.amount, this.allow_gender_mixing).subscribe((response: any) => {
         if (response.error) {
           M.toast({ html: response.msg, classes: 'roundeds' });
           this.getEvents();
@@ -169,7 +157,6 @@ export class AdminEventComponent implements OnInit {
       return eventName._id === id;
     });
     data[0].image_name = '';
-    console.log(data[0]);
     this.eventForm.setValue(data[0]);
   }
 }
