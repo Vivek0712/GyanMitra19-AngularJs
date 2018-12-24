@@ -5,38 +5,41 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AppService } from '../app/app.service';
 
-<<<<<<< HEAD
-=======
-
-// CRUD Service for Category
+// CRUD Service for team_member
 // Created by Aravind Raj
 // 23/12/18
 
->>>>>>> 73bbf5a3ef82509a38acca831e1aec404d2fa97e
 @Injectable({
   providedIn: 'root'
 })
-export class CategoryService {
-  readonly baseUrl = 'category/';
+export class TeamMemberService {
+  readonly baseUrl = 'team_member/';
   constructor(private http: HttpClient, private app: AppService) { }
-  createCategory (name: String) {
-    const body = { name: name };
+  createTeamMember (team_id: String,user_id: String) {
+    const body = { 
+      team_id: team_id,
+      user_id: user_id
+    };
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this.http.post(this.app.getUrl(this.baseUrl + 'create'), body).pipe(map(res => res, {'headers': headers}));
   }
-  readCategory() {
+  readTeamMember() {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this.http.get(this.app.getUrl(this.baseUrl));
   }
-  updateCategory(id: String, name: String) {
-    const body = { _id: id , name: name };
+  updateTeamMember(id: String,team_id: String,user_id: String) {
+    const body = { 
+      _id: id,
+      team_id: team_id,
+      user_id: user_id
+    };
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this.http.put(this.app.getUrl(this.baseUrl + `${id}`), body).pipe(map(res => res, {'headers': headers}));
   }
-  deleteCategory(id: String) {
+  deleteTeamMember(id: String) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this.http.delete(this.app.getUrl(this.baseUrl + `${id}` ) ).pipe(map(res => res, {'headers': headers}));

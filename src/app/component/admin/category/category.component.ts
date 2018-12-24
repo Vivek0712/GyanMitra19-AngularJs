@@ -18,15 +18,22 @@ export class CategoryComponent implements OnInit {
   categories: Array<any>;
   Button: any;
   submitted:boolean;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 73bbf5a3ef82509a38acca831e1aec404d2fa97e
   ngOnInit() {
     this.submitted=false;
     this.createForm();
     this.getCategorys();
   }
+<<<<<<< HEAD
 
   get f() { return this.categoryForm.controls; }
 
+=======
+  get f() { return this.categoryForm.controls; }
+>>>>>>> 73bbf5a3ef82509a38acca831e1aec404d2fa97e
   onSubmit(form: NgForm) {
     this.submitted=true;
     if(form.valid){
@@ -72,6 +79,10 @@ export class CategoryComponent implements OnInit {
     this.categoryService.readCategory().subscribe((response: any) => {
       this.categories = response.docs;
     });
+<<<<<<< HEAD
+=======
+    //if(this.categories)
+>>>>>>> 73bbf5a3ef82509a38acca831e1aec404d2fa97e
   }
   deleteCategory(id: string) {
   this.categoryService.deleteCategory(id).subscribe((response: any) => {

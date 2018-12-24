@@ -10,6 +10,7 @@ export class AdminComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+<<<<<<< HEAD
     // var urlParams = [];
     // window.location.search.replace("?", "").split("&").forEach(function (e, i) {
     //     var p = e.split("=");
@@ -26,4 +27,8 @@ export class AdminComponent implements OnInit {
     //     //win.location.reload('?loaded=1');
     // }
   }
+=======
+  }
+
+>>>>>>> 73bbf5a3ef82509a38acca831e1aec404d2fa97e
 }
