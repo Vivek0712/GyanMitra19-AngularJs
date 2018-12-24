@@ -13,6 +13,7 @@ import { LoginComponent } from './component/auth/login/login.component';
 import { AuthNavbarComponent } from './component/auth/auth-navbar/auth-navbar.component';
 //////////////////////////////////////////////////////////////////
 import { AdminComponent } from './component/admin/admin.component';
+import { AdminEventComponent } from './component/admin/admin-event/admin-event.component';
 import { AdminNavbarComponent } from './component/admin/admin-navbar/admin-navbar.component';
 import { AdminSidebarComponent } from './component/admin/admin-sidebar/admin-sidebar.component';
 import { HomeComponent } from './component/admin/home/home.component';
@@ -20,7 +21,15 @@ import { CollegeComponent } from './component/admin/college/college.component';
 /////////////////////////////////////////////////////////////////
 import { AuthService } from './services/auth/auth.service';
 import { AppService } from './services/app/app.service';
-import { CollegeService } from './services/admin/college/college.service';
+import { CollegeService } from './services/college/college.service';
+import { CategoryComponent } from './component/admin/category/category.component';
+import { DegreeComponent } from './component/admin/degree/degree.component';
+import { DepartmentComponent } from './component/admin/department/department.component';
+import { DegreeService } from './services/degree/degree.service';
+import { DepartmentService } from './services/department/department.service';
+import { CourseComponent } from './component/admin/course/course.component';
+import { SearchfilterPipe } from './pipes/searchfilter.pipe';
+import { ResolveCategoryPipe } from './pipes/resolve-category.pipe';
 /////////////////////////////////////////////////////////////////
 
 
@@ -34,7 +43,14 @@ import { CollegeService } from './services/admin/college/college.service';
     AuthNavbarComponent,
     HomeComponent,
     AdminNavbarComponent,
-    AdminSidebarComponent
+    AdminSidebarComponent,
+    CategoryComponent,
+    DegreeComponent,
+    DepartmentComponent,
+    AdminEventComponent,
+    CourseComponent,
+    SearchfilterPipe,
+    ResolveCategoryPipe,
   ],
   imports: [
     BrowserModule,
@@ -48,7 +64,9 @@ import { CollegeService } from './services/admin/college/college.service';
     JwtHelper,
     AuthService,
     AppService,
-    CollegeService
+    CollegeService,
+    DegreeService,
+    DepartmentService
   ],
   bootstrap: [AppComponent]
 })
