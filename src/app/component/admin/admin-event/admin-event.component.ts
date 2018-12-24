@@ -32,6 +32,7 @@ export class AdminEventComponent implements OnInit {
   selectedDepartment: Department;
   allow_gender_mixing: Boolean;
   file_name: any;
+  image_uploaded: Boolean;
 
   constructor(private eventService: EventService, private formBuilder: FormBuilder, private categoryService: CategoryService, private departmentService: DepartmentService) { }
 
@@ -83,7 +84,7 @@ export class AdminEventComponent implements OnInit {
     //           this.createForm();
     //         }
     //       });
-    /*if (form.value._id === '') {
+    if (form.value._id === '') {
       const data = form.value;
       this.eventService.createEvent(data.title, data.category_id, data.department_id, data.description, data.image_name, data.rules, data.start_time, data.end_time, data.event_date, data.prelims, data.round_1, data.round_2, data.finals, data.min_members, data.max_members, data.max_limit, data.contact_email, data.venue, data.amount, this.allow_gender_mixing).subscribe((response: any) => {
         if (response.error) {
@@ -109,7 +110,7 @@ export class AdminEventComponent implements OnInit {
           this.createForm();
         }
       });
-    }*/
+    }
   }
 
 
@@ -167,6 +168,8 @@ export class AdminEventComponent implements OnInit {
     const data = this.events.filter(eventName => {
       return eventName._id === id;
     });
+    data[0].image_name = '';
+    console.log(data[0]);
     this.eventForm.setValue(data[0]);
   }
 }

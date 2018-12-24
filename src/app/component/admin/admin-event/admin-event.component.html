@@ -157,6 +157,7 @@
                                                         formControlName="contact_email">
                                                 </div>
                                                 <div class="col-6">
+                                                         <br />
                                                     <span class="btn left" [ngClass]="{'btn-danger' : allow_gender_mixing , 'btn-success' : !allow_gender_mixing }">
                                                         <span (click)="changeGenderMixing()" *ngIf="allow_gender_mixing">
                                                             Disable Gender Mixing
@@ -202,9 +203,10 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <hr />
                                         <div class="form-group">
                                             <div class="row">
-                                                <div class="form-action left row">
+                                                <div class="form-action row">
                                                     <div class="col">
                                                         <span (click)="createForm()" class="btn btn-outline-danger left">Reset</span>
                                                     </div>
@@ -274,14 +276,4 @@
         </div>
     </div>
 </div>
-<script type="text/javascript">
-    $(window).ready(function () {
-        console.log('ehl');
-        $('input[type="file"]').change(function (e) {
-            var fileName = e.target.files[0].name;
-            console.log(fileName);
-            alert('The file "' + fileName + '" has been selected.');
-        });
-    });
-</script>
 
