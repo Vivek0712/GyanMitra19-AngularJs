@@ -1175,7 +1175,7 @@ select.form-control {
 }
 
 
-/* ===============================================================================================
+/* ====
     File Name: navbar.scss
     Description: Contain header navigation bar, vertical main navigation bar and
     horiznotal main navigation bar related SCSS.
@@ -1184,7 +1184,7 @@ select.form-control {
     Version: 1.0
     Author: ThemeSelection
     Author URL: https://themeselection.com/
-================================================================================================*/
+=====*/
 
 .navbar-dark .hamburger-inner,
 .navbar-dark .hamburger-inner::before,
@@ -3073,7 +3073,7 @@ ul.media-list li {
 }
 
 
-/*=========================================================================================
+/*=====
   File Name: progress.scss
   Description: Extended bootstrap progress bar scss.
   ----------------------------------------------------------------------------------------
@@ -3088,7 +3088,7 @@ ul.media-list li {
                    `progress-sm`
                    `progress-xs`
 
-==========================================================================================*/
+======*/
 
 .progress {
     margin-bottom: 3rem;
@@ -3124,7 +3124,7 @@ ul.media-list li {
 }
 
 
-/* ===============================================================================================
+/* ====
 	File Name: list-group.scss
 	Description: Contain list item, list group related extended SCSS.
 	----------------------------------------------------------------------------------------------
@@ -3132,7 +3132,7 @@ ul.media-list li {
 	Version: 1.0
 	Author: ThemeSelection
 	Author URL: https://themeselection.com/
-================================================================================================*/
+=====*/
 
 ul.list-inline li {
     display: inline-block;

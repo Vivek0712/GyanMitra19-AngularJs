@@ -8,10 +8,10 @@ import { AppService } from '../app/app.service';
 @Injectable({
   providedIn: 'root'
 })
-<<<<<<< HEAD
-=======
 
->>>>>>> 73bbf5a3ef82509a38acca831e1aec404d2fa97e
+
+
+
 export class DegreeService {
   readonly baseUrl = 'degree/';
   constructor(private http: HttpClient, private app: AppService) { }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-<<<<<<< HEAD
+
 import { FormGroup, FormControl, Validators, FormBuilder, FormArray, NgForm } from '@angular/forms';
 import { EventService } from '../../../services/event/event.service';
 import { CategoryService } from 'src/app/services/category/category.service';
@@ -15,17 +15,17 @@ export interface Department {
   _id: String,
   name: String
 }
-=======
+
 import { FormGroup, FormControl, Validators , FormBuilder , FormArray, NgForm } from '@angular/forms';
 import { EventService } from '../../../services/event/event.service';
->>>>>>> 73bbf5a3ef82509a38acca831e1aec404d2fa97e
+
 
 @Component({
   selector: 'app-admin-event',
   templateUrl: './admin-event.component.html',
   styleUrls: ['./admin-event.component.css']
 })
-<<<<<<< HEAD
+
 
 
 export class AdminEventComponent implements OnInit {
@@ -176,7 +176,7 @@ export class AdminEventComponent implements OnInit {
     });
     this.eventForm.setValue(data[0]);
   }
-=======
+
 export class AdminEventComponent implements OnInit {
   eventForm: FormGroup;
   categories: any;
@@ -218,5 +218,5 @@ export class AdminEventComponent implements OnInit {
     
   }
 
->>>>>>> 73bbf5a3ef82509a38acca831e1aec404d2fa97e
+
 }

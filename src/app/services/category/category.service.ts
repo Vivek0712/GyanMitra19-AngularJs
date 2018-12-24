@@ -5,14 +5,14 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AppService } from '../app/app.service';
 
-<<<<<<< HEAD
-=======
+
+
 
 // CRUD Service for Category
 // Created by Aravind Raj
 // 23/12/18
 
->>>>>>> 73bbf5a3ef82509a38acca831e1aec404d2fa97e
+
 @Injectable({
   providedIn: 'root'
 })

@@ -1,5 +1,5 @@
 CKEditor 4
-==========
+===
 
 Copyright (c) 2003-2018, CKSource - Frederico Knabben. All rights reserved.
 http://ckeditor.com - See LICENSE.md for license information.

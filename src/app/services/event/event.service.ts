@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
-<<<<<<< HEAD
+
 import { HttpClient , HttpHeaders} from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, min } from 'rxjs/operators';
 import { AppService } from '../app/app.service';
-=======
->>>>>>> 73bbf5a3ef82509a38acca831e1aec404d2fa97e
+
+
 
 @Injectable({
   providedIn: 'root'
 })
-<<<<<<< HEAD
+
 
 export class EventService {
   readonly baseUrl = 'event/';
@@ -83,9 +83,9 @@ export class EventService {
   }
 }
 
-=======
+
 export class EventService {
 
   constructor() { }
 }
->>>>>>> 73bbf5a3ef82509a38acca831e1aec404d2fa97e
+

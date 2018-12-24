@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-<<<<<<< HEAD
-=======
+
+
 import { HttpClient , HttpHeaders} from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -10,16 +10,16 @@ import { AppService } from '../app/app.service';
 // CRUD Service for Course
 // Created by Aravind Raj
 // 23/12/18
->>>>>>> 73bbf5a3ef82509a38acca831e1aec404d2fa97e
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class CourseService {
-<<<<<<< HEAD
+
 
   constructor() { }
-=======
+
   readonly baseUrl = 'course/';
   constructor(private http: HttpClient, private app: AppService) { }
   createCourse (name: String) {
@@ -45,5 +45,5 @@ export class CourseService {
     return this.http.delete(this.app.getUrl(this.baseUrl + `${id}` ) ).pipe(map(res => res, {'headers': headers}));
   }
 
->>>>>>> 73bbf5a3ef82509a38acca831e1aec404d2fa97e
+
 }
