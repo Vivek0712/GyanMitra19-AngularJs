@@ -24,7 +24,6 @@ import { AuthService } from './services/auth/auth.service';
 import { AppService } from './services/app/app.service';
 
 import { AccomodationService } from './services/accomodation/accomodation.service'
-import { AppService } from './services/app/app.service';
 import { CourseService } from './services/course/course.service';
 
 import { CollegeService } from './services/college/college.service';
@@ -43,7 +42,6 @@ import { RoleService } from './services/role/role.service';
 import { RoleUserService } from './services/role_user/role-user.service';
 import { TeamService } from './services/team/team.service';
 import { TeamMemberService } from './services/team_member/team-member.service';
-import { SearchfilterPipe } from './pipes/searchfilter.pipe';
 
 /////////////////////////////////////////////////////////////////
 
@@ -64,11 +62,8 @@ import { SearchfilterPipe } from './pipes/searchfilter.pipe';
     DepartmentComponent,
     AdminEventComponent,
     CourseComponent,
-
     SearchfilterPipe,
     ResolveCategoryPipe,
-
-    SearchfilterPipe
 
   ],
   imports: [
@@ -85,9 +80,6 @@ import { SearchfilterPipe } from './pipes/searchfilter.pipe';
     AppService,
     CollegeService,
     DegreeService,
-
-    DepartmentService
-
     DepartmentService,
     AccomodationService,
     CourseService,

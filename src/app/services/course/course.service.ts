@@ -16,10 +16,6 @@ import { AppService } from '../app/app.service';
   providedIn: 'root'
 })
 export class CourseService {
-
-
-  constructor() { }
-
   readonly baseUrl = 'course/';
   constructor(private http: HttpClient, private app: AppService) { }
   createCourse (name: String) {

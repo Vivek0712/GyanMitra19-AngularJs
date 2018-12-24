@@ -18,10 +18,6 @@ export class CategoryComponent implements OnInit {
   categories: Array<any>;
   Button: any;
   submitted:boolean;
-
-
-
-
   ngOnInit() {
     this.submitted=false;
     this.createForm();
@@ -30,10 +26,6 @@ export class CategoryComponent implements OnInit {
 
 
   get f() { return this.categoryForm.controls; }
-
-
-  get f() { return this.categoryForm.controls; }
-
   onSubmit(form: NgForm) {
     this.submitted=true;
     if(form.valid){
