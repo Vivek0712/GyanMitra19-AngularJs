@@ -43,6 +43,7 @@ import { RoleUserService } from './services/role_user/role-user.service';
 import { TeamService } from './services/team/team.service';
 import { TeamMemberService } from './services/team_member/team-member.service';
 import { UserComponent } from './component/admin/user/user.component';
+import { ResolvecollegePipe } from './pipes/resolvecollege.pipe';
 
 /////////////////////////////////////////////////////////////////
 
@@ -66,6 +67,7 @@ import { UserComponent } from './component/admin/user/user.component';
     SearchfilterPipe,
     ResolveCategoryPipe,
     UserComponent,
+    ResolvecollegePipe,
   ],
   imports: [
     BrowserModule,

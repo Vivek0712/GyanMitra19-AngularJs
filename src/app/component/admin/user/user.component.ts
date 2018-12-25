@@ -34,6 +34,15 @@ export class UserComponent implements OnInit {
     });
   }
 
+  reload(){
+    this.searchText='';
+    this.getParticipants(1);
+  }
+
+  loadFull(){
+    this.getAllParticipants()
+  }
+
   getParticipants(page: any){
     this.userService.getParticpants(page).subscribe((response: any) => {
       if(response.docs.length == 0){
