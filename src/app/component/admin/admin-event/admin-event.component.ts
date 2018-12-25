@@ -41,6 +41,7 @@ export class AdminEventComponent implements OnInit {
   image_uploaded: Boolean;
   selectedFile: ImageSnippet;
   currentPage: any;
+  searchText: any;
 
   constructor(private eventService: EventService, private formBuilder: FormBuilder, private categoryService: CategoryService, private departmentService: DepartmentService) { }
 
@@ -54,6 +55,17 @@ export class AdminEventComponent implements OnInit {
     this.submitted = false;
     this.allow_gender_mixing = false;
     this.setFileName();
+  }
+
+  reloadEvents() {
+    this.searchText='';
+    this.getEvents(1);
+  }
+
+  loadFull(){
+    this.eventService.readAllEvents().subscribe((response: any) => {
+      this.events = response; 
+    })
   }
 
   getEvents(page: any) {

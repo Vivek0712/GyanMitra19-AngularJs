@@ -43,6 +43,12 @@ export class EventService {
     return this.http.post(this.app.getUrl(this.baseUrl + 'create'), body).pipe(map(res => res, {'headers': headers}));
   }
 
+  readAllEvents(){
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.get(this.app.getUrl(this.baseUrl)+'all');
+  }
+
   readEvent(page: any) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
