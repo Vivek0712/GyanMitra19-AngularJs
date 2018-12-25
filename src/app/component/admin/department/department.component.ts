@@ -17,10 +17,25 @@ export class DepartmentComponent implements OnInit {
   departments: any;
   Button: any;
   submitted:boolean;
+  currentPage:any;
   ngOnInit() {
     this.submitted=false;
+    this.currentPage=1;
     this.createForm();
-    this.getDepartments();
+    this.getDepartments(1);
+  }
+  nextPage(){
+    this.currentPage = this.currentPage + 1;
+    this.getDepartments(this.currentPage);
+  }
+  
+  previousPage() {
+    if(this.currentPage == 1) {
+    }
+    else{
+      this.currentPage = this.currentPage -1;
+      this.getDepartments(this.currentPage);
+    }
   }
   get f() { return this.departmentForm.controls; }
   onSubmit(form: NgForm) {
@@ -30,11 +45,11 @@ export class DepartmentComponent implements OnInit {
         this.departmentService.createDepartment( this.departmentForm.get('name').value).subscribe((response: any) => {
           if ( response.error ) {
             M.toast({ html: response.msg , classes: 'roundeds'});
-            this.getDepartments();
+            this.getDepartments(this.currentPage);
             this.createForm();
           } else {
             M.toast({ html: response.msg , classes: 'roundeds'});
-            this.getDepartments();
+            this.getDepartments(this.currentPage);
             this.createForm();
           }
         });
@@ -42,11 +57,11 @@ export class DepartmentComponent implements OnInit {
         this.departmentService.updateDepartment(form.value._id, form.value.name).subscribe((response: any) => {
           if ( response.error ) {
             M.toast({ html: response.msg , classes: 'roundeds'});
-            this.getDepartments();
+            this.getDepartments(this.currentPage);
             this.createForm();
           } else {
             M.toast({ html: response.msg , classes: 'roundeds'});
-            this.getDepartments();
+            this.getDepartments(this.currentPage);
             this.createForm();
           }
         });
@@ -64,8 +79,8 @@ export class DepartmentComponent implements OnInit {
     });
     this.Button = 'Create';
   }
-  getDepartments() {
-    this.departmentService.readDepartment().subscribe((response: any) => {
+  getDepartments(page: any) {
+    this.departmentService.readDepartment(page).subscribe((response: any) => {
      this.departments = response.docs;
     });
 
@@ -74,11 +89,11 @@ export class DepartmentComponent implements OnInit {
   this.departmentService.deleteDepartment(id).subscribe((response: any) => {
     if ( response.error ) {
       M.toast({ html: response.msg , classes: 'roundeds'});
-      this.getDepartments();
+      this.getDepartments(this.currentPage);
       this.createForm();
     } else {
       M.toast({ html: response.msg , classes: 'roundeds'});
-      this.getDepartments();
+      this.getDepartments(this.currentPage);
       this.createForm();
     }
   });

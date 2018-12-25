@@ -93,8 +93,8 @@ export class AdminEventComponent implements OnInit {
   }
 
   getDepartments() {
-    this.departmentService.readDepartment().subscribe((response: any) => {
-      this.departments = response.docs;
+    this.departmentService.readDepartment(0).subscribe((response: any) => {
+      this.departments = response;
     });
   }
   setFileName() {
