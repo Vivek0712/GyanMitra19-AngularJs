@@ -35,22 +35,44 @@
             </div>
             <div class="card-content collapse show">
               <div class="card-body">
-                <div class="row">
-                  <div class="col-6">
-                    <input [(ngModel)]="searchText" placeholder="Search Participants" class="form-control">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-6">
+                      <input [(ngModel)]="searchText" placeholder="Search Participants" class="form-control">
+                    </div>
+                    <div class="col-2">
+                      <span class="fonticon-wrap success">
+                        <a (click)="loadFull()">
+                          <i class="la la-search la-2x"></i>
+                        </a>
+                      </span>
+                    </div>
+                    <div class="col-4 ">
+                      <div class="right">
+                        <span class="btn btn-info" (click)="previousPage()"> &lt; </span> &nbsp; Page {{currentPage}}
+                        &nbsp;
+                        <span class="btn btn-info" (click)="nextPage()"> &gt; </span>
+                      </div>
+                    </div>
                   </div>
-                  <div class="col-2">
-                    <span class="fonticon-wrap success">
-                      <a (click)="loadFull()">
-                        <i class="la la-search la-2x"></i>
-                      </a>
-                    </span>
-                  </div>
-                  <div class="col-4 ">
-                    <div class="right">
-                      <span class="btn btn-info" (click)="previousPage()"> &lt; </span> &nbsp; Page {{currentPage}}
-                      &nbsp;
-                      <span class="btn btn-info" (click)="nextPage()"> &gt; </span>
+                  <br />
+                  College
+                  <div class="row">
+                    <div class="col-3">
+                      <select class="custom-select" placeholder="College" [(ngModel)]="selectedCollegeId" id="slctCollege">
+                        <option value="Disabled" disabled>College</option>
+                        <option *ngFor="let college of colleges" value={{college._id}}>{{college.name}}</option>
+                      </select>
+                    </div>
+                    <div class="col-3">
+                      <select class="custom-select" [(ngModel)]="selectedGender" id="slctGender">
+                        <option value="Disabled" disabled>Gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                      </select>
+                    </div>
+                    <div class="col-3">
+                      <input type="button" class="btn btn-success" (click)="filter()" value="Filter" />
                     </div>
                   </div>
                 </div>
@@ -61,14 +83,9 @@
                       <tr>
                         <th>Sl. No</th>
                         <th>Name</th>
-                        <th>College</th>
-                        <th>
-                          <select class="custom-select" id="slctGender">
-                            <option value="Disabled" disabled>Gender</option>
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
-                          </select>
+                        <th>College
                         </th>
+                        <th>Gender</th>
                         <th>More</th>
                       </tr>
                     </thead>

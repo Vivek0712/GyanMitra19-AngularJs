@@ -20,12 +20,23 @@ export class UserComponent implements OnInit {
   currentPage: any;
   searchText: any;
   participants: Array<any>;
+  colleges: Array<any>;
+  selectedCollegeId: string;
+  selectedGender: string;
 
   constructor(private collegeService:CollegeService, private userService: UserService) { }
 
   ngOnInit() {
     this.currentPage=1;
     this.getParticipants(1);
+    this.getColleges();
+    this.selectedGender="Male";
+  }
+
+  getColleges(){
+    this.collegeService.readCollege(0).subscribe((response: any)=>{
+      this.colleges= response;
+    })
   }
 
   getAllParticipants(){
@@ -41,6 +52,20 @@ export class UserComponent implements OnInit {
 
   loadFull(){
     this.getAllParticipants()
+  }
+
+  filterSub(_id, gender) {
+    return this.participants.filter(
+        function(data)
+        { 
+          return data.college_id == _id && data.gender == gender;
+        }
+    );
+  }
+
+  filter() {
+    this.loadFull();
+    this.participants = this.filterSub(this.selectedCollegeId, this.selectedGender);
   }
 
   getParticipants(page: any){
