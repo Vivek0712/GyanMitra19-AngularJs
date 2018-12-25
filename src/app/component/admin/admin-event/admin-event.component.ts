@@ -40,18 +40,46 @@ export class AdminEventComponent implements OnInit {
   file_name: any;
   image_uploaded: Boolean;
   selectedFile: ImageSnippet;
+  currentPage: any;
 
   constructor(private eventService: EventService, private formBuilder: FormBuilder, private categoryService: CategoryService, private departmentService: DepartmentService) { }
 
   ngOnInit() {
     this.file_name = "ChooseFileName";
+    this.currentPage=1;
     this.getCategories();
     this.createForm();
-    this.getEvents();
+    this.getEvents(1);
     this.getDepartments();
     this.submitted = false;
     this.allow_gender_mixing = false;
     this.setFileName();
+  }
+
+  getEvents(page: any) {
+    this.eventService.readEvent(this.currentPage).subscribe((response: any) => {
+      if(response.docs.length == 0){
+        this.currentPage -= 1;
+      }
+      else{
+      this.events = response.docs;     
+
+      }
+    });
+  }
+
+  nextPage(){
+    this.currentPage = this.currentPage + 1;
+    this.getEvents(this.currentPage);
+  }
+  
+  previousPage() {
+    if(this.currentPage == 1) {
+    }
+    else{
+      this.currentPage = this.currentPage -1;
+      this.getEvents(this.currentPage);
+    }
   }
 
   changeGenderMixing() {
@@ -97,16 +125,16 @@ export class AdminEventComponent implements OnInit {
   onSubmit(form: NgForm) {
     this.submitted = true;
     console.log(form.value.image_name);
-   /* if (form.value._id === '') {
+    if (form.value._id === '') {
       const data = form.value;
       this.eventService.createEvent(data.title, data.category_id, data.department_id, data.description, 'Not Uploaded', data.rules, data.start_time, data.end_time, data.event_date, data.prelims, data.round_1, data.round_2, data.finals, data.min_members, data.max_members, data.max_limit, data.contact_email, data.venue, data.amount, this.allow_gender_mixing).subscribe((response: any) => {
         if (response.error) {
           M.toast({ html: response.msg, classes: 'roundeds' });
-          this.getEvents();
+          this.getEvents(this.currentPage);
           this.createForm();
         } else {
           M.toast({ html: response.msg, classes: 'roundeds' });
-          this.getEvents();
+          this.getEvents(this.currentPage);
           this.createForm();
           console.log(response);
         }
@@ -116,15 +144,15 @@ export class AdminEventComponent implements OnInit {
       this.eventService.updateEvent(data._id, data.title, data.category_id, data.department_id, data.description, 'Not Uploaded', data.rules, data.start_time, data.end_time, data.event_date, data.prelims, data.round_1, data.round_2, data.finals, data.min_members, data.max_members, data.max_limit, data.contact_email, data.venue, data.amount, this.allow_gender_mixing).subscribe((response: any) => {
         if (response.error) {
           M.toast({ html: response.msg, classes: 'roundeds' });
-          this.getEvents();
+          this.getEvents(this.currentPage);
           this.createForm();
         } else {
           M.toast({ html: response.msg, classes: 'roundeds' });
-          this.getEvents();
+          this.getEvents(this.currentPage);
           this.createForm();
         }
       });
-    }*/
+    }
   }
 
   createForm() {
@@ -156,21 +184,16 @@ export class AdminEventComponent implements OnInit {
     this.Button = 'Create';
   }
 
-  getEvents() {
-    this.eventService.readEvent().subscribe((response: any) => {
-      this.events = response.docs;
-    });
-  }
 
   deleteEvent(id: string) {
     this.eventService.deleteEvent(id).subscribe((response: any) => {
       if (response.error) {
         M.toast({ html: response.msg, classes: 'roundeds' });
-        this.getEvents();
+        this.getEvents(this.currentPage);
         this.createForm();
       } else {
         M.toast({ html: response.msg, classes: 'roundeds' });
-        this.getEvents();
+        this.getEvents(this.currentPage);
         this.createForm();
       }
     });

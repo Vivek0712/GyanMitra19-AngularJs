@@ -42,10 +42,12 @@ export class EventService {
     headers.append('Content-Type', 'application/json');
     return this.http.post(this.app.getUrl(this.baseUrl + 'create'), body).pipe(map(res => res, {'headers': headers}));
   }
-  readEvent() {
+
+  readEvent(page: any) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.get(this.app.getUrl(this.baseUrl));
+    console.log(this.app.getUrl(this.baseUrl)+'page='+page)
+    return this.http.get(this.app.getUrl(this.baseUrl)+'?page='+page);
   }
 
   uploadImage(image: Blob) {
