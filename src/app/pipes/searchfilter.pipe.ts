@@ -11,10 +11,12 @@ export class SearchfilterPipe implements PipeTransform {
     searchText = searchText.toLowerCase();
 
     return items.filter( it => {
-      return it.name.toLowerCase().includes(searchText);
+      if(it.name != undefined){
+        return it.name.toLowerCase().includes(searchText);
+      }
+      else if (it.title != undefined){
+        return it.title.toLowerCase().includes(searchText);
+      }
     });
-
    }
-
-
   }
