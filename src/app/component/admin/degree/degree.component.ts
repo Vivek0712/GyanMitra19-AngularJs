@@ -15,10 +15,25 @@ export class DegreeComponent implements OnInit {
   degrees: any;
   Button: any;
   submitted:boolean;
+  currentPage:any;
   ngOnInit() {
     this.submitted=false;
+    this.currentPage=1;
     this.createForm();
-    this.getDegrees();
+    this.getDegrees(this.currentPage);
+  }
+  nextPage(){
+    this.currentPage = this.currentPage + 1;
+    this.getDegrees(this.currentPage);
+  }
+  
+  previousPage() {
+    if(this.currentPage == 1) {
+    }
+    else{
+      this.currentPage = this.currentPage -1;
+      this.getDegrees(this.currentPage);
+    }
   }
   get f() { return this.degreeForm.controls; }
   onSubmit(form: NgForm) {
@@ -28,11 +43,11 @@ export class DegreeComponent implements OnInit {
         this.degreeService.createDegree( this.degreeForm.get('name').value).subscribe((response: any) => {
           if ( response.error ) {
             M.toast({ html: response.msg , classes: 'roundeds'});
-            this.getDegrees();
+            this.getDegrees(this.currentPage);
             this.createForm();
           } else {
             M.toast({ html: response.msg , classes: 'roundeds'});
-            this.getDegrees();
+            this.getDegrees(this.currentPage);
             this.createForm();
           }
         });
@@ -40,11 +55,11 @@ export class DegreeComponent implements OnInit {
         this.degreeService.updateDegree(form.value._id, form.value.name).subscribe((response: any) => {
           if ( response.error ) {
             M.toast({ html: response.msg , classes: 'roundeds'});
-            this.getDegrees();
+            this.getDegrees(this.currentPage);
             this.createForm();
           } else {
             M.toast({ html: response.msg , classes: 'roundeds'});
-            this.getDegrees();
+            this.getDegrees(this.currentPage);
             this.createForm();
           }
         });
@@ -62,8 +77,8 @@ export class DegreeComponent implements OnInit {
     });
     this.Button = 'Create';
   }
-  getDegrees() {
-    this.degreeService.readDegree().subscribe((response: any) => {
+  getDegrees(page: any) {
+    this.degreeService.readDegree(page).subscribe((response: any) => {
      this.degrees = response.docs;
     });
 
@@ -72,11 +87,11 @@ export class DegreeComponent implements OnInit {
   this.degreeService.deleteDegree(id).subscribe((response: any) => {
     if ( response.error ) {
       M.toast({ html: response.msg , classes: 'roundeds'});
-      this.getDegrees();
+      this.getDegrees(this.currentPage);
       this.createForm();
     } else {
       M.toast({ html: response.msg , classes: 'roundeds'});
-      this.getDegrees();
+      this.getDegrees(this.currentPage);
       this.createForm();
     }
   });

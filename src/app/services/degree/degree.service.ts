@@ -21,10 +21,10 @@ export class DegreeService {
     headers.append('Content-Type', 'application/json');
     return this.http.post(this.app.getUrl(this.baseUrl + 'create'), body).pipe(map(res => res, {'headers': headers}));
   }
-  readDegree() {
+  readDegree(page:any) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.get(this.app.getUrl(this.baseUrl));
+    return this.http.get(this.app.getUrl(this.baseUrl)+'?page='+page);
   }
   updateDegree(id: String, name: String) {
     const body = { _id: id , name: name };
