@@ -17,10 +17,10 @@ export class CollegeService {
     headers.append('Content-Type', 'application/json');
     return this.http.post(this.app.getUrl(this.baseUrl + 'create'), body).pipe(map(res => res, {'headers': headers}));
   }
-  readCollege() {
+  readCollege(page: any) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.get(this.app.getUrl(this.baseUrl));
+    return this.http.get(this.app.getUrl(this.baseUrl)+'?page='+page);
   }
   updateCollege(id: String, name: String,locale: String) {
     const body = { _id: id , name: name, locale: locale };
