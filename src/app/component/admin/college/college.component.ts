@@ -17,11 +17,28 @@ export class CollegeComponent implements OnInit {
   colleges: any;
   Button: any;
   submitted:boolean;
+  page:any;
   ngOnInit() {
     this.submitted=false;
+    this.page = 1;
     this.createForm();
-    this.getColleges();
+    this.getColleges(1);
   }
+
+  nextPage(){
+    this.page = this.page + 1;
+    this.getColleges(this.page);
+  }
+  
+  previousPage() {
+    if(this.page == 1) {
+    }
+    else{
+      this.page = this.page -1;
+      this.getColleges(this.page);
+    }
+  }
+
   get f() { return this.collegeForm.controls; }
   onSubmit(form: NgForm) {
     this.submitted=true;
@@ -30,11 +47,11 @@ export class CollegeComponent implements OnInit {
         this.collegeService.createCollege( this.collegeForm.get('name').value,this.collegeForm.get('locale').value ).subscribe((response: any) => {
           if ( response.error ) {
             M.toast({ html: response.msg , classes: 'roundeds'});
-            this.getColleges();
+            this.getColleges(this.page);
             this.createForm();
           } else {
             M.toast({ html: response.msg , classes: 'roundeds'});
-            this.getColleges();
+            this.getColleges(this.page);
             this.createForm();
           }
         });
@@ -42,11 +59,11 @@ export class CollegeComponent implements OnInit {
         this.collegeService.updateCollege(form.value._id, form.value.name,form.value.locale).subscribe((response: any) => {
           if ( response.error ) {
             M.toast({ html: response.msg , classes: 'roundeds'});
-            this.getColleges();
+            this.getColleges(this.page);
             this.createForm();
           } else {
             M.toast({ html: response.msg , classes: 'roundeds'});
-            this.getColleges();
+            this.getColleges(this.page);
             this.createForm();
           }
         });
@@ -66,8 +83,8 @@ export class CollegeComponent implements OnInit {
     });
     this.Button = 'Create';
   }
-  getColleges() {
-    this.collegeService.readCollege().subscribe((response: any) => {
+  getColleges(page: any) {
+    this.collegeService.readCollege(page).subscribe((response: any) => {
      this.colleges = response.docs;
     });
 
@@ -76,11 +93,11 @@ export class CollegeComponent implements OnInit {
   this.collegeService.deleteCollege(id).subscribe((response: any) => {
     if ( response.error ) {
       M.toast({ html: response.msg , classes: 'roundeds'});
-      this.getColleges();
+      this.getColleges(this.page);
       this.createForm();
     } else {
       M.toast({ html: response.msg , classes: 'roundeds'});
-      this.getColleges();
+      this.getColleges(this.page);
       this.createForm();
     }
   });

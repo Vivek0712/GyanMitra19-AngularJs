@@ -75,10 +75,20 @@
                                  </ul>
                              </div>
                          </div>
+                         
                          <div class="card-content collapse show">
                              <div class="card-body">
                             Search : <input [(ngModel)]="searchText" placeholder="Search Colleges" class="form-control">
-
+                            <div class = "row">
+                                    <div class="col-6">
+                                    </div>
+                                    <div class="col-6" style="margin-top:5px; margin-bottom:10px;">
+                                      <div class="right">
+                                          <span class="btn btn-info" (click)="previousPage()"> &lt; </span> &nbsp;
+                                          <span class="btn btn-info" (click)="nextPage()"> &gt; </span>
+                                      </div>
+                                    </div>
+                                  </div>
                                  <div class="table-responsive">
                                      <table class="table">
                                          <thead>
