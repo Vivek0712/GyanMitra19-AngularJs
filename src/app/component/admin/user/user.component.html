@@ -1,3 +1,89 @@
-<p>
-  user works!
-</p>
+<div class="app-content content">
+  <div class="content-wrapper">
+      <div class="content-wrapper-before"></div>
+      <div class="content-header row">
+          <div class="content-header-left col-md-4 col-12 mb-2">
+              <h3 class="content-header-title">Users</h3>
+          </div>
+          <div class="content-header-right col-md-8 col-12">
+              <div class="breadcrumbs-top float-md-right">
+                  <div class="breadcrumb-wrapper mr-1">
+                      <ol class="breadcrumb">
+                          <li class="breadcrumb-item"><a href="index.html">Home</a>
+                          </li>
+                          <li class="breadcrumb-item active">Users
+                          </li>
+                      </ol>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="content-body">
+          <div class="row">
+              <div class="col-12">
+                  <div class="card">
+                      <div class="card-header">
+                          <h4 class="card-title">Participants</h4>
+                          <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+                          <div class="heading-elements">
+                              <ul class="list-inline mb-0">
+                                  <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                                  <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                                  <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                              </ul>
+                          </div>
+                      </div>
+                      <div class="card-content collapse show">
+                          <div class="card-body">
+                            <div class="row">
+                              <div class="col-6">
+                                  <input [(ngModel)]="searchText" placeholder="Search Participants" class="form-control" >
+                              </div>
+                              <div class="col-2">
+                                  <span class="fonticon-wrap success">
+                                      <a (click)="loadFull()">
+                                          <i class="la la-search la-2x"></i>
+                                      </a>
+                                    </span>
+                              </div>
+                              <div class="col-4 ">
+                                <div class="right">
+                                      <span class="btn btn-info" (click)="previousPage()"> &lt; </span> &nbsp; Page {{currentPage}} &nbsp;  
+                                      <span class="btn btn-info" (click)="nextPage()"> &gt; </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                              <div class="table-responsive">
+                                  <table class="table">
+                                      <thead>
+                                          <tr>
+                                              <th>Sl. No</th>
+                                              <th>Name</th>
+                                              <th>College</th>
+                                              <th>More</th>
+                                          </tr>
+                                      </thead>
+                                      <tbody>
+                                          <tr *ngFor="let participant of participants | searchfilter : searchText ; let i = index;">
+
+                                              <th scope="row">{{i+1}}</th>
+                                              <td>{{participant.name}}</td>
+                                              <td>{{participant.college_id}}</td>
+                                              <td>
+                                                  <div class="fonticon-wrap icon-shadow icon-shadow-info" (click)="deleteDepartment(participant._id)">
+                                                      <a> <i class="la la-info-circle la-2x"></i></a>
+                                                  </div>
+                                              </td>
+                                          </tr>
+                                      </tbody>
+                                  </table>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

@@ -5,6 +5,7 @@ import { CategoryComponent } from '../app/component/admin/category/category.comp
 import { DegreeComponent } from '../app/component/admin/degree/degree.component';
 import { DepartmentComponent } from '../app/component/admin/department/department.component';
 import { AdminEventComponent } from '../app/component/admin/admin-event/admin-event.component';
+import { UserComponent } from 'src/app/component/admin/user/user.component';
 
 
 
@@ -14,5 +15,6 @@ export const ADMIN_ROUTE: Routes = [
      {path: 'category', component:CategoryComponent},
      {path: 'degree', component:DegreeComponent},
      {path: 'department',component:DepartmentComponent},
-     {path: 'events', component:AdminEventComponent}
+     {path: 'events', component:AdminEventComponent},
+     {path: 'users', component:UserComponent}
 ];

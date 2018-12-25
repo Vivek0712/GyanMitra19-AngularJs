@@ -8,6 +8,7 @@ import { AppService } from '../app/app.service';
 @Injectable({
   providedIn: 'root'
 })
+
 export class CollegeService {
   readonly baseUrl = 'college/';
   constructor(private http: HttpClient, private app: AppService) { }
