@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators, FormBuilder, FormArray, NgForm } fr
 import { EventService } from '../../../services/event/event.service';
 import { CategoryService } from 'src/app/services/category/category.service';
 import { DepartmentService } from 'src/app/services/department/department.service';
+
 declare var M: any;
 
 export interface Category {
@@ -14,12 +15,16 @@ export interface Department {
   _id: String,
   name: String
 }
+
+export class ImageSnippet {
+  constructor(public src: string, public file: File) {}
+}
+
 @Component({
   selector: 'app-admin-event',
   templateUrl: './admin-event.component.html',
   styleUrls: ['./admin-event.component.css']
 })
-
 
 export class AdminEventComponent implements OnInit {
   eventForm: FormGroup;
@@ -34,6 +39,7 @@ export class AdminEventComponent implements OnInit {
   allow_gender_mixing: Boolean;
   file_name: any;
   image_uploaded: Boolean;
+  selectedFile: ImageSnippet;
 
   constructor(private eventService: EventService, private formBuilder: FormBuilder, private categoryService: CategoryService, private departmentService: DepartmentService) { }
 
@@ -69,10 +75,23 @@ export class AdminEventComponent implements OnInit {
 
   get f() { return this.eventForm.controls; }
 
-  onImageUpload(form: NgForm){
-    this.image_uploaded = true;
-    
-  }
+  processFile(imageInput: any) {
+    const file: File = imageInput.files[0];
+    const reader = new FileReader();
+    const binaryReader = new FileReader();
+    var preview = document.getElementById('imgPreview');
+    reader.addEventListener('load', (event: any) => {
+      preview.setAttribute('src', reader.result.toString());
+    });
+    binaryReader.addEventListener('load', (event: any) => {
+      var bytes = new Blob([binaryReader.result]);
+      // this.eventService.uploadImage(bytes).subscribe((resp:any)=>{
+      //   console.log(resp);
+      // });
+    });
+    reader.readAsDataURL(file);
+    binaryReader.readAsArrayBuffer(file)
+}
 
 
   onSubmit(form: NgForm) {
@@ -105,13 +124,6 @@ export class AdminEventComponent implements OnInit {
         }
       });
     }
-  }
-
-  createImageUploadForm() {
-    this.image_uploaded = false;
-    this.imageForm = this.formBuilder.group({
-      image_name: ''
-    })
   }
 
   createForm() {
