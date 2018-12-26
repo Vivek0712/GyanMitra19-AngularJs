@@ -19,6 +19,13 @@ export class UserService {
   //   return this.http.post(this.app.getUrl(this.baseUrl + 'create'), body).pipe(map(res => res, {'headers': headers}));
   // }
 
+  confirmPayment(_id: string){
+    const body = { _id: _id};
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post(this.app.getUrl(this.baseUrl + 'confirmPayment'), body).pipe(map(res => res, {'headers': headers}));
+  }
+
   getAllParticipants(){
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
@@ -29,6 +36,12 @@ export class UserService {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this.http.get(this.app.getUrl(this.baseUrl)+'participants/?page='+page);
+  }
+
+  getParticipant(_id: any){
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.get(this.app.getUrl(this.baseUrl)+'participants/search/?id='+_id);
   }
 
   // updateCollege(id: String, name: String,locale: String) {
