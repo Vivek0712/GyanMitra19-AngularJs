@@ -29,7 +29,6 @@ export class UserregistrationService {
       password: password,
       year: yos
     };
-    console.log(yos);
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this.http.post(this.app.getUrl(this.baseUrl + 'create'), body).pipe(map(res => res, {'headers': headers}));
@@ -38,5 +37,13 @@ export class UserregistrationService {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this.http.get(this.app.getUrl(this.baseUrl));
+  }
+  verifyUser(mail_id: String) {
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    const body = {
+      email_id: mail_id
+    }
+    return this.http.post(this.app.getUrl(this.baseUrl + 'activate'), body).pipe(map(res => res, {'headers': headers}));
   }
 }

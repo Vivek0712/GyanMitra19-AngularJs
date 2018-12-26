@@ -45,6 +45,7 @@ import { TeamMemberService } from './services/team_member/team-member.service';
 import { UserComponent } from './component/admin/user/user.component';
 import { RegisterComponent } from './component/auth/register/register.component';
 import { ResolvecollegePipe } from './pipes/resolvecollege.pipe';
+import { RegisterverifyComponent } from './component/auth/register/registerverify/registerverify.component';
 
 /////////////////////////////////////////////////////////////////
 
@@ -70,6 +71,7 @@ import { ResolvecollegePipe } from './pipes/resolvecollege.pipe';
     UserComponent,
     RegisterComponent,
     ResolvecollegePipe,
+    RegisterverifyComponent,
   ],
   imports: [
     BrowserModule,

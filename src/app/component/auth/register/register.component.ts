@@ -48,7 +48,7 @@ export class RegisterComponent implements OnInit {
   //The action performed After the Button is Pressed
   onSubmit(values: NgForm){
     this.submitted=true;
-    this.Button="Logging in";
+    this.Button="Checking...";
     if(this.registerForm.valid) {
       const email_id = this.registerForm.get('email_id').value;
       const password = this.registerForm.get('password').value;
@@ -71,11 +71,13 @@ export class RegisterComponent implements OnInit {
             M.toast({ html: response.msg, classes: 'roundeds' });
           } else {
             M.toast({ html: response.msg, classes: 'roundeds' });
-            this.createForm();
+            localStorage.setItem('curentUserMail',email_id);
+            this.router.navigate(['/auth/activate']);
           }
         });
       }
-    }else{
+    }
+    else{
       M.toast({ html: 'Please Check the Form', classes: 'rounded' });
       this.Button="Register";
     }
