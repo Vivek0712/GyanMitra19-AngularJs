@@ -41,7 +41,8 @@ export class RegisterComponent implements OnInit {
       degree_id:[''],
       college_id:[''],
       department_id:[''],
-      gender:['']
+      gender:[''],
+      yos:['']
     });
   }
   //The action performed After the Button is Pressed
@@ -58,13 +59,14 @@ export class RegisterComponent implements OnInit {
       const college_id = this.registerForm.get('college_id').value;
       const degree_id = this.registerForm.get('degree_id').value;
       const department_id = this.registerForm.get('department_id').value;
+      const yos = this.registerForm.get('yos').value;
       
       if(password !== conpassword){
         M.toast({ html: 'Passwords does not match', classes: 'rounded' });
         this.createForm();
       }
       else {
-        this.reg.createUser(name,college_id,department_id,degree_id,email_id,gender,mobile_number,password).subscribe((response: any) => {
+        this.reg.createUser(name,college_id,department_id,degree_id,email_id,gender,mobile_number,password,yos).subscribe((response: any) => {
           if (response.error) {
             M.toast({ html: response.msg, classes: 'roundeds' });
           } else {

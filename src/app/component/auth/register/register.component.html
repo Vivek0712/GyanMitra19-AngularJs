@@ -20,7 +20,7 @@
 										<div class="form-group">
 											<div class="row">
 												<div class="col-12">
-													<input type="email" class="form-control" placeholder="Name" formControlName="name" [ngClass]="{'is-invalid': submitted &&f.name.errors}">
+													<input type="text" class="form-control" placeholder="Name" formControlName="name" [ngClass]="{'is-invalid': submitted &&f.name.errors}">
 													<div *ngIf="submitted && f.name.errors" class="invalid-feedback">
 														<div *ngIf="f.name.errors.required">Name is required
 														</div>
@@ -65,7 +65,7 @@
 										<div class="form-group">
 											<div class="row">
 												<div class="col-12">
-													<input type="password" class="form-control" placeholder="Mobile Number" formControlName="mobile_number"
+													<input type="text" class="form-control" placeholder="Mobile Number" formControlName="mobile_number"
 													 [ngClass]="{'is-invalid': submitted &&f.mobile_number.errors}">
 													<div *ngIf="submitted && f.mobile_number.errors" class="invalid-feedback">
 														<div *ngIf="f.mobile_number.errors.required">Mobile Number is required
@@ -77,12 +77,26 @@
 										<div class="form-group">
 											<div class="row">
 												<div class="col-12">
-													College
+													Gender
 													<select class="custom-select" formControlName="gender">
 														<option disabled value="">Gender</option>
 														<option value="Male">Male</option>
 														<option value="Female">Female</option>
 														<option value="Others">Others</option>
+													</select>
+												</div>
+											</div>
+										</div>
+										<div class="form-group">
+											<div class="row">
+												<div class="col-12">
+													Year of Studying
+													<select class="custom-select" formControlName="yos">
+														<option disabled value="">Year of Studying</option>
+														<option value="1">1st Year</option>
+														<option value="2">2nd Year</option>
+														<option value="3">3rd Year</option>
+														<option value="4">4th Year</option>
 													</select>
 												</div>
 											</div>

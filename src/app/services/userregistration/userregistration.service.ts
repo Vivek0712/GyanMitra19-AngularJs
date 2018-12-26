@@ -16,7 +16,7 @@ export class UserregistrationService {
 
   readonly baseUrl = 'registration/';
   constructor(private http: HttpClient, private app: AppService) { }
-  createUser (name: String,college_id: String,department_id: String,degree_id: String,email_id: String,gender: String,mobile_number: String,password: String) {
+  createUser (name: String,college_id: String,department_id: String,degree_id: String,email_id: String,gender: String,mobile_number: String,password: String,yos: Number) {
     const body = { 
       name: name,
       college_id: college_id,
@@ -26,8 +26,10 @@ export class UserregistrationService {
       gender: gender,
       mobile_number: mobile_number,
       type: "user",
-      password: password
+      password: password,
+      year: yos
     };
+    console.log(yos);
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this.http.post(this.app.getUrl(this.baseUrl + 'create'), body).pipe(map(res => res, {'headers': headers}));
