@@ -16,10 +16,6 @@ export interface Department {
   name: String
 }
 
-export class ImageSnippet {
-  constructor(public src: string, public file: File) {}
-}
-
 @Component({
   selector: 'app-admin-event',
   templateUrl: './admin-event.component.html',
@@ -39,7 +35,6 @@ export class AdminEventComponent implements OnInit {
   allow_gender_mixing: Boolean;
   file_name: any;
   image_uploaded: Boolean;
-  selectedFile: ImageSnippet;
   currentPage: any;
   searchText: any;
 
@@ -75,7 +70,6 @@ export class AdminEventComponent implements OnInit {
       }
       else{
       this.events = response.docs;     
-
       }
     });
   }
