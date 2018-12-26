@@ -20,7 +20,7 @@ export class DepartmentService {
   readDepartment(page:any) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.get(this.app.getUrl(this.baseUrl)+'?page='+page);
+    return this.http.get(this.app.getUrl(this.baseUrl)+"?page="+page);
   }
   updateDepartment(id: String, name: String) {
     const body = { _id: id , name: name };

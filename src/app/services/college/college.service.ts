@@ -20,7 +20,7 @@ export class CollegeService {
   readCollege(page: any) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.get(this.app.getUrl(this.baseUrl)+'?page='+page);
+    return this.http.get(this.app.getUrl(this.baseUrl)+ "?page="+page);
   }
   updateCollege(id: String, name: String,locale: String) {
     const body = { _id: id , name: name, locale: locale };

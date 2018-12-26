@@ -10,6 +10,11 @@
                   </li>
               </ul>
               <ul class="nav navbar-nav float-right">
+                    <li class="nav-item">
+                        <a class="nav-link" [routerLink]="['/auth/register']" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">Register</a>
+                    </li>
+                </ul>
+              <ul class="nav navbar-nav float-right">
                   <li class="nav-item">
                       <a class="nav-link" [routerLink]="['/auth/login']" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">Login</a>
                   </li>
