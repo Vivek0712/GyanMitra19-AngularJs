@@ -24,17 +24,23 @@ export class ResolvecollegePipe implements PipeTransform {
   }
 
   getCollege(_id) {
-    return this.colleges.filter(
+    if(_id==''){
+      return ''
+    }
+    else
+    {
+      return this.colleges.filter(
         function(data)
         { 
           return data._id == _id;
         }
     );
+    }
   }
   
 
   transform(value: any): any {
-    var found: Array<College> = this.getCollege(value);
+    var found: any = this.getCollege(value);
     return found[0].name;
   }
 

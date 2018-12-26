@@ -31,6 +31,12 @@ export class UserService {
     return this.http.get(this.app.getUrl(this.baseUrl)+'participants/?page='+page);
   }
 
+  getParticipant(_id: any){
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.get(this.app.getUrl(this.baseUrl)+'participants/search/?id='+_id);
+  }
+
   // updateCollege(id: String, name: String,locale: String) {
   //   const body = { _id: id , name: name, locale: locale };
   //   const headers = new Headers();
