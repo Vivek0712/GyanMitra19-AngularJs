@@ -80,17 +80,18 @@ export class RegisterComponent implements OnInit {
   }
   getDepartments() {
     this.departmentservice.readDepartment(0).subscribe((response: any) => {
-      this.departments = response.docs;
+      console.log(response);
+      this.departments = response;
     });
   }
   getColleges() {
     this.collegeservice.readCollege(0).subscribe((response: any) => {
-      this.colleges = response.docs;
+      this.colleges = response;
     });
   }
   getDegrees() {
     this.degreeservice.readDegree(0).subscribe((response: any) => {
-      this.degrees = response.docs;
+      this.degrees = response;
     });
   }
 }

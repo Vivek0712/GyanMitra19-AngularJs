@@ -51,7 +51,7 @@ export class UserComponent implements OnInit {
   }
 
   loadFull(){
-    this.getAllParticipants()
+    this.getAllParticipants();
   }
 
   filterSub(_id, gender) {
@@ -63,10 +63,13 @@ export class UserComponent implements OnInit {
     );
   }
 
-  filter() {
-    this.loadFull();
-    this.participants = this.filterSub(this.selectedCollegeId, this.selectedGender);
-  }
+  // filter() {
+  //   return this.loadFull().then(() => {
+  //   this.participants = this.filterSub(this.selectedCollegeId, this.selectedGender);
+
+  //   })
+  // }
+
 
   getParticipants(page: any){
     this.userService.getParticpants(page).subscribe((response: any) => {
