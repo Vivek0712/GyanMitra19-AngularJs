@@ -106,6 +106,12 @@ export class UserComponent implements OnInit {
   //   })
   // }
 
+  confirmPayment(){
+    this.userService.confirmPayment(this.selectedParticipant._id).subscribe((response: any)=>{
+      M.toast({ html: response.msg, classes: 'roundeds' });
+    })
+  }
+
   moreInfo(_id:String){
     this.userService.getParticipant(_id).subscribe((response: any)=>{
       this.selectedParticipant = response;

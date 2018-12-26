@@ -19,6 +19,13 @@ export class UserService {
   //   return this.http.post(this.app.getUrl(this.baseUrl + 'create'), body).pipe(map(res => res, {'headers': headers}));
   // }
 
+  confirmPayment(_id: string){
+    const body = { _id: _id};
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post(this.app.getUrl(this.baseUrl + 'confirmPayment'), body).pipe(map(res => res, {'headers': headers}));
+  }
+
   getAllParticipants(){
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
