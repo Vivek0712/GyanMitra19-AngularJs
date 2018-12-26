@@ -47,7 +47,7 @@ export class RegisterComponent implements OnInit {
   //The action performed After the Button is Pressed
   onSubmit(values: NgForm){
     this.submitted=true;
-    this.Button="Checking.......";
+    this.Button="Logging in";
     if(this.registerForm.valid) {
       const email_id = this.registerForm.get('email_id').value;
       const password = this.registerForm.get('password').value;
