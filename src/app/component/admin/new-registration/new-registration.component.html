@@ -1,0 +1,150 @@
+<div class="app-content content">
+    <div class="content-wrapper">
+      <div class="content-wrapper-before"></div>
+      <div class="content-header row">
+        <div class="content-header-left col-md-4 col-12 mb-2">
+          <h3 class="content-header-title">Register</h3>
+        </div>
+      </div>
+      <div class="content-body">
+        <section id="content-types">
+          <div class="row match-height justify-content-md-center">
+            <div class="col-xl-6 col-md-12">
+              <div class="card">
+                <div class="card-content">
+                  <div class="card-body">
+                    <h4 class="card-title">Register</h4>
+                  </div>
+                  <div class="card-body">
+                    <form class="form" [formGroup]="registerForm" (ngSubmit)=onSubmit(registerForm.value)>
+                      <div class="form-group">
+                        <div class="row">
+                          <div class="col-12">
+                            <input type="text" class="form-control" placeholder="Name" formControlName="name" [ngClass]="{'is-invalid': submitted &&f.name.errors}">
+                            <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                              <div *ngIf="f.name.errors.required">Name is required
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="row">
+                          <div class="col-12">
+                            <input type="email" class="form-control" placeholder="Email ID" formControlName="email_id" [ngClass]="{'is-invalid': submitted &&f.email_id.errors}">
+                            <div *ngIf="submitted && f.email_id.errors" class="invalid-feedback">
+                              <div *ngIf="f.email_id.errors.required">Email_id is required
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="row">
+                          <div class="col-12">
+                            <input type="password" class="form-control" placeholder="Password" formControlName="password" [ngClass]="{'is-invalid': submitted &&f.password.errors}">
+                            <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                              <div *ngIf="f.password.errors.required">Password is required
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="row">
+                          <div class="col-12">
+                            <input type="password" class="form-control" placeholder="Confirm Password" formControlName="conpassword"
+                             [ngClass]="{'is-invalid': submitted &&f.conpassword.errors}">
+                            <div *ngIf="submitted && f.conpassword.errors" class="invalid-feedback">
+                              <div *ngIf="f.conpassword.errors.required">Password is required
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="row">
+                          <div class="col-12">
+                            <input type="text" class="form-control" placeholder="Mobile Number" formControlName="mobile_number"
+                             [ngClass]="{'is-invalid': submitted &&f.mobile_number.errors}">
+                            <div *ngIf="submitted && f.mobile_number.errors" class="invalid-feedback">
+                              <div *ngIf="f.mobile_number.errors.required">Mobile Number is required
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="row">
+                          <div class="col-12">
+                            Gender
+                            <select class="custom-select" formControlName="gender">
+                              <option disabled value="">Gender</option>
+                              <option value="Male">Male</option>
+                              <option value="Female">Female</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="row">
+                          <div class="col-12">
+                            Year of Studying
+                            <select class="custom-select" formControlName="year">
+                              <option disabled value="">Year of Studying</option>
+                              <option value="1">1st Year</option>
+                              <option value="2">2nd Year</option>
+                              <option value="3">3rd Year</option>
+                              <option value="4">4th Year</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="row">
+                          <div class="col-12">
+                            College
+                            <select class="custom-select" formControlName="college_id">
+                              <option disabled value="">College</option>
+                              <option *ngFor="let college of colleges" value={{college._id}}>{{college.name}}</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="row">
+                          <div class="col-12">
+                            Degree
+                            <select class="custom-select" formControlName="degree_id">
+                              <option disabled value="">Degree</option>
+                              <option *ngFor="let degree of degrees" value={{degree._id}}>{{degree.name}}</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="row">
+                          <div class="col-12">
+                            Department
+                            <select class="custom-select" formControlName="department_id">
+                              <option disabled value="">Department</option>
+                              <option *ngFor="let department of departments" value={{department._id}}>{{department.name}}</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-action left row">
+                        <div class="col">
+                          <button type="submit" class="btn btn-outline-success right">{{this.Button}}</button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
