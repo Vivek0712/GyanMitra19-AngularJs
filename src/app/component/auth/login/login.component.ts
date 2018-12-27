@@ -27,7 +27,6 @@ export class LoginComponent implements OnInit {
       email_id:['',Validators.required],
       password:['',Validators.required]
     });
-    console.log(window.location.href);
   }
   //The action performed After the Button is Pressed
   onSubmit(values: any) {
