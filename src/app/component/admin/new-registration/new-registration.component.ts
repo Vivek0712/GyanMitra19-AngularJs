@@ -65,13 +65,11 @@ export class NewRegistrationComponent implements OnInit {
         this.createForm();
       }
       else {
-        this.reg.createUser(name,college_id,department_id,degree_id,email_id,gender,mobile_number,password,year).subscribe((response: any) => {
+        this.reg.createUser(name,college_id,department_id,degree_id,email_id,gender,mobile_number,password,year,true,"offline").subscribe((response: any) => {
           if (response.error) {
             M.toast({ html: response.msg, classes: 'roundeds' });
           } else {
             M.toast({ html: response.msg, classes: 'roundeds' });
-            localStorage.setItem('curentUserMail',email_id);
-            this.router.navigate(['/auth/activate']);
           }
         });
       }

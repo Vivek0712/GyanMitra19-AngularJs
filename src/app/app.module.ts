@@ -45,10 +45,18 @@ import { TeamMemberService } from './services/team_member/team-member.service';
 import { RegistrationComponent } from './component/admin/registration/registration.component';
 import { RegisterComponent } from './component/auth/register/register.component';
 import { ResolvecollegePipe } from './pipes/resolvecollege.pipe';
-import { RegisterverifyComponent } from './component/auth/register/registerverify/registerverify.component';
 import { ParticipantstatusComponent } from './component/admin/participantstatus/participantstatus.component';
+import { RegisterVerifyComponent } from './component/auth/register/register_verify/register_verify.component';
 import { NewRegistrationComponent } from './component/admin/new-registration/new-registration.component';
 import { AdminUsersComponent } from './component/admin/admin-users/admin-users.component';
+import { UserComponent } from './component/user/user.component';
+import { UserNavbarComponent } from './component/user/user-navbar/user-navbar.component';
+import { UserSidebarComponent } from './component/user/user-sidebar/user-sidebar.component';
+import { AboutComponent } from './component/user/about/about.component';
+import { EventsComponent } from './component/user/events/events.component';
+import { WorkshopsComponent } from './component/user/workshops/workshops.component';
+import { CartComponent } from './component/user/cart/cart.component';
+import { AccomodationComponent } from './component/user/accomodation/accomodation.component';
 
 /////////////////////////////////////////////////////////////////
 
@@ -74,10 +82,18 @@ import { AdminUsersComponent } from './component/admin/admin-users/admin-users.c
     RegistrationComponent,
     RegisterComponent,
     ResolvecollegePipe,
-    RegisterverifyComponent,
     ParticipantstatusComponent,
+    RegisterVerifyComponent,
     NewRegistrationComponent,
     AdminUsersComponent,
+    UserComponent,
+    UserNavbarComponent,
+    UserSidebarComponent,
+    AboutComponent,
+    EventsComponent,
+    WorkshopsComponent,
+    CartComponent,
+    AccomodationComponent,
   ],
   imports: [
     BrowserModule,

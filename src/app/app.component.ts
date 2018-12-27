@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from './services/auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -8,5 +9,9 @@ import { AuthService } from './services/auth/auth.service';
 })
 export class AppComponent {
   title = 'GyanMitra19-AngularJs';
-  constructor(private authService: AuthService){}
+  public href: string = "";
+  constructor(private authService: AuthService,private router:Router) { }
+  ngOnInit() {
+        console.log(this.router.url);
+  }
 }

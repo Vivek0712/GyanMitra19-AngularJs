@@ -41,7 +41,7 @@
 										</div>
 										<div class="form-group">
 											<input type="text" class="form-control" placeholder="Score" value="0" formControlName="score" required
-											 pattern="[a-zA-Z ]*" [ngClass]="{'is-invalid': submitted && f.name.errors}">
+											 pattern="[0-9 ]*" [ngClass]="{'is-invalid': submitted && f.name.errors}">
 											<div *ngIf="submitted && f.score.errors" class="invalid-feedback">
 											</div>
 										</div>
@@ -106,11 +106,11 @@
 												<td>{{Participation.score}}</td>
 												<td>
 													<div class="fonticon-wrap icon-shadow icon-shadow-warning">
-														<a (click)="updateParticipationStatus(Participation._id,Participation.name,Participation.score)"> <i class="la la-pencil la-2x"></i></a>
+														<a (click)="updateParticipantStatus(Participation._id,Participation.name,Participation.score)"> <i class="la la-pencil la-2x"></i></a>
 													</div>
 												</td>
 												<td>
-													<div class="fonticon-wrap icon-shadow icon-shadow-danger" (click)="deleteParticipationStatus(Participation._id)">
+													<div class="fonticon-wrap icon-shadow icon-shadow-danger" (click)="deleteParticipantStatus(Participation._id)">
 														<a> <i class="la la-trash la-2x"></i></a>
 													</div>
 												</td>

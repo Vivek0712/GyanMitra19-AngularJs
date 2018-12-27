@@ -3,11 +3,11 @@ import { RegistrationService } from 'src/app/services/registration/registration.
 import { UserregistrationService } from 'src/app/services/userregistration/userregistration.service';
 
 @Component({
-  selector: 'app-registerverify',
-  templateUrl: './registerverify.component.html',
-  styleUrls: ['./registerverify.component.css']
+  selector: 'app-register_verify',
+  templateUrl: './register_verify.component.html',
+  styleUrls: ['./register_verify.component.css']
 })
-export class RegisterverifyComponent implements OnInit {
+export class RegisterVerifyComponent implements OnInit {
 
   constructor(private userRegisterService: UserregistrationService) {
     this.verifyUser();  
