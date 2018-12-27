@@ -42,11 +42,13 @@ import { RoleService } from './services/role/role.service';
 import { RoleUserService } from './services/role_user/role-user.service';
 import { TeamService } from './services/team/team.service';
 import { TeamMemberService } from './services/team_member/team-member.service';
-import { UserComponent } from './component/admin/user/user.component';
+import { RegistrationComponent } from './component/admin/registration/registration.component';
 import { RegisterComponent } from './component/auth/register/register.component';
 import { ResolvecollegePipe } from './pipes/resolvecollege.pipe';
 import { RegisterverifyComponent } from './component/auth/register/registerverify/registerverify.component';
 import { ParticipantstatusComponent } from './component/admin/participantstatus/participantstatus.component';
+import { NewRegistrationComponent } from './component/admin/new-registration/new-registration.component';
+import { AdminUsersComponent } from './component/admin/admin-users/admin-users.component';
 
 /////////////////////////////////////////////////////////////////
 
@@ -69,11 +71,13 @@ import { ParticipantstatusComponent } from './component/admin/participantstatus/
     CourseComponent,
     SearchfilterPipe,
     ResolveCategoryPipe,
-    UserComponent,
+    RegistrationComponent,
     RegisterComponent,
     ResolvecollegePipe,
     RegisterverifyComponent,
     ParticipantstatusComponent,
+    NewRegistrationComponent,
+    AdminUsersComponent,
   ],
   imports: [
     BrowserModule,

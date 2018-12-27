@@ -12,13 +12,13 @@ export interface College {
 }
 
 @Component({
-  selector: 'app-user',
-  templateUrl: './user.component.html',
-  styleUrls: ['./user.component.css']
+  selector: 'app-registration',
+  templateUrl: './registration.component.html',
+  styleUrls: ['./registration.component.css']
 })
 
 
-export class UserComponent implements OnInit {
+export class RegistrationComponent implements OnInit {
   currentPage: any;
   searchText: any;
   participants: Array<any>;
