@@ -34,14 +34,13 @@ export class AdminEventComponent implements OnInit {
   selectedDepartment: Department;
   allow_gender_mixing: Boolean;
   file_name: any;
-  image_uploaded: Boolean;
   currentPage: any;
   searchText: any;
+  selectedEventID: string;
 
   constructor(private eventService: EventService, private formBuilder: FormBuilder, private categoryService: CategoryService, private departmentService: DepartmentService) { }
 
   ngOnInit() {
-    this.file_name = "ChooseFileName";
     this.currentPage=1;
     this.getCategories();
     this.createForm();
@@ -49,7 +48,7 @@ export class AdminEventComponent implements OnInit {
     this.getDepartments();
     this.submitted = false;
     this.allow_gender_mixing = false;
-    this.setFileName();
+    this.selectedEventID='';
   }
 
   reloadEvents() {
@@ -103,8 +102,9 @@ export class AdminEventComponent implements OnInit {
       this.departments = response;
     });
   }
-  setFileName() {
-   this.file_name = this.eventForm.get('image_name').value;
+
+  selectEvent(_id: string){
+    this.selectedEventID = _id;
   }
 
   get f() { return this.eventForm.controls; }
@@ -115,10 +115,10 @@ export class AdminEventComponent implements OnInit {
         let file: File = fileList[0];
         let formData:FormData = new FormData();
         formData.append('uploadFile', file, file.name);
-        let headers = new Headers();
-        headers.append('Content-Type', 'multipart/form-data');
-        headers.append('Accept', 'application/json');
-        
+        formData.append('_id',this.selectedEventID);
+        this.eventService.uploadFile(formData).subscribe((response: any)=>{
+          console.log(response);
+        })
     }
 }
 

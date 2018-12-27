@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, min } from 'rxjs/operators';
 import { AppService } from '../app/app.service';
+import { RequestOptions } from '@angular/http';
 
 
 
@@ -43,6 +44,13 @@ export class EventService {
     return this.http.post(this.app.getUrl(this.baseUrl + 'create'), body).pipe(map(res => res, {'headers': headers}));
   }
 
+  uploadFile(formData: FormData) {
+    let headers = new Headers();
+        /** In Angular 5, including the header Content-Type can invalidate your request */
+        headers.append('Content-Type', 'multipart/form-data');
+        return this.http.post(this.app.getUrl(this.baseUrl)+'uploadImage', formData);
+  }
+
   readAllEvents(){
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
@@ -54,10 +62,6 @@ export class EventService {
     headers.append('Content-Type', 'application/json');
     return this.http.get(this.app.getUrl(this.baseUrl)+'?page='+page);
   }
-
-  uploadImage(image: Blob) {
-    return this.http.post(this.app.getUrl(this.baseUrl)+'upload',image);
-}
 
   updateEvent(id: String, title: String, category_id: String, department_id: String, description: String, image_name: String, rules: String, start_time: String, end_time: String, event_date: String, prelims: String, round_1: String, round_2: String, finals: String, min_members: Number, max_members: Number, max_limit: Number, contact_email: String, venue: String, amount: Number, allow_gender_mixing: Boolean) {
     const body = {
