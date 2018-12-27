@@ -70,6 +70,7 @@ export class NewRegistrationComponent implements OnInit {
             M.toast({ html: response.msg, classes: 'roundeds' });
           } else {
             M.toast({ html: response.msg, classes: 'roundeds' });
+            this.createForm();
           }
         });
       }
