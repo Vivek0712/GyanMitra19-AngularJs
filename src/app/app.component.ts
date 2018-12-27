@@ -18,7 +18,7 @@ export class AppComponent {
   }
   checkUrl() {
     this.href = window.location.pathname;
-    if (this.href == '/auth/login')
+    if (this.href == '/auth/login' || this.href == '/auth/register' )
     {
       return true;
     }
