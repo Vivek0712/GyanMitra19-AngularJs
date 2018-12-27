@@ -46,6 +46,7 @@ import { UserComponent } from './component/admin/user/user.component';
 import { RegisterComponent } from './component/auth/register/register.component';
 import { ResolvecollegePipe } from './pipes/resolvecollege.pipe';
 import { RegisterverifyComponent } from './component/auth/register/registerverify/registerverify.component';
+import { ParticipantstatusComponent } from './component/admin/participantstatus/participantstatus.component';
 
 /////////////////////////////////////////////////////////////////
 
@@ -72,6 +73,7 @@ import { RegisterverifyComponent } from './component/auth/register/registerverif
     RegisterComponent,
     ResolvecollegePipe,
     RegisterverifyComponent,
+    ParticipantstatusComponent,
   ],
   imports: [
     BrowserModule,

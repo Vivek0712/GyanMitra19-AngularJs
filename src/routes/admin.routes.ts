@@ -6,6 +6,7 @@ import { DegreeComponent } from '../app/component/admin/degree/degree.component'
 import { DepartmentComponent } from '../app/component/admin/department/department.component';
 import { AdminEventComponent } from '../app/component/admin/admin-event/admin-event.component';
 import { UserComponent } from 'src/app/component/admin/user/user.component';
+import { ParticipantstatusComponent } from 'src/app/component/admin/participantstatus/participantstatus.component';
 
 
 
@@ -16,5 +17,6 @@ export const ADMIN_ROUTE: Routes = [
      {path: 'degree', component:DegreeComponent},
      {path: 'department',component:DepartmentComponent},
      {path: 'events', component:AdminEventComponent},
-     {path: 'users', component:UserComponent}
+     {path: 'users', component:UserComponent},
+     {path: 'participationstatus', component:ParticipantstatusComponent},
 ];
