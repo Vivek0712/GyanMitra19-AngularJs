@@ -6,6 +6,9 @@ export const environment = {
   production: false,
   backend: {
     server: 'http://localhost:3000'
+  },
+  frontend: {
+    server:'http://localhost:4200'
   }
 };
 

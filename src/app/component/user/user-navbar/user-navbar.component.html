@@ -20,7 +20,7 @@
                             </ul>
                         </li>
                     </ul>
-                    <ul class="nav navbar-nav float-right">
+                    <ul class="nav navbar-nav float-right" *ngIf="authService.isLoggedIn()">
                         <li class="dropdown dropdown-user nav-item">
                             <a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown"> <span class="avatar avatar-online"><img src="theme-assets/images/portrait/small/avatar-s-19.png" alt="avatar"><i></i></span></a>
                             <div class="dropdown-menu dropdown-menu-right">
@@ -31,6 +31,16 @@
                             </div>
                         </li>
                     </ul>
+                    <ul class="nav navbar-nav float-right" *ngIf="!authService.isLoggedIn()">
+                            <li class="nav-item">
+                                <a class="nav-link" [routerLink]="['/auth/register']" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">Register</a>
+                            </li>
+                        </ul>
+                      <ul class="nav navbar-nav float-right" *ngIf="!authService.isLoggedIn()">
+                          <li class="nav-item">
+                              <a class="nav-link" [routerLink]="['/auth/login']" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">Login</a>
+                          </li>
+                      </ul>
                 </div>
             </div>
         </div>
