@@ -109,22 +109,17 @@ export class AdminEventComponent implements OnInit {
 
   get f() { return this.eventForm.controls; }
 
-  processFile(imageInput: any) {
-    const file: File = imageInput.files[0];
-    const reader = new FileReader();
-    const binaryReader = new FileReader();
-    var preview = document.getElementById('imgPreview');
-    reader.addEventListener('load', (event: any) => {
-      preview.setAttribute('src', reader.result.toString());
-    });
-    binaryReader.addEventListener('load', (event: any) => {
-      var bytes = new Blob([binaryReader.result]);
-      // this.eventService.uploadImage(bytes).subscribe((resp:any)=>{
-      //   console.log(resp);
-      // });
-    });
-    reader.readAsDataURL(file);
-    binaryReader.readAsArrayBuffer(file)
+  processFile(event:any) {
+    let fileList: FileList = event.target.files;
+    if(fileList.length > 0) {
+        let file: File = fileList[0];
+        let formData:FormData = new FormData();
+        formData.append('uploadFile', file, file.name);
+        let headers = new Headers();
+        headers.append('Content-Type', 'multipart/form-data');
+        headers.append('Accept', 'application/json');
+        
+    }
 }
 
 
