@@ -9,5 +9,9 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
   title = 'GyanMitra19-AngularJs';
-  constructor(private authService: AuthService,private router) { }
+  public href: string = "";
+  constructor(private authService: AuthService,private router:Router) { }
+  ngOnInit() {
+        console.log(this.router.url);
+  }
 }
