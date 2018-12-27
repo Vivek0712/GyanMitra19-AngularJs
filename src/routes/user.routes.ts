@@ -5,6 +5,7 @@ import { EventsComponent } from 'src/app/component/user/events/events.component'
 import { WorkshopsComponent } from 'src/app/component/user/workshops/workshops.component';
 import { AccomodationComponent } from 'src/app/component/user/accomodation/accomodation.component';
 import { CartComponent } from 'src/app/component/user/cart/cart.component';
+import { AuthGuard } from 'src/app/guard/auth/auth.guard';
 
 
 
@@ -13,6 +14,6 @@ export const USER_ROUTE: Routes = [
      { path: 'about', component: AboutComponent },
      { path: 'events', component: EventsComponent },
      { path: 'workshops', component: WorkshopsComponent },
-     { path: 'accomodation', component: AccomodationComponent },
-     { path: 'cart', component: CartComponent}
+     { path: 'accomodation', component: AccomodationComponent, canActivate:[AuthGuard] },
+     { path: 'cart', component: CartComponent, canActivate:[AuthGuard]}
 ];

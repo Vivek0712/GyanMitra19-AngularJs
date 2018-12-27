@@ -14,7 +14,7 @@ export class AppComponent {
   constructor(private authService: AuthService,private router:Router,private appService: AppService) { }
   ngOnInit() {
    // console.log(this.href = this.appService.getUrl(this.router.url));
-    console.log(window.location.pathname);
+    // console.log(window.location.pathname);
   }
   checkUrl() {
     this.href = window.location.pathname;

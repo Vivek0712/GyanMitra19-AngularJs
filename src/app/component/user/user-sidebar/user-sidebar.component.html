@@ -17,8 +17,12 @@
             class="fas fa-info"></i><span class="menu-title" data-i18n="">About</span></a></li>
       <li class="nav-item"><a [routerLink]="['/user/events']" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><i
             class="fas fa-flag-checkered "></i><span class="menu-title" data-i18n="">Events</span></a></li>
-      <li class="nav-item"><a [routerLink]="['/user/workshops']" [routerLinkActive]="['active']"[routerLinkActiveOptions]="{exact:true}"><i 
-            class="fas fa-tools"></i><span class="menu-title" data-i18n="">Workshops</span></a></li>
+      <li class="nav-item"><a [routerLink]="['/user/workshops']" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><i 
+        class="fas fa-tools"></i><span class="menu-title" data-i18n="">Workshops</span></a></li>
+      <li *ngIf="authService.isLoggedIn()" class="nav-item"><a [routerLink]="['/user/cart']" [routerLinkActive]="['active']"[routerLinkActiveOptions]="{exact:true}"><i 
+        class="fas fa-shopping-cart "></i><span class="menu-title" data-i18n="">Cart</span></a></li>
+        <li *ngIf="authService.isLoggedIn()" class="nav-item"><a [routerLink]="['/user/accomodation']" [routerLinkActive]="['active']"[routerLinkActiveOptions]="{exact:true}"><i 
+          class="fab fa-fort-awesome"></i><span class="menu-title" data-i18n="">Accomodation</span></a></li>
     </ul>
   </div>
   <div class="navigation-background"></div>

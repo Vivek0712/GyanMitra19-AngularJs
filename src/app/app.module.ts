@@ -56,7 +56,9 @@ import { AboutComponent } from './component/user/about/about.component';
 import { EventsComponent } from './component/user/events/events.component';
 import { WorkshopsComponent } from './component/user/workshops/workshops.component';
 import { CartComponent } from './component/user/cart/cart.component';
-import { AccomodationComponent } from './component/user/accomodation/accomodation.component';
+import { AccomodationComponent } from './component/user/accomodation/accomodation.component'; 
+////////////////////////////////////////////////////////////////
+import { AuthGuard } from './guard/auth/auth.guard';
 
 /////////////////////////////////////////////////////////////////
 
@@ -116,7 +118,8 @@ import { AccomodationComponent } from './component/user/accomodation/accomodatio
     RoleService,
     RoleUserService,
     TeamService,
-    TeamMemberService
+    TeamMemberService,
+    AuthGuard
 
   ],
   bootstrap: [AppComponent]

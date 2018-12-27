@@ -6,9 +6,11 @@ import { AuthComponent } from 'src/app/component/auth/auth.component';
 import { AUTH_ROUTE } from './auth.routes';
 import { UserComponent } from 'src/app/component/user/user.component';
 import { USER_ROUTE } from './user.routes';
+import { AuthGuard } from 'src/app/guard/auth/auth.guard';
+import { AdminGuard } from 'src/app/guard/admin/admin.guard';
 /////////////////////////////////////////////////
 const APP_ROUTES: Routes = [
-     { path: 'admin', component: AdminComponent, children: ADMIN_ROUTE },
+     {path: 'admin', component: AdminComponent, children: ADMIN_ROUTE, canActivate: [AuthGuard,AdminGuard]},
      {path: 'auth',component:AuthComponent,children:AUTH_ROUTE},
      {path: 'user',component:UserComponent,children:USER_ROUTE}
      //Start typing here the import is automatically done is VS CODE
