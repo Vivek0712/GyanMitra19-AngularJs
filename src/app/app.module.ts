@@ -45,6 +45,7 @@ import { TeamMemberService } from './services/team_member/team-member.service';
 import { RegistrationComponent } from './component/admin/registration/registration.component';
 import { RegisterComponent } from './component/auth/register/register.component';
 import { ResolvecollegePipe } from './pipes/resolvecollege.pipe';
+import { ParticipantstatusComponent } from './component/admin/participantstatus/participantstatus.component';
 import { RegisterVerifyComponent } from './component/auth/register/register_verify/register_verify.component';
 import { NewRegistrationComponent } from './component/admin/new-registration/new-registration.component';
 import { AdminUsersComponent } from './component/admin/admin-users/admin-users.component';
@@ -81,6 +82,7 @@ import { AccomodationComponent } from './component/user/accomodation/accomodatio
     RegistrationComponent,
     RegisterComponent,
     ResolvecollegePipe,
+    ParticipantstatusComponent,
     RegisterVerifyComponent,
     NewRegistrationComponent,
     AdminUsersComponent,
