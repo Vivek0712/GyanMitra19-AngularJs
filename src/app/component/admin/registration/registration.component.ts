@@ -145,5 +145,17 @@ export class RegistrationComponent implements OnInit {
       this.getParticipants(this.currentPage);
     }
   }
+  deleteParticipant(id: string) {
+    console.log('helo');
+    this.userService.deleteUser(id).subscribe((response: any) => {
+      if ( response.error ) {
+        M.toast({ html: response.msg, classes: 'roundeds' }); 
+        this.getParticipants(this.currentPage);
+      } else {
+        M.toast({ html: response.msg, classes: 'roundeds' });
+        this.getParticipants(this.currentPage);
+      }
+    });
+    }
 
 }

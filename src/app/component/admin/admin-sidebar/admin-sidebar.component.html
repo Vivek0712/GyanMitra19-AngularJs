@@ -15,26 +15,34 @@
       </li>
       <li class="nav-item has-sub"><a><i class="far fa-registered"></i><span class="menu-title" data-i18n="">Registration</span></a>
         <ul class="menu-content">
-            <li class="menu-item"><a [routerLink]="['/admin/new_registration']" [routerLinkActive]="['active']"
+          <li class="menu-item"><a [routerLink]="['/admin/new_registration']" [routerLinkActive]="['active']"
               [routerLinkActiveOptions]="{exact:true}"><span class="menu-title" data-i18n="">New Registration</span></a></li>
           <li class="menu-item"><a [routerLink]="['/admin/registration']" [routerLinkActive]="['active']"
               [routerLinkActiveOptions]="{exact:true}"><span class="menu-title" data-i18n="">All Registration</span></a></li>
         </ul>
       </li>
-      <li class="nav-item has-sub"><a><i class="fas fa-cog"></i><span class="menu-title" data-i18n="">Control Panel</span></a>
+      <li class="nav-item has-sub"><a><i class="fas fa-cog"></i><span class="menu-title" data-i18n="">EventForm</span></a>
         <ul class="menu-content">
           <li class="menu-item"><a [routerLink]="['/admin/category']" [routerLinkActive]="['active']"
               [routerLinkActiveOptions]="{exact:true}"><span class="menu-title" data-i18n="">Event Category</span></a></li>
-          <li class="menu-item"><a [routerLink]="['/admin/college']" [routerLinkActive]="['active']"
-              [routerLinkActiveOptions]="{exact:true}"><span class="menu-title" data-i18n="">College</span></a></li>
-          <li class="menu-item"><a [routerLink]="['/admin/degree']" [routerLinkActive]="['active']"
-              [routerLinkActiveOptions]="{exact:true}"><span class="menu-title" data-i18n="">Degree</span></a></li>
           <li class="menu-item"><a [routerLink]="['/admin/department']" [routerLinkActive]="['active']"
               [routerLinkActiveOptions]="{exact:true}"><span class="menu-title" data-i18n="">Department</span></a></li>
           <li class="menu-item"><a [routerLink]="['/admin/events']" [routerLinkActive]="['active']"
               [routerLinkActiveOptions]="{exact:true}"><span class="menu-title" data-i18n="">Events</span></a></li>
           <li class="menu-item"><a [routerLink]="['/admin/participationstatus']" [routerLinkActive]="['active']"
-            [routerLinkActiveOptions]="{exact:true}"><span class="menu-title" data-i18n="">Participation Status</span></a></li>
+              [routerLinkActiveOptions]="{exact:true}"><span class="menu-title" data-i18n="">Participation Status</span></a></li>
+        </ul>
+      </li>
+      <li class="nav-item has-sub"><a><i class="fas fa-cog"></i><span class="menu-title" data-i18n="">RegistrationForm</span></a>
+        <ul class="menu-content">
+          <li class="menu-item"><a [routerLink]="['/admin/college']" [routerLinkActive]="['active']"
+              [routerLinkActiveOptions]="{exact:true}"><span class="menu-title" data-i18n="">College</span></a></li>
+          <li class="menu-item"><a [routerLink]="['/admin/degree']" [routerLinkActive]="['active']"
+              [routerLinkActiveOptions]="{exact:true}"><span class="menu-title" data-i18n="">Degree</span></a></li>
+          <li class="menu-item"><a [routerLink]="['/admin/course']" [routerLinkActive]="['active']"
+              [routerLinkActiveOptions]="{exact:true}"><span class="menu-title" data-i18n="">Course</span></a></li>
+          <li class="menu-item"><a [routerLink]="['/admin/year']" [routerLinkActive]="['active']"
+              [routerLinkActiveOptions]="{exact:true}"><span class="menu-title" data-i18n="">Year</span></a></li>
         </ul>
       </li>
     </ul>
