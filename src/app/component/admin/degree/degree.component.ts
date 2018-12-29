@@ -79,7 +79,12 @@ export class DegreeComponent implements OnInit {
   }
   getDegrees(page: any) {
     this.degreeService.readDegree(page).subscribe((response: any) => {
-     this.degrees = response.docs;
+     if(response.docs.legnth == 0){
+       this.currentPage -=1;
+     }
+     else{
+      this.degrees = response.docs;
+     }
     });
 
   }

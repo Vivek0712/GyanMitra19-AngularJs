@@ -81,7 +81,12 @@ export class ParticipantstatusComponent implements OnInit {
   }
   getParticipantStatus(page: any) {
     this.participantservice.readParticipationStatus(page).subscribe((response: any) => {
-     this.participantStatus = response.docs;
+      if(response.docs.length == 0){
+        this.currentPage -=1;
+      }
+      else{
+        this.participantStatus = response.docs;
+      }
     });
 
   }

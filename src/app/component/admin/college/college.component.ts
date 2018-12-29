@@ -85,7 +85,12 @@ export class CollegeComponent implements OnInit {
   }
   getColleges(page: any) {
     this.collegeService.readCollege(page).subscribe((response: any) => {
-     this.colleges = response.docs;
+     if(response.docs.length == 0){
+       this.page -= 1;
+     }
+     else {
+      this.colleges = response.docs;
+     }
     });
 
   }

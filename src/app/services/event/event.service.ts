@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient , HttpHeaders} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, min } from 'rxjs/operators';
@@ -16,7 +16,7 @@ export class EventService {
   readonly baseUrl = 'event/';
   constructor(private http: HttpClient, private app: AppService) { }
 
-  createEvent (title: String, category_id: String, department_id: String, description: String, image_name: String, rules: String, start_time: String, end_time: String, event_date: String, prelims: String, round_1: String, round_2: String, finals: String, min_members: Number, max_members: Number, max_limit: Number, contact_email: String, venue: String, amount: Number, allow_gender_mixing: Boolean ) {
+  createEvent(title: String, category_id: String, department_id: String, description: String, image_name: String, rules: String, start_time: String, end_time: String, event_date: String, prelims: String, round_1: String, round_2: String, finals: String, min_members: Number, max_members: Number, max_limit: Number, contact_email: String, venue: String, amount: Number, allow_gender_mixing: Boolean) {
     const body = {
       title: title,
       category_id: category_id,
@@ -41,26 +41,25 @@ export class EventService {
     };
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post(this.app.getUrl(this.baseUrl + 'create'), body).pipe(map(res => res, {'headers': headers}));
+    return this.http.post(this.app.getUrl(this.baseUrl + 'create'), body).pipe(map(res => res, { 'headers': headers }));
   }
 
   uploadFile(formData: FormData) {
     let headers = new Headers();
-        /** In Angular 5, including the header Content-Type can invalidate your request */
-        headers.append('Content-Type', 'multipart/form-data');
-        return this.http.post(this.app.getUrl(this.baseUrl)+'uploadImage', formData);
+    headers.append('Content-Type', 'multipart/form-data');
+    return this.http.post(this.app.getUrl(this.baseUrl) + 'uploadImage/'+formData.get('_id'), formData);
   }
 
-  readAllEvents(){
+  readAllEvents() {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.get(this.app.getUrl(this.baseUrl)+'all');
+    return this.http.get(this.app.getUrl(this.baseUrl) + 'all');
   }
 
   readEvent(page: any) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.get(this.app.getUrl(this.baseUrl)+'?page='+page);
+    return this.http.get(this.app.getUrl(this.baseUrl) + '?page=' + page);
   }
 
   updateEvent(id: String, title: String, category_id: String, department_id: String, description: String, image_name: String, rules: String, start_time: String, end_time: String, event_date: String, prelims: String, round_1: String, round_2: String, finals: String, min_members: Number, max_members: Number, max_limit: Number, contact_email: String, venue: String, amount: Number, allow_gender_mixing: Boolean) {
@@ -87,12 +86,11 @@ export class EventService {
     };
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.put(this.app.getUrl(this.baseUrl + `${id}`), body).pipe(map(res => res, {'headers': headers}));
+    return this.http.put(this.app.getUrl(this.baseUrl + `${id}`), body).pipe(map(res => res, { 'headers': headers }));
   }
   deleteEvent(id: String) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.delete(this.app.getUrl(this.baseUrl + `${id}` ) ).pipe(map(res => res, {'headers': headers}));
+    return this.http.delete(this.app.getUrl(this.baseUrl + `${id}`)).pipe(map(res => res, { 'headers': headers }));
   }
 }
-

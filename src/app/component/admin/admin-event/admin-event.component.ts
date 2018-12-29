@@ -64,12 +64,12 @@ export class AdminEventComponent implements OnInit {
 
   getEvents(page: any) {
     this.eventService.readEvent(this.currentPage).subscribe((response: any) => {
-      if(response.docs.length == 0){
-        this.currentPage -= 1;
-      }
-      else{
-      this.events = response.docs;     
-      }
+     if(response.error == false){
+       this.events = response.msg;
+     }
+     else{
+       this.currentPage -= 1;
+     }
     });
   }
 
@@ -79,12 +79,8 @@ export class AdminEventComponent implements OnInit {
   }
   
   previousPage() {
-    if(this.currentPage == 1) {
-    }
-    else{
       this.currentPage = this.currentPage -1;
       this.getEvents(this.currentPage);
-    }
   }
 
   changeGenderMixing() {
@@ -159,7 +155,6 @@ export class AdminEventComponent implements OnInit {
   createForm() {
     this.submitted = false;
     this.eventForm = this.formBuilder.group({
-      __v: '',
       _id: '',
       title: '',
       category_id: '',
@@ -190,10 +185,13 @@ export class AdminEventComponent implements OnInit {
     this.eventService.deleteEvent(id).subscribe((response: any) => {
       if (response.error) {
         M.toast({ html: response.msg, classes: 'roundeds' });
+        this.events=[];
         this.getEvents(this.currentPage);
+
         this.createForm();
       } else {
         M.toast({ html: response.msg, classes: 'roundeds' });
+        this.events=[];
         this.getEvents(this.currentPage);
         this.createForm();
       }

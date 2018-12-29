@@ -19,8 +19,7 @@
       </div>
     </div>
     <!-- Modal -->
-    <div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="uploadModalLabel"
-      aria-hidden="true">
+    <div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="uploadModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -31,18 +30,14 @@
           </div>
           <div class="modal-body">
             <label class="image-upload-container btn btn-bwm">
-              <input #imageInput
-                    placeholder="Select an Image"
-                     type="file"
-                     accept="image/*"
-                     (change)="processFile($event)">
+              <input #imageInput placeholder="Select an Image" type="file" accept="image/*" (change)="processFile($event)">
             </label><br />
             Preview <br />
             <img src="" id="imgPreview" width=50 height=50 alt="Select and image to Preview" />
           </div>
           <div class="modal-footer">
             <span class="btn btn-secondary" data-dismiss="modal">
-                Close
+              Close
             </span>
           </div>
         </div>
@@ -61,7 +56,6 @@
                 <div class="card-body">
                   <form class="form" [formGroup]="eventForm" (ngSubmit)=onSubmit(eventForm)>
                     <input type="hidden" formControlName="_id">
-                    <input type="hidden" formControlName="__v">
                     <div class="form-group">
                       <div class="row">
                         <div class="col-12">
@@ -81,7 +75,7 @@
                         </div>
                         <div class="col-6">
                           Event Category
-                          <select class="custom-select" placeholder="Category" formControlName="category_id" ng-model="selectedCategory">
+                          <select class="custom-select" placeholder="Category" formControlName="category_id">
                             <option disabled value="">Category</option>
                             <option *ngFor="let category of categories" value={{category._id}}>{{category.name}}</option>
                           </select>
@@ -235,21 +229,24 @@
               <div class="card-body">
                 <div class="row">
                   <div class="col-6">
-                      <input [(ngModel)]="searchText" placeholder="Search Events" class="form-control" >
+                    <input [(ngModel)]="searchText" placeholder="Search Events" class="form-control">
                   </div>
                   <div class="col-2">
-                      <span class="fonticon-wrap success">
-                          <a (click)="loadFull()">
-                              <i class="la la-search la-2x"></i>
-                          </a>
-                        </span>
+                    <span class="fonticon-wrap success">
+                      <a (click)="loadFull()">
+                        <i class="la la-search la-2x"></i>
+                      </a>
+                    </span>
                   </div>
                   <div class="col-4 ">
                     <div class="right">
-                          <span class="btn btn-info" (click)="previousPage()"> &lt; </span> &nbsp; Page {{currentPage}} &nbsp;  
-                          <span class="btn btn-info" (click)="nextPage()"> &gt; </span>
-                        </div>
+                      <span *ngIf="this.currentPage != 1">
+                        <span class="btn btn-info" (click)="previousPage()"> &lt; </span>
+                      </span>
+                      &nbsp; Page {{currentPage}} &nbsp;
+                      <span class="btn btn-info" (click)="nextPage()"> &gt; </span>
                     </div>
+                  </div>
                 </div>
                 <br />
                 <div class="table-responsive">
@@ -258,6 +255,7 @@
                       <tr>
                         <th>Sl. No</th>
                         <th>Event Name</th>
+                        <th>Event Category</th>
                         <th>Update</th>
                         <th>Upload Image</th>
                         <th>Delete</th>
@@ -267,16 +265,17 @@
                       <tr *ngFor="let event of events | searchfilter : searchText ; let i = index;   ">
                         <th scope="row">{{i+1}}</th>
                         <td>{{event.title}}</td>
+                        <td>{{event.category_id.name}}</td>
                         <td>
                           <div class="fonticon-wrap icon-shadow icon-shadow-warning">
                             <a (click)="updateEvent(event._id)"> <i class="la la-pencil la-2x"></i></a>
                           </div>
                         </td>
                         <td>
-                          <div class="fonticon-wrap icon-shadow icon-shadow-primary" (click)="selectEvent(event._id)" data-toggle="modal"
-                            data-target="#uploadModal">
+                          <div class="fonticon-wrap icon-shadow icon-shadow-primary" (click)="selectEvent(event._id)"
+                            data-toggle="modal" data-target="#uploadModal">
                             <a> <i class="la la-upload la-2x"></i></a>
-                        </div>
+                          </div>
                         </td>
                         <td>
                           <div class="fonticon-wrap icon-shadow icon-shadow-danger" (click)="deleteEvent(event._id)">
