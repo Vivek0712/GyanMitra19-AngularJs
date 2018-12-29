@@ -61,7 +61,6 @@
                 <div class="card-body">
                   <form class="form" [formGroup]="eventForm" (ngSubmit)=onSubmit(eventForm)>
                     <input type="hidden" formControlName="_id">
-                    <input type="hidden" formControlName="__v">
                     <div class="form-group">
                       <div class="row">
                         <div class="col-12">
@@ -81,7 +80,7 @@
                         </div>
                         <div class="col-6">
                           Event Category
-                          <select class="custom-select" placeholder="Category" formControlName="category_id" ng-model="selectedCategory">
+                          <select class="custom-select" placeholder="Category" formControlName="category_id">
                             <option disabled value="">Category</option>
                             <option *ngFor="let category of categories" value={{category._id}}>{{category.name}}</option>
                           </select>
@@ -258,6 +257,7 @@
                       <tr>
                         <th>Sl. No</th>
                         <th>Event Name</th>
+                        <th>Event Category</th>
                         <th>Update</th>
                         <th>Upload Image</th>
                         <th>Delete</th>
@@ -267,6 +267,7 @@
                       <tr *ngFor="let event of events | searchfilter : searchText ; let i = index;   ">
                         <th scope="row">{{i+1}}</th>
                         <td>{{event.title}}</td>
+                        <td>{{event.category_id.name}}</td>
                         <td>
                           <div class="fonticon-wrap icon-shadow icon-shadow-warning">
                             <a (click)="updateEvent(event._id)"> <i class="la la-pencil la-2x"></i></a>

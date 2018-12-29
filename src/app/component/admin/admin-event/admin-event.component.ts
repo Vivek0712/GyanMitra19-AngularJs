@@ -64,11 +64,11 @@ export class AdminEventComponent implements OnInit {
 
   getEvents(page: any) {
     this.eventService.readEvent(this.currentPage).subscribe((response: any) => {
-      if(response.docs.length == 0){
+      if(response.msg.length == 0){
         this.currentPage -= 1;
       }
       else{
-      this.events = response.docs;     
+      this.events = response.msg;     
       }
     });
   }
@@ -159,7 +159,6 @@ export class AdminEventComponent implements OnInit {
   createForm() {
     this.submitted = false;
     this.eventForm = this.formBuilder.group({
-      __v: '',
       _id: '',
       title: '',
       category_id: '',
