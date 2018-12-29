@@ -16,7 +16,7 @@ export class UserregistrationService {
 
   readonly baseUrl = 'registration/';
   constructor(private http: HttpClient, private app: AppService) { }
-  createUser (name: String,college_id: String,department_id: String,degree_id: String,email_id: String,gender: String,mobile_number: String,password: String,year: String,activate: Boolean,registration_mode: String) {
+  createUser (name: String,college_id: String,department_id: String,degree_id: String,email_id: String,gender: String,mobile_number: String,password: String,year_id: String,activate: Boolean,registration_mode: String) {
     const body = { 
       name: name,
       college_id: college_id,
@@ -27,8 +27,8 @@ export class UserregistrationService {
       mobile_number: mobile_number,
       type: "user",
       password: password,
-      year: year,
-      activate: false,
+      year_id: year_id,
+      activated: false,
       registration_mode: registration_mode
     };
     const headers = new Headers();
@@ -46,6 +46,12 @@ export class UserregistrationService {
     const body = {
       email_id: mail_id
     }
+    return this.http.post(this.app.getUrl(this.baseUrl + 'activate'), body).pipe(map(res => res, {'headers': headers}));
+  }
+  activateUser(id: String, hash: String) {
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    const body = { _id: id, activation_code: hash };
     return this.http.post(this.app.getUrl(this.baseUrl + 'activate'), body).pipe(map(res => res, {'headers': headers}));
   }
 }

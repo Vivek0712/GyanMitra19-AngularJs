@@ -8,9 +8,10 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { routing } from '../routes/app.routes';
 import { AppComponent } from './app.component';
 ////////////////////////////////////////////////////////////
-import { AuthComponent } from './component/auth/auth.component';
-import { LoginComponent } from './component/auth/login/login.component';
-import { AuthNavbarComponent } from './component/auth/auth-navbar/auth-navbar.component';
+import { LoginComponent } from './component/user/login/login.component';
+import { ActivationComponent } from './component/user/activation/activation.component';
+import { RegisterComponent } from './component/user/register/register.component';
+
 //////////////////////////////////////////////////////////////////
 import { AdminComponent } from './component/admin/admin.component';
 import { AdminEventComponent } from './component/admin/admin-event/admin-event.component';
@@ -20,12 +21,9 @@ import { HomeComponent } from './component/admin/home/home.component';
 import { CollegeComponent } from './component/admin/college/college.component';
 /////////////////////////////////////////////////////////////////
 import { AuthService } from './services/auth/auth.service';
-
 import { AppService } from './services/app/app.service';
-
 import { AccomodationService } from './services/accomodation/accomodation.service'
 import { CourseService } from './services/course/course.service';
-
 import { CollegeService } from './services/college/college.service';
 import { CategoryComponent } from './component/admin/category/category.component';
 import { DegreeComponent } from './component/admin/degree/degree.component';
@@ -33,20 +31,18 @@ import { DepartmentComponent } from './component/admin/department/department.com
 import { DegreeService } from './services/degree/degree.service';
 import { DepartmentService } from './services/department/department.service';
 import { CourseComponent } from './component/admin/course/course.component';
-
 import { SearchfilterPipe } from './pipes/searchfilter.pipe';
 import { ResolveCategoryPipe } from './pipes/resolve-category.pipe';
-
 import { RegistrationService } from './services/registration/registration.service';
 import { RoleService } from './services/role/role.service';
 import { RoleUserService } from './services/role_user/role-user.service';
 import { TeamService } from './services/team/team.service';
 import { TeamMemberService } from './services/team_member/team-member.service';
-import { RegistrationComponent } from './component/admin/registration/registration.component';
-import { RegisterComponent } from './component/auth/register/register.component';
 import { ResolvecollegePipe } from './pipes/resolvecollege.pipe';
+///////////////////////////////////////////////////////////////////////////////////////
+import { RegistrationComponent } from './component/admin/registration/registration.component';
+
 import { ParticipantstatusComponent } from './component/admin/participantstatus/participantstatus.component';
-import { RegisterVerifyComponent } from './component/auth/register/register_verify/register_verify.component';
 import { NewRegistrationComponent } from './component/admin/new-registration/new-registration.component';
 import { AdminUsersComponent } from './component/admin/admin-users/admin-users.component';
 import { UserComponent } from './component/user/user.component';
@@ -59,6 +55,7 @@ import { CartComponent } from './component/user/cart/cart.component';
 import { AccomodationComponent } from './component/user/accomodation/accomodation.component'; 
 ////////////////////////////////////////////////////////////////
 import { AuthGuard } from './guard/auth/auth.guard';
+import { YearComponent } from './component/admin/year/year.component';
 
 /////////////////////////////////////////////////////////////////
 
@@ -68,9 +65,7 @@ import { AuthGuard } from './guard/auth/auth.guard';
     AppComponent,
     AdminComponent,
     CollegeComponent,
-    AuthComponent,
     LoginComponent,
-    AuthNavbarComponent,
     HomeComponent,
     AdminNavbarComponent,
     AdminSidebarComponent,
@@ -85,7 +80,7 @@ import { AuthGuard } from './guard/auth/auth.guard';
     RegisterComponent,
     ResolvecollegePipe,
     ParticipantstatusComponent,
-    RegisterVerifyComponent,
+    ActivationComponent,
     NewRegistrationComponent,
     AdminUsersComponent,
     UserComponent,
@@ -96,6 +91,8 @@ import { AuthGuard } from './guard/auth/auth.guard';
     WorkshopsComponent,
     CartComponent,
     AccomodationComponent,
+    YearComponent,
+    ActivationComponent
   ],
   imports: [
     BrowserModule,

@@ -11,13 +11,13 @@ export class AdminGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    if (this.authService.isAdmin()) {
-        return true;
+    if (!this.authService.isAdmin()) {
+      this.router.navigate(['/user/home']);
+      return false;
     }
     else
     {
-      this.router.navigate(['/user/home']);
-      return false;
+      return true;
     }
   }
 }

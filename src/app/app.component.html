@@ -1,8 +1,8 @@
-<body *ngIf="!authService.isLoggedIn()" class="vertical-layout vertical-menu 2-columns   fixed-navbar" data-open="click"
+<!--<body *ngIf="!authService.isLoggedIn()" class="vertical-layout vertical-menu 2-columns   fixed-navbar" data-open="click"
    data-menu="vertical-menu" data-color="bg-gradient-x-purple-blue" data-col="2-columns">
    <app-auth-navbar></app-auth-navbar>
    <router-outlet></router-outlet>
-</body>
+</body>-->
 
 <body *ngIf="authService.isAdmin() && authService.isLoggedIn()" class="vertical-layout vertical-menu 2-columns   menu-expanded fixed-navbar"
    data-open="click" data-menu="vertical-menu" data-color="bg-gradient-x-purple-blue" data-col="2-columns">
@@ -10,7 +10,7 @@
    <router-outlet></router-outlet>
 </body>
 
-<body *ngIf="!this.checkUrl() && !authService.isAdmin()" class="vertical-layout vertical-menu 2-columns   menu-expanded fixed-navbar"
+<body *ngIf="!authService.isAdmin()" class="vertical-layout vertical-menu 2-columns   menu-expanded fixed-navbar"
    data-open="click" data-menu="vertical-menu" data-color="bg-gradient-x-purple-blue" data-col="2-columns">
    <app-user-navbar></app-user-navbar>
    <router-outlet></router-outlet>

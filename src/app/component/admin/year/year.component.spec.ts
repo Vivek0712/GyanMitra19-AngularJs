@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AuthNavbarComponent } from './auth-navbar.component';
+import { YearComponent } from './year.component';
 
-describe('AuthNavbarComponent', () => {
-  let component: AuthNavbarComponent;
-  let fixture: ComponentFixture<AuthNavbarComponent>;
+describe('YearComponent', () => {
+  let component: YearComponent;
+  let fixture: ComponentFixture<YearComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AuthNavbarComponent ]
+      declarations: [ YearComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AuthNavbarComponent);
+    fixture = TestBed.createComponent(YearComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

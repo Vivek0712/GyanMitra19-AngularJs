@@ -10,7 +10,7 @@ export class UserComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.reloadToLoadJs();
+  //  this.reloadToLoadJs();
   }
   reloadToLoadJs() {
     var urlParams = [];
