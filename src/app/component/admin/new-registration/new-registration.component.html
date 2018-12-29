@@ -90,13 +90,10 @@
                         <div class="row">
                           <div class="col-12">
                             Year of Studying
-                            <select class="custom-select" formControlName="year">
-                              <option disabled value="">Year of Studying</option>
-                              <option value="1">1st Year</option>
-                              <option value="2">2nd Year</option>
-                              <option value="3">3rd Year</option>
-                              <option value="4">4th Year</option>
-                            </select>
+                            <select class="custom-select" formControlName="year_id">
+                                <option disabled value="">Year of Studying</option>
+                                <option *ngFor="let year of years" value={{year._id}}>{{year.name}}</option>
+                              </select>
                           </div>
                         </div>
                       </div>
