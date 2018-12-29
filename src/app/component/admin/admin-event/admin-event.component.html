@@ -19,8 +19,7 @@
       </div>
     </div>
     <!-- Modal -->
-    <div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="uploadModalLabel"
-      aria-hidden="true">
+    <div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="uploadModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -31,18 +30,14 @@
           </div>
           <div class="modal-body">
             <label class="image-upload-container btn btn-bwm">
-              <input #imageInput
-                    placeholder="Select an Image"
-                     type="file"
-                     accept="image/*"
-                     (change)="processFile($event)">
+              <input #imageInput placeholder="Select an Image" type="file" accept="image/*" (change)="processFile($event)">
             </label><br />
             Preview <br />
             <img src="" id="imgPreview" width=50 height=50 alt="Select and image to Preview" />
           </div>
           <div class="modal-footer">
             <span class="btn btn-secondary" data-dismiss="modal">
-                Close
+              Close
             </span>
           </div>
         </div>
@@ -234,21 +229,24 @@
               <div class="card-body">
                 <div class="row">
                   <div class="col-6">
-                      <input [(ngModel)]="searchText" placeholder="Search Events" class="form-control" >
+                    <input [(ngModel)]="searchText" placeholder="Search Events" class="form-control">
                   </div>
                   <div class="col-2">
-                      <span class="fonticon-wrap success">
-                          <a (click)="loadFull()">
-                              <i class="la la-search la-2x"></i>
-                          </a>
-                        </span>
+                    <span class="fonticon-wrap success">
+                      <a (click)="loadFull()">
+                        <i class="la la-search la-2x"></i>
+                      </a>
+                    </span>
                   </div>
                   <div class="col-4 ">
                     <div class="right">
-                          <span class="btn btn-info" (click)="previousPage()"> &lt; </span> &nbsp; Page {{currentPage}} &nbsp;  
-                          <span class="btn btn-info" (click)="nextPage()"> &gt; </span>
-                        </div>
+                      <span *ngIf="this.currentPage != 1">
+                        <span class="btn btn-info" (click)="previousPage()"> &lt; </span>
+                      </span>
+                      &nbsp; Page {{currentPage}} &nbsp;
+                      <span class="btn btn-info" (click)="nextPage()"> &gt; </span>
                     </div>
+                  </div>
                 </div>
                 <br />
                 <div class="table-responsive">
@@ -274,10 +272,10 @@
                           </div>
                         </td>
                         <td>
-                          <div class="fonticon-wrap icon-shadow icon-shadow-primary" (click)="selectEvent(event._id)" data-toggle="modal"
-                            data-target="#uploadModal">
+                          <div class="fonticon-wrap icon-shadow icon-shadow-primary" (click)="selectEvent(event._id)"
+                            data-toggle="modal" data-target="#uploadModal">
                             <a> <i class="la la-upload la-2x"></i></a>
-                        </div>
+                          </div>
                         </td>
                         <td>
                           <div class="fonticon-wrap icon-shadow icon-shadow-danger" (click)="deleteEvent(event._id)">

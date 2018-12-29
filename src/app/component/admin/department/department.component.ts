@@ -81,7 +81,12 @@ export class DepartmentComponent implements OnInit {
   }
   getDepartments(page: any) {
     this.departmentService.readDepartment(page).subscribe((response: any) => {
-     this.departments = response.docs;
+     if(response.docs.length == 0){
+       this.currentPage -= 1;
+     }
+     else{
+      this.departments = response.docs;
+     }
     });
 
   }

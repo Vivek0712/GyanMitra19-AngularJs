@@ -79,7 +79,12 @@ export class CourseComponent implements OnInit {
   }
   getCourses(page: any) {
     this.courseService.readCourse(page).subscribe((response: any) => {
-     this.courses = response.docs;
+     if(response.docs.length == 0){
+       this.currentPage -=1;
+     }
+     else {
+      this.courses = response.docs;
+     }
     });
 
   }

@@ -64,15 +64,12 @@ export class AdminEventComponent implements OnInit {
 
   getEvents(page: any) {
     this.eventService.readEvent(this.currentPage).subscribe((response: any) => {
-      if(response.msg.length == 0){
-        this.currentPage -= 1;
-        if(this.currentPage==0){
-          this.currentPage = 1;
-        }
-      }
-      else{
-      this.events = response.msg;     
-      }
+     if(response.error == false){
+       this.events = response.msg;
+     }
+     else{
+       this.currentPage -= 1;
+     }
     });
   }
 
@@ -82,12 +79,8 @@ export class AdminEventComponent implements OnInit {
   }
   
   previousPage() {
-    if(this.currentPage == 1) {
-    }
-    else{
       this.currentPage = this.currentPage -1;
       this.getEvents(this.currentPage);
-    }
   }
 
   changeGenderMixing() {
