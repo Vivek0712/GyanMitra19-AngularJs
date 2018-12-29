@@ -1,18 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators , FormBuilder , FormArray, NgForm } from '@angular/forms';
-import { CourseService } from 'src/app/services/course/course.service';
+import { YearService } from 'src/app/services/year/year.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
 declare var M: any;
-@Component({
-  selector: 'app-course',
-  templateUrl: './course.component.html',
-  styleUrls: ['./course.component.css']
-})
-export class CourseComponent implements OnInit {
 
-  constructor(private courseService: CourseService, private authService: AuthService, private formBuilder: FormBuilder) { }
-  courseForm: FormGroup;
-  courses: any;
+@Component({
+  selector: 'app-year',
+  templateUrl: './year.component.html',
+  styleUrls: ['./year.component.css']
+})
+export class YearComponent implements OnInit {
+
+  constructor(private yearService: YearService, private authService: AuthService, private formBuilder: FormBuilder) { }
+  yearForm: FormGroup;
+  years: any;
   Button: any;
   submitted:boolean;
   currentPage:any;
@@ -20,11 +21,11 @@ export class CourseComponent implements OnInit {
     this.submitted=false;
     this.currentPage=1;
     this.createForm();
-    this.getCourses(this.currentPage);
+    this.getYears(this.currentPage);
   }
   nextPage(){
     this.currentPage = this.currentPage + 1;
-    this.getCourses(this.currentPage);
+    this.getYears(this.currentPage);
   }
   
   previousPage() {
@@ -32,34 +33,34 @@ export class CourseComponent implements OnInit {
     }
     else{
       this.currentPage = this.currentPage -1;
-      this.getCourses(this.currentPage);
+      this.getYears(this.currentPage);
     }
   }
-  get f() { return this.courseForm.controls; }
+  get f() { return this.yearForm.controls; }
   onSubmit(form: NgForm) {
     this.submitted=true;
     if(form.valid){
       if ( form.value._id === '') {
-        this.courseService.createCourse( this.courseForm.get('name').value).subscribe((response: any) => {
+        this.yearService.createYear( this.yearForm.get('name').value).subscribe((response: any) => {
           if ( response.error ) {
             M.toast({ html: response.msg , classes: 'roundeds'});
-            this.getCourses(this.currentPage);
+            this.getYears(this.currentPage);
             this.createForm();
           } else {
             M.toast({ html: response.msg , classes: 'roundeds'});
-            this.getCourses(this.currentPage);
+            this.getYears(this.currentPage);
             this.createForm();
           }
         });
       } else {
-        this.courseService.updateCourse(form.value._id, form.value.name).subscribe((response: any) => {
+        this.yearService.updateYear(form.value._id, form.value.name).subscribe((response: any) => {
           if ( response.error ) {
             M.toast({ html: response.msg , classes: 'roundeds'});
-            this.getCourses(this.currentPage);
+            this.getYears(this.currentPage);
             this.createForm();
           } else {
             M.toast({ html: response.msg , classes: 'roundeds'});
-            this.getCourses(this.currentPage);
+            this.getYears(this.currentPage);
             this.createForm();
           }
         });
@@ -71,36 +72,37 @@ export class CourseComponent implements OnInit {
   }
   createForm() {
     this.submitted=false;
-    this.courseForm = this.formBuilder.group({
+    this.yearForm = this.formBuilder.group({
       _id: '',
       name: ['',Validators.required]
     });
     this.Button = 'Create';
   }
-  getCourses(page: any) {
-    this.courseService.readCourse(page).subscribe((response: any) => {
-     this.courses = response.docs;
+  getYears(page: any) {
+    this.yearService.readYear(page).subscribe((response: any) => {
+     this.years = response.docs;
     });
 
   }
-  deleteCourse(id: string) {
-  this.courseService.deleteCourse(id).subscribe((response: any) => {
+  deleteYear(id: string) {
+  this.yearService.deleteYear(id).subscribe((response: any) => {
     if ( response.error ) {
       M.toast({ html: response.msg , classes: 'roundeds'});
-      this.getCourses(this.currentPage);
+      this.getYears(this.currentPage);
       this.createForm();
     } else {
       M.toast({ html: response.msg , classes: 'roundeds'});
-      this.getCourses(this.currentPage);
+      this.getYears(this.currentPage);
       this.createForm();
     }
   });
   }
-  updateCourse(id: string, name: string) {
+  updateYear(id: string, name: string) {
     this.Button = 'Update';
-    this.courseForm.setValue({
+    this.yearForm.setValue({
       _id: id,
       name: name
     });
   }
+
 }

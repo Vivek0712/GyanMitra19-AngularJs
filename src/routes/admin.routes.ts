@@ -8,6 +8,8 @@ import { AdminEventComponent } from '../app/component/admin/admin-event/admin-ev
 import { ParticipantstatusComponent } from 'src/app/component/admin/participantstatus/participantstatus.component';
 import { RegistrationComponent } from 'src/app/component/admin/registration/registration.component';
 import { NewRegistrationComponent } from 'src/app/component/admin/new-registration/new-registration.component';
+import { YearComponent } from 'src/app/component/admin/year/year.component';
+import { CourseComponent } from 'src/app/component/admin/course/course.component';
 
 
 
@@ -17,7 +19,9 @@ export const ADMIN_ROUTE: Routes = [
      {path: 'category', component:CategoryComponent},
      {path: 'degree', component:DegreeComponent},
      {path: 'department',component:DepartmentComponent},
-     {path: 'events', component:AdminEventComponent},
+     { path: 'events', component: AdminEventComponent },
+     { path: 'year', component: YearComponent },
+     {path:'course' ,component:CourseComponent},
      {path: 'participationstatus', component:ParticipantstatusComponent},
      { path: 'registration', component: RegistrationComponent },
      {path :'new_registration', component: NewRegistrationComponent}

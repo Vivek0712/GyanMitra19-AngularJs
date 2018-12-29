@@ -19,7 +19,7 @@
       </div>
     </div>
     
-<!-- Modal -->
+<!-- Modal 
 <div class="modal fade" id="participantModal" tabindex="-1" role="dialog" aria-labelledby="participantModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -48,7 +48,7 @@
       </div>
     </div>
   </div>
-</div>
+</div>-->
     <div class="content-body">
       <div class="row">
         <div class="col-12">
@@ -114,23 +114,30 @@
                       <tr>
                         <th>Sl. No</th>
                         <th>Name</th>
-                        <th>College
-                        </th>
-                        <th>Gender</th>
-                        <th>More</th>
+                        <th>College</th>
+                        <th>Email</th>
+                        <th>MobileNumber</th>
+                        <th>Delete</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr *ngFor="let participant of participants | searchfilter : searchText ; let i = index;">
                         <th scope="row">{{i+1}}</th>
+                      
                         <td>{{participant.name}}</td>
                         <td>{{participant.college_id | resolvecollege}} </td>
-                        <td>{{participant.gender}}</td>
-                        <td>
+                        <td>{{participant.email_id}}</td>
+                        <td>{{participant.mobile_number}}</td>
+                        <!--<td>
                           <div class="fonticon-wrap icon-shadow icon-shadow-info" data-toggle="modal" data-target="#participantModal" (click)="moreInfo(participant._id)">
                             <a> <i class="la la-info-circle la-2x"></i></a>
                           </div>
-                        </td>
+                        </td>-->
+                        <td>
+                          <div class="fonticon-wrap icon-shadow icon-shadow-danger" (click)="deleteParticipant(participant._id)">
+                              <a> <i class="la la-trash la-2x"></i></a>
+                          </div>
+                      </td>
                       </tr>
                     </tbody>
                   </table>

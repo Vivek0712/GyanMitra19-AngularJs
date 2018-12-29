@@ -90,18 +90,8 @@ export class RegistrationComponent implements OnInit {
     this.getAllParticipants();
   }
 
-  filterSub(_id, gender) {
-    return this.participants.filter(
-        function(data)
-        { 
-          return data.college_id == _id && data.gender == gender;
-        }
-    );
-  }
-
   // filter() {
-  //   return this.loadFull().then(() => {
-  //   this.participants = this.filterSub(this.selectedCollegeId, this.selectedGender);
+  //   this.loadAllParticipants().((response: any)=>{
 
   //   })
   // }
@@ -145,5 +135,17 @@ export class RegistrationComponent implements OnInit {
       this.getParticipants(this.currentPage);
     }
   }
+  deleteParticipant(id: string) {
+    console.log('helo');
+    this.userService.deleteUser(id).subscribe((response: any) => {
+      if ( response.error ) {
+        M.toast({ html: response.msg, classes: 'roundeds' }); 
+        this.getParticipants(this.currentPage);
+      } else {
+        M.toast({ html: response.msg, classes: 'roundeds' });
+        this.getParticipants(this.currentPage);
+      }
+    });
+    }
 
 }

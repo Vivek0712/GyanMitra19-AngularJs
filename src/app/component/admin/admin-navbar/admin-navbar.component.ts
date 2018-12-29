@@ -24,7 +24,7 @@ export class AdminNavbarComponent implements OnInit {
   }
   onLogoutClick() {
     this.authService.destroySession();
-    this.router.navigate(['/auth/login']);
+    this.router.navigate(['/user/login']);
    }
 
 }
