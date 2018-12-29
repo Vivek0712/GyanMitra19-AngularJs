@@ -94,4 +94,3 @@ export class EventService {
     return this.http.delete(this.app.getUrl(this.baseUrl + `${id}`)).pipe(map(res => res, { 'headers': headers }));
   }
 }
-

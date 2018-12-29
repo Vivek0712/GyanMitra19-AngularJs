@@ -66,6 +66,9 @@ export class AdminEventComponent implements OnInit {
     this.eventService.readEvent(this.currentPage).subscribe((response: any) => {
       if (response.docs.length == 0) {
         this.currentPage -= 1;
+        if(this.currentPage==0){
+          this.currentPage = 1;
+        }
       }
       else {
         this.events = response.docs;
@@ -188,10 +191,13 @@ export class AdminEventComponent implements OnInit {
     this.eventService.deleteEvent(id).subscribe((response: any) => {
       if (response.error) {
         M.toast({ html: response.msg, classes: 'roundeds' });
+        this.events=[];
         this.getEvents(this.currentPage);
+
         this.createForm();
       } else {
         M.toast({ html: response.msg, classes: 'roundeds' });
+        this.events=[];
         this.getEvents(this.currentPage);
         this.createForm();
       }
