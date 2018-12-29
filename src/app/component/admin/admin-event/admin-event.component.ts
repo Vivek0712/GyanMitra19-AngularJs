@@ -41,51 +41,51 @@ export class AdminEventComponent implements OnInit {
   constructor(private eventService: EventService, private formBuilder: FormBuilder, private categoryService: CategoryService, private departmentService: DepartmentService) { }
 
   ngOnInit() {
-    this.currentPage = 1;
+    this.currentPage=1;
     this.getCategories();
     this.createForm();
     this.getEvents(1);
     this.getDepartments();
     this.submitted = false;
     this.allow_gender_mixing = false;
-    this.selectedEventID = '';
+    this.selectedEventID='';
   }
 
   reloadEvents() {
-    this.searchText = '';
+    this.searchText='';
     this.getEvents(1);
   }
 
-  loadFull() {
+  loadFull(){
     this.eventService.readAllEvents().subscribe((response: any) => {
-      this.events = response;
+      this.events = response; 
     })
   }
 
   getEvents(page: any) {
     this.eventService.readEvent(this.currentPage).subscribe((response: any) => {
-      if (response.docs.length == 0) {
+      if(response.msg.length == 0){
         this.currentPage -= 1;
         if(this.currentPage==0){
           this.currentPage = 1;
         }
       }
-      else {
-        this.events = response.docs;
+      else{
+      this.events = response.msg;     
       }
     });
   }
 
-  nextPage() {
+  nextPage(){
     this.currentPage = this.currentPage + 1;
     this.getEvents(this.currentPage);
   }
-
+  
   previousPage() {
-    if (this.currentPage == 1) {
+    if(this.currentPage == 1) {
     }
-    else {
-      this.currentPage = this.currentPage - 1;
+    else{
+      this.currentPage = this.currentPage -1;
       this.getEvents(this.currentPage);
     }
   }
@@ -106,23 +106,25 @@ export class AdminEventComponent implements OnInit {
     });
   }
 
-  selectEvent(_id: string) {
+  selectEvent(_id: string){
     this.selectedEventID = _id;
   }
 
   get f() { return this.eventForm.controls; }
 
-  processFile(event: any) {
+  processFile(event:any) {
     let fileList: FileList = event.target.files;
-    if (fileList.length > 0) {
-      let file: File = fileList[0];
-      let formData: FormData = new FormData();
-      formData.append('uploadFile', file, file.name);
-      formData.append('_id', this.selectedEventID);
-      this.eventService.uploadFile(formData).subscribe((response: any) => {
-      });
+    if(fileList.length > 0) {
+        let file: File = fileList[0];
+        let formData:FormData = new FormData();
+        formData.append('uploadFile', file, file.name);
+        formData.append('_id',this.selectedEventID);
+        this.eventService.uploadFile(formData).subscribe((response: any)=>{
+          console.log(response);
+        })
     }
-  }
+}
+
 
   onSubmit(form: NgForm) {
     this.submitted = true;
@@ -160,7 +162,6 @@ export class AdminEventComponent implements OnInit {
   createForm() {
     this.submitted = false;
     this.eventForm = this.formBuilder.group({
-      __v: '',
       _id: '',
       title: '',
       category_id: '',
