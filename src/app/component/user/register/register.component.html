@@ -17,10 +17,10 @@
 								</div>
 								<div class="card-body">
 									<form class="form" [formGroup]="registerForm" (ngSubmit)=onSubmit(registerForm.value)>
-										<div class="form-group">
+										<div class="form-group position-relative has-icon-left">
 											<div class="row">
 												<div class="col-12">
-													<input type="text" class="form-control" placeholder="Name" formControlName="name" [ngClass]="{'is-invalid': submitted &&f.name.errors}">
+													<input type="text" class="form-control round" placeholder="Name" formControlName="name" [ngClass]="{'is-invalid': submitted &&f.name.errors}">
 													<div *ngIf="submitted && f.name.errors" class="invalid-feedback">
 														<div *ngIf="f.name.errors.required">Name is required
 														</div>
@@ -31,7 +31,7 @@
 										<div class="form-group">
 											<div class="row">
 												<div class="col-12">
-													<input type="email" class="form-control" placeholder="Email ID" formControlName="email_id" [ngClass]="{'is-invalid': submitted &&f.email_id.errors}">
+													<input type="email" class="form-control round" placeholder="Email ID" formControlName="email_id" [ngClass]="{'is-invalid': submitted &&f.email_id.errors}">
 													<div *ngIf="submitted && f.email_id.errors" class="invalid-feedback">
 														<div *ngIf="f.email_id.errors.required">Email_id is required
 														</div>
@@ -43,7 +43,7 @@
 										<div class="form-group">
 											<div class="row">
 												<div class="col-6">
-													<input type="text" class="form-control" placeholder="Mobile Number" formControlName="mobile_number"
+													<input type="text" class="form-control round" placeholder="Mobile Number" formControlName="mobile_number"
 													 [ngClass]="{'is-invalid': submitted &&f.mobile_number.errors}">
 													<div *ngIf="submitted && f.mobile_number.errors" class="invalid-feedback">
 														<div *ngIf="f.mobile_number.errors.required">Mobile Number is required
@@ -51,7 +51,7 @@
 													</div>
 												</div>
 												<div class="col-6">
-													<select class="custom-select" formControlName="gender">
+													<select class="custom-select round" formControlName="gender">
 														<option disabled value="">Gender</option>
 														<option value="Male">Male</option>
 														<option value="Female">Female</option>
@@ -64,14 +64,14 @@
 											<div class="row">
 												<div class="col-6">
 													College
-													<select class="custom-select" formControlName="college_id">
+													<select class="custom-select round" formControlName="college_id">
 														<option disabled value="">College</option>
 														<option *ngFor="let college of colleges" value={{college._id}}>{{college.name}}</option>
 													</select>
 												</div>
 												<div class="col-6">
 													Course
-													<select class="custom-select" formControlName="course_id">
+													<select class="custom-select round" formControlName="course_id">
 														<option disabled value="">Course</option>
 														<option *ngFor="let course of courses" value={{course._id}}>{{course.name}}</option>
 													</select>
@@ -82,14 +82,14 @@
 											<div class="row">
 												<div class="col-6">
 													Year of Studying
-													<select class="custom-select" formControlName="year_id">
+													<select class="custom-select round" formControlName="year_id">
 														<option disabled value="">Year of Studying</option>
 														<option *ngFor="let year of years" value={{year._id}}>{{year.name}}</option>
 													</select>
 												</div>
 												<div class="col-6">
 													Degree
-													<select class="custom-select" formControlName="degree_id">
+													<select class="custom-select round" formControlName="degree_id">
 														<option disabled value="">Degree</option>
 														<option *ngFor="let degree of degrees" value={{degree._id}}>{{degree.name}}</option>
 													</select>
@@ -100,20 +100,19 @@
 										<div class="form-group">
 											<div class="row">
 												<div class="col-6">
-													<input type="password" class="form-control" placeholder="Password" formControlName="password" [ngClass]="{'is-invalid': submitted &&f.password.errors}">
+													<input type="password" class="form-control round" placeholder="Password" formControlName="password" [ngClass]="{'is-invalid': submitted &&f.password.errors}">
 													<div *ngIf="submitted && f.password.errors" class="invalid-feedback">
 														<div *ngIf="f.password.errors.required">Password is required
 														</div>
 													</div>
 												</div>
 												<div class="col-6">
-													<input type="password" class="form-control" placeholder="Confirm Password" formControlName="conpassword"
+													<input type="password" class="form-control round" placeholder="Confirm Password" formControlName="conpassword"
 													 [ngClass]="{'is-invalid': submitted &&f.conpassword.errors}">
 													<div *ngIf="submitted && f.conpassword.errors" class="invalid-feedback">
 														<div *ngIf="f.conpassword.errors.required">Confirm Password is required
 														</div>
-													</div>
-												</div>
+													</div>												</div>
 											</div>
 										</div>
 										<div class="form-action left row">
