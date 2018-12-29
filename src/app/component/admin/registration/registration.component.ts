@@ -90,18 +90,8 @@ export class RegistrationComponent implements OnInit {
     this.getAllParticipants();
   }
 
-  filterSub(_id, gender) {
-    return this.participants.filter(
-        function(data)
-        { 
-          return data.college_id == _id && data.gender == gender;
-        }
-    );
-  }
-
   // filter() {
-  //   return this.loadFull().then(() => {
-  //   this.participants = this.filterSub(this.selectedCollegeId, this.selectedGender);
+  //   this.loadAllParticipants().((response: any)=>{
 
   //   })
   // }
