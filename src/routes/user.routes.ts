@@ -3,13 +3,12 @@ import { HomeComponent } from 'src/app/component/admin/home/home.component';
 import { AboutComponent } from 'src/app/component/user/about/about.component';
 import { EventsComponent } from 'src/app/component/user/events/events.component';
 import { WorkshopsComponent } from 'src/app/component/user/workshops/workshops.component';
-import { AccomodationComponent } from 'src/app/component/user/accomodation/accomodation.component';
 import { CartComponent } from 'src/app/component/user/cart/cart.component';
 import { AuthGuard } from 'src/app/guard/auth/auth.guard';
 import { LoginComponent } from 'src/app/component/user/login/login.component';
 import { RegisterComponent } from 'src/app/component/user/register/register.component';
 import { ActivationComponent } from 'src/app/component/user/activation/activation.component';
-
+import { UserAccomodationComponent } from 'src/app/component/user/user-accomodation/user-accomodation.component'
 
 
 export const USER_ROUTE: Routes = [
@@ -20,6 +19,6 @@ export const USER_ROUTE: Routes = [
      { path: 'login', component: LoginComponent },
      { path: 'register', component: RegisterComponent },
      { path: 'activate/:id/:hash',component:ActivationComponent},
-     { path: 'accomodation', component: AccomodationComponent, canActivate:[AuthGuard] },
-     { path: 'cart', component: CartComponent, canActivate:[AuthGuard]}
+     { path: 'cart', component: CartComponent, canActivate:[AuthGuard]},
+     { path: 'accomodation', component: UserAccomodationComponent}
 ];

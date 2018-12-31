@@ -10,19 +10,19 @@ import { RegistrationComponent } from 'src/app/component/admin/registration/regi
 import { NewRegistrationComponent } from 'src/app/component/admin/new-registration/new-registration.component';
 import { YearComponent } from 'src/app/component/admin/year/year.component';
 import { CourseComponent } from 'src/app/component/admin/course/course.component';
-
-
+import { AdminAccomodationComponent } from 'src/app/component/admin/admin-accomodation/admin-accomodation.component'
 
 export const ADMIN_ROUTE: Routes = [
-     {path: 'home', component:HomeComponent },
-     {path: 'college', component:CollegeComponent},
-     {path: 'category', component:CategoryComponent},
-     {path: 'degree', component:DegreeComponent},
-     {path: 'department',component:DepartmentComponent},
+     { path: 'home', component: HomeComponent },
+     { path: 'college', component: CollegeComponent },
+     { path: 'category', component: CategoryComponent },
+     { path: 'degree', component: DegreeComponent },
+     { path: 'department', component: DepartmentComponent },
      { path: 'events', component: AdminEventComponent },
      { path: 'year', component: YearComponent },
-     {path:'course' ,component:CourseComponent},
-     {path: 'participationstatus', component:ParticipantstatusComponent},
+     { path: 'course', component: CourseComponent },
+     { path: 'participationstatus', component: ParticipantstatusComponent },
      { path: 'registration', component: RegistrationComponent },
-     {path :'new_registration', component: NewRegistrationComponent}
+     { path: 'new_registration', component: NewRegistrationComponent },
+     { path: 'accomodation', component: AdminAccomodationComponent}
 ];

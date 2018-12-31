@@ -1,0 +1,97 @@
+<div class="app-content content">
+  <div class="content-wrapper">
+    <div class="content-wrapper-before"></div>
+    <div class="content-header row">
+      <div class="content-header-left col-md-4 col-12 mb-2">
+        <h3 class="content-header-title">Accomodation</h3>
+      </div>
+      <div class="content-header-right col-md-8 col-12">
+        <div class="breadcrumbs-top float-md-right">
+          <div class="breadcrumb-wrapper mr-1">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="index.html">Home</a>
+              </li>
+              <li class="breadcrumb-item active"> Accomodation
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="content-body">
+      <section id="content-types">
+        <div class="row match-height justify-content-md-center">
+          <div class="col-xl-6 col-md-12">
+          </div>
+        </div>
+      </section>
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <h4 class="card-title">
+                <span *ngIf="accomodation" [ngClass]="{'success': accomodation.acc_payment_status == 'Paid' && accomodation.acc_status == 'Confirmed'}" [ngClass]="{'danger': accomodation.acc_payment_status == 'Not Paid' && accomodation.acc_status == 'Not Confirmed'}">
+                  Payment Status : {{accomodation.acc_payment_status}} | Accomodation Status : {{accomodation.acc_status}}
+                </span>
+                <span *ngIf="!accomodation">
+                 Accomodation Status : Not Applied
+                </span>
+              </h4>
+              <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+              <div class="heading-elements">
+                <ul class="list-inline mb-0">
+                </ul>
+              </div>
+            </div>
+            <div class="card-content collapse show">
+              <div class="card-body">
+                <div *ngIf="!accomodation.acc_status">
+                  <form class="form" [formGroup]="accomodationForm" (ngSubmit)=onSubmit(accomodationForm)>
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-5">
+                          <div class="col-6">
+                            Number of Days
+                          </div>
+                          <div class="col-6">
+                            <select class="custom-select" formControlName="acc_days">
+                              <option value="1">1</option>
+                              <option value="2">2</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-5">
+                          <div class="col-6">
+                            Mode of Payment
+                          </div>
+                          <div class="col-6">
+                            <select class="custom-select" formControlName="acc_mode_of_payment">
+                              <option value="Demand Draft">Demand Draft</option>
+                              <option value="Online Payment">Online Payment</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-2">
+                          <br />
+                            <button type="submit" class="btn btn-outline-success right">Apply for Accomodation</button>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <div *ngIf="accomodation.acc_mode_of_payment == 'Demand Draft' && accomodation.acc_payment_status == 'Not Paid'">
+                  <h5>Upload Demand Draft</h5>
+                  <hr />
+                  <input #imageInput placeholder="Select an Image" type="file" accept="image/*" (change)="processFile($event)">
+                </div>
+                <div *ngIf="accomodation.acc_payment_status == 'Paid' && accomodation.acc_status == 'Not Confimed' ">
+                  Please Wait for confirmation with us!!!
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

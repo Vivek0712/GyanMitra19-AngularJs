@@ -11,7 +11,6 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './component/user/login/login.component';
 import { ActivationComponent } from './component/user/activation/activation.component';
 import { RegisterComponent } from './component/user/register/register.component';
-
 //////////////////////////////////////////////////////////////////
 import { AdminComponent } from './component/admin/admin.component';
 import { AdminEventComponent } from './component/admin/admin-event/admin-event.component';
@@ -41,7 +40,6 @@ import { TeamMemberService } from './services/team_member/team-member.service';
 import { ResolvecollegePipe } from './pipes/resolvecollege.pipe';
 ///////////////////////////////////////////////////////////////////////////////////////
 import { RegistrationComponent } from './component/admin/registration/registration.component';
-
 import { ParticipantstatusComponent } from './component/admin/participantstatus/participantstatus.component';
 import { NewRegistrationComponent } from './component/admin/new-registration/new-registration.component';
 import { AdminUsersComponent } from './component/admin/admin-users/admin-users.component';
@@ -52,11 +50,11 @@ import { AboutComponent } from './component/user/about/about.component';
 import { EventsComponent } from './component/user/events/events.component';
 import { WorkshopsComponent } from './component/user/workshops/workshops.component';
 import { CartComponent } from './component/user/cart/cart.component';
-import { AccomodationComponent } from './component/user/accomodation/accomodation.component'; 
 ////////////////////////////////////////////////////////////////
 import { AuthGuard } from './guard/auth/auth.guard';
 import { YearComponent } from './component/admin/year/year.component';
-
+import { AdminAccomodationComponent } from './component/admin/admin-accomodation/admin-accomodation.component';
+import { UserAccomodationComponent } from './component/user/user-accomodation/user-accomodation.component';
 /////////////////////////////////////////////////////////////////
 
 
@@ -90,9 +88,10 @@ import { YearComponent } from './component/admin/year/year.component';
     EventsComponent,
     WorkshopsComponent,
     CartComponent,
-    AccomodationComponent,
     YearComponent,
-    ActivationComponent
+    ActivationComponent,
+    AdminAccomodationComponent,
+    UserAccomodationComponent,
   ],
   imports: [
     BrowserModule,
@@ -100,7 +99,7 @@ import { YearComponent } from './component/admin/year/year.component';
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    NgbModule
+    NgbModule,
   ],
   providers: [
     JwtHelper,
@@ -116,8 +115,7 @@ import { YearComponent } from './component/admin/year/year.component';
     RoleUserService,
     TeamService,
     TeamMemberService,
-    AuthGuard
-
+    AuthGuard,
   ],
   bootstrap: [AppComponent]
 })

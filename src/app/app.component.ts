@@ -7,7 +7,7 @@ import { AuthService } from './services/auth/auth.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'GyanMitra19-AngularJs';
+  title = 'GyanMitra19';
   public href: string = "";
   constructor(private authService: AuthService) { }
   ngOnInit() {
