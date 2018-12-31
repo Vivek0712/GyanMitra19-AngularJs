@@ -5,6 +5,7 @@ import { UserregistrationService } from 'src/app/services/userregistration/userr
 import { DepartmentService } from 'src/app/services/department/department.service';
 import { CollegeService } from 'src/app/services/college/college.service';
 import { DegreeService } from 'src/app/services/degree/degree.service';
+import { YearService } from 'src/app/services/year/year.service';
 declare var M: any;
 
 @Component({
@@ -13,19 +14,29 @@ declare var M: any;
   styleUrls: ['./new-registration.component.css']
 })
 export class NewRegistrationComponent implements OnInit {
-  constructor(private degreeservice: DegreeService,private collegeservice:CollegeService,private departmentservice: DepartmentService,private reg: UserregistrationService,private router: Router, private formBuilder: FormBuilder) { }
+  constructor(private yearService: YearService, private degreeservice: DegreeService,private collegeservice:CollegeService,private departmentservice: DepartmentService,private reg: UserregistrationService,private router: Router, private formBuilder: FormBuilder) { }
   registerForm: FormGroup;
   Button: any;
   submitted = false;
   departments: Array<any>;
   colleges: Array<any>;
-  degrees: Array<any>
+  degrees: Array<any>;
+  years : Array<any>;
+  
   ngOnInit() {
     this.createForm();
     this.getDepartments();
     this.getColleges();
     this.getDegrees();
+    this.getYears();
   }
+
+  getYears() {
+    this.yearService.readYear(0).subscribe((response: any) => {
+      this.years = response;
+    });
+  }
+
   get f() { return this.registerForm.controls; }
   //Create Form is Used to Initalize the Values the Form
   createForm(){
@@ -41,7 +52,7 @@ export class NewRegistrationComponent implements OnInit {
       college_id:[''],
       department_id:[''],
       gender:[''],
-      year:['']
+      year_id:['']
     });
   }
   //The action performed After the Button is Pressed
@@ -58,14 +69,14 @@ export class NewRegistrationComponent implements OnInit {
       const college_id = this.registerForm.get('college_id').value;
       const degree_id = this.registerForm.get('degree_id').value;
       const department_id = this.registerForm.get('department_id').value;
-      const year = this.registerForm.get('year').value;
+      const year_id = this.registerForm.get('year_id').value;
       
       if(password !== conpassword){
         M.toast({ html: 'Passwords does not match', classes: 'rounded' });
         this.createForm();
       }
       else {
-        this.reg.createUser(name,college_id,department_id,degree_id,email_id,gender,mobile_number,password,year,true,"offline").subscribe((response: any) => {
+        this.reg.createUser(name,college_id,department_id,degree_id,email_id,gender,mobile_number,password,year_id,true,"offline").subscribe((response: any) => {
           if (response.error) {
             M.toast({ html: response.msg, classes: 'roundeds' });
           } else {

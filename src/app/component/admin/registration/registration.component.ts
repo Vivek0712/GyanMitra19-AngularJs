@@ -115,8 +115,10 @@ export class RegistrationComponent implements OnInit {
     this.userService.getParticpants(page).subscribe((response: any) => {
       if(response.docs.length == 0){
         this.currentPage -= 1;
+        this.participants = []
       }
       else{
+        this.participants = []
         this.participants = response.docs;
       }
     });
