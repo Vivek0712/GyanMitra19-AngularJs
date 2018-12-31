@@ -23,10 +23,10 @@ export class RoleService {
     headers.append('Content-Type', 'application/json');
     return this.http.post(this.app.getUrl(this.baseUrl + 'create'), body).pipe(map(res => res, {'headers': headers}));
   }
-  readRole() {
+  readRole(page:any) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.get(this.app.getUrl(this.baseUrl));
+    return this.http.get(this.app.getUrl(this.baseUrl)+'?page='+page);
   }
   updateRole(id: String,name: String) {
     const body = { 
@@ -37,9 +37,14 @@ export class RoleService {
     headers.append('Content-Type', 'application/json');
     return this.http.put(this.app.getUrl(this.baseUrl + `${id}`), body).pipe(map(res => res, {'headers': headers}));
   }
-  deleteCategory(id: String) {
+  deleteRole(id: String) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this.http.delete(this.app.getUrl(this.baseUrl + `${id}` ) ).pipe(map(res => res, {'headers': headers}));
+  }
+  readRoles() {
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.get(this.app.getUrl(this.baseUrl));
   }
 }

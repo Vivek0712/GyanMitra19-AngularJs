@@ -10,6 +10,8 @@ import { RegistrationComponent } from 'src/app/component/admin/registration/regi
 import { NewRegistrationComponent } from 'src/app/component/admin/new-registration/new-registration.component';
 import { YearComponent } from 'src/app/component/admin/year/year.component';
 import { CourseComponent } from 'src/app/component/admin/course/course.component';
+import { RoleComponent } from 'src/app/component/admin/role/role.component';
+import { AdminUsersComponent } from 'src/app/component/admin/admin-users/admin-users.component';
 
 
 
@@ -24,5 +26,7 @@ export const ADMIN_ROUTE: Routes = [
      {path:'course' ,component:CourseComponent},
      {path: 'participationstatus', component:ParticipantstatusComponent},
      { path: 'registration', component: RegistrationComponent },
-     {path :'new_registration', component: NewRegistrationComponent}
+     { path: 'new_registration', component: NewRegistrationComponent },
+     { path: 'role', component: RoleComponent },
+     {path:'users',component:AdminUsersComponent}
 ];

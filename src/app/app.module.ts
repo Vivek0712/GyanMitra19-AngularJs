@@ -56,6 +56,7 @@ import { AccomodationComponent } from './component/user/accomodation/accomodatio
 ////////////////////////////////////////////////////////////////
 import { AuthGuard } from './guard/auth/auth.guard';
 import { YearComponent } from './component/admin/year/year.component';
+import { RoleComponent } from './component/admin/role/role.component';
 
 /////////////////////////////////////////////////////////////////
 
@@ -92,7 +93,8 @@ import { YearComponent } from './component/admin/year/year.component';
     CartComponent,
     AccomodationComponent,
     YearComponent,
-    ActivationComponent
+    ActivationComponent,
+    RoleComponent
   ],
   imports: [
     BrowserModule,
