@@ -32,12 +32,12 @@
       </li>
       <li class="nav-item has-sub"><a><i class="fas fa-cog"></i><span class="menu-title" data-i18n="">EventForm</span></a>
         <ul class="menu-content">
+          <li class="menu-item"><a [routerLink]="['/admin/events']" [routerLinkActive]="['active']"
+            [routerLinkActiveOptions]="{exact:true}"><span class="menu-title" data-i18n="">Events</span></a></li>
           <li class="menu-item"><a [routerLink]="['/admin/category']" [routerLinkActive]="['active']"
               [routerLinkActiveOptions]="{exact:true}"><span class="menu-title" data-i18n="">Event Category</span></a></li>
           <li class="menu-item"><a [routerLink]="['/admin/department']" [routerLinkActive]="['active']"
               [routerLinkActiveOptions]="{exact:true}"><span class="menu-title" data-i18n="">Department</span></a></li>
-          <li class="menu-item"><a [routerLink]="['/admin/events']" [routerLinkActive]="['active']"
-              [routerLinkActiveOptions]="{exact:true}"><span class="menu-title" data-i18n="">Events</span></a></li>
           <li class="menu-item"><a [routerLink]="['/admin/participationstatus']" [routerLinkActive]="['active']"
               [routerLinkActiveOptions]="{exact:true}"><span class="menu-title" data-i18n="">Participation Status</span></a></li>
         </ul>
@@ -52,6 +52,14 @@
               [routerLinkActiveOptions]="{exact:true}"><span class="menu-title" data-i18n="">Course</span></a></li>
           <li class="menu-item"><a [routerLink]="['/admin/year']" [routerLinkActive]="['active']"
               [routerLinkActiveOptions]="{exact:true}"><span class="menu-title" data-i18n="">Year</span></a></li>
+        </ul>
+      </li>
+      <li class="nav-item has-sub"><a> <i class="fas fa-users-cog"></i><span class="menu-title" data-i18n="">Make Users</span></a>
+        <ul class="menu-content">
+            <li class="menu-item"><a [routerLink]="['/admin/users']" [routerLinkActive]="['active']"
+              [routerLinkActiveOptions]="{exact:true}"><span class="menu-title" data-i18n="">Users</span></a></li>
+          <li class="menu-item"><a [routerLink]="['/admin/role']" [routerLinkActive]="['active']"
+              [routerLinkActiveOptions]="{exact:true}"><span class="menu-title" data-i18n="">Roles</span></a></li>
         </ul>
       </li>
     </ul>

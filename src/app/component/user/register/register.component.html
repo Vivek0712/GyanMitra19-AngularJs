@@ -39,7 +39,7 @@
 												</div>
 											</div>
 										</div>
-									
+
 										<div class="form-group">
 											<div class="row">
 												<div class="col-6">
@@ -96,11 +96,12 @@
 												</div>
 											</div>
 										</div>
-										
+
 										<div class="form-group">
 											<div class="row">
 												<div class="col-6">
-													<input type="password" class="form-control round" placeholder="Password" formControlName="password" [ngClass]="{'is-invalid': submitted &&f.password.errors}">
+													<input type="password" class="form-control round" placeholder="Password" formControlName="password"
+													 [ngClass]="{'is-invalid': submitted &&f.password.errors}">
 													<div *ngIf="submitted && f.password.errors" class="invalid-feedback">
 														<div *ngIf="f.password.errors.required">Password is required
 														</div>
@@ -112,17 +113,18 @@
 													<div *ngIf="submitted && f.conpassword.errors" class="invalid-feedback">
 														<div *ngIf="f.conpassword.errors.required">Confirm Password is required
 														</div>
-													</div>												</div>
+													</div>
+												</div>
 											</div>
 										</div>
 										<div class="form-action left row">
 											<div class="col">
-											    <span (click)="createForm()" class="btn btn-outline-danger left">Reset</span>
+											    <span (click)="createForm()" class="btn btn-outline-danger left round">Reset</span>
 											</div>
 											<div class="col">
-											    <button type="submit" class="btn btn-outline-success right">{{this.Button}}</button>
+											    <button type="submit" class="btn btn-outline-success right round">{{this.Button}}</button>
 											</div>
-										 </div>
+										</div>
 									</form>
 								</div>
 							</div>
