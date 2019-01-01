@@ -28,7 +28,7 @@ export const ADMIN_ROUTE: Routes = [
      { path: 'participationstatus', component: ParticipantstatusComponent },
      { path: 'registration', component: RegistrationComponent },
      { path: 'new_registration', component: NewRegistrationComponent },
-     { path: 'accomodation', component: AdminAccomodationComponent}
+     { path: 'accomodation', component: AdminAccomodationComponent},
      { path: 'role', component: RoleComponent },
-     {path:'users',component:AdminUsersComponent}
+     { path:'users',component:AdminUsersComponent}
 ];

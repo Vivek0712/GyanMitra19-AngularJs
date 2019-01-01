@@ -54,16 +54,14 @@ export class EventsComponent implements OnInit {
   }
 
   getCategory(category_id: String):String {
-    let s = "";
     this.categoryService.readCategory().subscribe((response: any) => {
       for(let cat in response.docs){
         if(response.docs[cat]._id == category_id){
-          s = s+response.docs[cat].name;
-          console.log(s);
+          return response.docs[cat].name;
         }
       }
     });
-    return s;
+    return "Invalid Id";
   }
 
   getDepartment(department_id: String): any {
@@ -74,12 +72,8 @@ export class EventsComponent implements OnInit {
         }
       }
     });
+    return "Invalid id";
   }
-
-  selectEvent(_id: string){
-    this.selectedEventID = _id;
-  }
-
 
   loadFull(){
     let e:Event;
