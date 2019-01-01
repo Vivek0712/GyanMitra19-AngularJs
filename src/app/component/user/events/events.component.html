@@ -1,5 +1,7 @@
+<br>
 <div class="row">
-    <div class="col-12">
+  <div class="col-3"></div>
+    <div class="col-8">
       <div class="card">
         <div class="card-header">
           <h4 class="card-title">Events</h4>
@@ -12,27 +14,29 @@
             </ul>
           </div>
         </div>
-        <div class="row" *ngFor="let event of events">
-          <div class="col-sm-4">
-            <div class="card">
-              <div class="card-header">
-                {{ event.title }}
-              </div>
-              <div class="card-body">
-                Department: {{ event.department_id.name }}<br>
-                Description: {{ event.description }}<br>
-                Rules: {{ event.rules }}<br>
-                At {{ event.event_date }} From {{ event.start_time }} to {{ event.end_time }}<br>
-                {{ event.min_members }}-{{ event.max_members }} max_members<br>
-                <a href="mailto:{{ event.contact_email }}">Contact Mail</a><br>
-                Venue: {{ event.venue }}<br>
-                Amount: {{ event.amount }}<br>
-                Prelims: {{ event.prelims }}<br>
-                Round 1: {{ event.round_1 }}<br>
-                Round 2: {{ event.round_2 }}<br>
-                Finals: {{ event.finals }}<br>
-                {{event.gender_mixing_text}}<br>
-                <button type="button" class="btn btn-outline-success right round" (click)="selectEvent(workshop._id)">Register</button>
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6" *ngFor="let event of events">
+              <div class="card">
+                <div class="card-header">
+                  <b>{{ event.title }}</b>
+                </div>
+                <div class="card-body">
+                  Department: {{ event.department_id.name }}<br>
+                  Description: {{ event.description }}<br>
+                  Rules: {{ event.rules }}<br>
+                  At {{ event.event_date }} From {{ event.start_time }} to {{ event.end_time }}<br>
+                  {{ event.min_members }}-{{ event.max_members }} max_members<br>
+                  Contact Email: <a href="mailto:{{ event.contact_email }}">{{ event.contact_email }}</a><br>
+                  Venue: {{ event.venue }}<br>
+                  Amount: {{ event.amount }}<br>
+                  Prelims: {{ event.prelims }}<br>
+                  Round 1: {{ event.round_1 }}<br>
+                  Round 2: {{ event.round_2 }}<br>
+                  Finals: {{ event.finals }}<br>
+                  {{event.gender_mixing_text}}<br>
+                  <button type="button" class="btn btn-outline-success right round" (click)="selectEvent(workshop._id)">Register</button>
+                </div>
               </div>
             </div>
           </div>
