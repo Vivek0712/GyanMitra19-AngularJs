@@ -50,7 +50,11 @@ export class UserService {
   //   headers.append('Content-Type', 'application/json');
   //   return this.http.put(this.app.getUrl(this.baseUrl + `${id}`), body).pipe(map(res => res, {'headers': headers}));
   // }
-  
+  createUser(values:any) {
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post(this.app.getUrl(this.baseUrl +'create'),values).pipe(map(res => res, {'headers': headers}));
+  }
    deleteUser(id: String) {
      const headers = new Headers();
      headers.append('Content-Type', 'application/json');
