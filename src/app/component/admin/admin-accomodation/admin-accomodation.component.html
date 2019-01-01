@@ -1,0 +1,159 @@
+<div class="app-content content">
+  <div class="content-wrapper">
+    <div class="content-wrapper-before"></div>
+    <div class="content-header row">
+      <div class="content-header-left col-md-4 col-12 mb-2">
+        <h3 class="content-header-title">Accomodation Requests</h3>
+      </div>
+      <div class="content-header-right col-md-8 col-12">
+        <div class="breadcrumbs-top float-md-right">
+          <div class="breadcrumb-wrapper mr-1">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="index.html">Home</a>
+              </li>
+              <li class="breadcrumb-item"><a href="#">Accomodation</a>
+              </li>
+              <li class="breadcrumb-item active">Requests
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="content-body">
+      <section id="content-types">
+        <div class="row match-height justify-content-md-center">
+          <div class="col-xl-6 col-md-12">
+          </div>
+        </div>
+      </section>
+      <!-- Modal -->
+      <div id="DDModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Demand Draft - {{selectedTransactionID}}</h4>
+            </div>
+            <div class="modal-body">
+              <img src="{{ddImage}}" class="width-100 height-100" alt="Loading..." />
+            </div>
+            <div class="modal-footer">
+              <button type="button" (click)="approveAccomodation(selectedID)" class="btn btn-success">Approve
+                Accomodation</button>
+              <a href="{{ddImage}}" target="_blank" class="btn btn-success"><i class="fas fa-plus-circle"></i>&nbsp;Magnify</a>
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <h4 class="card-title">Accomodation Requests</h4>
+              <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+              <div class="heading-elements">
+                <ul class="list-inline mb-0">
+                  <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                  <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                  <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="card-content collapse show">
+              <div class="card-body">
+                <h4>Filter</h4>
+                <hr />
+                <form name="frmFilter">
+                  <div class="row">
+                    <div class="col-2">
+                      Search Name
+                      <input type="text" name="selectedName" [(ngModel)]="selectedName" class="form-control"
+                        placeholder="Name">
+                    </div>
+                    <div class="col-2">
+                      College <select name="selectedCollege" [(ngModel)]="selectedCollege" class="custom-select">
+                        <option *ngFor="let item of colleges" value={{item._id}}>{{item.name}}</option>
+                      </select>
+                    </div>
+                    <div class="col-2">
+                      Department <select name="selectedDepartment" [(ngModel)]="selectedDepartment" class="custom-select">
+                        <option *ngFor="let item of departments" value={{item._id}}>{{item.name}}</option>
+                      </select>
+                    </div>
+                    <div class="col-2">
+                      Mode of Payment <select name="selectedModeOfPayment" [(ngModel)]="selectedModeOfPayment" class="custom-select">
+                        <option value="Online">Online</option>
+                        <option value="Demand Draft">Demand Draft</option>
+                      </select>
+                    </div>
+                    <div class="col-2">
+                      Days <select [(ngModel)]="selectedDays" name="selectedDays" class="custom-select">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                      </select>
+                    </div>
+                    <div class="col-2">
+                      <br />
+                      <button (click)="filter()" class="btn btn-success">Filter</button>
+                    </div>
+                  </div>
+                </form>
+                <hr />
+                <div class="table-responsive">
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th>Sl. No</th>
+                        <th>Name</th>
+                        <th>College</th>
+                        <th>Degree</th>
+                        <th>Department</th>
+                        <th>Year</th>
+                        <th>Days of Accomodation</th>
+                        <th>Payment Status</th>
+                        <th>Accomodation Status</th>
+                        <th>Amount</th>
+                        <th>Verify</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let accomodation of filteredAccomodations; let i = index;" [ngClass]="{'table-success': accomodation.acc_payment_status=='Paid' && accomodation.acc_status == 'Confirmed'}" [ngClass]="{'table-warning': accomodation.acc_payment_status=='Paid' && accomodation.acc_status == 'Not Confirmed'}" [ngClass]="{'table-danger': accomodation.acc_payment_status=='Not Paid' && accomodation.acc_status == 'Not Confirmed'}" >
+                        <th scope="row">{{i+1}}</th>
+                        <td>{{accomodation.user_id.name}}</td>
+                        <td>{{accomodation.user_id.college_id.name}}</td>
+                        <td>{{accomodation.user_id.degree_id.name}}</td>
+                        <td>{{accomodation.user_id.department_id.name}}</td>
+                        <td>{{accomodation.user_id.year_id.name}}</td>
+                        <td>{{accomodation.acc_days}}</td>
+                        <td>{{accomodation.acc_payment_status}}</td>
+                        <td>{{accomodation.acc_status}}</td>
+                        <td>{{accomodation.acc_amount}}</td>
+                        <td>
+                          <div *ngIf="accomodation.acc_mode_of_payment == 'Demand Draft' && accomodation.acc_payment_status=='Paid' && accomodation.acc_status == 'Not Confirmed' "
+                            class="btn btn-success" data-toggle="modal" data-target="#DDModal" (click)="loadDD(accomodation._id,accomodation.acc__transaction_id, accomodation.acc_file_name)">
+                            Verify DD
+                          </div>
+                          <div *ngIf="accomodation.acc_mode_of_payment == 'Online' && accomodation.acc_payment_status=='Paid' && accomodation.acc_status == 'Not Confirmed'">
+                            <button type="button" (click)="approveAccomodation(accomodation._id)" class="btn btn-success">Approve
+                            </button>
+                            </div>
+                        </td>
+                      </tr>
+                      <tr *ngIf="filteredAccomodations.length == 0" class="table-danger">
+                        <td colspan="11" class="text-center">
+                          <h4>No Accomodation requests that match were found!</h4>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
