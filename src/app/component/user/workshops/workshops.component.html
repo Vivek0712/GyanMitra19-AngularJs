@@ -1,3 +1,36 @@
-<p>
-  workshops works!
-</p>
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title">Events</h4>
+        <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+        <div class="heading-elements">
+          <ul class="list-inline mb-0">
+            <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+            <li><a data-action="reload" (click)="reloadEvents()"><i class="ft-rotate-cw"></i></a></li>
+            <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="row" *ngFor="let workshop of workshops">
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-header">
+              {{ workshop.title }}
+            </div>
+            <div class="card-body">
+              Department: {{ workshop.department_id.name }}<br>
+              Description: {{ workshop.description }}<br>
+              Rules: {{ workshop.rules }}<br>
+              At {{ workshop.workshop_date }} From {{ workshop.start_time }} to {{ workshop.end_time }}<br>
+              <a href="mailto:{{ workshop.contact_email }}">Contact Mail</a><br>
+              Venue: {{ workshop.venue }}<br>
+              Amount: {{ workshop.amount }}<br>
+              <button type="button" class="btn btn-outline-success right round" (click)="selectEvent(workshop._id)">Register</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
