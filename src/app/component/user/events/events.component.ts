@@ -52,19 +52,23 @@ export class EventsComponent implements OnInit {
     this.searchText='';
     this.loadFull();
   }
-
-  getCategory(category_id: String):String {
+  /*getCategory(category_id: String):String {
     this.categoryService.readCategory().subscribe((response: any) => {
-      for(let cat in response.docs){
-        if(response.docs[cat]._id == category_id){
-          return response.docs[cat].name;
-        }
-      }
+      this.res = response.docs
+      console.log(this.res);
     });
-    return "Invalid Id";
-  }
+    console.log(this.res);
+    for(let cat in this.res){
+      if(this.res[cat]._id == category_id){
+        return this.res[cat].name;
+      }
+      else {
+        return "Invalid";
+      }
+    }
+  }*/
 
-  getDepartment(department_id: String): any {
+  getDepartment(department_id: String): String {
     this.departmentService.readDepartment(0).subscribe((response: any) => {
       for(let dep in response){
         if(response[dep]._id == department_id){
@@ -76,38 +80,42 @@ export class EventsComponent implements OnInit {
   }
 
   loadFull(){
-    let e:Event;
     this.eventService.readAllEvents().subscribe((response: any) => {
       for (let event in response) {
-        console.log(this.getCategory(response[event].category_id));
-        if( this.getCategory(response[event].category_id) === "Event" ) {
-          e._id = response[event]._id;
-          e.title = response[event].title;
-          e.department = this.getDepartment(response[event].department_id);
-          e.description = response[event].description;
-          e.image_name = response[event].image_name;
-          e.rules = response[event].rules;
-          e.start_time = response[event].start_time;
-          e.end_time = response[event].end_time;
-          e.event_date = response[event].event_date;
-          e.prelims = response[event].prelims;
-          e.round_1 = response[event].round_1;
-          e.round_2 = response[event].round_2;
-          e.finals = response[event].finals;
-          e.min_members = response[event].min_members;
-          e.max_members = response[event].max_members;
-          e.max_limit = response[event].max_limit;
-          e.contact_email = response[event].contact_email;
-          e.venue = response[event].venue;
-          e.amount = response[event].amount;
-          if(!response[event].allow_gender_mixing){
-            e.gender_mixing_text = "Warning: Gender mixing not allowed"
+        this.categoryService.readCategory().subscribe((res:any) => {
+          for(let cat in res.docs){
+            if(res.docs[cat]._id == response[event].category_id){
+              if(res.docs[cat].name === "Event"){
+                console.log(response[event]._id)                        
+                let e:Event;
+                e._id = response[event]._id;
+                e.title = response[event].title;
+                e.department = this.getDepartment(response[event].department_id);
+                e.description = response[event].description;
+                e.image_name = response[event].image_name;
+                e.rules = response[event].rules;
+                e.start_time = response[event].start_time;
+                e.end_time = response[event].end_time;
+                e.event_date = response[event].event_date;
+                e.prelims = response[event].prelims;
+                e.round_1 = response[event].round_1;
+                e.round_2 = response[event].round_2;
+                e.finals = response[event].finals;
+                e.min_members = response[event].min_members;
+                e.max_members = response[event].max_members;
+                e.max_limit = response[event].max_limit;
+                e.contact_email = response[event].contact_email;
+                e.venue = response[event].venue;
+                e.amount = response[event].amount;
+                if(!response[event].allow_gender_mixing){
+                  e.gender_mixing_text = "Warning: Gender mixing not allowed"
+                }
+                this.events.push(e);
+              }
+            }
           }
-          this.events.push(e);
-        }
+        });
       } 
     })
   }
-
-
 }
