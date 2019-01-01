@@ -133,7 +133,6 @@ export class AdminEventComponent implements OnInit {
           M.toast({ html: response.msg, classes: 'roundeds' });
           this.getEvents(this.currentPage);
           this.createForm();
-          console.log(response);
         }
       });
     } else {

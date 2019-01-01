@@ -31,6 +31,19 @@ export class AccomodationService {
     headers.append('Content-Type', 'application/json');
     return this.http.post(this.app.getUrl(this.baseUrl + 'create'), body).pipe(map(res => res, {'headers': headers}));
   }
+
+  populateAccomodation(){
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.get(this.app.getUrl(this.baseUrl)+'populate');
+  }
+
+  approveAccomodation(id: string){
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post(this.app.getUrl(this.baseUrl + 'confirmAccommodation/'+id),{}).pipe(map(res => res, {'headers': headers}));
+  }
+
   readAccomodation() {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
