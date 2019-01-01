@@ -12,7 +12,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="card-content collapse show">
+            <!--<div class="card-content collapse show">
                 <div class="card-body">
                     <div class="row">
                         <div class="col-6">
@@ -37,7 +37,7 @@
                     </div>
                     <br />
                 </div>
-            </div>
+            </div>-->
             <div class="col-lg-4 col-md-5">
                 <div class="row" *ngFor="let event of events">
                     <div class="col-5">
@@ -48,7 +48,19 @@
                             </div>
                             <div class="card-content collapse show">
                                 <div class="card-body pt-0 pb-1">
-                                        Conducted by: {{ event.department_id }}
+                                    Department: {{ event.department }}
+                                    Description: {{ event.description }}
+                                    Rules: {{ event.rules }}
+                                    At {{ event.event_date }} From {{ event.start_time }} to {{ event.end_time }}
+                                    {{ event.min_members }}-{{ event.max_members }} max_members
+                                    <a href="mailto:{{ event.contact_email }}">Contact Mail</a>
+                                    Venue: {{ event.venue }}
+                                    Amount: {{ event.amount }}
+                                    Prelims: {{ event.prelims }}
+                                    Round 1: {{ event.round_1 }}
+                                    Round 2: {{ event.round_2 }}
+                                    Finals: {{ event.finals }}
+                                    {{event.gender_mixing_text}}
                                 </div>
                             </div>
                         </div>

@@ -42,13 +42,13 @@ export class AdminEventComponent implements OnInit {
 
   ngOnInit() {
     this.currentPage=1;
+    this.selectedEventID='';
     this.getCategories();
     this.createForm();
     this.getEvents(1);
     this.getDepartments();
     this.submitted = false;
     this.allow_gender_mixing = false;
-    this.selectedEventID='';
   }
 
   reloadEvents() {
@@ -116,7 +116,7 @@ export class AdminEventComponent implements OnInit {
           console.log(response);
         })
     }
-}
+  }
 
 
   onSubmit(form: NgForm) {
