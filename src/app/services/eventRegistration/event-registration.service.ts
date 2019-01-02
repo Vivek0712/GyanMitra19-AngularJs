@@ -34,8 +34,9 @@ export class EventRegistrationService {
   checkRegistration(user_id: string, event_id: string) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.get(this.app.getUrl(this.baseUrl)+'checkRegistration/' + event_id+"/"+user_id );
+    return this.http.get(this.app.getUrl(this.baseUrl)+'checkRegistration/' + user_id+"/"+event_id );
   }
+  
   // readParticipationStatus(page: any) {
   //   const headers = new Headers();
   //   headers.append('Content-Type', 'application/json');
