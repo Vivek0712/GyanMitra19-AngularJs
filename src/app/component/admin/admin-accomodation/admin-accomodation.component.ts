@@ -75,6 +75,30 @@ export class AdminAccomodationComponent implements OnInit {
       }
     })
   } 
+
+  refusePayment(id: string){
+    this.accommodationService.refusePayment(id).subscribe((response:any )=>{
+      if (response.error) {
+        M.toast({ html: response.msg, classes: 'roundeds' });
+        this.loadAllAccomodations()
+      } else {
+        M.toast({ html: response.msg, classes: 'roundeds' });
+        this.loadAllAccomodations()
+      }
+    })
+  }
+
+  deproveAccomodation(id: string){
+    this.accommodationService.deproveAccomodation(id).subscribe((response:any )=>{
+      if (response.error) {
+        M.toast({ html: response.msg, classes: 'roundeds' });
+        this.loadAllAccomodations()
+      } else {
+        M.toast({ html: response.msg, classes: 'roundeds' });
+        this.loadAllAccomodations()
+      }
+    })
+  }
   
   approveAccomodation(id: string){
     this.accommodationService.approveAccomodation(id).subscribe((response:any )=>{
