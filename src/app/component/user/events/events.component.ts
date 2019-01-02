@@ -8,7 +8,6 @@ import { EventService } from 'src/app/services/event/event.service';
 })
 
 export class EventsComponent implements OnInit {
-
   events:Array<any>;
   selectedEventID:String;
   constructor(private eventService: EventService) { 

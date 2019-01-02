@@ -65,6 +65,9 @@ export class EventService {
   readEvent(page: any) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
+    headers.append('Content-Type', 'application/jpeg');
+    headers.append('Content-Type', 'application/png');
+    headers.append('Content-Type', 'application/jpg');
     return this.http.get(this.app.getUrl(this.baseUrl) + '?page=' + page);
   }
 

@@ -1,46 +1,41 @@
+
 <br>
 <div class="row">
   <div class="col-3"></div>
-    <div class="col-8">
-      <div class="card">
-        <div class="card-header">
-          <h4 class="card-title">Events</h4>
-          <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
-          <div class="heading-elements">
-            <ul class="list-inline mb-0">
-              <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
-              <li><a data-action="reload" (click)="reloadEvents()"><i class="ft-rotate-cw"></i></a></li>
-              <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
-            </ul>
-          </div>
-        </div>
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-6 col-md-6 col-sm-6" *ngFor="let event of events">
-              <div class="card">
-                <div class="card-header">
-                  <b>{{ event.title }}</b>
-                </div>
-                <div class="card-body">
-                  Department: {{ event.department_id.name }}<br>
-                  Description: {{ event.description }}<br>
-                  Rules: {{ event.rules }}<br>
-                  At {{ event.event_date }} From {{ event.start_time }} to {{ event.end_time }}<br>
-                  {{ event.min_members }}-{{ event.max_members }} max_members<br>
-                  Contact Email: <a href="mailto:{{ event.contact_email }}">{{ event.contact_email }}</a><br>
-                  Venue: {{ event.venue }}<br>
-                  Amount: {{ event.amount }}<br>
-                  Prelims: {{ event.prelims }}<br>
-                  Round 1: {{ event.round_1 }}<br>
-                  Round 2: {{ event.round_2 }}<br>
-                  Finals: {{ event.finals }}<br>
-                  {{event.gender_mixing_text}}<br>
-                  <button type="button" class="btn btn-outline-success right round" (click)="selectEvent(workshop._id)">Register</button>
-                </div>
-              </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-5 col-md-5 col-sm-5" *ngFor="let event of events">
+        <div class="card pull-up">
+          <div class="flipper">
+            <div class="card-header card-hide">
+              <img class="card-img-top" src="./../../../../../../GyanMitra19-NodeJs/assests/images/events/{{ event.image_name }}"
+                alt="{{ event.image_name }}" width="100%" height="30%">
+              <h1 class="text-highlight" style="font-size:40px">{{ event.title }}</h1>
+              <h2 class="text-muted" style="font-size: 15px">Conducted by: {{ event.department_id.name }}</h2>
+              At {{ event.event_date }} From {{ event.start_time }} to {{ event.end_time }}<br>
+            </div>
+            
+            <div class="card-body">
+              Description: {{ event.description }}<br>
+              Rules: {{ event.rules }}<br>
+              {{ event.min_members }}-{{ event.max_members }} max_members<br>
+              Contact Email: <a href="mailto:{{ event.contact_email }}">{{ event.contact_email }}</a><br>
+              Venue: {{ event.venue }}<br>
+              Amount: {{ event.amount }}<br>
+              Prelims: {{ event.prelims }}<br>
+              Round 1: {{ event.round_1 }}<br>
+              Round 2: {{ event.round_2 }}<br>
+              Finals: {{ event.finals }}<br>
+              {{event.gender_mixing_text}}<br>
+              <button type="button" class="btn btn-outline-success right round" (click)="selectEvent(workshop._id)">Register</button>
             </div>
           </div>
         </div>
       </div>
+      <div class="col-lg-1 col-md-1 col-sm-1"></div>
     </div>
   </div>
+</div>
+
+
+
