@@ -71,7 +71,7 @@
       <li class="nav-item has-sub"><a><i class="fas fa-graduation-cap"></i><span class="menu-title" data-i18n="">Workshops</span></a>
         <ul class="menu-content">
           <li class="menu-item"  *ngFor="let workshop of workshops"><a [routerLink]="['/user/events']" [routerLinkActive]="['active']"
-              [routerLinkActiveOptions]="{exact:true}"><span class="menu-title" data-i18n="">{{ event.title }}</span></a></li>
+              [routerLinkActiveOptions]="{exact:true}"><span class="menu-title" data-i18n="">{{ workshop.title }}</span></a></li>
         </ul>
       </li>
     </ul>

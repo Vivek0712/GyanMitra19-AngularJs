@@ -24,7 +24,7 @@ export class AdminSidebarComponent implements OnInit {
   }
   loadWorkshops(){
     this.eventService.readWithEventCategory('Workshop').subscribe((response: any) => {
-      this.events = response;
+      this.workshops = response;
     })
   }
 }
