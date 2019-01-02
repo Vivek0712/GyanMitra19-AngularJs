@@ -50,6 +50,18 @@ export class AccomodationService {
     return this.http.post(this.app.getUrl(this.baseUrl + 'approveAccommodation/'+id),{}).pipe(map(res => res, {'headers': headers}));
   }
 
+  deproveAccomodation(id: string){
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post(this.app.getUrl(this.baseUrl + 'deproveAccommodation/'+id),{}).pipe(map(res => res, {'headers': headers}));
+  }
+
+  refusePayment(id: string){
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post(this.app.getUrl(this.baseUrl + 'refusePayment/'+id),{}).pipe(map(res => res, {'headers': headers}));
+  }
+
   readAccomodation() {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
