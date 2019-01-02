@@ -4,6 +4,8 @@ import { FormGroup, FormBuilder, NgForm } from '@angular/forms';
 
 declare var M: any;
 
+//Check line:64 error
+
 @Component({
   selector: 'app-user-accomodation',
   templateUrl: './user-accomodation.component.html',
@@ -61,7 +63,7 @@ export class UserAccomodationComponent implements OnInit {
       let file: File = fileList[0];
       let formData: FormData = new FormData();
       formData.append('uploadFile', file, file.name);
-      formData.append('id', this.accomodation._id);
+      //formData.append('id', this.accomodation._id);
       this.accomodationService.uploadFile(formData).subscribe((response: any) => {
         if(response.error == true){
           M.toast({ html: response.msg, classes: 'roundeds danger' });
