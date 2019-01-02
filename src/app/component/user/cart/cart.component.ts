@@ -11,8 +11,10 @@ declare var M: any;
 export class CartComponent implements OnInit {
   workshops : any;
   user_id : string;
+  hasWorkshops: boolean;
   constructor(private eventRegistrationService: EventRegistrationService) { 
     this.workshops = []
+    this.hasWorkshops = false;
     this.user_id = JSON.parse(localStorage.getItem('user')).id;
   }
 
@@ -21,12 +23,13 @@ export class CartComponent implements OnInit {
   }
 
   cancelWorkshopRegistration(_id: string){
-    this.eventRegistrationService.cancelWorkshopRegistration(this.user_id).subscribe((response: any)=>{
+    this.eventRegistrationService.cancelWorkshopRegistration(_id).subscribe((response: any)=>{
       if(response.error == true){
-        M.toast({ html: response.msg, classes: 'roundeds danger' });
+        M.toast({ html: response.msg, classes: 'roundeds' });
       }
       else{
-        this.workshops = response;
+        M.toast({ html: response.msg, classes: 'roundeds' });
+        this.getWorkshops();
       }
     })
   }
@@ -38,6 +41,12 @@ export class CartComponent implements OnInit {
       }
       else{
         this.workshops = response;
+        if(this.workshops.length == 0){
+          this.hasWorkshops = false;
+        }
+        else{
+          this.hasWorkshops = true;
+        }
       }
     })
   }

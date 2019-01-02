@@ -40,35 +40,39 @@
               <div class="card-body">
                 <h3 class="white">Workshops</h3>
                 <br />
-                <div *ngIf="workshops.length == 0">
-                  <h5 class="white">Gain Knowledge! Register in one of our workshops!!!</h5>
+                <div *ngIf="!hasWorkshops">
+                  <h5 class="white">You have no workshop registrations. Register in one of our workshops!!!</h5>
                 </div>
-                <div *ngFor="let workshop of workshops">
-                  <div class="col-md-6 col-lg-4 col-xl-3">
-                    <div class="card ">
-                      <h5 class="card-header">{{workshop.event_id.title}}</h5>
-                      <div class="card-body">
-                        <h5 class="card-title">What you need to know</h5>
-                        <br />
-                        <div class="row">
-                          <div class="col-6">
-                            Date : {{workshop.event_id.event_date}}
+                <div *ngIf="hasWorkshops">
+                  <div *ngFor="let workshop of workshops">
+                    <div class="col-md-6 col-lg-4 col-xl-3">
+                      <div class="card ">
+                        <h5 class="card-header">{{workshop.event_id.title}}</h5>
+                        <div class="card-body">
+                          <h5 class="card-title">What you need to know</h5>
+                          <br />
+                          <div class="row">
+                            <div class="col-6">
+                              Date : {{workshop.event_id.event_date}}
+                            </div>
+                            <div class="col-6">
+                              Venue : {{workshop.event_id.venue}}
+                            </div>
                           </div>
-                          <div class="col-6">
-                            Venue : {{workshop.event_id.venue}}
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col">
+                          <div class="row">
+                            <div class="col">
                               Contact : <a href="mailto://{{workshop.event_id.contact_email}}">{{workshop.event_id.contact_email}}</a>
+                            </div>
                           </div>
+                          <br />
+                          <button class="btn btn-danger" (click)="cancelWorkshopRegistration(workshop._id)">Cancel
+                            Registration</button>
                         </div>
-                        <br />
-                        <a href="#" class="btn btn-danger" (click)="cancelWorkshopRegistration(workshop._id)">Cancel Registration</a>
                       </div>
                     </div>
                   </div>
                 </div>
+
                 <br />
                 <h3 class="white">Events</h3>
                 <div class="row">
