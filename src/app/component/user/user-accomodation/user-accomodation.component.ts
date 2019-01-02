@@ -52,8 +52,9 @@ export class UserAccomodationComponent implements OnInit {
   getAccomodation() {
     this.accomodationService.getAccomodation(this._id).subscribe((response: any) => {
       if (response) {
-        if(response == undefined){
+        if(response.docs.length == 0){
           this.hasAccomodation = false
+          this.accomodation = response.docs[0];
         }
         else{
           this.hasAccomodation = true
@@ -76,7 +77,7 @@ export class UserAccomodationComponent implements OnInit {
           M.toast({ html: response.msg, classes: 'roundeds danger' });
         }
         else{
-          M.toast({ html: response.msg, classes: 'roundeds danger' });
+          M.toast({ html: response.msg, classes: 'roundeds' });
         }
       })
     }
