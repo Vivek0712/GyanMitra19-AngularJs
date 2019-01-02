@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { EventService } from 'src/app/services/event/event.service';
 
 @Component({
   selector: 'app-admin-sidebar',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminSidebarComponent implements OnInit {
 
-  constructor() { }
+  events:Array<any>;
+  constructor(private eventService: EventService) { }
 
   ngOnInit() {
+    this.loadEvents();
+  }
+
+  loadEvents(){
+    this.eventService.readWithEventCategory('Event').subscribe((response: any) => {
+      this.events = response;
+    })
   }
 
 }

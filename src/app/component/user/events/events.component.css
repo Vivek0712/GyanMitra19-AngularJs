@@ -19,7 +19,7 @@
 .card,
 .card-header,
 .card-body {
-     width: 380px;
+     width: 400px;
      height:400px;
      overflow: auto;
 }
