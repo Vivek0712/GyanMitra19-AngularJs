@@ -108,14 +108,13 @@
                         <th>Sl. No</th>
                         <th>Name</th>
                         <th>College</th>
-                        <th>Degree</th>
-                        <th>Department</th>
-                        <th>Year</th>
+                        <th>Mobile Number</th>
                         <th>Days of Accomodation</th>
                         <th>Payment Status</th>
                         <th>Accomodation Status</th>
-                        <th>Amount</th>
-                        <th>Verify</th>
+                        <th>Remove Request</th>
+                        <th>Confirm Accomodation</th>
+                        <th>Verify DD</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -123,14 +122,11 @@
                         <th scope="row">{{i+1}}</th>
                         <td>{{accomodation.user_id.name}}</td>
                         <td>{{accomodation.user_id.college_id.name}}</td>
-                        <td>{{accomodation.user_id.degree_id.name}}</td>
-                        <td>{{accomodation.user_id.department_id.name}}</td>
-                        <td>{{accomodation.user_id.year_id.name}}</td>
+                        <td>{{accomodation.user_id.mobile_number}}</td>
                         <td>{{accomodation.acc_days}}</td>
                         <td>{{accomodation.acc_payment_status}}</td>
                         <td>{{accomodation.acc_status}}</td>
-                        <td>{{accomodation.acc_amount}}</td>
-                        <td>
+                        <!-- <td>
                           <div *ngIf="accomodation.acc_mode_of_payment == 'Demand Draft' && accomodation.acc_payment_status=='Paid' && accomodation.acc_status == 'Not Confirmed' "
                             class="btn btn-success" data-toggle="modal" data-target="#DDModal" (click)="loadDD(accomodation._id,accomodation.acc__transaction_id, accomodation.acc_file_name)">
                             Verify DD
@@ -139,9 +135,9 @@
                             <button type="button" (click)="approveAccomodation(accomodation._id)" class="btn btn-success">Approve
                             </button>
                             </div>
-                        </td>
+                        </td> -->
                       </tr>
-                      <tr *ngIf="filteredAccomodations.length == 0" class="table-danger">
+                      <tr *ngIf="filteredAccomodations == undefined" class="table-danger">
                         <td colspan="11" class="text-center">
                           <h4>No Accomodation requests that match were found!</h4>
                         </td>

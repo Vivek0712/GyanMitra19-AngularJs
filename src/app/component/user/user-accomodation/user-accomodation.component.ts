@@ -17,26 +17,27 @@ export class UserAccomodationComponent implements OnInit {
   accomodationForm: FormGroup;
   imageForm: FormGroup;
   submitted: boolean;
+  hasAccomodation: boolean;
 
   constructor(private accomodationService: AccomodationService, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this._id = JSON.parse(localStorage.getItem('user')).id;
     this.submitted = false;
+    this.hasAccomodation = false;
     this.getAccomodation();
     this.createForm();
   }
 
-  onSubmit(form: NgForm) {
+  onSubmit(values: any) {
     this.submitted = true;
-    const data = form.value;
-    this.accomodationService.createAccomodation('GM' + this._id.substring(this._id.length - 7), data.acc_mode_of_payment, data.acc_days, '', 'Not Paid', 'Not Confirmed', this._id, Number(data.acc_days * 200).toString()).subscribe((response: any) => {
+    this.accomodationService.createAccomodation('GM' + this._id.substring(this._id.length - 7),'',values.acc_days, '', 'Not Paid', 'Not Confirmed', this._id, Number(Number(values.acc_days) * 100).toString()).subscribe((response: any) => {
       if (response.error) {
         M.toast({ html: response.msg, classes: 'roundeds' });
-        this.createForm();
+        this.getAccomodation()
       } else {
         M.toast({ html: response.msg, classes: 'roundeds' });
-        this.createForm();
+        this.getAccomodation()
       }
     });
   }
@@ -44,7 +45,6 @@ export class UserAccomodationComponent implements OnInit {
   createForm() {
     this.submitted = false;
     this.accomodationForm = this.formBuilder.group({
-      acc_mode_of_payment: '',
       acc_days: ''
     });
   }
@@ -52,7 +52,13 @@ export class UserAccomodationComponent implements OnInit {
   getAccomodation() {
     this.accomodationService.getAccomodation(this._id).subscribe((response: any) => {
       if (response) {
-        this.accomodation = response.docs[0];
+        if(response == undefined){
+          this.hasAccomodation = false
+        }
+        else{
+          this.hasAccomodation = true
+          this.accomodation = response.docs[0];
+        }
       }
     });
   }
@@ -63,6 +69,7 @@ export class UserAccomodationComponent implements OnInit {
       let file: File = fileList[0];
       let formData: FormData = new FormData();
       formData.append('uploadFile', file, file.name);
+      formData.append('id', this.accomodation._id);
       //formData.append('id', this.accomodation._id);
       this.accomodationService.uploadFile(formData).subscribe((response: any) => {
         if(response.error == true){
@@ -70,7 +77,6 @@ export class UserAccomodationComponent implements OnInit {
         }
         else{
           M.toast({ html: response.msg, classes: 'roundeds danger' });
-
         }
       })
     }

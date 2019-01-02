@@ -45,8 +45,8 @@
             </div>
             <div class="card-content collapse show">
               <div class="card-body">
-                <div *ngIf="accomodation == undefined">
-                  <form class="form" [formGroup]="accomodationForm" (ngSubmit)=onSubmit(accomodationForm)>
+               <div *ngIf="!hasAccomodation">
+                  <form class="form" [formGroup]="accomodationForm" (ngSubmit)=onSubmit(accomodationForm.value)>
                     <div class="form-group">
                       <div class="row">
                         <div class="col-5">
@@ -60,25 +60,15 @@
                             </select>
                           </div>
                         </div>
-                        <div class="col-5">
-                          <div class="col-6">
-                            Mode of Payment
-                          </div>
-                          <div class="col-6">
-                            <select class="custom-select" formControlName="acc_mode_of_payment">
-                              <option value="Demand Draft">Demand Draft</option>
-                              <option value="Online Payment">Online Payment</option>
-                            </select>
-                          </div>
-                        </div>
                         <div class="col-2">
                           <br />
-                            <button type="submit" class="btn btn-outline-success right">Apply for Accomodation</button>
+                          <button type="submit" class="btn btn-outline-success right">Apply</button>
                         </div>
                       </div>
                     </div>
                   </form>
                 </div>
+                <!--
                 <div *ngIf="accomodation.acc_mode_of_payment == 'Demand Draft' && accomodation.acc_payment_status == 'Not Paid'">
                   <h5>Upload Demand Draft</h5>
                   <hr />
@@ -86,7 +76,7 @@
                 </div>
                 <div *ngIf="accomodation.acc_payment_status == 'Paid' && accomodation.acc_status == 'Not Confimed' ">
                   Please Wait for confirmation with us!!!
-                </div>
+                </div>-->
               </div>
             </div>
           </div>
