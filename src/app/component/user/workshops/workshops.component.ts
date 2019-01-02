@@ -30,5 +30,4 @@ export class WorkshopsComponent implements OnInit {
       this.workshops = response;
     })
   }
-
 }

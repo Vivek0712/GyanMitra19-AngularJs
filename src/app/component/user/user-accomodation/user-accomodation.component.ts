@@ -70,7 +70,7 @@ export class UserAccomodationComponent implements OnInit {
       let file: File = fileList[0];
       let formData: FormData = new FormData();
       formData.append('uploadFile', file, file.name);
-      formData.append('id', this.accomodation._id);
+      //formData.append('id', this.accomodation._id);
       //formData.append('id', this.accomodation._id);
       this.accomodationService.uploadFile(formData).subscribe((response: any) => {
         if(response.error == true){

@@ -61,4 +61,9 @@
 
 .card-body {
      -webkit-transform: rotateY(180deg);
+     overflow:auto;
+}
+
+.card-generic {
+     height: 40px;
 }

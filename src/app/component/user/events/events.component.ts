@@ -17,10 +17,6 @@ export class EventsComponent implements OnInit {
   ngOnInit() {
   }
 
-  reloadEvents() {
-    this.loadFull();
-  }
-
   selectEvent(_id: string){
     this.selectedEventID = _id;
   }
