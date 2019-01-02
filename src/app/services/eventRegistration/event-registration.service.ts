@@ -28,15 +28,27 @@ export class EventRegistrationService {
     }
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post(this.app.getUrl(this.baseUrl + 'newWorkshopRegistration'), data).pipe(map(res => res, { 'headers': headers }));
+    return this.http.post(this.app.getUrl(this.baseUrl + 'newEventRegistration'), data).pipe(map(res => res, { 'headers': headers }));
   }
 
-  checkRegistration(user_id: string, event_id: string) {
+  newWorkshopRegistration(event_id: String, id: String) {
+    let data = {
+      event_id: event_id,
+      user_id: id,
+      registration_type: 'Single'
+    }
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.get(this.app.getUrl(this.baseUrl)+'checkRegistration/' + user_id+"/"+event_id );
+    return this.http.post(this.app.getUrl(this.baseUrl + 'newWorkshopRegistration'), data).pipe(map(res => res, { 'headers': headers }));
+
   }
-  
+
+  checkWorkshopRegistration(user_id: string, event_id: string) {
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.get(this.app.getUrl(this.baseUrl) + 'checkWorkshopRegistration/' + user_id + "/" + event_id);
+  }
+
   // readParticipationStatus(page: any) {
   //   const headers = new Headers();
   //   headers.append('Content-Type', 'application/json');

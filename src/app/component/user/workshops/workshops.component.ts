@@ -23,7 +23,7 @@ export class WorkshopsComponent implements OnInit {
 
   selectWorkshop(_id: string) {
     let user_id = JSON.parse(localStorage.getItem('user')).id;
-    this.eventRegistrationService.checkRegistration(_id, user_id).subscribe((response: any) => {
+    this.eventRegistrationService.checkWorkshopRegistration(_id, user_id).subscribe((response: any) => {
       if (response.error) {
         M.toast({ html: response.msg, classes: 'roundeds' });
       } else {
@@ -31,7 +31,7 @@ export class WorkshopsComponent implements OnInit {
           M.toast({ html: response.msg, classes: 'roundeds' });
         }
         else {
-          this.eventRegistrationService.createEventRegistration(_id, user_id, 'Single').subscribe((response: any) => {
+          this.eventRegistrationService.newWorkshopRegistration(_id, user_id).subscribe((response: any) => {
             if (response.error) {
               M.toast({ html: response.msg, classes: 'roundeds' });
             } else {
