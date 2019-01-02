@@ -20,7 +20,8 @@
 .card-header,
 .card-body {
      width: 380px;
-     display: block;
+     height:400px;
+     overflow: auto;
 }
 
 .card-hide:after{
