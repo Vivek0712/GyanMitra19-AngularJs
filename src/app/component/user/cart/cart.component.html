@@ -45,8 +45,8 @@
                 </div>
                 <div *ngIf="hasWorkshops">
                   <div *ngFor="let workshop of workshops">
-                    <div class="col-md-6 col-lg-4 col-xl-3">
-                      <div class="card ">
+                    <div class="col-md-4 col-lg-4 col-xl-4">
+                      <div class="card pull-up">
                         <h5 class="card-header">{{workshop.event_id.title}}</h5>
                         <div class="card-body">
                           <h5 class="card-title">What you need to know</h5>
@@ -72,7 +72,6 @@
                     </div>
                   </div>
                 </div>
-
                 <br />
                 <h3 class="white">Events</h3>
                 <div class="row">
