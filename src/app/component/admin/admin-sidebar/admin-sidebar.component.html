@@ -62,9 +62,15 @@
               [routerLinkActiveOptions]="{exact:true}"><span class="menu-title" data-i18n="">Roles</span></a></li>
         </ul>
       </li>
-      <li class="nav-item has-sub"><a><i class="fas fa-cog"></i><span class="menu-title" data-i18n="">Events</span></a>
+      <li class="nav-item has-sub"><a><i class="fas fa-cube"></i><span class="menu-title" data-i18n="">Events</span></a>
         <ul class="menu-content">
           <li class="menu-item"  *ngFor="let event of events"><a [routerLink]="['/user/events']" [routerLinkActive]="['active']"
+              [routerLinkActiveOptions]="{exact:true}"><span class="menu-title" data-i18n="">{{ event.title }}</span></a></li>
+        </ul>
+      </li>
+      <li class="nav-item has-sub"><a><i class="fas fa-graduation-cap"></i><span class="menu-title" data-i18n="">Workshops</span></a>
+        <ul class="menu-content">
+          <li class="menu-item"  *ngFor="let workshop of workshops"><a [routerLink]="['/user/events']" [routerLinkActive]="['active']"
               [routerLinkActiveOptions]="{exact:true}"><span class="menu-title" data-i18n="">{{ event.title }}</span></a></li>
         </ul>
       </li>

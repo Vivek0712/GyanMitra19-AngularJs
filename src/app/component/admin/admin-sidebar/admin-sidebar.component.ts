@@ -9,10 +9,12 @@ import { EventService } from 'src/app/services/event/event.service';
 export class AdminSidebarComponent implements OnInit {
 
   events:Array<any>;
+  workshops:Array<any>;
   constructor(private eventService: EventService) { }
 
   ngOnInit() {
     this.loadEvents();
+    this.loadWorkshops();
   }
 
   loadEvents(){
@@ -20,5 +22,9 @@ export class AdminSidebarComponent implements OnInit {
       this.events = response;
     })
   }
-
+  loadWorkshops(){
+    this.eventService.readWithEventCategory('Workshop').subscribe((response: any) => {
+      this.events = response;
+    })
+  }
 }
