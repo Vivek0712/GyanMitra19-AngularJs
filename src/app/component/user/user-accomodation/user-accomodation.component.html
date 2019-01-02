@@ -30,11 +30,13 @@
           <div class="card">
             <div class="card-header">
               <h4 class="card-title">
-                <span *ngIf="accomodation" [ngClass]="{'success': accomodation.acc_payment_status == 'Paid' && accomodation.acc_status == 'Confirmed'}" [ngClass]="{'danger': accomodation.acc_payment_status == 'Not Paid' && accomodation.acc_status == 'Not Confirmed'}">
-                  Payment Status : {{accomodation.acc_payment_status}} | Accomodation Status : {{accomodation.acc_status}}
+                <span *ngIf="accomodation" [ngClass]="{'success': accomodation.acc_payment_status == 'Paid' && accomodation.acc_status == 'Confirmed'}"
+                  [ngClass]="{'danger': accomodation.acc_payment_status == 'Not Paid' && accomodation.acc_status == 'Not Confirmed'}">
+                  Payment Status : {{accomodation.acc_payment_status}} | Accomodation Status :
+                  {{accomodation.acc_status}}
                 </span>
                 <span *ngIf="!accomodation">
-                 Accomodation Status : Not Applied
+                  Accomodation Status : Not Applied
                 </span>
               </h4>
               <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
@@ -45,7 +47,7 @@
             </div>
             <div class="card-content collapse show">
               <div class="card-body">
-               <div *ngIf="!hasAccomodation">
+                <div *ngIf="!accomodation">
                   <form class="form" [formGroup]="accomodationForm" (ngSubmit)=onSubmit(accomodationForm.value)>
                     <div class="form-group">
                       <div class="row">
@@ -68,15 +70,30 @@
                     </div>
                   </form>
                 </div>
-                <!--
-                <div *ngIf="accomodation.acc_mode_of_payment == 'Demand Draft' && accomodation.acc_payment_status == 'Not Paid'">
-                  <h5>Upload Demand Draft</h5>
-                  <hr />
-                  <input #imageInput placeholder="Select an Image" type="file" accept="image/*" (change)="processFile($event)">
+                <div>
+                  <div *ngIf="hasAccomodation && accomodation.acc_status=='Approved' && accomodation.acc_payment_status=='Not Paid'">
+                    <div class="container">
+                      <h2>Payment</h2>
+                      <hr />
+                      <div class="form-group">
+                        <div class="row">
+                          <button class="btn btn-linkedin" type="button">Pay Online</button>
+                          <button class="btn btn-google" type="button" data-toggle="collapse" data-target="#DDUpload">Upload
+                            Demand Draft</button>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="collapse" id="DDUpload">
+                          <div class="card card-body">
+                            <form>
+                              <input #imageInput placeholder="Select an Image" type="file" accept="image/*" (change)="processFile($event)">
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div *ngIf="accomodation.acc_payment_status == 'Paid' && accomodation.acc_status == 'Not Confimed' ">
-                  Please Wait for confirmation with us!!!
-                </div>-->
               </div>
             </div>
           </div>

@@ -38,10 +38,16 @@ export class AccomodationService {
     return this.http.get(this.app.getUrl(this.baseUrl)+'populate');
   }
 
-  approveAccomodation(id: string){
+  confirmAccomodation(id: string){
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this.http.post(this.app.getUrl(this.baseUrl + 'confirmAccommodation/'+id),{}).pipe(map(res => res, {'headers': headers}));
+  }
+
+  approveAccomodation(id: string){
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post(this.app.getUrl(this.baseUrl + 'approveAccommodation/'+id),{}).pipe(map(res => res, {'headers': headers}));
   }
 
   readAccomodation() {

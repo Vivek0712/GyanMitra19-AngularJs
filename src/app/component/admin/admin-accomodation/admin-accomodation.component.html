@@ -39,7 +39,7 @@
               <img src="{{ddImage}}" class="width-100 height-100" alt="Loading..." />
             </div>
             <div class="modal-footer">
-              <button type="button" (click)="approveAccomodation(selectedID)" class="btn btn-success">Approve
+              <button type="button" (click)="confirmAccomodation(selectedID)" class="btn btn-success">Approve
                 Accomodation</button>
               <a href="{{ddImage}}" target="_blank" class="btn btn-success"><i class="fas fa-plus-circle"></i>&nbsp;Magnify</a>
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -113,7 +113,7 @@
                         <th>Payment Status</th>
                         <th>Accomodation Status</th>
                         <th>Remove Request</th>
-                        <th>Confirm Accomodation</th>
+                        <th>Approve Accomodation</th>
                         <th>Verify DD</th>
                       </tr>
                     </thead>
@@ -126,21 +126,22 @@
                         <td>{{accomodation.acc_days}}</td>
                         <td>{{accomodation.acc_payment_status}}</td>
                         <td>{{accomodation.acc_status}}</td>
-                        <!-- <td>
-                          <div *ngIf="accomodation.acc_mode_of_payment == 'Demand Draft' && accomodation.acc_payment_status=='Paid' && accomodation.acc_status == 'Not Confirmed' "
+                        <td>
+                          <div class="fonticon-wrap icon-shadow icon-shadow-danger" (click)="deleteRequest(accomodation._id)">
+                            <a> <i class="la la-trash la-2x"></i></a>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="fonticon-wrap icon-shadow icon-shadow-success" (click)="approveAccomodation(accomodation._id)">
+                            <a> <i class="la la-upload la-2x"></i></a>
+                          </div>
+                        </td>
+                         <td>
+                          <div *ngIf="accomodation.acc_mode_of_payment == 'Demand Draft' && accomodation.acc_payment_status=='Paid' && accomodation.acc_status == 'Approved' "
                             class="btn btn-success" data-toggle="modal" data-target="#DDModal" (click)="loadDD(accomodation._id,accomodation.acc__transaction_id, accomodation.acc_file_name)">
                             Verify DD
                           </div>
-                          <div *ngIf="accomodation.acc_mode_of_payment == 'Online' && accomodation.acc_payment_status=='Paid' && accomodation.acc_status == 'Not Confirmed'">
-                            <button type="button" (click)="approveAccomodation(accomodation._id)" class="btn btn-success">Approve
-                            </button>
-                            </div>
-                        </td> -->
-                      </tr>
-                      <tr *ngIf="filteredAccomodations == undefined" class="table-danger">
-                        <td colspan="11" class="text-center">
-                          <h4>No Accomodation requests that match were found!</h4>
-                        </td>
+                         </td>
                       </tr>
                     </tbody>
                   </table>
