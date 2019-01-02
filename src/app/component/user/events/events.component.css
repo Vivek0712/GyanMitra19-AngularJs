@@ -19,8 +19,8 @@
 .card,
 .card-header,
 .card-body {
-     width: 500px;
-     height: 350px;
+     width: 400px;
+     height: 450px;
 }
 
 .card-hide:after{
