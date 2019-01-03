@@ -60,6 +60,7 @@ import { UserAccomodationComponent } from './component/user/user-accomodation/us
 import { RoleComponent } from './component/admin/role/role.component';
 import { EventParticipantsComponent } from './component/admin/event-participants/event-participants.component';
 import { EventParticipantsTeamComponent } from './component/admin/event-participants-team/event-participants-team.component';
+import { TeamRegisterComponent } from './component/user/team-register/team-register.component';
 
 /////////////////////////////////////////////////////////////////
 
@@ -100,7 +101,8 @@ import { EventParticipantsTeamComponent } from './component/admin/event-particip
     RoleComponent,
     EventParticipantsComponent,
     EventParticipantsTeamComponent,
-    UserHomeComponent
+    UserHomeComponent,
+    TeamRegisterComponent
   ],
   imports: [
     BrowserModule,

@@ -12,10 +12,10 @@ export class EventRegistrationService {
   readonly baseUrl = 'eventRegistration/';
   constructor(private http: HttpClient, private app: AppService) { }
 
-  createEventRegistration(event_id: String, id: String, participation:String) {
+  createEventRegistration(event_id: String, email_id: String, participation:String) {
     let data = {
         event_id: event_id,
-        user_id: id,
+        email_id:email_id,
         registration_type: "Single",
         participation: participation
       }

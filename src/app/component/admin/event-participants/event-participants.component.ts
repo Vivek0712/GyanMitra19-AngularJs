@@ -40,10 +40,6 @@ export class EventParticipantsComponent implements OnInit {
     this.searchText = "";
   }
 
-  load() {
-    location.reload();
-  }
-
   reload() {
     this.getParticipants();
   }
@@ -53,13 +49,7 @@ export class EventParticipantsComponent implements OnInit {
     this.submitted = true;
     if (form.valid) {
       if (form.value._id === '') {
-        this.eventRegistration.getUserByEmail(this.participantForm.get('email_id').value).subscribe((res: any) => {
-          this.eventRegistration.checkEventRegistration(this.event_id, res._id).subscribe((resp: any) => {
-            if (resp.registered) {
-              M.toast({ html: resp.msg, classes: 'roundeds' });
-            }
-            else {
-              this.eventRegistration.createEventRegistration(this.event_id, res._id, this.participantForm.get('participation').value).subscribe((response: any) => {
+        this.eventRegistration.createEventRegistration(this.event_id,this.participantForm.get('email_id').value , this.participantForm.get('participation').value).subscribe((response: any) => {
                 if (response.error) {
                   M.toast({ html: response.msg, classes: 'roundeds' });
                   this.getParticipants();
@@ -71,19 +61,15 @@ export class EventParticipantsComponent implements OnInit {
                 }
               });
             }
-          });
-        });
-      
-    }
   } else
     {
-  M.toast({ html: 'Please Check The Form', classes: 'roundeds' });
-}
+      M.toast({ html: 'Please Check The Form', classes: 'roundeds' });  
+    }
   }
 
 getParticipants() {
   this.eventRegistration.getEvents(this.event_id).subscribe((response: any) => {
-    this.participants = response.docs;
+    this.participants = response;
   });
 }
 
