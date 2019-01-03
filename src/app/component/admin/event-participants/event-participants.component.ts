@@ -54,17 +54,29 @@ export class EventParticipantsComponent implements OnInit {
     if(form.valid){
       if ( form.value._id === '') {
         this.eventRegistration.getUserByEmail(this.participantForm.get('email_id').value).subscribe((res:any) => {
-              this.eventRegistration.createEventRegistration(this.event_id,res._id,this.participantForm.get('participation').value).subscribe((response: any) => {
-            if ( response.error ) {
-              M.toast({ html: response.msg , classes: 'roundeds'});
-              this.getParticipants();
-              this.createForm();
-            } else {
-              M.toast({ html: response.msg , classes: 'roundeds'});
-              this.getParticipants();
-              this.createForm();
-            }
-          });
+          if(!res.error){
+            this.eventRegistration.checkEventRegistration(this.event_id,res._id).subscribe((resp:any) =>{
+              if(resp.registered){
+                M.toast({ html: resp.msg , classes: 'roundeds'});
+              }
+              else{
+                this.eventRegistration.createEventRegistration(this.event_id,res._id,this.participantForm.get('participation').value).subscribe((response: any) => {
+                  if ( response.error ) {
+                    M.toast({ html: response.msg , classes: 'roundeds'});
+                    this.getParticipants();
+                    this.createForm();
+                  } else {
+                    M.toast({ html: response.msg , classes: 'roundeds'});
+                    this.getParticipants();
+                    this.createForm();
+                  }
+                });
+              }
+            });
+          }
+          else{
+            M.toast({ html: "Mail is not registered" , classes: 'roundeds'});
+          }
         });
       }
     } else
@@ -75,8 +87,7 @@ export class EventParticipantsComponent implements OnInit {
 
   getParticipants() {
     this.eventRegistration.getEvents(this.event_id).subscribe((response: any) => {
-      this.participants = response;
-      console.log("participants list")
+      this.participants = response.docs;
     });
   }
 
