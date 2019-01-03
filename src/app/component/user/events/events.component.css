@@ -1,70 +1,53 @@
-/* entire container, keeps perspective */
 
-.card {
-     -webkit-perspective: 1000;
-     /*margin: 100px auto;*/
+/* Form Style */
+a:hover,a:focus{
+ text-decoration: none;
+ outline: none;
 }
 
-/* flip the pane when clicked */
-
-.card:hover .flipper,
-.card.hover .flipper {
-     -webkit-transform: rotateY(180deg);
+#accordion .panel{
+ border: none;
+ box-shadow: none;
+ border-radius: 0;
+ margin-bottom: 5px;
 }
 
-.card-header:hover {
-     display: none;
+#accordion .panel-heading{
+ padding: 0;
+ border-radius: 0;
+ text-align: center;
+ border: none;
 }
 
-.card,
-.card-header,
-.card-body {
-     width: 400px;
-     height:400px;
-     overflow: auto;
+#accordion .panel-title a{
+ display: block;
+ padding: 15px;
+ font-size: 16px;
+ font-weight: bold;
+ color: #fff;
+ background: #0C0119;
+ transition: all 0.5s ease 0s;
 }
 
-.card-hide:after{
-     
+#accordion .panel-title a:hover{
+ background: rgba(12, 1, 25, 0.8);
 }
 
-.card-hide {
-     -webkit-transition: 0.6s;
-     -webkit-transform-style: preserve-3d;
-     position: relative;
+#accordion .panel-body{
+ font-size: 14px;
+ color: #fff;
+ background: #29b0a0;
+ padding: 15px 20px;
+ line-height: 25px;
+ border: none;
+ position: relative;
 }
 
-/* flip speed goes here */
-
-.flipper {
-     -webkit-transition: 0.6s;
-     -webkit-transform-style: preserve-3d;
-     position: relative;
-}
-
-/* hide back of pane during swap */
-
-.card-header,
-.card-body {
-     -webkit-backface-visibility: hidden;
-     position: absolute;
-     top: 0;
-     left: 0;
-}
-
-/* front pane, placed above back */
-
-.card-header {
-     z-index: 2;
-}
-
-/* back, initially hidden pane */
-
-.card-body {
-     -webkit-transform: rotateY(180deg);
-     overflow:auto;
-}
-
-.card-generic {
-     height: 40px;
+#accordion .panel-body:after{
+ content: "";
+ position: absolute;
+ top: -30px;
+ left: 40px;
+ border: 15px solid transparent;
+ border-bottom: 15px solid #29b0a0;
 }

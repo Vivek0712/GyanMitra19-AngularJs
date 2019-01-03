@@ -51,6 +51,7 @@ import { AboutComponent } from './component/user/about/about.component';
 import { EventsComponent } from './component/user/events/events.component';
 import { WorkshopsComponent } from './component/user/workshops/workshops.component';
 import { CartComponent } from './component/user/cart/cart.component';
+import { UserHomeComponent } from 'src/app/component/user/user-home/user-home.component';
 ////////////////////////////////////////////////////////////////
 import { AuthGuard } from './guard/auth/auth.guard';
 import { YearComponent } from './component/admin/year/year.component';
@@ -98,7 +99,8 @@ import { EventParticipantsTeamComponent } from './component/admin/event-particip
     UserAccomodationComponent,
     RoleComponent,
     EventParticipantsComponent,
-    EventParticipantsTeamComponent
+    EventParticipantsTeamComponent,
+    UserHomeComponent
   ],
   imports: [
     BrowserModule,

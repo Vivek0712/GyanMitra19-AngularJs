@@ -1,42 +1,98 @@
-<br>
-<div class="row">
-  <div class="col-3"></div>
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-5 col-md-5 col-sm-5" *ngFor="let event of events">
-        <div class="card pull-up">
-          <div class="flipper">
-            <div class="card-header card-hide">
-              <img class="card-img-top" src="http://localhost:3000/assests/images/events/{{ event.image_name }}"
-                alt="{{ event.image_name }}" width="100%" height="70%">
-              <h1 class="text-highlight" style="font-size:40px">{{ event.title }}</h1>
-              <h2 class="text-muted" style="font-size: 15px">Conducted by: {{ event.department_id.name }}<div class="float-right">Venue: {{ event.venue }}</div><br></h2>
-              <h5 class="text-muted">At {{ event.event_date }} From {{ event.start_time }} to {{ event.end_time }}<br></h5>
-              
-              <h6>Amount: {{ event.amount }}<div class="float-right">{{ event.min_members }}-{{ event.max_members }} Members<br></div></h6>
-              
+<div class="app-content content">
+  <div class="content-wrapper">
+    <div class="content-wrapper-before"></div>
+    <div class="content-header row">
+      <div class="content-header-left col-md-4 col-12 mb-2">
+        <h3 class="content-header-title">Events</h3>
+      </div>
+    </div>
+    <div class="row match-height">
+      <div class="col-lg-4 col-md-12" *ngFor="let event of events">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">{{event.title}}</h4>
+            <h6 class="card-subtitle text-muted">Department of {{event.department_id.name}}</h6>
+          </div>
+          <img class="" src="http://localhost:3000/assests/images/events/{{event.image_name}}" style="height: 200px"
+            alt="Error Loading Image">
+          <div class="card-body">
+            Description
+            <p class="card-text">{{event.description}}
+            </p>
+            Contact <p class="card-text">
+              <a href="mailto:{{event.contact_email}}">{{event.contact_email}}</a>
+            </p>
+            <div class="container">
+              <div class="row">
+                <div class="panel-heading float-left" role="tab" [id]="'headingRules'+event._id">
+                  <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" data-parent="#accordion" [href]="'#collapseRules'+event._id"
+                      aria-expanded="true" [attr.aria-controls]="'collapseRules'+event._id">
+                      Rules
+                    </a>
+                  </h4>
+                </div> &nbsp;&nbsp;|&nbsp;&nbsp;
+                <div class="panel-heading float-right" role="tab" [id]="'headingTiming'+event._id">
+                  <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" data-parent="#accordion" [href]="'#collapseTiming'+event._id"
+                      aria-expanded="true" [attr.aria-controls]="'collapseTiming'+event._id">
+                      Timing
+                    </a>
+                  </h4>
+                </div>
+              </div>
             </div>
-            
-            <div class="card-body">
-              <h4>Description</h4>
-              {{ event.description }}<hr>
-              <h4>Rules</h4> 
-              {{ event.rules }}<hr>
-              <h4>Event timings</h4>
-              Prelims: {{ event.prelims }}<br>
-              Round 1: {{ event.round_1 }}<br>
-              Round 2: {{ event.round_2 }}<br>
-              Finals: {{ event.finals }}<br>
-              {{event.gender_mixing_text}}<br><hr>
-              <b>Contact Email: </b><a href="mailto:{{ event.contact_email }}">{{ event.contact_email }}</a><br><hr>
-              <button type="button" class="btn btn-outline-success right round" (click)="selectEvent(workshop._id)">Register</button>
+            <div [id]="'collapseRules'+event._id" class="panel-collapse collapse" role="tabpanel"
+              [attr.aria-labelledby]="'headingRules'+event._id">
+              <div class="panel-body">
+                <h4>Rules </h4>
+                {{event.rules}}
+                <br />
+                <br />
+                Gender Mixing :
+                <span class="success" *ngIf="event.allow_gender_mixing">
+                  Allowed
+                </span>
+                <span class="danger" *ngIf="!event.allow_gender_mixing">
+                  Not Allowed
+                </span>
+              </div>
+            </div>
+
+            <div [id]="'collapseTiming'+event._id" class="panel-collapse collapse" role="tabpanel"
+              [attr.aria-labelledby]="'headingTiming'+event._id">
+              <div class="panel-body">
+                <h4>Timing </h4>
+                <div class="row">
+                  <div class="col-6">
+                    Prelims : {{event.prelims}}
+                  </div>
+                  <div class="col-6">
+                    Round 1 : {{event.round_1}}
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-6">
+                    Round 2 : {{event.round_2}}
+                  </div>
+                  <div class="col-6">
+                    Finals : {{event.finals}}
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
+          <div class="card-footer border-top-blue-grey border-top-lighten-5 text-muted">
+            <div class="float-left">Date : {{event.event_date | date }}</div>
+            <div class="float-right">Starts at : {{event.start_time }}</div>
+          </div>
+          <button type="button" class="btn btn-lg btn-glow btn-bg-gradient-x-blue-purple-2" style="width:100%">
+            Register Now <i class="la la-angle-right"></i>
+          </button>
         </div>
         <div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 3px;"><div class="ps-scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div></div>
         <div class="ps-scrollbar-y-rail" style="top: 0px; height: 100px; right: 3px;"><div class="ps-scrollbar-y" tabindex="0" style="top: 0px; height: 100px;"></div></div>
       </div>
-      <div class="col-lg-1 col-md-1 col-sm-1"></div>
     </div>
   </div>
 </div>
