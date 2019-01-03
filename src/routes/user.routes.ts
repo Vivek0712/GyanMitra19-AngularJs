@@ -1,5 +1,5 @@
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from 'src/app/component/admin/home/home.component';
+
 import { AboutComponent } from 'src/app/component/user/about/about.component';
 import { EventsComponent } from 'src/app/component/user/events/events.component';
 import { WorkshopsComponent } from 'src/app/component/user/workshops/workshops.component';
@@ -9,10 +9,11 @@ import { LoginComponent } from 'src/app/component/user/login/login.component';
 import { RegisterComponent } from 'src/app/component/user/register/register.component';
 import { ActivationComponent } from 'src/app/component/user/activation/activation.component';
 import { UserAccomodationComponent } from 'src/app/component/user/user-accomodation/user-accomodation.component'
+import { UserHomeComponent } from 'src/app/component/user/user-home/user-home.component';
 
 
 export const USER_ROUTE: Routes = [
-     { path: 'home', component: HomeComponent },
+     { path: 'home', component: UserHomeComponent },
      { path: 'about', component: AboutComponent },
      { path: 'events', component: EventsComponent },
      { path: 'workshops', component: WorkshopsComponent }, 
