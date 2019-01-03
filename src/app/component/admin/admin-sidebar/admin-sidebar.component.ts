@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EventService } from 'src/app/services/event/event.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-sidebar',
@@ -10,7 +11,8 @@ export class AdminSidebarComponent implements OnInit {
 
   events:Array<any>;
   workshops:Array<any>;
-  constructor(private eventService: EventService) { }
+  constructor(private eventService: EventService) {
+   }
 
   ngOnInit() {
     this.loadEvents();

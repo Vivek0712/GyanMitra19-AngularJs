@@ -13,6 +13,7 @@ import { CourseComponent } from 'src/app/component/admin/course/course.component
 import { AdminAccomodationComponent } from 'src/app/component/admin/admin-accomodation/admin-accomodation.component'
 import { RoleComponent } from 'src/app/component/admin/role/role.component';
 import { AdminUsersComponent } from 'src/app/component/admin/admin-users/admin-users.component';
+import { EventParticipantsComponent } from 'src/app/component/admin/event-participants/event-participants.component';
 
 
 
@@ -31,4 +32,5 @@ export const ADMIN_ROUTE: Routes = [
      { path: 'role', component: RoleComponent },
      { path: 'users', component: AdminUsersComponent },
      { path: 'accomodation', component: AdminAccomodationComponent },
+     { path: 'eventParticipants/:id', component: EventParticipantsComponent }
 ];
