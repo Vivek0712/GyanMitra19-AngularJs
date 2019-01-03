@@ -24,6 +24,7 @@ export class EventsComponent implements OnInit {
   loadFull(){
     this.eventService.readWithEventCategory('Event').subscribe((response: any) => {
       this.events = response;
+      console.log(response);
     })
   }
 }

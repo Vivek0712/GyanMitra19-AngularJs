@@ -11,12 +11,15 @@ import { Router } from '@angular/router';
 export class UserNavbarComponent implements OnInit {
 
   user: User = new User();
+  gender: String = "Male";
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
     if (this.authService.isLoggedIn()) {
       this.authService.getCurrentUser().subscribe((res: any) => {
         this.user = res.profile;
+        this.gender = res.profile.gender;
+        console.log(this.gender)
       },
        err => {
          console.log(err);

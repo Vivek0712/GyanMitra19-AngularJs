@@ -16,12 +16,24 @@ export class AdminUsersComponent implements OnInit {
   Button: any;
   roles: Array<any>;
   roles_form: FormArray;
+  selectedRoles: Array<any>;
   ngOnInit() {
-   
+    this.selectedRoles = [];
     this.getRoles();
     this.createForm();
     //this.addRoleCheckBox();
   }
+
+  append(_id:string){
+    if(this.selectedRoles.includes(_id)){
+      this.selectedRoles.splice(this.selectedRoles.indexOf(_id),1)
+    }
+    else{
+      this.selectedRoles.push(_id)
+    }
+    console.log(this.selectedRoles);
+  }
+
   createForm() {
     this.Button = "Create";
     this.userForm = this.formBuilder.group({
