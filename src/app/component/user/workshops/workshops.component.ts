@@ -31,7 +31,7 @@ export class WorkshopsComponent implements OnInit {
           M.toast({ html: response.msg, classes: 'roundeds' });
         }
         else {
-          this.eventRegistrationService.newWorkshopRegistration(_id, user_id).subscribe((response: any) => {
+          this.eventRegistrationService.createWorkshopRegistration(_id, user_id).subscribe((response: any) => {
             if (response.error) {
               M.toast({ html: response.msg, classes: 'roundeds' });
             } else {
