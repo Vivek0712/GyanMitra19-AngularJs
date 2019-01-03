@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { JwtHelper } from 'angular2-jwt';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 /////////////////////////////////////////////////////////////////
 import { routing } from '../routes/app.routes';
 import { AppComponent } from './app.component';
@@ -38,6 +38,7 @@ import { RoleUserService } from './services/role_user/role-user.service';
 import { TeamService } from './services/team/team.service';
 import { TeamMemberService } from './services/team_member/team-member.service';
 import { ResolvecollegePipe } from './pipes/resolvecollege.pipe';
+import { EventRegistrationService } from './services/eventRegistration/event-registration.service'
 ///////////////////////////////////////////////////////////////////////////////////////
 import { RegistrationComponent } from './component/admin/registration/registration.component';
 import { ParticipantstatusComponent } from './component/admin/participantstatus/participantstatus.component';
@@ -59,7 +60,6 @@ import { RoleComponent } from './component/admin/role/role.component';
 import { EventParticipantsComponent } from './component/admin/event-participants/event-participants.component';
 
 /////////////////////////////////////////////////////////////////
-
 
 @NgModule({
   declarations: [
@@ -121,6 +121,7 @@ import { EventParticipantsComponent } from './component/admin/event-participants
     TeamService,
     TeamMemberService,
     AuthGuard,
+    EventRegistrationService
   ],
   bootstrap: [AppComponent]
 })

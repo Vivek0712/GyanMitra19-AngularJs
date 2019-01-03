@@ -1,3 +1,95 @@
-<p>
-  cart works!
-</p>
+<div class="app-content content">
+  <div class="content-wrapper">
+    <div class="content-wrapper-before"></div>
+    <div class="content-header row">
+      <div class="content-header-left col-md-4 col-12 mb-2">
+        <h3 class="content-header-title">Cart</h3>
+      </div>
+      <div class="content-header-right col-md-8 col-12">
+        <div class="breadcrumbs-top float-md-right">
+          <div class="breadcrumb-wrapper mr-1">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="index.html">Home</a>
+              </li>
+              <li class="breadcrumb-item active"> Cart
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="content-body">
+      <section id="content-types">
+        <div class="row match-height justify-content-md-center">
+          <div class="col-xl-6 col-md-12">
+          </div>
+        </div>
+      </section>
+      <div class="row">
+        <div class="col-12">
+          <div class="card  bg-gradient-x-blue">
+            <div class="card-header">
+              <h4 class="card-title white">
+                Heres what you added to your Tech Show!
+              </h4>
+              <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+              <div class="heading-elements">
+                <ul class="list-inline mb-0">
+                </ul>
+              </div>
+              <div class="card-body">
+                <h3 class="white">Workshops</h3>
+                <br />
+                <div *ngIf="!hasWorkshops">
+                  <h5 class="white">You have no workshop registrations. Register in one of our workshops!!!</h5>
+                </div>
+                <div *ngIf="hasWorkshops">
+                  <div *ngFor="let workshop of workshops">
+                    <div class="col-md-4 col-lg-4 col-xl-4">
+                      <div class="card pull-up">
+                        <h5 class="card-header">{{workshop.event_id.title}}</h5>
+                        <div class="card-body">
+                          <h5 class="card-title">What you need to know</h5>
+                          <br />
+                          <div class="row">
+                            <div class="col-6">
+                              Date : {{workshop.event_id.event_date}}
+                            </div>
+                            <div class="col-6">
+                              Venue : {{workshop.event_id.venue}}
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col">
+                              Contact : <a href="mailto://{{workshop.event_id.contact_email}}">{{workshop.event_id.contact_email}}</a>
+                            </div>
+                          </div>
+                          <br />
+                          <button class="btn btn-danger" (click)="cancelWorkshopRegistration(workshop._id)">Cancel
+                            Registration</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <br />
+                <h3 class="white">Events</h3>
+                <div class="row">
+                  <!-- <div class="col-md-6 col-lg-4 col-xl-3">
+                    <div class="card ">
+                      <h5 class="card-header">Featured</h5>
+                      <div class="card-body">
+                        <h5 class="card-title">Special title treatment</h5>
+                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                      </div>
+                    </div>
+                  </div> -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
