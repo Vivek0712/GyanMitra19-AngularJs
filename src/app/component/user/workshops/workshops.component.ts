@@ -15,6 +15,7 @@ export class WorkshopsComponent implements OnInit {
     this.loadFull();
   }
   ngOnInit() {
+    this.loadFull();
   }
 
   reloadEvents() {
