@@ -1,5 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
+import { FormGroup, FormControl, Validators , FormBuilder , FormArray, NgForm } from '@angular/forms';
+import { EventRegistrationService } from 'src/app/services/eventRegistration/event-registration.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
+import { ParticipationstatusService } from 'src/app/services/participationstatus/participationstatus.service';
+import { Location } from '@angular/common';
+
+declare var M: any;
 
 @Component({
   selector: 'app-event-participants',
@@ -8,11 +15,110 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class EventParticipantsComponent implements OnInit {
 
-  constructor(private route:ActivatedRoute) { 
-    this.route.params.subscribe(param =>{console.log(param.id);});
+  event_id:String;
+  currentAttendance:String;
+
+
+  constructor(private participantStatusService: ParticipationstatusService,private eventRegistration: EventRegistrationService,private authService: AuthService, private formBuilder: FormBuilder,private route:ActivatedRoute,private location:Location) { 
+    this.route.params.subscribe(param =>{this.event_id = param.id});
   }
 
+  participantStatuss: Array<any>
+  participantForm: FormGroup;
+  participants: Array<any>;
+  Button: any;
+  submitted:boolean;
+  searchText:String;
+
+  
   ngOnInit() {
+    this.submitted=false;
+    this.currentAttendance = '';
+    this.createForm();
+    this.getParticipants();
+    this.getParticipantStatus();
+    this.searchText="";
+  }
+
+  load() {
+    location.reload();
+  }
+
+  reload() {
+    this.getParticipants();
+  }
+
+  get f() { return this.participantForm.controls; }
+  onSubmit(form: NgForm) {
+    this.submitted=true;
+    if(form.valid){
+      if ( form.value._id === '') {
+        this.eventRegistration.getUserByEmail(this.participantForm.get('email_id').value).subscribe((res:any) => {
+              this.eventRegistration.createEventRegistration(this.event_id,res._id,this.participantForm.get('participation').value).subscribe((response: any) => {
+            if ( response.error ) {
+              M.toast({ html: response.msg , classes: 'roundeds'});
+              this.getParticipants();
+              this.createForm();
+            } else {
+              M.toast({ html: response.msg , classes: 'roundeds'});
+              this.getParticipants();
+              this.createForm();
+            }
+          });
+        });
+      }
+    } else
+    {
+      M.toast({ html: 'Please Check The Form' , classes: 'roundeds'});
+    }
+  }
+
+  getParticipants() {
+    this.eventRegistration.getEvents(this.event_id).subscribe((response: any) => {
+      this.participants = response;
+      console.log("participants list")
+    });
+  }
+
+  createForm() {
+    this.submitted=false;
+    this.participantForm = this.formBuilder.group({
+      _id: '',
+      email_id: ['',Validators.required],
+      participation: ['',Validators.required]
+    });
+    this.Button = 'Create';
+  }
+ 
+  deleteParticipant(id: string) {
+    this.eventRegistration.cancelEventRegistration(id).subscribe((response: any) => {
+      if ( response.error ) {
+        M.toast({ html: response.msg , classes: 'roundeds'});
+        this.getParticipants();
+        this.createForm();
+      } else {
+        M.toast({ html: response.msg , classes: 'roundeds'});
+        this.getParticipants();
+        this.createForm();
+      }
+    });
+  }
+  updateAttendance(id: string) {
+    this.eventRegistration.updateAttendance(id,this.currentAttendance).subscribe((response:any)=>{
+      if(response.error){
+        M.toast({ html: response.msg , classes: 'roundeds'});
+      }
+      else {
+        M.toast({ html: response.msg , classes: 'roundeds'});
+      }
+    });
+  }
+
+
+  getParticipantStatus() {
+    this.participantStatusService.readParticipationStatus(0).subscribe((response: any) => {
+      this.participantStatuss = response;
+    });
   }
 
 }
