@@ -23,5 +23,5 @@ export const USER_ROUTE: Routes = [
      { path: 'activate/:id/:hash',component:ActivationComponent},
      { path: 'cart', component: CartComponent, canActivate:[AuthGuard]},
      { path: 'accomodation', component: UserAccomodationComponent},
-     { path: 'teamRegister', component: TeamRegisterComponent}
+     { path: 'teamRegister/:id', component: TeamRegisterComponent}
 ];

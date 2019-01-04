@@ -27,8 +27,13 @@
                             "src/public/css/app-lite.css",
                             "src/public/css/core/menu/menu-types/vertical-menu.css",
                             "src/public/css/core/colors/palette-gradient.css",   
-                            "src/public/css/mycss.css"
-
+                            "src/public/css/mycss.css",
+                            "src/public/vendors/css/forms/toggle/switchery.min.css",
+                            "src/public/css/plugins/forms/switch.min.css",
+                            "src/public/css/core/colors/palette-switch.min.css",
+                            "src/public/css/plugins/forms/wizard.min.css",
+                            "src/public/vendors/css/forms/selects/select2.min.css",
+                            "src/public/css/bootstrap-extended.css"
                         ],
                         "scripts": [
                             "src/public/vendors/js/vendors.min.js",
@@ -39,7 +44,11 @@
                             "src/public/js/scripts/myjquery.js",
                             "src/public/js/scripts/select2.min.js",
                             "src/public/js/scripts/form-select2.js",
-                            "src/public/particles/particles.js"
+                            "src/public/particles/particles.js",
+                            "src/public/js/scripts/forms/switch.js",
+                            "src/public/vendors/js/forms/toggle/switchery.min.js",
+                            "src/public/js/scripts/forms/form-repeater.min.js",
+                            "src/public/vendors/js/forms/repeater/jquery.repeater.min.js"
                         ]
                     },
                     "configurations": {

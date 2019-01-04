@@ -13,7 +13,7 @@ declare var M: any;
 })
 export class CategoryComponent implements OnInit {
 
-  constructor(private categoryService: CategoryService, private authService: AuthService, private formBuilder: FormBuilder) { }
+  constructor(private categoryService: CategoryService, private formBuilder: FormBuilder) { }
   categoryForm: FormGroup;
   categories: Array<any>;
   Button: any;

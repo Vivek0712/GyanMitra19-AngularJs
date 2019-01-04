@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { ParticipantstatusComponent } from 'src/app/component/admin/participantstatus/participantstatus.component';
 import { ParticipationstatusService } from '../participationstatus/participationstatus.service';
+import { post } from 'selenium-webdriver/http';
 
 @Injectable({
   providedIn: 'root'
@@ -24,17 +25,16 @@ export class EventRegistrationService {
     return this.http.post(this.app.getUrl(this.baseUrl + 'newEventRegistration'), data).pipe(map(res => res, { 'headers': headers }));
   }
 
-  createEventWithTeamRegistration(event_id: String, team_id: String,id:String, participation: String) {
+  createEventWithTeamRegistration(email_id: String, event_id: String,name:String, position: String) {
     let data = {
+        email_id: email_id,
         event_id: event_id,
-        team_id: team_id,
-        user_id: id,
-        registration_type: "Team",
-        participation: participation
+        name: name,
+        position: position
       }
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post(this.app.getUrl(this.baseUrl + 'newEventRegistration'), data).pipe(map(res => res, { 'headers': headers }));
+    return this.http.post(this.app.getUrl(this.baseUrl + 'newTeamEventRegistration'), data).pipe(map(res => res, { 'headers': headers }));
   }
 
   createWorkshopRegistration(event_id: String, id: String) {
