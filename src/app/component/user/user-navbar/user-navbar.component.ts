@@ -19,7 +19,6 @@ export class UserNavbarComponent implements OnInit {
       this.authService.getCurrentUser().subscribe((res: any) => {
         this.user = res.profile;
         this.gender = res.profile.gender;
-        console.log(this.gender)
       },
        err => {
          console.log(err);

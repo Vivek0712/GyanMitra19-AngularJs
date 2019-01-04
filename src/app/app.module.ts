@@ -61,6 +61,7 @@ import { RoleComponent } from './component/admin/role/role.component';
 import { EventParticipantsComponent } from './component/admin/event-participants/event-participants.component';
 import { EventParticipantsTeamComponent } from './component/admin/event-participants-team/event-participants-team.component';
 import { TeamRegisterComponent } from './component/user/team-register/team-register.component';
+import { FilterEventsBasedOnDepartmentPipe } from './pipes/filter-events-based-on-department.pipe';
 
 /////////////////////////////////////////////////////////////////
 
@@ -102,7 +103,8 @@ import { TeamRegisterComponent } from './component/user/team-register/team-regis
     EventParticipantsComponent,
     EventParticipantsTeamComponent,
     UserHomeComponent,
-    TeamRegisterComponent
+    TeamRegisterComponent,
+    FilterEventsBasedOnDepartmentPipe,
   ],
   imports: [
     BrowserModule,

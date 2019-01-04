@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { EventService } from 'src/app/services/event/event.service';
 import { EventRegistrationService } from 'src/app/services/eventRegistration/event-registration.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
+import { DepartmentService } from 'src/app/services/department/department.service';
+
 declare var M: any;
 
 @Component({
@@ -11,7 +14,10 @@ declare var M: any;
 export class WorkshopsComponent implements OnInit {
 
   workshops: Array<any>;
-  constructor(private eventService: EventService, private eventRegistrationService: EventRegistrationService) {
+  departments: Array<any>;
+  searchText: String;
+
+  constructor(private eventService: EventService, private eventRegistrationService: EventRegistrationService, private authService: AuthService, private deptService: DepartmentService) {
     this.loadFull();
   }
   ngOnInit() {
@@ -47,6 +53,9 @@ export class WorkshopsComponent implements OnInit {
   loadFull() {
     this.eventService.readWithEventCategory('Workshop').subscribe((response: any) => {
       this.workshops = response;
+    })
+    this.deptService.readDepartment(0).subscribe((response: any)=>{
+      this.departments = response;
     })
   }
 }

@@ -4,10 +4,17 @@
     <div class="content-header row">
       <div class="content-header-left col-md-4 col-12 mb-2">
         <h3 class="content-header-title">Events</h3>
+        <select [(ngModel)]="searchText" class="custom-select">
+          <option selected value="" >All</option>
+          <option *ngFor="let dept of departments" value="{{dept.name}}">
+              Department of {{dept.name}}
+          </option>
+        </select>
       </div>
-    </div>
+    </div >
+    <br />
     <div class="row match-height">
-      <div class="col-lg-4 col-md-12" *ngFor="let event of events">
+      <div class="col-lg-4 col-md-12" *ngFor="let event of events | filterEventsBasedOnDepartment : searchText">
         <div class="card">
           <div class="card-body">
             <h4 class="card-title">{{event.title}}</h4>
@@ -49,6 +56,14 @@
                 {{event.rules}}
                 <br />
                 <br />
+                <div class="danger" *ngIf="event.min_members == event.max_members">
+                  Individual Event
+                </div>
+                <div class="success" *ngIf="event.min_members != event.max_members">
+                  Teams of size {{event.min_members}} - {{event.max_members}}
+                </div>
+                <br />
+                <br />
                 Gender Mixing :
                 <span class="success" *ngIf="event.allow_gender_mixing">
                   Allowed
@@ -86,12 +101,31 @@
             <div class="float-left">Date : {{event.event_date | date }}</div>
             <div class="float-right">Starts at : {{event.start_time }}</div>
           </div>
-          <button type="button" class="btn btn-lg btn-glow btn-bg-gradient-x-blue-purple-2" style="width:100%">
-            Register Now <i class="la la-angle-right"></i>
-          </button>
+          <div *ngIf="authService.isLoggedIn()">
+            <div *ngIf="event.min_members == event.max_members">
+              <button type="button" class="btn btn-lg btn-glow btn-bg-gradient-x-blue-purple-2" (click)="selectEvent(event._id)"
+                style="width:100%">
+                Register Now <i class="la la-angle-right"></i>
+              </button>
+            </div>
+            <div *ngIf="event.min_members != event.max_members">
+              <button type="button" class="btn btn-lg btn-glow btn-bg-gradient-x-blue-purple-2" 
+                style="width:100%">
+                Register Team <i class="la la-angle-right"></i>
+              </button>
+            </div>
+          </div>
+          <div *ngIf="!authService.isLoggedIn()">
+            <a class="btn btn-lg btn-glow btn-bg-gradient-x-blue-purple-2" style="width:100%" [routerLink]="['/user/login']"
+              [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">Login to Register</a>
+          </div>
         </div>
-        <div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 3px;"><div class="ps-scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div></div>
-        <div class="ps-scrollbar-y-rail" style="top: 0px; height: 100px; right: 3px;"><div class="ps-scrollbar-y" tabindex="0" style="top: 0px; height: 100px;"></div></div>
+        <div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 3px;">
+          <div class="ps-scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div>
+        </div>
+        <div class="ps-scrollbar-y-rail" style="top: 0px; height: 100px; right: 3px;">
+          <div class="ps-scrollbar-y" tabindex="0" style="top: 0px; height: 100px;"></div>
+        </div>
       </div>
     </div>
   </div>
