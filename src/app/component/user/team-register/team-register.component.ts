@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators , FormBuilder , FormArray, NgForm } from '@angular/forms';
 import { EventRegistrationService } from 'src/app/services/eventRegistration/event-registration.service';
 import { ActivatedRoute } from '@angular/router';
-
+import { Select2OptionData } from 'ng2-select2';
 declare var M: any;
 @Component({
   selector: 'app-team-register',
@@ -14,12 +14,32 @@ export class TeamRegisterComponent implements OnInit {
   teamRegisterForm:FormGroup;
   Submitted:Boolean;
   event_id:String;
+  public exampleData: Array<Select2OptionData>;
   constructor(private route: ActivatedRoute,private formbuilder: FormBuilder,private eventRegister:EventRegistrationService) { 
     this.route.params.subscribe(param => { this.event_id = param.id });
   }
 
   ngOnInit() {
     this.createForm();
+    this.exampleData = [
+      {
+        id: 'basic1',
+        text: 'Basic 1'
+      },
+      {
+        id: 'basic2',
+        disabled: true,
+        text: 'Basic 2'
+      },
+      {
+        id: 'basic3',
+        text: 'Basic 3'
+      },
+      {
+        id: 'basic4',
+        text: 'Basic 4'
+      }
+];
   }
 
   get f() { return this.teamRegisterForm.controls; }
@@ -57,4 +77,10 @@ export class TeamRegisterComponent implements OnInit {
       });
     }
   }
+  ngAfterViewInit() {
+    $('#symbolId').on('change', (event) => {
+        
+        //you can use the selected value
+    });
+ }
 }

@@ -1,12 +1,11 @@
-$(document).ready(function() {
+$(document).ready(function () {
     var date = new Date();
     date.setDate(date.getDate());
 
     $('.datepicker').datepicker({
         startDate: date
     });
-    $('#team').select2({
-        placeholder:'Select Many'
+    $('#default-multiple').select2({
     });
 
 });
