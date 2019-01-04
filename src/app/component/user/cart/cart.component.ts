@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EventRegistrationService } from 'src/app/services/eventRegistration/event-registration.service';
+import { UserService } from 'src/app/services/user/user.service';
 
 declare var M: any;
 
@@ -14,16 +15,34 @@ export class CartComponent implements OnInit {
   user_id: string;
   hasWorkshops: boolean;
   hasEvents: boolean;
-  constructor(private eventRegistrationService: EventRegistrationService) {
+  amount: any;
+  constructor(private eventRegistrationService: EventRegistrationService, private userService: UserService) {
     this.workshops = []
+    this.events = []
     this.hasWorkshops = false;
     this.hasEvents = false;
     this.user_id = JSON.parse(localStorage.getItem('user')).id;
   }
 
   ngOnInit() {
+    this.amount = 0;
     this.getWorkshops();
     this.getEvents();
+    this.calculateAmount();
+  }
+
+  confirmCart() {
+    this.userService.confirmCart(this.user_id).subscribe((response: any) => {
+      if (response.error == true) {
+        M.toast({ html: response.msg, classes: 'roundeds' });
+      }
+      else {
+        M.toast({ html: response.msg, classes: 'roundeds' });
+        this.getWorkshops();
+        this.calculateAmount();
+
+      }
+    })
   }
 
   cancelWorkshopRegistration(_id: string) {
@@ -34,8 +53,11 @@ export class CartComponent implements OnInit {
       else {
         M.toast({ html: response.msg, classes: 'roundeds' });
         this.getWorkshops();
+        this.calculateAmount();
+
       }
     })
+
   }
 
   cancelEventRegistration(_id: string) {
@@ -46,6 +68,8 @@ export class CartComponent implements OnInit {
       else {
         M.toast({ html: response.msg, classes: 'roundeds' });
         this.getEvents();
+        this.calculateAmount();
+
       }
     })
   }
@@ -57,6 +81,8 @@ export class CartComponent implements OnInit {
       }
       else {
         this.workshops = response;
+        this.calculateAmount();
+
         if (this.workshops.length == 0) {
           this.hasWorkshops = false;
         }
@@ -66,7 +92,7 @@ export class CartComponent implements OnInit {
       }
     })
   }
-  
+
   getEvents() {
     this.eventRegistrationService.getEventRegistrations(this.user_id).subscribe((response: any) => {
       if (response.error == true) {
@@ -74,7 +100,7 @@ export class CartComponent implements OnInit {
       }
       else {
         this.events = response;
-        console.log(response);
+        this.calculateAmount()
         if (this.events.length == 0) {
           this.hasEvents = false;
         }
@@ -85,5 +111,13 @@ export class CartComponent implements OnInit {
     })
   }
 
-
+  calculateAmount() {
+    this.amount = 0;
+    this.workshops.forEach(workshop => {
+      this.amount += workshop.event_id.amount;
+    });
+    if (this.events.length != 0) {
+      this.amount += 200;
+    }
+  }
 }

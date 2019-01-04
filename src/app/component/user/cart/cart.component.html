@@ -33,7 +33,7 @@
                 Heres what you added to your Tech Show!
               </span>
               <span class="float-right" *ngIf="hasWorkshops || hasEvents" style="margin:2px">
-                  <button class="btn btn-bg-gradient-x-blue-green border-white border-2">Confirm Cart</button>
+                <button class="btn btn-bg-gradient-x-blue-green border-white border-2" (click)="confirmCart()">Confirm and Pay Rs. {{amount}}</button>
               </span>
               <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
               <div class="heading-elements">
@@ -73,7 +73,7 @@
                           {{workshop.status}}
                         </span>
                         <button class="btn btn-bg-gradient-x-red-pink float-right" (click)="cancelWorkshopRegistration(workshop._id)">
-                          Cancel Registration
+                          Remove from Cart
                         </button>
                       </div>
                     </div>
@@ -110,7 +110,7 @@
                           {{event.status}}
                         </span>
                         <button class="btn  btn-bg-gradient-x-red-pink float-right" (click)="cancelEventRegistration(event._id)">
-                          Cancel Registration
+                          Remove from Cart
                         </button>
                       </div>
                     </div>
