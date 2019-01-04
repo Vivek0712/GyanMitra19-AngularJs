@@ -109,10 +109,11 @@
               </button>
             </div>
             <div *ngIf="event.min_members != event.max_members">
-              <button type="button" class="btn btn-lg btn-glow btn-bg-gradient-x-blue-purple-2" 
+              <button type="button" [routerLink]="['/user/teamRegister',event._id]"
+              [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}" class="btn btn-lg btn-bg-gradient-x-blue-purple-2" 
                 style="width:100%">
                 Register Team <i class="la la-angle-right"></i>
-              </button>
+            </button>
             </div>
           </div>
           <div *ngIf="!authService.isLoggedIn()">
