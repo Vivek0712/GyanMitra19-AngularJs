@@ -32,11 +32,8 @@
               <span class="card-title white h4">
                 Heres what you added to your Tech Show!
               </span>
-              <span class="float-right" *ngIf="hasWorkshops" style="margin:2px">
-                  <button class="btn btn-bg-gradient-x-blue-green border-white border-2">Confirm Workshop Cart</button>
-              </span>
-              <span class="float-right" *ngIf="hasWorkshops" style="margin:2px">
-                  <button class="btn btn-bg-gradient-x-blue-green border-white border-2">Confirm Event Cart</button>
+              <span class="float-right" *ngIf="hasWorkshops || hasEvents" style="margin:2px">
+                  <button class="btn btn-bg-gradient-x-blue-green border-white border-2">Confirm Cart</button>
               </span>
               <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
               <div class="heading-elements">
