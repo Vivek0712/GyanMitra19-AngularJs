@@ -3,11 +3,19 @@
     <div class="content-wrapper-before"></div>
     <div class="content-header row">
       <div class="content-header-left col-md-4 col-12 mb-2">
-        <h3 class="content-header-title">Workshops</h3>
+        <span class=" h3 content-header-title">Workshops</span>
+        <select [(ngModel)]="searchText" class="custom-select">
+            <option selected value="" >All</option>
+            <option *ngFor="let dept of departments" value="{{dept.name}}">
+                Department of {{dept.name}}
+            </option>
+          </select>
       </div>
     </div>
+    <br />
+    <br />
     <div class="row match-height">
-      <div class="col-lg-4 col-md-12" *ngFor="let workshop of workshops">
+      <div class="col-lg-4 col-md-12" *ngFor="let workshop of workshops | filterEventsBasedOnDepartment : searchText">
         <div class="card">
           <div class="card-body">
             <h4 class="card-title">{{workshop.title}}</h4>

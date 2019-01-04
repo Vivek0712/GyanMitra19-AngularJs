@@ -64,7 +64,13 @@ export class EventRegistrationService {
   getWorkshops(user_id: String){
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.get(this.app.getUrl(this.baseUrl) + user_id + "/Workshop");
+    return this.http.get(this.app.getUrl(this.baseUrl)+'/getRegistrations/' + user_id + "/Workshop");
+  }
+
+  getEventRegistrations(user_id: String){
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.get(this.app.getUrl(this.baseUrl)+'/getRegistrations/' + user_id + "/Event");
   }
 
   getEvents(event_id: String){

@@ -29,9 +29,15 @@
         <div class="col-12">
           <div class="card  bg-gradient-x-blue">
             <div class="card-header">
-              <h4 class="card-title white">
+              <span class="card-title white h4">
                 Heres what you added to your Tech Show!
-              </h4>
+              </span>
+              <span class="float-right" *ngIf="hasWorkshops" style="margin:2px">
+                  <button class="btn btn-bg-gradient-x-blue-green border-white border-2">Confirm Workshop Cart</button>
+              </span>
+              <span class="float-right" *ngIf="hasWorkshops" style="margin:2px">
+                  <button class="btn btn-bg-gradient-x-blue-green border-white border-2">Confirm Event Cart</button>
+              </span>
               <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
               <div class="heading-elements">
                 <ul class="list-inline mb-0">
@@ -44,47 +50,74 @@
                   <h5 class="white">You have no workshop registrations. Register in one of our workshops!!!</h5>
                 </div>
                 <div *ngIf="hasWorkshops">
-                  <div *ngFor="let workshop of workshops">
-                    <div class="col-md-4 col-lg-4 col-xl-4">
-                      <div class="card pull-up">
-                        <h5 class="card-header">{{workshop.event_id.title}}</h5>
-                        <div class="card-body">
-                          <h5 class="card-title">What you need to know</h5>
-                          <br />
-                          <div class="row">
-                            <div class="col-6">
-                              Date : {{workshop.event_id.event_date}}
-                            </div>
-                            <div class="col-6">
-                              Venue : {{workshop.event_id.venue}}
-                            </div>
+                  <div class="col-md-4 col-lg-4 col-xl-4" *ngFor="let workshop of workshops">
+                    <div class="card pull-up">
+                      <div class="card-header">
+                        <div class="h4">{{workshop.event_id.title}}</div>
+                      </div>
+                      <div class="card-body">
+                        <h5 class="card-title">What you need to know</h5>
+                        <br />
+                        <div class="row">
+                          <div class="col-6">
+                            Date : {{workshop.event_id.event_date}}
                           </div>
-                          <div class="row">
-                            <div class="col">
-                              Contact : <a href="mailto://{{workshop.event_id.contact_email}}">{{workshop.event_id.contact_email}}</a>
-                            </div>
+                          <div class="col-6">
+                            Venue : {{workshop.event_id.venue}}
                           </div>
-                          <br />
-                          <button class="btn btn-danger" (click)="cancelWorkshopRegistration(workshop._id)">Cancel
-                            Registration</button>
                         </div>
+                        <div class="row">
+                          <div class="col">
+                            Contact : <a href="mailto://{{workshop.event_id.contact_email}}">{{workshop.event_id.contact_email}}</a>
+                          </div>
+                        </div>
+                        <br />
+                        <span [ngClass]="{'danger': workshop.satus != 'Confirmed'}">
+                          {{workshop.status}}
+                        </span>
+                        <button class="btn btn-bg-gradient-x-red-pink float-right" (click)="cancelWorkshopRegistration(workshop._id)">
+                          Cancel Registration
+                        </button>
                       </div>
                     </div>
                   </div>
                 </div>
                 <br />
                 <h3 class="white">Events</h3>
-                <div class="row">
-                  <!-- <div class="col-md-6 col-lg-4 col-xl-3">
-                    <div class="card ">
-                      <h5 class="card-header">Featured</h5>
+                <br />
+                <div *ngIf="!hasEvents">
+                  <h5 class="white">You have no Event registrations. Register in one of our Events!!!</h5>
+                </div>
+                <div *ngIf="hasEvents">
+                  <div class="col-md-4 col-lg-4 col-xl-4" *ngFor="let event of events">
+                    <div class="card pull-up">
+                      <h5 class="card-header">{{event.event_id.title}}</h5>
                       <div class="card-body">
-                        <h5 class="card-title">Special title treatment</h5>
-                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                        <h5 class="card-title">What you need to know</h5>
+                        <br />
+                        <div class="row">
+                          <div class="col-6">
+                            Date : {{event.event_id.event_date}}
+                          </div>
+                          <div class="col-6">
+                            Venue : {{event.event_id.venue}}
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col">
+                            Contact : <a href="mailto://{{event.event_id.contact_email}}">{{event.event_id.contact_email}}</a>
+                          </div>
+                        </div>
+                        <br />
+                        <span [ngClass]="{'danger': event.status != 'Confirmed'}">
+                          {{event.status}}
+                        </span>
+                        <button class="btn  btn-bg-gradient-x-red-pink float-right" (click)="cancelEventRegistration(event._id)">
+                          Cancel Registration
+                        </button>
                       </div>
                     </div>
-                  </div> -->
+                  </div>
                 </div>
               </div>
             </div>
@@ -93,3 +126,4 @@
       </div>
     </div>
   </div>
+</div>
