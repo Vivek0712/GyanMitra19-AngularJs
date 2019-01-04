@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder, FormArray, NgForm } from '@angular/forms';
 import { EventRegistrationService } from 'src/app/services/eventRegistration/event-registration.service';
 import { ActivatedRoute } from '@angular/router';
-import { Options } from 'selenium-webdriver/edge';
+import { RegistrationService } from 'src/app/services/registration/registration.service';
+import { Response } from '@angular/http';
 declare var M: any;
 declare var $: any;
 @Component({
@@ -17,7 +18,7 @@ export class TeamRegisterComponent implements OnInit {
   event_id: String;
   college_mates: Array<any>;
   team_mates: Array<any>;
-  constructor(private route: ActivatedRoute, private formbuilder: FormBuilder, private eventRegister: EventRegistrationService) {
+  constructor(private route: ActivatedRoute, private registrationService:RegistrationService,private formbuilder: FormBuilder, private eventRegister: EventRegistrationService) {
     this.route.params.subscribe(param => { this.event_id = param.id });
   }
 
@@ -40,15 +41,26 @@ export class TeamRegisterComponent implements OnInit {
     this.Submitted = true;
     var iCnt = 0;
     var data = $('#default-multiple').select2('data');
-
+    var user_ids=[];
     $.each(data, function () {
-      var empName = $('#default-multiple').select2('data')[iCnt]['id'];
-      //$('#lbl').append(empName);
-      this.team_mates = empName;
-      console.log(this.team_mates);
+     
+      var user_id = $('#default-multiple').select2('data')[iCnt]['id'];
+      user_ids.push(user_id);
       iCnt += 1;
     });
     if (form.valid) {
+      this.eventRegister.createEventRegistration(JSON.parse(localStorage.getItem('user')).id, this.event_id,this.teamRegisterForm.get('name').value,).subscribe((response: any) => {
+        if (response.error) {
+          M.toast({ html: response.msg, classes: 'roundeds danger' });
+          this.createForm();
+        } else {
+          M.toast({ html: response.msg, classes: 'roundeds' });
+          this.createForm();
+        }
+      });
+    }
+
+    /*if (form.valid) {
       this.eventRegister.createEventWithTeamRegistration(JSON.parse(localStorage.getItem('user')).email_id, this.event_id, this.teamRegisterForm.get('name').value, "leader").subscribe((response: any) => {
         if (response.error) {
           M.toast({ html: response.msg, classes: 'roundeds danger' });
@@ -69,7 +81,7 @@ export class TeamRegisterComponent implements OnInit {
           this.createForm();
         }
       });
-    }
+    }*/
   }
   getCollegeMates() {
     //console.log(JSON.parse(localStorage.getItem('user')).id);
