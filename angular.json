@@ -42,7 +42,6 @@
                             "src/public/js/core/app-lite.js",
                             "src/public/js/scripts/picker.date.js",
                             "src/public/js/scripts/myjquery.js",
-                            "src/public/js/scripts/select2.min.js",
                             "src/public/js/scripts/form-select2.js",
                             "src/public/particles/particles.js",
                             "src/public/js/scripts/forms/switch.js",
