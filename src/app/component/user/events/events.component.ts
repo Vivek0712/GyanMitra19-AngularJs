@@ -3,6 +3,7 @@ import { EventService } from 'src/app/services/event/event.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { DepartmentService } from 'src/app/services/department/department.service';
 import { EventRegistrationService } from 'src/app/services/eventRegistration/event-registration.service';
+import { UserService } from 'src/app/services/user/user.service';
 
 declare var M: any;
 
@@ -17,11 +18,17 @@ export class EventsComponent implements OnInit {
   departments: Array<any>;
   selectedEventID:String;
   searchText: String;
-  constructor(private eventService: EventService,private eventRegistrationService: EventRegistrationService, private authService: AuthService, private deptService: DepartmentService) { 
+  isCartConfirmed:Boolean = true;
+  constructor(private userService: UserService, private eventService: EventService,private eventRegistrationService: EventRegistrationService, private authService: AuthService, private deptService: DepartmentService) { 
     this.selectedEventID='';
     this.loadFull();
   }
   ngOnInit() {
+    this.userService.isCartConfirmed(JSON.parse(localStorage.getItem('user')).id).subscribe((response: any)=>{
+      if(!response.error){
+        this.isCartConfirmed = response.isCartConfirmed
+      }
+    })
   }
 
   selectEvent(_id: string) {

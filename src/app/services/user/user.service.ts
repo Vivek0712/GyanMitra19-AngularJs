@@ -32,6 +32,15 @@ export class UserService {
     return this.http.get(this.app.getUrl(this.baseUrl)+'participants');
   }
 
+  confirmCart(_id){
+    let data = {
+      user_id: _id
+    }
+  const headers = new Headers();
+  headers.append('Content-Type', 'application/json');
+  return this.http.post(this.app.getUrl(this.baseUrl + 'confirmCart'), data).pipe(map(res => res, { 'headers': headers }));
+  }
+
   getParticpants(page: any) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
@@ -42,6 +51,12 @@ export class UserService {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this.http.get(this.app.getUrl(this.baseUrl)+'participants/search/?id='+_id);
+  }
+
+  isCartConfirmed(_id: any){
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.get(this.app.getUrl(this.baseUrl)+'isCartConfirmed/'+_id);
   }
 
   // updateCollege(id: String, name: String,locale: String) {

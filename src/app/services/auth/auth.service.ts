@@ -19,6 +19,7 @@ export class AuthService {
     headers.append('Content-Type', 'application/json');
     return this.http.post(this.app.getUrl('auth/authenticate'), body).pipe(map(res => res, {'headers': headers}));
   }
+
   createSession(response) {
     localStorage.setItem('user', JSON.stringify(response.user));
     localStorage.setItem('token', response.token);
@@ -26,6 +27,7 @@ export class AuthService {
   destroySession() {
     localStorage.clear();
   }
+
   isLoggedIn() {
     const token = localStorage.getItem('token');
     if (token) {

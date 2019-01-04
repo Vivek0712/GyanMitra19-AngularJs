@@ -16,7 +16,7 @@
     <br />
     <div class="row match-height">
       <div class="col-lg-4 col-md-12" *ngFor="let workshop of workshops | filterEventsBasedOnDepartment : searchText">
-        <div class="card">
+        <div class="card pull-up">
           <div class="card-body">
             <h4 class="card-title">{{workshop.title}}</h4>
             <h6 class="card-subtitle text-muted">Department of {{workshop.department_id.name}}</h6>
@@ -72,15 +72,22 @@
             <div class="float-right">Starts at : {{workshop.start_time }}</div>
           </div>
           <div *ngIf="authService.isLoggedIn()">
-            <button type="button" class="btn btn-lg btn-glow btn-bg-gradient-x-blue-purple-2" (click)="selectWorkshop(workshop._id)" style="width:100%">
-              Register Now <i class="la la-angle-right"></i>
-            </button>
+            <div *ngIf="isCartConfirmed">
+                <button type="button" class="btn btn-lg btn-glow btn-bg-gradient-x-red-pink"
+                style="width:100%">
+                Cart already Confirmed
+              </button>
+            </div>
+            <div *ngIf="!isCartConfirmed">
+                <button type="button" class="btn btn-lg btn-glow btn-bg-gradient-x-blue-purple-2" (click)="selectWorkshop(workshop._id)" style="width:100%">
+                    Register Now <i class="la la-angle-right"></i>
+                  </button>
+            </div>
           </div>
           <div *ngIf="!authService.isLoggedIn()">
             <a class="btn btn-lg btn-glow btn-bg-gradient-x-blue-purple-2"  style="width:100%" [routerLink]="['/user/login']" [routerLinkActive]="['active']"
               [routerLinkActiveOptions]="{exact:true}">Login to Register</a>
           </div>
-          
         </div>
       </div>
     </div>

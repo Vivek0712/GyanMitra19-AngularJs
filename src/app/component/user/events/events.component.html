@@ -5,17 +5,17 @@
       <div class="content-header-left col-md-4 col-12 mb-2">
         <h3 class="content-header-title">Events</h3>
         <select [(ngModel)]="searchText" class="custom-select">
-          <option selected value="" >All</option>
+          <option selected value="">All</option>
           <option *ngFor="let dept of departments" value="{{dept.name}}">
-              Department of {{dept.name}}
+            Department of {{dept.name}}
           </option>
         </select>
       </div>
-    </div >
+    </div>
     <br />
     <div class="row match-height">
       <div class="col-lg-4 col-md-12" *ngFor="let event of events | filterEventsBasedOnDepartment : searchText">
-        <div class="card">
+        <div class="card pull-up">
           <div class="card-body">
             <h4 class="card-title">{{event.title}}</h4>
             <h6 class="card-subtitle text-muted">Department of {{event.department_id.name}}</h6>
@@ -102,20 +102,28 @@
             <div class="float-right">Starts at : {{event.start_time }}</div>
           </div>
           <div *ngIf="authService.isLoggedIn()">
-            <div *ngIf="event.min_members == event.max_members">
-              <button type="button" class="btn btn-lg btn-glow btn-bg-gradient-x-blue-purple-2" (click)="selectEvent(event._id)"
+            <div *ngIf="!isCartConfirmed">
+              <div *ngIf="event.min_members == event.max_members == 1">
+                <button type="button" class="btn btn-lg btn-glow btn-bg-gradient-x-blue-purple-2" (click)="selectEvent(event._id)"
+                  style="width:100%">
+                  Register Now <i class="la la-angle-right"></i>
+                </button>
+              </div>
+              <div *ngIf="event.min_members != event.max_members">
+                <button type="button" [routerLink]="['/user/teamRegister',event._id]" [routerLinkActive]="['active']"
+                  [routerLinkActiveOptions]="{exact:true}" class="btn btn-lg btn-bg-gradient-x-blue-purple-2" style="width:100%">
+                  Register Team <i class="la la-angle-right"></i>
+                </button>
+              </div>
+            </div>
+            <div *ngIf="isCartConfirmed">
+                <button type="button" class="btn btn-lg btn-glow btn-bg-gradient-x-red-pink"
                 style="width:100%">
-                Register Now <i class="la la-angle-right"></i>
+                Cart already Confirmed
               </button>
             </div>
-            <div *ngIf="event.min_members != event.max_members">
-              <button type="button" [routerLink]="['/user/teamRegister',event._id]"
-              [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}" class="btn btn-lg btn-bg-gradient-x-blue-purple-2" 
-                style="width:100%">
-                Register Team <i class="la la-angle-right"></i>
-            </button>
-            </div>
           </div>
+
           <div *ngIf="!authService.isLoggedIn()">
             <a class="btn btn-lg btn-glow btn-bg-gradient-x-blue-purple-2" style="width:100%" [routerLink]="['/user/login']"
               [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">Login to Register</a>
