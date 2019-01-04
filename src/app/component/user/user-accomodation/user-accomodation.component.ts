@@ -70,6 +70,7 @@ export class UserAccomodationComponent implements OnInit {
       let file: File = fileList[0];
       let formData: FormData = new FormData();
       formData.append('uploadFile', file, file.name);
+      formData.append('id', JSON.parse(localStorage.getItem('user')).id);
       this.accomodationService.uploadFile(formData).subscribe((response: any) => {
         if(response.error == true){
           M.toast({ html: response.msg, classes: 'roundeds danger' });
