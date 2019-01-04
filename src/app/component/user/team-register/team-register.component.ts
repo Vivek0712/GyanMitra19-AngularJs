@@ -37,7 +37,7 @@ export class TeamRegisterComponent implements OnInit {
     if(form.valid) {
       this.eventRegister.createEventWithTeamRegistration(JSON.parse(localStorage.getItem('user')).email_id,this.event_id,this.teamRegisterForm.get('name').value,"leader").subscribe((response: any) => {
         if ( response.error ) {
-          M.toast({ html: response.msg , classes: 'roundeds'});
+          M.toast({ html: response.msg , classes: 'roundeds danger'});
           this.createForm();
         } else {
           M.toast({ html: response.msg , classes: 'roundeds'});
@@ -47,7 +47,7 @@ export class TeamRegisterComponent implements OnInit {
 
       this.eventRegister.createEventWithTeamRegistration(this.teamRegisterForm.get('email_id').value,this.event_id,this.teamRegisterForm.get('name').value,"leader").subscribe((response: any) => {
         if ( response.error ) {
-          M.toast({ html: response.msg , classes: 'roundeds'});
+          M.toast({ html: response.msg , classes: 'roundeds danger'});
           this.createForm();
         } else {
           M.toast({ html: response.msg , classes: 'roundeds'});
