@@ -45,8 +45,9 @@ export class TeamRegisterComponent implements OnInit {
         }
       });
 
-      this.eventRegister.createEventWithTeamRegistration(this.teamRegisterForm.get('email_id').value,this.event_id,this.teamRegisterForm.get('name').value,"leader").subscribe((response: any) => {
+      this.eventRegister.createEventWithTeamRegistration(this.teamRegisterForm.get('email_id').value,this.event_id,this.teamRegisterForm.get('name').value,"member").subscribe((response: any) => {
         if ( response.error ) {
+          console.log(response);
           M.toast({ html: response.msg , classes: 'roundeds danger'});
           this.createForm();
         } else {
