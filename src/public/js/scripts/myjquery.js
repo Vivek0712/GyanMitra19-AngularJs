@@ -5,5 +5,8 @@ $(document).ready(function() {
     $('.datepicker').datepicker({
         startDate: date
     });
+    $('#team').select2({
+        placeholder:'Select Many'
+    });
 
 });
