@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { EventService } from 'src/app/services/event/event.service';
 import { EventRegistrationService } from 'src/app/services/eventRegistration/event-registration.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
+
 declare var M: any;
 
 @Component({
@@ -11,7 +13,7 @@ declare var M: any;
 export class WorkshopsComponent implements OnInit {
 
   workshops: Array<any>;
-  constructor(private eventService: EventService, private eventRegistrationService: EventRegistrationService) {
+  constructor(private eventService: EventService, private eventRegistrationService: EventRegistrationService, private authService: AuthService) {
     this.loadFull();
   }
   ngOnInit() {
