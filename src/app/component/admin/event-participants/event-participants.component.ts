@@ -21,6 +21,7 @@ export class EventParticipantsComponent implements OnInit {
 
   constructor(private participantStatusService: ParticipationstatusService, private eventRegistration: EventRegistrationService, private authService: AuthService, private formBuilder: FormBuilder, private route: ActivatedRoute, private location: Location) {
     this.route.params.subscribe(param => { this.event_id = param.id });
+    window.location.reload();
   }
 
   participantStatuss: Array<any>
@@ -38,6 +39,7 @@ export class EventParticipantsComponent implements OnInit {
     this.getParticipants();
     this.getParticipantStatus();
     this.searchText = "";
+    window.location.reload();
   }
 
   reload() {
