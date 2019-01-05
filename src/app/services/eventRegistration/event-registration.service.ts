@@ -25,9 +25,9 @@ export class EventRegistrationService {
     return this.http.post(this.app.getUrl(this.baseUrl + 'newEventRegistration'), data).pipe(map(res => res, { 'headers': headers }));
   }
 
-  createEventWithTeamRegistration(email_id: String, event_id: String,name:String, position: String) {
+  createEventWithTeamRegistration(user_id: String, event_id: String,name:String, position: String) {
     let data = {
-        email_id: email_id,
+        user_id: user_id,
         event_id: event_id,
         name: name,
         position: position
@@ -36,7 +36,7 @@ export class EventRegistrationService {
     headers.append('Content-Type', 'application/json');
     return this.http.post(this.app.getUrl(this.baseUrl + 'newTeamEventRegistration'), data).pipe(map(res => res, { 'headers': headers }));
   }
-  createEventForTeamMatesRegistration(user_ids: Array<any>, event_id: String) {
+  /*createEventForTeamMatesRegistration(user_ids: Array<any>, event_id: String) {
     let data = {
       user_ids: user_ids,
       event_id:event_id
@@ -44,7 +44,7 @@ export class EventRegistrationService {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this.http.post(this.app.getUrl(this.baseUrl + 'newTeamMemberEventRegistration'), data).pipe(map(res => res, { 'headers': headers }));
-  }
+  }*/
 
   createWorkshopRegistration(event_id: String, id: String) {
     let data = {
@@ -115,10 +115,21 @@ export class EventRegistrationService {
     return this.http.put(this.app.getUrl(this.baseUrl + `${id}`), body).pipe(map(res => res, {'headers': headers}));
   }
   getCollegeMates(event_id: String, user_id: String) {
-    console.log(user_id);
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this.http.get(this.app.getUrl(this.baseUrl) +'getCollegeMates/'+event_id+'/'+user_id);
+  }
+
+  getEventById(id: String) {
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.get(this.app.getUrl(this.baseUrl)+'getEvent/' + id);
+  }
+
+  getCollegeUsers(college: String){
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.get(this.app.getUrl(this.baseUrl)+'getCollegeParticipant/' + college);
   }
 
 }

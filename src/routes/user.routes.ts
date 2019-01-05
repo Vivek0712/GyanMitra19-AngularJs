@@ -11,6 +11,7 @@ import { ActivationComponent } from 'src/app/component/user/activation/activatio
 import { UserAccomodationComponent } from 'src/app/component/user/user-accomodation/user-accomodation.component'
 import { UserHomeComponent } from 'src/app/component/user/user-home/user-home.component';
 import { TeamRegisterComponent } from 'src/app/component/user/team-register/team-register.component';
+import { GyanMitra18Component } from 'src/app/component/user/gyan-mitra18/gyan-mitra18.component';
 
 
 export const USER_ROUTE: Routes = [
@@ -23,5 +24,6 @@ export const USER_ROUTE: Routes = [
      { path: 'activate/:id/:hash',component:ActivationComponent},
      { path: 'cart', component: CartComponent, canActivate:[AuthGuard]},
      { path: 'accomodation', component: UserAccomodationComponent},
-     { path: 'teamRegister/:id', component: TeamRegisterComponent}
+     { path: 'teamRegister/:id', component: TeamRegisterComponent },
+     {path: 'gyanmitra18',component:GyanMitra18Component}
 ];

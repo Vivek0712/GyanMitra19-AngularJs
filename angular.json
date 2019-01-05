@@ -21,20 +21,15 @@
                         "assets": [
                             "src/favicon.ico",
                             "src/assets",
-                            "src/public"
+                            "src/public/imagess"
                         ],
                         "styles": [
                             "src/public/css/vendors.css",
                             "src/public/css/app-lite.css",
                             "src/public/css/core/menu/menu-types/vertical-menu.css",
                             "src/public/css/core/colors/palette-gradient.css",   
-                            "src/public/css/mycss.css",
-                            "src/public/vendors/css/forms/toggle/switchery.min.css",
-                            "src/public/css/plugins/forms/switch.min.css",
-                            "src/public/css/core/colors/palette-switch.min.css",
-                            "src/public/css/plugins/forms/wizard.min.css",
                             "src/public/vendors/css/forms/selects/select2.min.css",
-                            "src/public/css/bootstrap-extended.css"
+                            "src/public/css/mycss.css"
                         ],
                         "scripts": [
                             "src/public/vendors/js/vendors.min.js",

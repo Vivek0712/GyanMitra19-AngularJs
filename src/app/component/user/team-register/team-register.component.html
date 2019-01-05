@@ -1,5 +1,3 @@
-<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 <div class="app-content content">
 	<div class="content-wrapper">
 		<div class="content-wrapper-before"></div>
@@ -11,9 +9,13 @@
 				<div class="breadcrumbs-top float-md-right">
 					<div class="breadcrumb-wrapper mr-1">
 						<ol class="breadcrumb">
-							<li class="breadcrumb-item"><a href="index.html">Home</a>
+							<li class="breadcrumb-item"><a [routerLink]="['/user/home']" [routerLinkActive]="['active']"
+								 [routerLinkActiveOptions]="{exact:true}">Home</a>
 							</li>
-							<li class="breadcrumb-item active">Team Register
+							<li class="breadcrumb-item"><a [routerLink]="['/user/events']" [routerLinkActive]="['active']"
+								[routerLinkActiveOptions]="{exact:true}">Event</a>
+						    </li>
+						    <li class="breadcrumb-item active">Team Register
 							</li>
 						</ol>
 					</div>
@@ -28,7 +30,7 @@
 							<div class="card-content">
 								<div class="card-body">
 									<h4 class="card-title">Team Registration</h4>
-									<h6 class="card-subtitle text-muted">Team Register</h6>
+									<h6 class="card-subtitle text-muted">Register a team</h6>
 								</div>
 								<div class="card-body">
 									<form class="form" [formGroup]="teamRegisterForm" (ngSubmit)=onSubmit(teamRegisterForm)>
@@ -49,7 +51,7 @@
 										<div class="row">
 											<div class="col-12">
 												<div class="form-group">
-													<input type="text" id='default-multiple' class="select2-size-lg" value=""  style="width:100%"/>
+													<input type="text" id='default-multiple' value="" style="width:100%" />
 												</div>
 											</div>
 										</div>
@@ -59,10 +61,9 @@
 												<span (click)="createForm()" class="btn btn-outline-danger left">Reset</span>
 											</div>
 											<div class="col">
-												<button type="submit" class="btn btn-outline-success right">Register Team</button>
+												<button type="submit" class="btn btn-outline-success right">{{this.Button}}</button>
 											</div>
 										</div>
-
 									</form>
 								</div>
 							</div>

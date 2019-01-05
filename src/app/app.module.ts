@@ -64,6 +64,7 @@ import { EventParticipantsTeamComponent } from './component/admin/event-particip
 import { TeamRegisterComponent } from './component/user/team-register/team-register.component';
 import { FilterEventsBasedOnDepartmentPipe } from './pipes/filter-events-based-on-department.pipe';
 import { AdminCartConfirmationComponent } from './component/admin/admin-cart-confirmation/admin-cart-confirmation.component';
+import { GyanMitra18Component } from './component/user/gyan-mitra18/gyan-mitra18.component';
 
 /////////////////////////////////////////////////////////////////
 
@@ -108,6 +109,7 @@ import { AdminCartConfirmationComponent } from './component/admin/admin-cart-con
     TeamRegisterComponent,
     FilterEventsBasedOnDepartmentPipe,
     AdminCartConfirmationComponent,
+    GyanMitra18Component,
   ],
   imports: [
     BrowserModule,

@@ -61,15 +61,27 @@
       </div>
       <div class="content-body"><section class="flexbox-container">
   <div class="col-12 d-flex align-items-center justify-content-center">
-      <div class="col-md-4 col-10 box-shadow-2 p-0">
+      <div class="col-md-8 col-10 box-shadow-2 p-0">
           <div class="card border-grey border-lighten-3 px-1 py-1 m-0">
               <div class="card-header border-0">
                   <div class="font-large-1  text-center">                       
                       Login
                   </div>
+                  <div class="content-header-right col-md-8 col-12">
+                        <div class="breadcrumbs-top float-md-right">
+                          <div class="breadcrumb-wrapper mr-1">
+                            <ol class="breadcrumb">
+                              <li class="breadcrumb-item"><a [routerLink]="['/user/home']" [routerLinkActive]="['active']"
+                                  [routerLinkActiveOptions]="{exact:true}">Home</a>
+                              </li>
+                              <li class="breadcrumb-item active">Login
+                              </li>
+                            </ol>
+                          </div>
+                        </div>
+                      </div>
               </div>
               <div class="card-content">
-                 
                   <div class="card-body">
                       <form class="form-horizontal" [formGroup]="loginForm" (ngSubmit)=onSubmit(loginForm.value)>
                           <fieldset class="form-group position-relative has-icon-left">
