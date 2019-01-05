@@ -1247,7 +1247,7 @@ select.form-control {
 }
 
 .header-navbar {
-    font-family: 'Comfortaa', cursive, 'Times New Roman', Times, serif;
+    font-family: 'ComfortaaBold';
     min-height: 5rem;
     padding: 0;
     -webkit-transition: 300ms ease all;
@@ -2241,7 +2241,7 @@ select.form-control {
 }
 
 .breadcrumb {
-    font-family: 'Comfortaa', cursive, 'Times New Roman', Times, serif;
+    font-family: 'ComfortaaBold';
     font-size: 1rem;
     padding: 0 0 .75rem 0rem;
     background-color: transparent;

@@ -48,18 +48,7 @@ export class TeamRegisterComponent implements OnInit {
       user_ids.push(user_id);
       iCnt += 1;
     });
-    if (form.valid) {
-      this.eventRegister.createEventRegistration(JSON.parse(localStorage.getItem('user')).id, this.event_id,this.teamRegisterForm.get('name').value,).subscribe((response: any) => {
-        if (response.error) {
-          M.toast({ html: response.msg, classes: 'roundeds danger' });
-          this.createForm();
-        } else {
-          M.toast({ html: response.msg, classes: 'roundeds' });
-          this.createForm();
-        }
-      });
-    }
-
+    console.log(user_ids);
     /*if (form.valid) {
       this.eventRegister.createEventWithTeamRegistration(JSON.parse(localStorage.getItem('user')).email_id, this.event_id, this.teamRegisterForm.get('name').value, "leader").subscribe((response: any) => {
         if (response.error) {
