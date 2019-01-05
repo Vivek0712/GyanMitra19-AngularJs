@@ -13,38 +13,28 @@ export class EventRegistrationService {
   readonly baseUrl = 'eventRegistration/';
   constructor(private http: HttpClient, private app: AppService) { }
 
-  createEventRegistration(user_id: String, event_id: String,name:String) {
+  createEventRegistration(user_id: String, event_id: String) {
     let data = {
-      event_id: event_id,
-      name:name,
+       event_id: event_id,
         user_id:user_id,
-        registration_type: "Team"
+        registration_type: "Single"
       }
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this.http.post(this.app.getUrl(this.baseUrl + 'newEventRegistration'), data).pipe(map(res => res, { 'headers': headers }));
   }
 
-  createEventWithTeamRegistration(user_id: String, event_id: String,name:String, position: String) {
+  createEventWithTeamRegistration(user_id: String, event_id: String, name: String, position: String) {
     let data = {
-        user_id: user_id,
-        event_id: event_id,
-        name: name,
-        position: position
-      }
+      user_id: user_id,
+      event_id: event_id,
+      name: name,
+      position: position
+    }
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this.http.post(this.app.getUrl(this.baseUrl + 'newTeamEventRegistration'), data).pipe(map(res => res, { 'headers': headers }));
   }
-  /*createEventForTeamMatesRegistration(user_ids: Array<any>, event_id: String) {
-    let data = {
-      user_ids: user_ids,
-      event_id:event_id
-    }
-    const headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-    return this.http.post(this.app.getUrl(this.baseUrl + 'newTeamMemberEventRegistration'), data).pipe(map(res => res, { 'headers': headers }));
-  }*/
 
   createWorkshopRegistration(event_id: String, id: String) {
     let data = {
@@ -55,7 +45,12 @@ export class EventRegistrationService {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this.http.post(this.app.getUrl(this.baseUrl + 'newWorkshopRegistration'), data).pipe(map(res => res, { 'headers': headers }));
+  }
 
+  getPendingDDConfirmation() {
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.get(this.app.getUrl(this.baseUrl) + 'checkPendingDDConfirmation/');
   }
 
   checkWorkshopRegistration(user_id: String, event_id: String) {
@@ -70,66 +65,66 @@ export class EventRegistrationService {
     return this.http.get(this.app.getUrl(this.baseUrl) + 'checkEventRegistration/' + event_id + "/" + user_id);
   }
 
-  getWorkshops(user_id: String){
+  getWorkshops(user_id: String) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.get(this.app.getUrl(this.baseUrl)+'/getRegistrations/' + user_id + "/Workshop");
+    return this.http.get(this.app.getUrl(this.baseUrl) + '/getRegistrations/' + user_id + "/Workshop");
   }
 
-  getEventRegistrations(user_id: String){
+  getEventRegistrations(user_id: String) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.get(this.app.getUrl(this.baseUrl)+'/getRegistrations/' + user_id + "/Event");
+    return this.http.get(this.app.getUrl(this.baseUrl) + '/getRegistrations/' + user_id + "/Event");
   }
 
-  getEvents(event_id: String){
+  getEvents(event_id: String) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this.http.get(this.app.getUrl(this.baseUrl) + "events/" + event_id);
   }
 
-  cancelWorkshopRegistration(_id: String){
+  cancelWorkshopRegistration(_id: String) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this.http.delete(this.app.getUrl(this.baseUrl) + _id);
   }
 
-  cancelEventRegistration(_id: String){
+  cancelEventRegistration(_id: String) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this.http.delete(this.app.getUrl(this.baseUrl) + _id);
   }
 
-  getUserByEmail(email_id: String){
+  getUserByEmail(email_id: String) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this.http.get(this.app.getUrl(this.baseUrl) + email_id);
   }
 
-  updateAttendance(id:String,participation:String) {
-    const body = { 
-      participation:participation
+  updateAttendance(id: String, participation: String) {
+    const body = {
+      participation: participation
     };
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.put(this.app.getUrl(this.baseUrl + `${id}`), body).pipe(map(res => res, {'headers': headers}));
+    return this.http.put(this.app.getUrl(this.baseUrl + `${id}`), body).pipe(map(res => res, { 'headers': headers }));
   }
   getCollegeMates(event_id: String, user_id: String) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.get(this.app.getUrl(this.baseUrl) +'getCollegeMates/'+event_id+'/'+user_id);
+    return this.http.get(this.app.getUrl(this.baseUrl) + 'getCollegeMates/' + event_id + '/' + user_id);
   }
 
   getEventById(id: String) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.get(this.app.getUrl(this.baseUrl)+'getEvent/' + id);
+    return this.http.get(this.app.getUrl(this.baseUrl) + 'getEvent/' + id);
   }
 
-  getCollegeUsers(college: String){
+  getCollegeUsers(college: String) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.get(this.app.getUrl(this.baseUrl)+'getCollegeParticipant/' + college);
+    return this.http.get(this.app.getUrl(this.baseUrl) + 'getCollegeParticipant/' + college);
   }
 
 }

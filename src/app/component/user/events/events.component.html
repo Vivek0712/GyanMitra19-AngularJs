@@ -2,33 +2,86 @@
   <div class="content-wrapper">
     <div class="content-wrapper-before"></div>
     <div class="content-header row">
-      
+
       <div class="content-header-left col-md-4 col-12 mb-2">
         <h3 class="content-header-title">Events</h3>
-        <select [(ngModel)]="searchText" class="custom-select">
-          <option disabled value=" ">All</option>
-          <option *ngFor="let dept of departments" value="{{dept.name}}">
-            Department of {{dept.name}}
-          </option>
-        </select>
       </div>
       <div class="content-header-right col-md-8 col-12">
-          <div class="breadcrumbs-top float-md-right">
-            <div class="breadcrumb-wrapper mr-1">
-              <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a [routerLink]="['/user/home']" [routerLinkActive]="['active']"
-                    [routerLinkActiveOptions]="{exact:true}">Home</a>
-                </li>
-                <li class="breadcrumb-item active">Event
-                </li>
-              </ol>
+        <div class="breadcrumbs-top float-md-right">
+          <div class="breadcrumb-wrapper mr-1">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a [routerLink]="['/user/home']" [routerLinkActive]="['active']"
+                  [routerLinkActiveOptions]="{exact:true}">Home</a>
+              </li>
+              <li class="breadcrumb-item active">Event
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="content-body">
+      <section id="content-types">
+        <div class="row match-height">
+          <div class="col-4" *ngFor="let event of events | filterEventsBasedOnDepartment : searchText">
+            <div class="card pull-up">
+              <div class="card-body">
+                <h3 class="card-title">{{event.title}} <span class="card-title activator grey-text text-darken-4 float-right"><i
+                      class="fas fa-ellipsis-v right"></i></span></h3>
+
+                <h6 class="card-subtitle text-muted">Department of {{event.department_id.name}}</h6>
+              </div>
+              <img class="activator" src="http://localhost:3000/assests/images/events/{{event.image_name}}">
+              <div class="card-body">
+                {{event.description}}
+              </div>
+              <div class="card-body">
+                Contact <p class="card-text">
+                  <a href="mailto:{{event.contact_email}}">{{event.contact_email}}</a>
+                </p>
+              </div>
+
+              <div class="card-reveal">
+                <span class="card-title grey-text text-darken-4">Rules<i class="fas fa-times float-right"></i></span>
+                {{event.rules}}
+              </div>
+              <div class="card-footer border-top-blue-grey border-top-lighten-5 text-muted">
+                <span class="float-left"> {{event.event_date | date }}</span>
+                <span class="float-right">
+                  <div *ngIf="authService.isLoggedIn()">
+                    <div *ngIf="!isCartConfirmed">
+                      <div *ngIf="event.min_members == event.max_members == 1">
+                        <button type="button" class="btn btn-outline-primary" (click)="selectEvent(event._id)"
+                          style="width:100%">
+                          Register Now <i class="la la-angle-right"></i>
+                        </button>
+                      </div>
+                      <div *ngIf="event.min_members != event.max_members">
+                        <button type="button" [routerLink]="['/user/teamRegister',event._id]" [routerLinkActive]="['active']"
+                          [routerLinkActiveOptions]="{exact:true}" class="btn btn-outline-primary"
+                          style="width:100%">
+                          Register Team <i class="la la-angle-right"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <div *ngIf="isCartConfirmed">
+                      <button type="button" class="btn btn-outline-danger" style="width:100%">
+                        Cart already Confirmed
+                      </button>
+                    </div>
+                  </div>
+                  <div *ngIf="!authService.isLoggedIn()">
+                    <a class="btn btn-lg btn-glow btn-bg-gradient-x-blue-purple-2" style="width:100%" [routerLink]="['/user/login']"
+                      [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">Login to Register</a>
+                  </div>
+                </span>
+              </div>
             </div>
           </div>
         </div>
+      </section>
     </div>
-
-    <br />
-    <div class="row match-height">
+    <!--  <div class="row match-height">
       <div class="col-lg-4 col-md-12" *ngFor="let event of events | filterEventsBasedOnDepartment : searchText">
         <div class="card pull-up">
           <div class="card-body">
@@ -150,6 +203,6 @@
           <div class="ps-scrollbar-y" tabindex="0" style="top: 0px; height: 100px;"></div>
         </div>
       </div>
-    </div>
+    </div>-->
   </div>
 </div>
