@@ -9,9 +9,13 @@
 				<div class="breadcrumbs-top float-md-right">
 					<div class="breadcrumb-wrapper mr-1">
 						<ol class="breadcrumb">
-							<li class="breadcrumb-item"><a href="index.html">Home</a>
+							<li class="breadcrumb-item"><a [routerLink]="['/user/home']" [routerLinkActive]="['active']"
+								 [routerLinkActiveOptions]="{exact:true}">Home</a>
 							</li>
-							<li class="breadcrumb-item active">Team Register
+							<li class="breadcrumb-item"><a [routerLink]="['/user/events']" [routerLinkActive]="['active']"
+								[routerLinkActiveOptions]="{exact:true}">Event</a>
+						    </li>
+						    <li class="breadcrumb-item active">Team Register
 							</li>
 						</ol>
 					</div>
@@ -47,7 +51,7 @@
 										<div class="row">
 											<div class="col-12">
 												<div class="form-group">
-													<input type="text" id='default-multiple'  value=""  style="width:100%"/>
+													<input type="text" id='default-multiple' value="" style="width:100%" />
 												</div>
 											</div>
 										</div>

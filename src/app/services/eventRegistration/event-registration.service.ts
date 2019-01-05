@@ -115,7 +115,6 @@ export class EventRegistrationService {
     return this.http.put(this.app.getUrl(this.baseUrl + `${id}`), body).pipe(map(res => res, {'headers': headers}));
   }
   getCollegeMates(event_id: String, user_id: String) {
-    console.log(user_id);
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this.http.get(this.app.getUrl(this.baseUrl) +'getCollegeMates/'+event_id+'/'+user_id);

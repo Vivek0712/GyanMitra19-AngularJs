@@ -2,16 +2,31 @@
   <div class="content-wrapper">
     <div class="content-wrapper-before"></div>
     <div class="content-header row">
+      
       <div class="content-header-left col-md-4 col-12 mb-2">
         <h3 class="content-header-title">Events</h3>
         <select [(ngModel)]="searchText" class="custom-select">
-          <option selected value="">All</option>
+          <option disabled value=" ">All</option>
           <option *ngFor="let dept of departments" value="{{dept.name}}">
             Department of {{dept.name}}
           </option>
         </select>
       </div>
+      <div class="content-header-right col-md-8 col-12">
+          <div class="breadcrumbs-top float-md-right">
+            <div class="breadcrumb-wrapper mr-1">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a [routerLink]="['/user/home']" [routerLinkActive]="['active']"
+                    [routerLinkActiveOptions]="{exact:true}">Home</a>
+                </li>
+                <li class="breadcrumb-item active">Event
+                </li>
+              </ol>
+            </div>
+          </div>
+        </div>
     </div>
+
     <br />
     <div class="row match-height">
       <div class="col-lg-4 col-md-12" *ngFor="let event of events | filterEventsBasedOnDepartment : searchText">
@@ -117,8 +132,7 @@
               </div>
             </div>
             <div *ngIf="isCartConfirmed">
-                <button type="button" class="btn btn-lg btn-glow btn-bg-gradient-x-red-pink"
-                style="width:100%">
+              <button type="button" class="btn btn-lg btn-glow btn-bg-gradient-x-red-pink" style="width:100%">
                 Cart already Confirmed
               </button>
             </div>
