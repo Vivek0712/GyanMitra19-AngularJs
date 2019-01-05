@@ -59,7 +59,7 @@
               <div class="heading-elements">
                 <ul class="list-inline mb-0">
                   <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
-                  <li><a data-action="reload"><i class="ft-rotate-cw" ></i></a></li>
+                  <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
                   <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
                 </ul>
               </div>
@@ -77,10 +77,8 @@
                         <th>View More</th>
                       </tr>
                     </thead>
-                    <!-- <tbody>
-                      <tr *ngFor="let accomodation of filteredAccomodations; let i = index;" [ngClass]="{'table-success': accomodation.acc_payment_status=='Paid' && accomodation.acc_status == 'Confirmed'}"
-                        [ngClass]="{'table-warning': accomodation.acc_payment_status=='Paid' && accomodation.acc_status == 'Not Confirmed'}"
-                        [ngClass]="{'table-danger': accomodation.acc_payment_status=='Not Paid' && accomodation.acc_status == 'Not Confirmed'}">
+                    <tbody>
+                      <tr *ngFor="let accomodation of filteredAccomodations; let i = index;" [ngClass]="{'table-success': accomodation.acc_payment_status=='Paid' && accomodation.acc_status == 'Confirmed'}">
                         <th scope="row">{{i+1}}</th>
                         <td>{{accomodation.user_id.name}}</td>
                         <td>{{accomodation.user_id.college_id.name}}</td>
@@ -109,7 +107,7 @@
                           </div>
                         </td>
                       </tr>
-                    </tbody> -->
+                    </tbody>
                   </table>
                 </div>
               </div>
