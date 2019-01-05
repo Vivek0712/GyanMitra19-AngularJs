@@ -1,0 +1,122 @@
+<div class="app-content content">
+  <div class="content-wrapper">
+    <div class="content-wrapper-before"></div>
+    <div class="content-header row">
+      <div class="content-header-left col-md-4 col-12 mb-2">
+        <h3 class="content-header-title">Confirm DD Payment</h3>
+      </div>
+      <div class="content-header-right col-md-8 col-12">
+        <div class="breadcrumbs-top float-md-right">
+          <div class="breadcrumb-wrapper mr-1">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="index.html">Home</a>
+              </li>
+              <li class="breadcrumb-item"><a href="#">Cart</a>
+              </li>
+              <li class="breadcrumb-item active">Payments
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="content-body">
+      <section id="content-types">
+        <div class="row match-height justify-content-md-center">
+          <div class="col-xl-6 col-md-12">
+          </div>
+        </div>
+      </section>
+      <!-- Modal -->
+      <div id="DDModal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Demand Draft - {{selectedTransactionID}}</h4>
+            </div>
+            <div class="modal-body">
+              <img src="{{ddImage}}" class="width-100 height-100" alt="Loading..." />
+            </div>
+            <div class="modal-footer">
+              <div class="btn-group">
+                <button type="button" (click)="confirmAccomodation(selectedID)" class="btn btn-success">Approve
+                  Payment</button>
+                <button type="button" (click)="refusePayment(selectedID)" class="btn btn-danger">Refuse Payment</button>
+                <a href="{{ddImage}}" target="_blank" class="btn btn-success"><i class="fas fa-plus-circle"></i>&nbsp;Magnify</a>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <h4 class="card-title">Payment Requests</h4>
+              <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+              <div class="heading-elements">
+                <ul class="list-inline mb-0">
+                  <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                  <li><a data-action="reload"><i class="ft-rotate-cw" ></i></a></li>
+                  <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="card-content collapse show">
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th>Sl. No</th>
+                        <th>Name</th>
+                        <th>College</th>
+                        <th>Mobile Number</th>
+                        <th>View More</th>
+                      </tr>
+                    </thead>
+                    <!-- <tbody>
+                      <tr *ngFor="let accomodation of filteredAccomodations; let i = index;" [ngClass]="{'table-success': accomodation.acc_payment_status=='Paid' && accomodation.acc_status == 'Confirmed'}"
+                        [ngClass]="{'table-warning': accomodation.acc_payment_status=='Paid' && accomodation.acc_status == 'Not Confirmed'}"
+                        [ngClass]="{'table-danger': accomodation.acc_payment_status=='Not Paid' && accomodation.acc_status == 'Not Confirmed'}">
+                        <th scope="row">{{i+1}}</th>
+                        <td>{{accomodation.user_id.name}}</td>
+                        <td>{{accomodation.user_id.college_id.name}}</td>
+                        <td>{{accomodation.user_id.mobile_number}}</td>
+                        <td>{{accomodation.acc_days}}</td>
+                        <td>{{accomodation.acc_payment_status}}</td>
+                        <td>{{accomodation.acc_status}}</td>
+                        <td>
+                          <div class="fonticon-wrap icon-shadow icon-shadow-danger" (click)="deleteRequest(accomodation._id)">
+                            <a> <i class="la la-trash la-2x"></i></a>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="fonticon-wrap icon-shadow icon-shadow-success" *ngIf="accomodation.acc_status == 'Not Confirmed'"
+                            (click)="approveAccomodation(accomodation._id)">
+                            <a> <i class="la la-check la-2x"></i></a>
+                          </div>
+                          <div class="fonticon-wrap icon-shadow icon-shadow-danger" *ngIf="accomodation.acc_status == 'Approved'"
+                            (click)="deproveAccomodation(accomodation._id)">
+                            <a> <i class="la la-close la-2x"></i></a> </div>
+                        </td>
+                        <td>
+                          <div *ngIf="accomodation.acc_mode_of_payment == 'Demand Draft' && accomodation.acc_payment_status=='Paid' && accomodation.acc_status == 'Approved' "
+                            class="btn btn-success" data-toggle="modal" data-target="#DDModal" (click)="loadDD(accomodation._id,accomodation.acc__transaction_id, accomodation.acc_file_name)">
+                            Verify DD
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody> -->
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -14,8 +14,7 @@ import { AdminAccomodationComponent } from 'src/app/component/admin/admin-accomo
 import { RoleComponent } from 'src/app/component/admin/role/role.component';
 import { AdminUsersComponent } from 'src/app/component/admin/admin-users/admin-users.component';
 import { EventParticipantsComponent } from 'src/app/component/admin/event-participants/event-participants.component';
-
-
+import { AdminCartConfirmationComponent } from 'src/app/component/admin/admin-cart-confirmation/admin-cart-confirmation.component';
 
 export const ADMIN_ROUTE: Routes = [
      { path: 'home', component: HomeComponent },
@@ -32,5 +31,6 @@ export const ADMIN_ROUTE: Routes = [
      { path: 'role', component: RoleComponent },
      { path: 'users', component: AdminUsersComponent },
      { path: 'accomodation', component: AdminAccomodationComponent },
-     { path: 'eventParticipants/:id', component: EventParticipantsComponent }
+     { path: 'eventParticipants/:id', component: EventParticipantsComponent },
+     { path: 'cartConfirmation', component: AdminCartConfirmationComponent }
 ];
