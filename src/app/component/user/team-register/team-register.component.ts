@@ -51,33 +51,36 @@ export class TeamRegisterComponent implements OnInit {
       user_ids.push(user_id);
       iCnt += 1;
     });
-    var length = user_ids.length + 1;
-    console.log(this.event.max_members);
-    if (form.valid && ! length < this.event.max_members) {
-      this.eventRegister.createEventWithTeamRegistration(JSON.parse(localStorage.getItem('user'))._id, this.event_id, this.teamRegisterForm.get('name').value, "leader").subscribe((response: any) => {
-        if (response.error) {
-          M.toast({ html: response.msg, classes: 'roundeds danger' });
-          this.createForm();
-        } else {
-          M.toast({ html: response.msg, classes: 'roundeds' });
-          this.createForm();
-        }
-      });
-      for (let user of user_ids) {
-        this.eventRegister.createEventWithTeamRegistration(user_ids[user], this.event_id, this.teamRegisterForm.get('name').value, "member").subscribe((response: any) => {
-          if (response.error) {
-            M.toast({ html: response.msg, classes: 'roundeds danger' });
-            this.createForm();
+    if (form.valid) {
+      this.route.params.subscribe(param => { 
+        this.eventRegister.getEventById(param.id).subscribe((res: any) => {
+          if(res[0].max_members > user_ids.length){
+            this.eventRegister.createEventWithTeamRegistration(JSON.parse(localStorage.getItem('user')).id, this.event_id, this.teamRegisterForm.get('name').value, "leader").subscribe((response: any) => {
+              if (response.error) {
+                M.toast({ html: response.msg, classes: 'roundeds danger' });
+                this.createForm();
+              } else {
+                M.toast({ html: response.msg, classes: 'roundeds' });
+                this.createForm();
+              }
+            });
+            for (let user of user_ids) {
+              this.eventRegister.createEventWithTeamRegistration(user, this.event_id, this.teamRegisterForm.get('name').value, "member").subscribe((response: any) => {
+                if (response.error) {
+                  M.toast({ html: response.msg, classes: 'roundeds danger' });
+                  this.createForm();
+                } else {
+                  M.toast({ html: response.msg, classes: 'roundeds' });
+                  this.createForm();
+                }
+              });
+            }
           } else {
-            M.toast({ html: response.msg, classes: 'roundeds' });
+            M.toast({ html: "Maximum " + res[0].max_members + " are allowed.", classes: 'roundeds danger' });
             this.createForm();
           }
         });
-      }
-
-    } else {
-      M.toast({ html: "Maximum " + this.event.max_members + " are allowed.", classes: 'roundeds danger' });
-      this.createForm();
+       });
     }
   }
   getCollegeMates() {
