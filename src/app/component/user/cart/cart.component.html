@@ -57,11 +57,19 @@
                 <button *ngIf="!isCartConfirmed" class="btn btn-bg-gradient-x-blue-green border-white border-2" (click)="confirmCart()">Confirm
                   Cart</button>
               </span>
-              <span *ngIf="isCartConfirmed && !paymentSent" class="float-right">
-                <button class="btn btn-bg-gradient-x-blue-green border-white border-2">Pay Online</button>
-                <button class="btn btn-bg-gradient-x-blue-cyan border-white border-2" data-toggle="modal" data-target="#DDModal">Pay
-                  through Demand Draft</button>
-              </span>
+              <div class="col-12">
+                <span *ngIf="isCartConfirmed && !paymentSent" class="float-right">
+                  <div class="col-6">
+                    <button class="btn btn-bg-gradient-x-blue-green border-white border-2">Pay Online</button>
+                  </div>
+                  <div class="col-6">
+                    <button class="btn btn-bg-gradient-x-blue-cyan border-white border-2" data-toggle="modal"
+                      data-target="#DDModal">Pay
+                      through Demand Draft</button>
+                  </div>
+                </span>
+              </div>
+
               <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
               <div class="heading-elements">
                 <ul class="list-inline mb-0">
@@ -74,41 +82,42 @@
                   <h5 class="white">You have no workshop registrations. Register in one of our workshops!!!</h5>
                 </div>
                 <div *ngIf="hasWorkshops">
-                  <div class="col-md-4 col-lg-4 col-xl-4" *ngFor="let workshop of workshops">
-                    <div class="card pull-up">
-                      <div class="card-header">
-                        <div class="h4">{{workshop.event_id.title}}</div>
-                      </div>
-                      <div class="card-body">
-                        <h5 class="card-title">What you need to know</h5>
-                        <br />
-                        <div class="row">
-                          <div class="col-6">
-                            Date : {{workshop.event_id.event_date}}
+                  <div class="row">
+                    <div *ngFor="let workshop of workshops">
+                      <div class="col-12">
+                        <div class="card pull-up">
+                          <div class="card-header">
+                            <div class="h4">{{workshop.event_id.title}}</div>
                           </div>
-                          <div class="col-6">
-                            Venue : {{workshop.event_id.venue}}
+                          <div class="card-body">
+                            <h5 class="card-title">What you need to know</h5>
+                            <div class="row">
+                              <div class="col-6">
+                                Date : {{workshop.event_id.event_date}}
+                              </div>
+                              <div class="col-6">
+                                Venue : {{workshop.event_id.venue}}
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col">
+                                Contact : <a href="mailto://{{workshop.event_id.contact_email}}">{{workshop.event_id.contact_email}}</a>
+                              </div>
+                            </div>
+                            <span [ngClass]="{'danger': workshop.satus != 'Confirmed'}">
+                              {{workshop.status}}
+                            </span>
+                            <button *ngIf="!isCartConfirmed" class="btn btn-bg-gradient-x-red-pink float-right" (click)="cancelWorkshopRegistration(workshop._id)">
+                              Remove from Cart
+                            </button>
                           </div>
                         </div>
-                        <div class="row">
-                          <div class="col">
-                            Contact : <a href="mailto://{{workshop.event_id.contact_email}}">{{workshop.event_id.contact_email}}</a>
-                          </div>
-                        </div>
-                        <br />
-                        <span [ngClass]="{'danger': workshop.satus != 'Confirmed'}">
-                          {{workshop.status}}
-                        </span>
-                        <button *ngIf="!isCartConfirmed" class="btn btn-bg-gradient-x-red-pink float-right" (click)="cancelWorkshopRegistration(workshop._id)">
-                          Remove from Cart
-                        </button>
                       </div>
                     </div>
                   </div>
                 </div>
-                <br />
                 <h3 class="white">Events</h3>
-                <br />
+
                 <div *ngIf="!hasEvents">
                   <h5 class="white">You have no Event registrations. Register in one of our Events!!!</h5>
                 </div>
