@@ -5,102 +5,81 @@
       <div class="content-header-left col-md-4 col-12 mb-2">
         <span class=" h3 content-header-title">Workshops</span>
         <select [(ngModel)]="searchText" class="custom-select">
-            <option selected value="" >All</option>
-            <option *ngFor="let dept of departments" value="{{dept.name}}">
-                Department of {{dept.name}}
-            </option>
-          </select>
+          <option selected value="">All</option>
+          <option *ngFor="let dept of departments" value="{{dept.name}}">
+            Department of {{dept.name}}
+          </option>
+        </select>
       </div>
       <div class="content-header-right col-md-8 col-12">
-          <div class="breadcrumbs-top float-md-right">
-            <div class="breadcrumb-wrapper mr-1">
-              <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a [routerLink]="['/user/home']" [routerLinkActive]="['active']"
-                    [routerLinkActiveOptions]="{exact:true}">Home</a>
-                </li>
-                <li class="breadcrumb-item active">Workshops
-                </li>
-              </ol>
-            </div>
-          </div>
-        </div>
-    </div>
-    <div class="row match-height">
-      <div class="col-lg-4 col-md-12" *ngFor="let workshop of workshops | filterEventsBasedOnDepartment : searchText">
-        <div class="card pull-up">
-          <div class="card-body">
-            <h4 class="card-title">{{workshop.title}}</h4>
-            <h6 class="card-subtitle text-muted">Department of {{workshop.department_id.name}}</h6>
-          </div>
-          <img class="" src="http://localhost:3000/assests/images/events/{{workshop.image_name}}" style="height: 200px"
-            alt="Error Loading Image">
-          <div class="card-body">
-            Description
-            <p class="card-text">{{workshop.description}}
-            </p>
-            Contact <p class="card-text">
-              <a href="mailto:{{workshop.contact_email}}">{{workshop.contact_email}}</a>
-            </p>
-            <div class="container">
-              <div class="row">
-                <div class="panel-heading float-left" role="tab" [id]="'headingRules'+workshop._id">
-                  <h4 class="panel-title">
-                    <a role="button" data-toggle="collapse" data-parent="#accordion" [href]="'#collapseRules'+workshop._id"
-                      aria-expanded="true" [attr.aria-controls]="'collapseRules'+workshop._id">
-                      Pre-requisites <i class="la la-angle-double-down"></i>
-                    </a>
-                  </h4>
-                </div> &nbsp;&nbsp;|&nbsp;&nbsp;
-                <div class="panel-heading float-right" role="tab" [id]="'headingTiming'+workshop._id">
-                  <h4 class="panel-title">
-                    <a role="button" data-toggle="collapse" data-parent="#accordion" [href]="'#collapseTiming'+workshop._id"
-                      aria-expanded="true" [attr.aria-controls]="'collapseTiming'+workshop._id">
-                      Timing <i class="la la-angle-double-down"></i>
-                    </a>
-                  </h4>
-                </div>
-              </div>
-            </div>
-            <div [id]="'collapseRules'+workshop._id" class="panel-collapse collapse" role="tabpanel"
-              [attr.aria-labelledby]="'headingRules'+workshop._id">
-              <div class="panel-body">
-                <h4>Pre-requisites </h4>
-                {{workshop.rules}}
-                <br />
-                <br />
-              </div>
-            </div>
-            <div [id]="'collapseTiming'+workshop._id" class="panel-collapse collapse" role="tabpanel"
-              [attr.aria-labelledby]="'headingTiming'+workshop._id">
-              <div class="panel-body">
-                <h4>Timing </h4>
-                {{workshop.start_time}} - {{workshop.end_time}}
-              </div>
-            </div>
-          </div>
-          <div class="card-footer border-top-blue-grey border-top-lighten-5 text-muted">
-            <div class="float-left">Date : {{workshop.event_date | date }}</div>
-            <div class="float-right">Starts at : {{workshop.start_time }}</div>
-          </div>
-          <div *ngIf="authService.isLoggedIn()">
-            <div *ngIf="isCartConfirmed">
-                <button type="button" class="btn btn-lg btn-glow btn-bg-gradient-x-red-pink"
-                style="width:100%">
-                Cart already Confirmed
-              </button>
-            </div>
-            <div *ngIf="!isCartConfirmed">
-                <button type="button" class="btn btn-lg btn-glow btn-bg-gradient-x-blue-purple-2" (click)="selectWorkshop(workshop._id)" style="width:100%">
-                    Register Now <i class="la la-angle-right"></i>
-                  </button>
-            </div>
-          </div>
-          <div *ngIf="!authService.isLoggedIn()">
-            <a class="btn btn-lg btn-glow btn-bg-gradient-x-blue-purple-2"  style="width:100%" [routerLink]="['/user/login']" [routerLinkActive]="['active']"
-              [routerLinkActiveOptions]="{exact:true}">Login to Register</a>
+        <div class="breadcrumbs-top float-md-right">
+          <div class="breadcrumb-wrapper mr-1">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a [routerLink]="['/user/home']" [routerLinkActive]="['active']"
+                  [routerLinkActiveOptions]="{exact:true}">Home</a>
+              </li>
+              <li class="breadcrumb-item active">Workshops
+              </li>
+            </ol>
           </div>
         </div>
       </div>
     </div>
+    <div class="content-body">
+      <section id="content-types">
+        <div class="row match-height">
+          <div class="col-4" *ngFor="let workshop of workshops | filterEventsBasedOnDepartment : searchText">
+            <div class="card pull-up">
+              <div class="card-body">
+                <h3 class="card-title">{{workshop.title}} <span class="card-title activator grey-text text-darken-4 float-right"><i
+                      class="fas fa-ellipsis-v right"></i></span></h3>
+                <h6 class="card-subtitle text-muted">Department of {{workshop.department_id.name}}</h6>
+              </div>
+              <img class="activator" src="http://localhost:3000/assests/images/events/{{workshop.image_name}}">
+              <div class="card-body">
+                {{workshop.description}}
+              </div>
+              <div class="card-body">
+                Contact <p class="card-text">
+                  <a href="mailto:{{workshop.contact_email}}">{{workshop.contact_email}}</a>
+                </p>
+              </div>
+              <div class="card-reveal">
+                <span class="card-title grey-text text-darken-4">Pre Requesites<i class="fas fa-times float-right"></i></span>
+                {{workshop.rules}}
+                <hr />
+                <h4>Timing</h4>
+                <br />
+
+                Date : {{workshop.event_date | date}} <br />
+                 {{workshop.start_time}} -
+                 {{workshop.end_time}}<br />
+            </div>
+            <div class="card-footer border-top-blue-grey border-top-lighten-5 text-muted">
+              <span class="float-left"> {{workshop.event_date | date }}</span>
+              <span class="float-right">
+                <div *ngIf="authService.isLoggedIn()">
+                  <div *ngIf="!isCartConfirmed">
+                    <button type="button" class="btn btn-outline-primary" (click)="selectWorkshop(workshop._id)" style="width:100%">
+                      Register Now <i class="la la-angle-right"></i>
+                    </button>
+                  </div>
+                  <div *ngIf="isCartConfirmed">
+                    <button type="button" class="btn btn-outline-danger" style="width:100%">
+                      Cart already Confirmed
+                    </button>
+                  </div>
+                </div>
+                <div *ngIf="!authService.isLoggedIn()">
+                  <a class="btn btn-lg btn-glow btn-bg-gradient-x-blue-purple-2" style="width:100%" [routerLink]="['/user/login']"
+                    [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">Login to Register</a>
+                </div>
+              </span>
+            </div>
+          </div>
+        </div>
+    </div>
+    </section>
   </div>
+</div>
 </div>

@@ -52,17 +52,18 @@ export class EventParticipantsComponent implements OnInit {
     this.submitted = true;
     if (form.valid) {
       if (form.value._id === '') {
-        this.eventRegistration.createEventRegistration(this.event_id, this.participantForm.get('email_id').value, this.participantForm.get('participation').value).subscribe((response: any) => {
-          if (response.error) {
-            M.toast({ html: response.msg, classes: 'roundeds' });
-            this.getParticipants();
-            this.createForm();
-          } else {
-            M.toast({ html: response.msg, classes: 'roundeds' });
-            this.getParticipants();
-            this.createForm();
-          }
-        });
+        //this.event_id, this.participantForm.get('email_id').value, this.participantForm.get('participation').value
+        // this.eventRegistration.createEventRegistration(,this.event_id).subscribe((response: any) => {
+        //   if (response.error) {
+        //     M.toast({ html: response.msg, classes: 'roundeds' });
+        //     this.getParticipants();
+        //     this.createForm();
+        //   } else {
+        //     M.toast({ html: response.msg, classes: 'roundeds' });
+        //     this.getParticipants();
+        //     this.createForm();
+        //   }
+        // });
       }
     } else {
       M.toast({ html: 'Please Check The Form', classes: 'roundeds' });
