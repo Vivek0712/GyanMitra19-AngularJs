@@ -24,6 +24,7 @@ export class AuthService {
     localStorage.setItem('user', JSON.stringify(response.user));
     localStorage.setItem('token', response.token);
   }
+  
   destroySession() {
     localStorage.clear();
   }
