@@ -55,7 +55,7 @@ export class EventService {
     headers.append('Content-Type', 'application/json');
     return this.http.get(this.app.getUrl(this.baseUrl) + 'all');
   }
-
+  
   readWithEventCategory(event: String){
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
