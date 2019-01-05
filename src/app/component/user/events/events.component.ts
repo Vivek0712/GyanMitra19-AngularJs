@@ -32,8 +32,8 @@ export class EventsComponent implements OnInit {
   }
 
   selectEvent(_id: string) {
-    let user_id = JSON.parse(localStorage.getItem('user')).id;
-    this.eventRegistrationService.createEventRegistration(_id,JSON.parse(localStorage.getItem('user')).email_id, 'Absent').subscribe((response: any)=>{
+    //let user_id = JSON.parse(localStorage.getItem('user')).id;
+    this.eventRegistrationService.createEventRegistration(JSON.parse(localStorage.getItem('user')).id,_id).subscribe((response: any)=>{
       if (response.error) {
         M.toast({ html: response.msg, classes: 'roundeds' });
       } else {
