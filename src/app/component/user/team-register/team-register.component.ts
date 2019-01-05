@@ -18,12 +18,15 @@ export class TeamRegisterComponent implements OnInit {
   event_id: String;
   college_mates: Array<any>;
   team_mates: Array<any>;
-  event:any;
+  event: any;
+  Button: any;
+
   constructor(private route: ActivatedRoute, private registrationService:RegistrationService,private formbuilder: FormBuilder, private eventRegister: EventRegistrationService) {
     this.route.params.subscribe(param => { this.event_id = param.id });
   }
 
   ngOnInit() {
+    this.Button = 'Register Team';
     this.team_mates = [];
     this.createForm();
     this.getCollegeMates();
@@ -39,6 +42,7 @@ export class TeamRegisterComponent implements OnInit {
   }
 
   onSubmit(form: FormGroup) {
+    this.Button = 'Loading....';
     this.Submitted = true;
     var iCnt = 0;
     var data = $('#default-multiple').select2('data');
