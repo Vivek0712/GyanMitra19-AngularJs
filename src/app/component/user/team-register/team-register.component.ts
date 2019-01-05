@@ -50,35 +50,37 @@ export class TeamRegisterComponent implements OnInit {
       iCnt += 1;
     });
     if (form.valid) {
-      this.eventRegister.createEventWithTeamRegistration(JSON.parse(localStorage.getItem('user'))._id,this.event_id,this.teamRegisterForm.get('name').value,"leader").subscribe((response: any) => {
-        if ( response.error ) {
-          M.toast({ html: response.msg , classes: 'roundeds danger'});
-          this.createForm();
-        } else {
-          M.toast({ html: response.msg , classes: 'roundeds'});
-          this.createForm();
-        }
-      });
-
-      if(user_ids.length < this.event.max_members){
-        M.toast({ html:"Maximum "+this.event.max_members+" are allowed." , classes: 'roundeds danger'});
-        this.createForm();
-      }
-      else {
-          for(let user of user_ids){
-            this.eventRegister.createEventWithTeamRegistration(user_ids[user],this.event_id,this.teamRegisterForm.get('name').value,"member").subscribe((response: any) => {
-              if ( response.error ) {
-                M.toast({ html: response.msg , classes: 'roundeds danger'});
+      this.route.params.subscribe(param => { 
+        this.eventRegister.getEventById(param.id).subscribe((res: any) => {
+          if(res[0].max_members > user_ids.length){
+            this.eventRegister.createEventWithTeamRegistration(JSON.parse(localStorage.getItem('user')).id, this.event_id, this.teamRegisterForm.get('name').value, "leader").subscribe((response: any) => {
+              if (response.error) {
+                M.toast({ html: response.msg, classes: 'roundeds danger' });
                 this.createForm();
               } else {
-                M.toast({ html: response.msg , classes: 'roundeds'});
+                M.toast({ html: response.msg, classes: 'roundeds' });
                 this.createForm();
               }
             });
+            for (let user of user_ids) {
+              this.eventRegister.createEventWithTeamRegistration(user, this.event_id, this.teamRegisterForm.get('name').value, "member").subscribe((response: any) => {
+                if (response.error) {
+                  M.toast({ html: response.msg, classes: 'roundeds danger' });
+                  this.createForm();
+                } else {
+                  M.toast({ html: response.msg, classes: 'roundeds' });
+                  this.createForm();
+                }
+              });
+            }
+          } else {
+            M.toast({ html: "Maximum " + res[0].max_members + " are allowed.", classes: 'roundeds danger' });
+            this.createForm();
           }
-        }
-      }
+        });
+       });
     }
+  }
   getCollegeMates() {
     //console.log(JSON.parse(localStorage.getItem('user')).id);
     this.eventRegister.getCollegeMates(this.event_id, JSON.parse(localStorage.getItem('user')).id).subscribe((response: any) => {
