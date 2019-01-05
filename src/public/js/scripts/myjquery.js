@@ -5,7 +5,5 @@ $(document).ready(function () {
     $('.datepicker').datepicker({
         startDate: date
     });
-    $('#default-multiple').select2({
-    });
 
 });

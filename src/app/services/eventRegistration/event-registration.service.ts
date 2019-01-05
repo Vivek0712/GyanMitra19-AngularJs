@@ -13,12 +13,12 @@ export class EventRegistrationService {
   readonly baseUrl = 'eventRegistration/';
   constructor(private http: HttpClient, private app: AppService) { }
 
-  createEventRegistration(event_id: String, email_id: String, participation:String) {
+  createEventRegistration(user_id: String, event_id: String,name:String) {
     let data = {
-        event_id: event_id,
-        email_id:email_id,
-        registration_type: "Single",
-        participation: participation
+      event_id: event_id,
+      name:name,
+        user_id:user_id,
+        registration_type: "Team"
       }
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
@@ -35,6 +35,15 @@ export class EventRegistrationService {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this.http.post(this.app.getUrl(this.baseUrl + 'newTeamEventRegistration'), data).pipe(map(res => res, { 'headers': headers }));
+  }
+  createEventForTeamMatesRegistration(user_ids: Array<any>, event_id: String) {
+    let data = {
+      user_ids: user_ids,
+      event_id:event_id
+    }
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post(this.app.getUrl(this.baseUrl + 'newTeamMemberEventRegistration'), data).pipe(map(res => res, { 'headers': headers }));
   }
 
   createWorkshopRegistration(event_id: String, id: String) {
@@ -104,6 +113,12 @@ export class EventRegistrationService {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this.http.put(this.app.getUrl(this.baseUrl + `${id}`), body).pipe(map(res => res, {'headers': headers}));
+  }
+  getCollegeMates(event_id: String, user_id: String) {
+    console.log(user_id);
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.get(this.app.getUrl(this.baseUrl) +'getCollegeMates/'+event_id+'/'+user_id);
   }
 
 }

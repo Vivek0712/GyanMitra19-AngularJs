@@ -47,7 +47,7 @@ export class EventParticipantsComponent implements OnInit {
   }
 
   get f() { return this.participantForm.controls; }
-  onSubmit(form: NgForm) {
+  onSubmit(form: FormGroup) {
     this.submitted = true;
     if (form.valid) {
       if (form.value._id === '') {

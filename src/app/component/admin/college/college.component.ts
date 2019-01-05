@@ -40,7 +40,7 @@ export class CollegeComponent implements OnInit {
   }
 
   get f() { return this.collegeForm.controls; }
-  onSubmit(form: NgForm) {
+  onSubmit(form: FormGroup) {
     this.submitted=true;
     if(form.valid){
       if ( form.value._id === '') {

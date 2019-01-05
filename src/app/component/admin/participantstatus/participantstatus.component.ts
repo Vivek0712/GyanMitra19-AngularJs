@@ -37,7 +37,7 @@ export class ParticipantstatusComponent implements OnInit {
     }
   }
   get f() { return this.ParticipationStatusForm.controls; }
-  onSubmit(form: NgForm) {
+  onSubmit(form: FormGroup) {
     this.submitted=true;
     if(form.valid){
       if ( form.value._id === '') {
