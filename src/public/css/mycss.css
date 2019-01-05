@@ -76,8 +76,7 @@
  }
 span{
      font-family: 'ComfortaaBold';;
-}
-form .form-actions {
+}form .form-actions {
      border-top: none;
 }
 
@@ -397,7 +396,7 @@ input[type=checkbox]:not(:disabled).tabbed:focus~.lever::before {
 }
 
 span {
-     font-family: 'ComfortaaBold';
+     font-family: 'Comfortaa', cursive, 'Times New Roman', Times, serif;
 }
 
 /*!
@@ -409,7 +408,7 @@ span {
  */
 
 .datepicker {
-     font-family: 'ComfortaaBold';
+     font-family: 'Comfortaa', cursive, 'Times New Roman', Times, serif;
      border-radius: 4px;
      direction: ltr
 }
@@ -7149,6 +7148,6 @@ a.dt-button.green {
      overflow: hidden;
      background-color: #e0e0e0
 }
-.main-menu-content{
-     font-family: 'ComfortaaBold';;
+html{
+     font-family: 'Comfortaa', cursive, 'Times New Roman', Times, serif;
 }
