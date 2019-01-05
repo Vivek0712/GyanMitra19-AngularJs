@@ -12,12 +12,12 @@
   <div class="main-menu-content ps-container ps-theme-dark ps-active-y">
     <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
       <li class="active"><a [routerLink]="['/admin/home']"><i class="ft-home"></i><span class="menu-title" data-i18n="">Home</span>
-      </a>
+        </a>
       </li>
       <li class="nav-item has-sub"><a><i class="fas fa-bed"></i><span class="menu-title" data-i18n="">Accomodation</span></a>
         <ul class="menu-content">
-          <li class="menu-item"><a [routerLink]="['/admin']" [routerLinkActive]="['active']"
-              [routerLinkActiveOptions]="{exact:true}"><span class="menu-title" data-i18n="">New Accomodation</span></a></li>
+          <li class="menu-item"><a [routerLink]="['/admin']" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><span
+                class="menu-title" data-i18n="">New Accomodation</span></a></li>
           <li class="menu-item"><a [routerLink]="['/admin/accomodation']" [routerLinkActive]="['active']"
               [routerLinkActiveOptions]="{exact:true}"><span class="menu-title" data-i18n="">Requests</span></a></li>
         </ul>
@@ -26,6 +26,8 @@
         <ul class="menu-content">
           <li class="menu-item"><a [routerLink]="['/admin/new_registration']" [routerLinkActive]="['active']"
               [routerLinkActiveOptions]="{exact:true}"><span class="menu-title" data-i18n="">New Registration</span></a></li>
+          <li class="menu-item"><a [routerLink]="['/admin/cartConfirmation']" [routerLinkActive]="['active']"
+              [routerLinkActiveOptions]="{exact:true}"><span class="menu-title" data-i18n="">Cart Payment</span></a></li>
           <li class="menu-item"><a [routerLink]="['/admin/registration']" [routerLinkActive]="['active']"
               [routerLinkActiveOptions]="{exact:true}"><span class="menu-title" data-i18n="">All Registration</span></a></li>
         </ul>
@@ -33,7 +35,7 @@
       <li class="nav-item has-sub"><a><i class="fas fa-cog"></i><span class="menu-title" data-i18n="">EventForm</span></a>
         <ul class="menu-content">
           <li class="menu-item"><a [routerLink]="['/admin/events']" [routerLinkActive]="['active']"
-            [routerLinkActiveOptions]="{exact:true}"><span class="menu-title" data-i18n="">Events</span></a></li>
+              [routerLinkActiveOptions]="{exact:true}"><span class="menu-title" data-i18n="">Events</span></a></li>
           <li class="menu-item"><a [routerLink]="['/admin/category']" [routerLinkActive]="['active']"
               [routerLinkActiveOptions]="{exact:true}"><span class="menu-title" data-i18n="">Event Category</span></a></li>
           <li class="menu-item"><a [routerLink]="['/admin/department']" [routerLinkActive]="['active']"
@@ -56,7 +58,7 @@
       </li>
       <li class="nav-item has-sub"><a> <i class="fas fa-users-cog"></i><span class="menu-title" data-i18n="">Make Users</span></a>
         <ul class="menu-content">
-            <li class="menu-item"><a [routerLink]="['/admin/users']" [routerLinkActive]="['active']"
+          <li class="menu-item"><a [routerLink]="['/admin/users']" [routerLinkActive]="['active']"
               [routerLinkActiveOptions]="{exact:true}"><span class="menu-title" data-i18n="">Users</span></a></li>
           <li class="menu-item"><a [routerLink]="['/admin/role']" [routerLinkActive]="['active']"
               [routerLinkActiveOptions]="{exact:true}"><span class="menu-title" data-i18n="">Roles</span></a></li>
@@ -64,19 +66,25 @@
       </li>
       <li class="nav-item has-sub"><a><i class="fas fa-cube"></i><span class="menu-title" data-i18n="">Events</span></a>
         <ul class="menu-content">
-          <li class="menu-item" *ngFor="let event of events"><a [routerLink]="['/admin/eventParticipants', event._id]" [routerLinkActive]="['active']"
-              [routerLinkActiveOptions]="{exact:true}"><span class="menu-title" data-i18n="">{{ event.title }}</span></a></li>
+          <li class="menu-item" *ngFor="let event of events"><a [routerLink]="['/admin/eventParticipants', event._id]"
+              [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><span class="menu-title"
+                data-i18n="">{{ event.title }}</span></a></li>
         </ul>
       </li>
       <li class="nav-item has-sub"><a><i class="fas fa-graduation-cap"></i><span class="menu-title" data-i18n="">Workshops</span></a>
         <ul class="menu-content">
-          <li class="menu-item" *ngFor="let workshop of workshops"><a [routerLink]="['/admin/eventParticipants', workshop._id ]" [routerLinkActive]="['active']"
-              [routerLinkActiveOptions]="{exact:true}"><span class="menu-title" data-i18n="">{{ workshop.title }} </span></a></li>
+          <li class="menu-item" *ngFor="let workshop of workshops"><a [routerLink]="['/admin/eventParticipants', workshop._id ]"
+              [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><span class="menu-title"
+                data-i18n="">{{ workshop.title }} </span></a></li>
         </ul>
       </li>
     </ul>
-    <div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 3px;"><div class="ps-scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div></div>
-    <div class="ps-scrollbar-y-rail" style="top: 0px; height: 625px; right: 3px;"><div class="ps-scrollbar-y" tabindex="0" style="top: 0px; height: 473px;"></div></div>
+    <div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 3px;">
+      <div class="ps-scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div>
+    </div>
+    <div class="ps-scrollbar-y-rail" style="top: 0px; height: 625px; right: 3px;">
+      <div class="ps-scrollbar-y" tabindex="0" style="top: 0px; height: 473px;"></div>
+    </div>
 
   </div>
   <div class="navigation-background" style="background-image: url('../../../../../src/public/images/backgrounds/08.jpg')"></div>
