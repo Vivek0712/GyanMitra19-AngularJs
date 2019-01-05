@@ -63,6 +63,7 @@ import { EventParticipantsComponent } from './component/admin/event-participants
 import { EventParticipantsTeamComponent } from './component/admin/event-participants-team/event-participants-team.component';
 import { TeamRegisterComponent } from './component/user/team-register/team-register.component';
 import { FilterEventsBasedOnDepartmentPipe } from './pipes/filter-events-based-on-department.pipe';
+import { GyanMitra18Component } from './component/user/gyan-mitra18/gyan-mitra18.component';
 
 /////////////////////////////////////////////////////////////////
 
@@ -106,6 +107,7 @@ import { FilterEventsBasedOnDepartmentPipe } from './pipes/filter-events-based-o
     UserHomeComponent,
     TeamRegisterComponent,
     FilterEventsBasedOnDepartmentPipe,
+    GyanMitra18Component,
   ],
   imports: [
     BrowserModule,
