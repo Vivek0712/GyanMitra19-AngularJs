@@ -18,8 +18,8 @@ export class TeamRegisterComponent implements OnInit {
   event_id: String;
   college_mates: Array<any>;
   team_mates: Array<any>;
-  event: any;
-  constructor(private route: ActivatedRoute, private registrationService: RegistrationService, private formbuilder: FormBuilder, private eventRegister: EventRegistrationService) {
+  event:any;
+  constructor(private route: ActivatedRoute, private registrationService:RegistrationService,private formbuilder: FormBuilder, private eventRegister: EventRegistrationService) {
     this.route.params.subscribe(param => { this.event_id = param.id });
   }
 
@@ -27,8 +27,6 @@ export class TeamRegisterComponent implements OnInit {
     this.team_mates = [];
     this.createForm();
     this.getCollegeMates();
-    this.getEvent();
-    
   }
   get f() { return this.teamRegisterForm.controls; }
   createForm() {
@@ -44,9 +42,9 @@ export class TeamRegisterComponent implements OnInit {
     this.Submitted = true;
     var iCnt = 0;
     var data = $('#default-multiple').select2('data');
-    var user_ids = [];
+    var user_ids=[];
     $.each(data, function () {
-
+     
       var user_id = $('#default-multiple').select2('data')[iCnt]['id'];
       user_ids.push(user_id);
       iCnt += 1;
@@ -84,6 +82,7 @@ export class TeamRegisterComponent implements OnInit {
     }
   }
   getCollegeMates() {
+    //console.log(JSON.parse(localStorage.getItem('user')).id);
     this.eventRegister.getCollegeMates(this.event_id, JSON.parse(localStorage.getItem('user')).id).subscribe((response: any) => {
       if (response.error) {
         console.log(response.error)
@@ -95,7 +94,7 @@ export class TeamRegisterComponent implements OnInit {
             data: response.msg,
             multiple: true,
             placeholder: 'Add TeamMates',
-
+            
           });
         });
       }
@@ -111,9 +110,8 @@ export class TeamRegisterComponent implements OnInit {
     console.log(this.team_mates);
   }
 
-  getEvent() {
-    this.route.params.subscribe(param => { this.event_id = param.id });
-    this.eventRegister.getEventById(this.event_id).subscribe((response: any) => {
+  getEventById(event_id: String) {
+    this.eventRegister.getEventById(event_id).subscribe((response:any)=>{
       this.event = response;
     });
   }
