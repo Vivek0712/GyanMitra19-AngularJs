@@ -36,15 +36,6 @@ export class EventRegistrationService {
     headers.append('Content-Type', 'application/json');
     return this.http.post(this.app.getUrl(this.baseUrl + 'newTeamEventRegistration'), data).pipe(map(res => res, { 'headers': headers }));
   }
-  /*createEventForTeamMatesRegistration(user_ids: Array<any>, event_id: String) {
-    let data = {
-      user_ids: user_ids,
-      event_id:event_id
-    }
-    const headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-    return this.http.post(this.app.getUrl(this.baseUrl + 'newTeamMemberEventRegistration'), data).pipe(map(res => res, { 'headers': headers }));
-  }*/
 
   createWorkshopRegistration(event_id: String, id: String) {
     let data = {

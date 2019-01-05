@@ -26,10 +26,12 @@
           <div class="col-4" *ngFor="let event of events | filterEventsBasedOnDepartment : searchText">
             <div class="card pull-up">
               <div class="card-body">
-                <h3 class="card-title">{{event.title}}</h3>
+                <h3 class="card-title">{{event.title}} <span class="card-title activator grey-text text-darken-4 float-right"><i
+                      class="fas fa-ellipsis-v right"></i></span></h3>
+
                 <h6 class="card-subtitle text-muted">Department of {{event.department_id.name}}</h6>
               </div>
-              <img class="" src="http://localhost:3000/assests/images/events/{{event.image_name}}">
+              <img class="activator" src="http://localhost:3000/assests/images/events/{{event.image_name}}">
               <div class="card-body">
                 {{event.description}}
               </div>
@@ -38,25 +40,41 @@
                   <a href="mailto:{{event.contact_email}}">{{event.contact_email}}</a>
                 </p>
               </div>
-              <div class="card-tabs">
-                  <ul class="tabs tabs-fixed-width">
-                    <li class="tab"><a href="#test4">Test 1</a></li>
-                    <li class="tab"><a class="active" href="#test5">Test 2</a></li>
-                    <li class="tab"><a href="#test6">Test 3</a></li>
-                  </ul>
-                </div>
-                <div class="card-content grey lighten-4">
-                  <div id="test4">Test 1</div>
-                  <div id="test5">Test 2</div>
-                  <div id="test6">Test 3</div>
-                </div>
+
+              <div class="card-reveal">
+                <span class="card-title grey-text text-darken-4">Rules<i class="fas fa-times float-right"></i></span>
+                {{event.rules}}
+              </div>
               <div class="card-footer border-top-blue-grey border-top-lighten-5 text-muted">
-                  <span class="float-left"> {{event.event_date | date }}</span>
-                  <span class="float-right">
-                      <a href="#" class="card-link">Read More
-                          <i class="la la-angle-right"></i>
-                      </a>
-                  </span>
+                <span class="float-left"> {{event.event_date | date }}</span>
+                <span class="float-right">
+                  <div *ngIf="authService.isLoggedIn()">
+                    <div *ngIf="!isCartConfirmed">
+                      <div *ngIf="event.min_members == event.max_members == 1">
+                        <button type="button" class="btn btn-outline-primary" (click)="selectEvent(event._id)"
+                          style="width:100%">
+                          Register Now <i class="la la-angle-right"></i>
+                        </button>
+                      </div>
+                      <div *ngIf="event.min_members != event.max_members">
+                        <button type="button" [routerLink]="['/user/teamRegister',event._id]" [routerLinkActive]="['active']"
+                          [routerLinkActiveOptions]="{exact:true}" class="btn btn-outline-primary"
+                          style="width:100%">
+                          Register Team <i class="la la-angle-right"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <div *ngIf="isCartConfirmed">
+                      <button type="button" class="btn btn-outline-danger" style="width:100%">
+                        Cart already Confirmed
+                      </button>
+                    </div>
+                  </div>
+                  <div *ngIf="!authService.isLoggedIn()">
+                    <a class="btn btn-lg btn-glow btn-bg-gradient-x-blue-purple-2" style="width:100%" [routerLink]="['/user/login']"
+                      [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">Login to Register</a>
+                  </div>
+                </span>
               </div>
             </div>
           </div>
