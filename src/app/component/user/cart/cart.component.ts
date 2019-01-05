@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { EventRegistrationService } from 'src/app/services/eventRegistration/event-registration.service';
 import { UserService } from 'src/app/services/user/user.service';
+import { PaymentService } from 'src/app/services/payment/payment.service';
+import { AppService } from 'src/app/services/app/app.service';
 
 declare var M: any;
 
@@ -18,7 +20,8 @@ export class CartComponent implements OnInit {
   amount: any;
   isCartConfirmed: boolean = false;
   paymentSent: boolean = false;
-  constructor(private eventRegistrationService: EventRegistrationService, private userService: UserService) {
+  constructor(private eventRegistrationService: EventRegistrationService,
+    private appService:AppService,private paymentService: PaymentService, private userService: UserService) {
     this.workshops = []
     this.events = []
     this.hasWorkshops = false;
@@ -154,5 +157,15 @@ export class CartComponent implements OnInit {
     if (this.events.length != 0) {
       this.amount += 200;
     }
+  }
+  payOnline() {
+    this.paymentService
+  }
+  hashData(amount: any) {
+    var key = this.appService.getKey();
+    var paymentSalt = this.appService.getSalt();
+    var totalAmount = amount + (amount * this.appService.getTransactionFee());
+    var productInfo = this.appService.getProductInfo();
+    
   }
 }

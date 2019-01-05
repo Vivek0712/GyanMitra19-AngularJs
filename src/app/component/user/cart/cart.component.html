@@ -57,18 +57,7 @@
                 <button *ngIf="!isCartConfirmed" class="btn btn-bg-gradient-x-blue-green border-white border-2" (click)="confirmCart()">Confirm
                   Cart</button>
               </span>
-              <div class="col-12">
-                <span *ngIf="isCartConfirmed && !paymentSent" class="float-right">
-                  <div class="col-6">
-                    <button class="btn btn-bg-gradient-x-blue-green border-white border-2">Pay Online</button>
-                  </div>
-                  <div class="col-6">
-                    <button class="btn btn-bg-gradient-x-blue-cyan border-white border-2" data-toggle="modal"
-                      data-target="#DDModal">Pay
-                      through Demand Draft</button>
-                  </div>
-                </span>
-              </div>
+
 
               <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
               <div class="heading-elements">
@@ -122,32 +111,54 @@
                   <h5 class="white">You have no Event registrations. Register in one of our Events!!!</h5>
                 </div>
                 <div *ngIf="hasEvents">
-                  <div class="col-md-4 col-lg-4 col-xl-4" *ngFor="let event of events">
-                    <div class="card pull-up">
-                      <h5 class="card-header">{{event.event_id.title}}</h5>
-                      <div class="card-body">
-                        <h5 class="card-title">What you need to know</h5>
-                        <br />
-                        <div class="row">
-                          <div class="col-6">
-                            Date : {{event.event_id.event_date}}
-                          </div>
-                          <div class="col-6">
-                            Venue : {{event.event_id.venue}}
+                  <div class="row">
+                    <div *ngFor="let event of events">
+                      <div class="col-12">
+                        <div class="card pull-up">
+                          <h5 class="card-header">{{event.event_id.title}}</h5>
+                          <div class="card-body">
+                            <h5 class="card-title">What you need to know</h5>
+
+                            <div class="row">
+                              <div class="col-6">
+                                Date : {{event.event_id.event_date}}
+                              </div>
+                              <div class="col-6">
+                                Venue : {{event.event_id.venue}}
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col">
+                                Contact : <a href="mailto://{{event.event_id.contact_email}}">{{event.event_id.contact_email}}</a>
+                              </div>
+                            </div>
+
+                            <span [ngClass]="{'danger': event.status != 'Confirmed'}">
+                              {{event.status}}
+                            </span>
+                            <button *ngIf="!isCartConfirmed" class="btn  btn-bg-gradient-x-red-pink float-right"
+                              (click)="cancelEventRegistration(event._id)">
+                              Remove from Cart
+                            </button>
                           </div>
                         </div>
-                        <div class="row">
-                          <div class="col">
-                            Contact : <a href="mailto://{{event.event_id.contact_email}}">{{event.event_id.contact_email}}</a>
-                          </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-footer border-top-blue-grey border-top-lighten-5 text-muted col-12">
+                  <span class="float-left"> {{event.event_date | date }}</span>
+                  <div *ngIf="isCartConfirmed && !paymentSent">
+                    <div class="col-12 ">
+                      <div class="row">
+                        <div class="col-6">
+                          <button class="btn btn-bg-gradient-x-blue-cyan border-white border-2 float-right" (click)=payOnline()>Pay Online</button>
                         </div>
-                        <br />
-                        <span [ngClass]="{'danger': event.status != 'Confirmed'}">
-                          {{event.status}}
-                        </span>
-                        <button *ngIf="!isCartConfirmed" class="btn  btn-bg-gradient-x-red-pink float-right" (click)="cancelEventRegistration(event._id)">
-                          Remove from Cart
-                        </button>
+                        <div class="col-6">
+                          <button class="btn btn-bg-gradient-x-blue-cyan border-white border-2  float-right" data-toggle="modal"
+                            data-target="#DDModal">Pay
+                            through Demand Draft</button>
+                        </div>
                       </div>
                     </div>
                   </div>
