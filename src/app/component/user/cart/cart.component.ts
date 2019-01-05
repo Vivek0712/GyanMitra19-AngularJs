@@ -16,6 +16,8 @@ export class CartComponent implements OnInit {
   hasWorkshops: boolean;
   hasEvents: boolean;
   amount: any;
+  isCartConfirmed: boolean = false;
+  paymentSent: boolean = false;
   constructor(private eventRegistrationService: EventRegistrationService, private userService: UserService) {
     this.workshops = []
     this.events = []
@@ -29,6 +31,11 @@ export class CartComponent implements OnInit {
     this.getWorkshops();
     this.getEvents();
     this.calculateAmount();
+    this.userService.isCartConfirmed(this.user_id).subscribe((response: any) => {
+      if (!response.error) {
+        this.isCartConfirmed = response.isCartConfirmed;
+      }
+    })
   }
 
   confirmCart() {
@@ -40,7 +47,11 @@ export class CartComponent implements OnInit {
         M.toast({ html: response.msg, classes: 'roundeds' });
         this.getWorkshops();
         this.calculateAmount();
-
+        this.userService.isCartConfirmed(this.user_id).subscribe((response: any) => {
+          if (!response.error) {
+            this.isCartConfirmed = response.isCartConfirmed;
+          }
+        })
       }
     })
   }
@@ -54,7 +65,6 @@ export class CartComponent implements OnInit {
         M.toast({ html: response.msg, classes: 'roundeds' });
         this.getWorkshops();
         this.calculateAmount();
-
       }
     })
 
@@ -82,12 +92,17 @@ export class CartComponent implements OnInit {
       else {
         this.workshops = response;
         this.calculateAmount();
-
         if (this.workshops.length == 0) {
           this.hasWorkshops = false;
         }
         else {
           this.hasWorkshops = true;
+          if(this.workshops[0].status == 'Verifying Payment'){
+            this.paymentSent = true;
+          }
+          else{
+            this.paymentSent = false;
+          }
         }
       }
     })
@@ -109,6 +124,26 @@ export class CartComponent implements OnInit {
         }
       }
     })
+  }
+  
+  processFile(event: any) {
+    let fileList: FileList = event.target.files;
+    if (fileList.length > 0) {
+      let file: File = fileList[0];
+      let formData: FormData = new FormData();
+      formData.append('uploadFile', file, file.name);
+      formData.append('id', this.user_id);
+      this.userService.uploadCartDDImage(formData).subscribe((response: any) => {
+        if(response.error == true){
+          M.toast({ html: response.msg, classes: 'roundeds danger' });
+        }
+        else{
+          M.toast({ html: response.msg, classes: 'roundeds' });
+          this.getEvents();
+          this.getWorkshops();
+        }
+      })
+    }
   }
 
   calculateAmount() {

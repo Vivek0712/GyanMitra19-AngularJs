@@ -38,7 +38,7 @@ export class DepartmentComponent implements OnInit {
     }
   }
   get f() { return this.departmentForm.controls; }
-  onSubmit(form: NgForm) {
+  onSubmit(form: FormGroup) {
     this.submitted=true;
     if(form.valid){
       if ( form.value._id === '') {

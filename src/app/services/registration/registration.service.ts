@@ -33,6 +33,11 @@ export class RegistrationService {
     headers.append('Content-Type', 'application/json');
     return this.http.post(this.app.getUrl(this.baseUrl + 'create'), body).pipe(map(res => res, { 'headers': headers }));
   }
+   checkConfirmation(user_id: string){
+     const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.get(this.app.getUrl(this.baseUrl) + '/hasConfirmed/' + user_id) ;
+  }
 
 
 

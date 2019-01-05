@@ -35,7 +35,8 @@
 										<div class="form-group">
 											<div class="row">
 												<div class="col-12">
-													<input type="text" class="form-control" placeholder="Team Name" formControlName="name" required pattern="[a-zA-Z ]*" [ngClass]="{'is-invalid': submitted && f.name.errors}">
+													<input type="text" class="form-control" placeholder="Team Name" formControlName="name" required pattern="[a-zA-Z ]*"
+													 [ngClass]="{'is-invalid': submitted && f.name.errors}">
 													<div *ngIf="submitted && f.name.errors" class="invalid-feedback">
 														<div *ngIf="f.name.errors.required">Team Name is required</div>
 														<div *ngIf="f.name.errors && !f.name.errors.required">Only Alpahabets</div>
@@ -43,36 +44,10 @@
 												</div>
 											</div>
 										</div>
-										
-										<div class="form-group">
-											<div class="row">
-												<div class="col-12">
-													<input type="email" class="form-control" placeholder="Email ID" formControlName="email_id" [ngClass]="{'is-invalid': submitted &&f.email_id.errors}">
-													<div *ngIf="submitted && f.email_id.errors" class="invalid-feedback">
-														<div *ngIf="f.email_id.errors.required">Email_id is required
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-
-										<div class="form-group">
-											<div class="row">
-												<div class="col-12">
-													<div class="dropdown-mul-1">
-													<select style="display:none"  name="" id="" multiple placeholder="Select">
-														<option value="1">1</option>
-														<option value="2">2</option>
-														<option value="3">3</option>
-														<option value="4">4</option>
-														<option value="5">5</option>
-														<option value="6">6</option>
-														<option value="7">7</option>
-														<option value="8">8</option>
-														<option value="9">9</option>
-														<option value="10">10</option>
-													</select>
-													</div>
+										<div class="row">
+											<div class="col-12">
+												<div class="form-group">
+													<input type="text" id='default-multiple' class="select2-size-lg" value=""  style="width:100%"/>
 												</div>
 											</div>
 										</div>

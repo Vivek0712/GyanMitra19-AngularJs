@@ -31,7 +31,7 @@ export class AdminUsersComponent implements OnInit {
     else{
       this.selectedRoles.push(_id)
     }
-    console.log(this.selectedRoles);
+    //console.log(this.selectedRoles);
   }
 
   createForm() {

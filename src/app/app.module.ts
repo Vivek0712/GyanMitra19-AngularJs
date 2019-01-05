@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { JwtHelper } from 'angular2-jwt';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { Select2Module } from 'ng2-select2';
 /////////////////////////////////////////////////////////////////
 import { routing } from '../routes/app.routes';
 import { AppComponent } from './app.component';
@@ -113,6 +114,7 @@ import { FilterEventsBasedOnDepartmentPipe } from './pipes/filter-events-based-o
     HttpClientModule,
     ReactiveFormsModule,
     NgbModule,
+    Select2Module
   ],
   providers: [
     JwtHelper,

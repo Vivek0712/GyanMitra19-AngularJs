@@ -36,7 +36,7 @@ export class CourseComponent implements OnInit {
     }
   }
   get f() { return this.courseForm.controls; }
-  onSubmit(form: NgForm) {
+  onSubmit(form: FormGroup) {
     this.submitted=true;
     if(form.valid){
       if ( form.value._id === '') {
