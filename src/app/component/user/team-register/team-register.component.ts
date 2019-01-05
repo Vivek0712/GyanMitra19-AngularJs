@@ -14,6 +14,9 @@ export class TeamRegisterComponent implements OnInit {
   teamRegisterForm:FormGroup;
   Submitted:Boolean;
   event_id:String;
+  collegeUsers:Array<any>;
+  event:any;
+  eventRegisteredParticipants: Array<any>;
   constructor(private route: ActivatedRoute,private formbuilder: FormBuilder,private eventRegister:EventRegistrationService) { 
     this.route.params.subscribe(param => { this.event_id = param.id });
   }
@@ -45,16 +48,65 @@ export class TeamRegisterComponent implements OnInit {
         }
       });
 
-      this.eventRegister.createEventWithTeamRegistration(this.teamRegisterForm.get('email_id').value,this.event_id,this.teamRegisterForm.get('name').value,"member").subscribe((response: any) => {
-        if ( response.error ) {
-          console.log(response);
-          M.toast({ html: response.msg , classes: 'roundeds danger'});
-          this.createForm();
-        } else {
-          M.toast({ html: response.msg , classes: 'roundeds'});
-          this.createForm();
+      if(this.eventRegisteredParticipants.length < this.event.max_members){
+        M.toast({ html:"Maximum "+this.event.max_members+" are allowed." , classes: 'roundeds danger'});
+        this.createForm();
+      }
+      else {
+        if(this.event.allow_gender_mixing){
+          for(let user of this.eventRegisteredParticipants){
+            this.eventRegister.createEventWithTeamRegistration(this.eventRegisteredParticipants[user].email_id,this.event_id,this.teamRegisterForm.get('name').value,"member").subscribe((response: any) => {
+              if ( response.error ) {
+                M.toast({ html: response.msg , classes: 'roundeds danger'});
+                this.createForm();
+              } else {
+                M.toast({ html: response.msg , classes: 'roundeds'});
+                this.createForm();
+              }
+            });
+          }
         }
-      });
+        else {
+          let flag = true;
+          for(let user of this.eventRegisteredParticipants){
+            if(this.eventRegisteredParticipants[user].gender!=JSON.parse(localStorage.getItem('user')).gender){
+              M.toast({ html:"Gender Mixing is not allowed." , classes: 'roundeds danger'});
+              flag = false;
+            }
+          }
+          if(flag){
+            for(let user of this.eventRegisteredParticipants){
+              this.eventRegister.createEventWithTeamRegistration(this.eventRegisteredParticipants[user].email_id,this.event_id,this.teamRegisterForm.get('name').value,"member").subscribe((response: any) => {
+                if ( response.error ) {
+                  M.toast({ html: response.msg , classes: 'roundeds danger'});
+                  this.createForm();
+                } else {
+                  M.toast({ html: response.msg , classes: 'roundeds'});
+                  this.createForm();
+                }
+              });
+            }
+          }
+          else {
+            M.toast({ html: "Gender mixing is not allowed" , classes: 'roundeds danger'});
+            this.createForm();
+          }
+        }
+      }
     }
   }
+
+  getCollegeUsers(college:String){
+    this.getEventById(this.event_id);
+    this.eventRegister.getCollegeUsers(college).subscribe((response:any)=> {
+      this.collegeUsers = response;
+    })
+  }
+
+  getEventById(event_id: String) {
+    this.eventRegister.getEventById(event_id).subscribe((response:any)=>{
+      this.event = response;
+    });
+  }
+
 }

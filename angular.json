@@ -33,7 +33,9 @@
                             "src/public/css/core/colors/palette-switch.min.css",
                             "src/public/css/plugins/forms/wizard.min.css",
                             "src/public/vendors/css/forms/selects/select2.min.css",
-                            "src/public/css/bootstrap-extended.css"
+                            "src/public/css/bootstrap-extended.css",
+                            "src/public/css/plugins/multiselect/jquerysctipttop.css",
+                            "src/public/css/plugins/multiselect/jquery.dropdown.css"
                         ],
                         "scripts": [
                             "src/public/vendors/js/vendors.min.js",
@@ -41,14 +43,17 @@
                             "src/public/js/core/app-menu-lite.js",
                             "src/public/js/core/app-lite.js",
                             "src/public/js/scripts/picker.date.js",
-                            
                             "src/public/js/scripts/form-select2.js",
                             "src/public/particles/particles.js",
                             "src/public/js/scripts/forms/switch.js",
                             "src/public/vendors/js/forms/toggle/switchery.min.js",
                             "src/public/js/scripts/forms/form-repeater.min.js",
                             "src/public/vendors/js/forms/repeater/jquery.repeater.min.js",
-                            "src/public/js/scripts/myjquery.js"
+                            "src/public/js/scripts/myjquery.js",
+                            "src/public/js/scripts/multiselect/jquery-1.12.4.min.js",
+                            "src/public/js/scripts/multiselect/multiselect.js",
+                            "src/public/js/scripts/multiselect/mock.js",
+                            "src/public/js/scripts/multiselect/jquery.dropdown.js"
                         ]
                     },
                     "configurations": {

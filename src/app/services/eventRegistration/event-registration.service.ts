@@ -108,4 +108,16 @@ export class EventRegistrationService {
     return this.http.put(this.app.getUrl(this.baseUrl + `${id}`), body).pipe(map(res => res, {'headers': headers}));
   }
 
+  getEventById(id: String) {
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.get(this.app.getUrl(this.baseUrl)+'getEvent/' + id);
+  }
+
+  getCollegeUsers(college: String){
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.get(this.app.getUrl(this.baseUrl)+'getCollegeParticipant/' + college);
+  }
+
 }
