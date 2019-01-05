@@ -37,7 +37,7 @@ export class TeamRegisterComponent implements OnInit {
     this.Submitted = false;
   }
 
-  onSubmit(form: NgForm) {
+  onSubmit(form: FormGroup) {
     this.Submitted = true;
     var iCnt = 0;
     var data = $('#default-multiple').select2('data');

@@ -119,7 +119,7 @@ export class AdminEventComponent implements OnInit {
   }
 
 
-  onSubmit(form: NgForm) {
+  onSubmit(form: FormGroup) {
     this.submitted = true;
     console.log(form.value.image_name);
     if (form.value._id === '') {

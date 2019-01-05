@@ -37,7 +37,7 @@ export class RoleComponent implements OnInit {
     }
   }
   get f() { return this.roleForm.controls; }
-  onSubmit(form: NgForm) {
+  onSubmit(form: FormGroup) {
     this.submitted=true;
     if(form.valid){
       if ( form.value._id === '') {

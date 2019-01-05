@@ -36,7 +36,7 @@ export class DegreeComponent implements OnInit {
     }
   }
   get f() { return this.degreeForm.controls; }
-  onSubmit(form: NgForm) {
+  onSubmit(form: FormGroup) {
     this.submitted=true;
     if(form.valid){
       if ( form.value._id === '') {
