@@ -4,6 +4,8 @@ import { EventRegistrationService } from 'src/app/services/eventRegistration/eve
 import { ActivatedRoute } from '@angular/router';
 import { RegistrationService } from 'src/app/services/registration/registration.service';
 import { Response } from '@angular/http';
+import { Router } from '@angular/router';
+
 declare var M: any;
 declare var $: any;
 @Component({
@@ -21,7 +23,7 @@ export class TeamRegisterComponent implements OnInit {
   event: any;
   Button: any;
 
-  constructor(private route: ActivatedRoute, private registrationService:RegistrationService,private formbuilder: FormBuilder, private eventRegister: EventRegistrationService) {
+  constructor(private router: Router,private route: ActivatedRoute, private registrationService:RegistrationService,private formbuilder: FormBuilder, private eventRegister: EventRegistrationService) {
     this.route.params.subscribe(param => { this.event_id = param.id });
   }
 
@@ -66,6 +68,7 @@ export class TeamRegisterComponent implements OnInit {
                 this.createForm();
               }
             });
+            let flag = 0;
             for (let user of user_ids) {
               this.eventRegister.createEventWithTeamRegistration(user, this.event_id, this.teamRegisterForm.get('name').value, "member").subscribe((response: any) => {
                 if (response.error) {
@@ -74,8 +77,12 @@ export class TeamRegisterComponent implements OnInit {
                 } else {
                   M.toast({ html: response.msg, classes: 'roundeds' });
                   this.createForm();
+                  flag = flag+1;
                 }
               });
+              if(flag = user_ids.length){
+                this.router.navigate(['/user/cart']);
+              }
             }
           } else {
             M.toast({ html: "Maximum " + res[0].max_members + " are allowed.", classes: 'roundeds danger' });
