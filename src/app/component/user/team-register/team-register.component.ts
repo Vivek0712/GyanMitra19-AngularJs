@@ -18,6 +18,7 @@ export class TeamRegisterComponent implements OnInit {
   event_id: String;
   college_mates: Array<any>;
   team_mates: Array<any>;
+  event:any;
   constructor(private route: ActivatedRoute, private registrationService:RegistrationService,private formbuilder: FormBuilder, private eventRegister: EventRegistrationService) {
     this.route.params.subscribe(param => { this.event_id = param.id });
   }
@@ -48,30 +49,36 @@ export class TeamRegisterComponent implements OnInit {
       user_ids.push(user_id);
       iCnt += 1;
     });
-    console.log(user_ids);
-    /*if (form.valid) {
-      this.eventRegister.createEventWithTeamRegistration(JSON.parse(localStorage.getItem('user')).email_id, this.event_id, this.teamRegisterForm.get('name').value, "leader").subscribe((response: any) => {
-        if (response.error) {
-          M.toast({ html: response.msg, classes: 'roundeds danger' });
+    if (form.valid) {
+      this.eventRegister.createEventWithTeamRegistration(JSON.parse(localStorage.getItem('user'))._id,this.event_id,this.teamRegisterForm.get('name').value,"leader").subscribe((response: any) => {
+        if ( response.error ) {
+          M.toast({ html: response.msg , classes: 'roundeds danger'});
           this.createForm();
         } else {
-          M.toast({ html: response.msg, classes: 'roundeds' });
+          M.toast({ html: response.msg , classes: 'roundeds'});
           this.createForm();
         }
       });
 
-      this.eventRegister.createEventForTeamMatesRegistration(this.team_mates, this.event_id).subscribe((response: any) => {
-        if (response.error) {
-          console.log(response);
-          M.toast({ html: response.msg, classes: 'roundeds danger' });
-          this.createForm();
-        } else {
-          M.toast({ html: response.msg, classes: 'roundeds' });
-          this.createForm();
+      if(user_ids.length < this.event.max_members){
+        M.toast({ html:"Maximum "+this.event.max_members+" are allowed." , classes: 'roundeds danger'});
+        this.createForm();
+      }
+      else {
+          for(let user of user_ids){
+            this.eventRegister.createEventWithTeamRegistration(user_ids[user],this.event_id,this.teamRegisterForm.get('name').value,"member").subscribe((response: any) => {
+              if ( response.error ) {
+                M.toast({ html: response.msg , classes: 'roundeds danger'});
+                this.createForm();
+              } else {
+                M.toast({ html: response.msg , classes: 'roundeds'});
+                this.createForm();
+              }
+            });
+          }
         }
-      });
-    }*/
-  }
+      }
+    }
   getCollegeMates() {
     //console.log(JSON.parse(localStorage.getItem('user')).id);
     this.eventRegister.getCollegeMates(this.event_id, JSON.parse(localStorage.getItem('user')).id).subscribe((response: any) => {
@@ -100,4 +107,11 @@ export class TeamRegisterComponent implements OnInit {
     }
     console.log(this.team_mates);
   }
+
+  getEventById(event_id: String) {
+    this.eventRegister.getEventById(event_id).subscribe((response:any)=>{
+      this.event = response;
+    });
+  }
+
 }
