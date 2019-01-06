@@ -57,8 +57,6 @@
                 <button *ngIf="!isCartConfirmed" class="btn btn-bg-gradient-x-blue-green border-white border-2" (click)="confirmCart()">Confirm
                   Cart</button>
               </span>
-
-
               <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
               <div class="heading-elements">
                 <ul class="list-inline mb-0">
@@ -93,7 +91,7 @@
                                 Contact : <a href="mailto://{{workshop.event_id.contact_email}}">{{workshop.event_id.contact_email}}</a>
                               </div>
                             </div>
-                            <span [ngClass]="{'danger': workshop.satus != 'Confirmed'}">
+                            <span [ngClass]="{'danger': workshop.satus != 'Paid'}">
                               {{workshop.status}}
                             </span>
                             <button *ngIf="!isCartConfirmed" class="btn btn-bg-gradient-x-red-pink float-right" (click)="cancelWorkshopRegistration(workshop._id)">
@@ -133,7 +131,7 @@
                               </div>
                             </div>
 
-                            <span [ngClass]="{'danger': event.status != 'Confirmed'}">
+                            <span [ngClass]="{'danger': event.status != 'Paid'}">
                               {{event.status}}
                             </span>
                             <button *ngIf="!isCartConfirmed" class="btn  btn-bg-gradient-x-red-pink float-right"
@@ -148,16 +146,18 @@
                 </div>
                 <div class="card-footer border-top-blue-grey border-top-lighten-5 text-muted col-12">
                   <span class="float-left"> {{event.event_date | date }}</span>
-                  <div *ngIf="isCartConfirmed && !paymentSent">
-                    <div class="col-12 ">
-                      <div class="row">
-                        <div class="col-6">
-                          <button class="btn btn-bg-gradient-x-blue-cyan border-white border-2 float-right" (click)=payOnline()>Pay Online</button>
-                        </div>
-                        <div class="col-6">
-                          <button class="btn btn-bg-gradient-x-blue-cyan border-white border-2  float-right" data-toggle="modal"
-                            data-target="#DDModal">Pay
-                            through Demand Draft</button>
+                  <div *ngIf="!paymentConfirmed">
+                    <div *ngIf="isCartConfirmed && !paymentSent">
+                      <div class="col-12 ">
+                        <div class="row">
+                          <div class="col-6">
+                            <button class="btn btn-bg-gradient-x-blue-cyan border-white border-2 float-right" (click)=payOnline()>Pay Online</button>
+                          </div>
+                          <div class="col-6">
+                            <button class="btn btn-bg-gradient-x-blue-cyan border-white border-2  float-right" data-toggle="modal"
+                              data-target="#DDModal">Pay
+                              through Demand Draft</button>
+                          </div>
                         </div>
                       </div>
                     </div>

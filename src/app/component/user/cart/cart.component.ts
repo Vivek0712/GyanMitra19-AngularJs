@@ -20,6 +20,7 @@ export class CartComponent implements OnInit {
   amount: any;
   isCartConfirmed: boolean = false;
   paymentSent: boolean = false;
+  paymentConfirmed: boolean = false;
   constructor(private eventRegistrationService: EventRegistrationService,
     private appService:AppService,private paymentService: PaymentService, private userService: UserService) {
     this.workshops = []
@@ -106,6 +107,11 @@ export class CartComponent implements OnInit {
           else{
             this.paymentSent = false;
           }
+          if(this.workshops[0].status == 'Paid'){
+            this.paymentConfirmed = true;
+          }else{
+            this.paymentConfirmed = false;
+          }
         }
       }
     })
@@ -124,6 +130,11 @@ export class CartComponent implements OnInit {
         }
         else {
           this.hasEvents = true;
+        }
+        if(this.events[0].status == 'Paid'){
+          this.paymentConfirmed = true;
+        }else{
+          this.paymentConfirmed = false;
         }
       }
     })
