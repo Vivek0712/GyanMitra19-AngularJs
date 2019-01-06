@@ -36,11 +36,11 @@ export class RegisterComponent implements OnInit {
     this.Button="Register"
     this.submitted=false;
     this.registerForm = this.formBuilder.group({
-      email_id:['',Validators.required],
-      name:['',Validators.required],
+      email_id:['',Validators.compose([Validators.required,Validators.email])],
+      name:['',Validators.compose([Validators.required,Validators.pattern("[a-zA-z]")])],
       password:['',Validators.required],
       conpassword:['',Validators.required],
-      mobile_number:['',Validators.required],
+      mobile_number:['',Validators.compose([Validators.required,Validators.pattern("[0-9]{0-10}")])],
       degree_id:['',Validators.required],
       college_id:['',Validators.required],
       course_id:['',Validators.required],
@@ -75,7 +75,7 @@ export class RegisterComponent implements OnInit {
             M.toast({ html: response.msg, classes: 'roundeds' });
           } else {
             M.toast({ html: response.msg, classes: 'roundeds' });
-     
+            this.createForm();    
           }
         });
       }

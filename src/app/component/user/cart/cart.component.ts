@@ -21,6 +21,7 @@ export class CartComponent implements OnInit {
   isCartConfirmed: boolean = false;
   paymentSent: boolean = false;
   paymentConfirmed: boolean = false;
+  txnId: string;
   constructor(private eventRegistrationService: EventRegistrationService,
     private appService:AppService,private paymentService: PaymentService, private userService: UserService) {
     this.workshops = []
@@ -28,6 +29,7 @@ export class CartComponent implements OnInit {
     this.hasWorkshops = false;
     this.hasEvents = false;
     this.user_id = JSON.parse(localStorage.getItem('user')).id;
+
   }
 
   ngOnInit() {
@@ -39,7 +41,8 @@ export class CartComponent implements OnInit {
       if (!response.error) {
         this.isCartConfirmed = response.isCartConfirmed;
       }
-    })
+    });
+    this.genTxnId();
   }
 
   confirmCart() {
@@ -169,8 +172,14 @@ export class CartComponent implements OnInit {
       this.amount += 200;
     }
   }
+  genTxnId() {
+    this.txnId = JSON.parse(localStorage.getItem('user')).gmID;
+    console.log(this.txnId);
+  }
   payOnline() {
-    this.paymentService
+    const body = {
+      key: this.appService.getKey()
+    }
   }
   hashData(amount: any) {
     var key = this.appService.getKey();

@@ -1255,9 +1255,6 @@ html body.chat-application .content .content-wrapper .content-wrapper-before {
      z-index: -1
 }
 
-html body .la {
-     font-size: 1.4rem
-}
 
 html body[data-col='1-column']:not(.vertical-content-menu) .content,
 html body[data-col='1-column']:not(.vertical-content-menu) .footer {
@@ -7299,5 +7296,8 @@ html{
      cursor: pointer
  }
  .activator{
-     cursor: pointer
+     cursor: pointer;
+ }
+ .size2{
+     font-size: 2rem !important; 
  }

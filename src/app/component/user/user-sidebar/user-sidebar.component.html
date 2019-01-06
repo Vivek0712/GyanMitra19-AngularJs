@@ -1,8 +1,8 @@
-<div class="main-menu menu-fixed menu-light menu-accordion    menu-shadow " data-scroll-to-active="true" data-img="../../../../public/images/backgrounds/02.jpg">
+<div class="main-menu menu-fixed menu-light menu-accordion menu-shadow " data-scroll-to-active="true" data-img='public/images/backgrounds/02.jpg'>
   <div class="navbar-header">
     <ul class="nav navbar-nav flex-row">
       <li class="nav-item mr-auto">
-        <a class="navbar-brand" href="index.html">
+        <a class="navbar-brand" [routerLink]="['/user/home']" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
           <h3 class="brand-text">GyanMitra19 </h3>
         </a>
       </li>
