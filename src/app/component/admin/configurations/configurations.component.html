@@ -1,0 +1,124 @@
+<div class="app-content content">
+  <div class="content-wrapper">
+      <div class="content-wrapper-before"></div>
+      <div class="content-header row">
+          <div class="content-header-left col-md-4 col-12 mb-2">
+              <h3 class="content-header-title">Manage Configuration</h3>
+          </div>
+          <div class="content-header-right col-md-8 col-12">
+              <div class="breadcrumbs-top float-md-right">
+                  <div class="breadcrumb-wrapper mr-1">
+                      <ol class="breadcrumb">
+                          <li class="breadcrumb-item"><a href="index.html">Home</a>
+                          </li>
+                          <li class="breadcrumb-item active">Configuration
+                          </li>
+                      </ol>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="content-body">
+          <section id="content-types">
+              <div class="row match-height justify-content-md-center">
+                  <div class="col-xl-6 col-md-12">
+                      <div class="card">
+                          <div class="card-content">
+                              <div class="card-body">
+                                  <h4 class="card-title">Configuration</h4>
+                                  <h6 class="card-subtitle text-muted">Add Configuration</h6>
+                              </div>
+                              <div class="card-body">
+                                  <form class="form" [formGroup]="ConfigurationForm" (ngSubmit)=onSubmit(ConfigurationForm)>
+                                      <input type="hidden" formControlName="_id">
+                                      <div class="row">
+                                        <div class="col-9">    
+                                          <div class="form-group">
+                                              <input type="text" class="form-control" placeholder="Configuration Name" formControlName="name" required pattern="[a-zA-Z ]*" [ngClass]="{'is-invalid': submitted && f.name.errors}">
+                                              <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                                                <div *ngIf="f.name.errors.required">Configuration Name is required</div>
+                                                <div *ngIf="f.name.errors && !f.name.errors.required">Only Alpahabets</div>
+                                            </div>
+                                         </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <div class="form-group">
+                                                <div class="col-sm-5">
+                                                    <button (click)="toggle()" type="button" class="btn btn-lg btn-toggle" data-toggle="button" aria-pressed="false" autocomplete="off"> 
+                                                      <div class="handle"></div>
+                                                    </button>
+                                                  </div>
+                                             </div>
+                                        </div>
+                                      </div>
+                                      <div class="form-action left row">
+                                          <div class="col">
+                                              <span (click)="createForm()" class="btn btn-outline-danger left">Reset</span>
+                                          </div>
+                                          <div class="col">
+                                              <button type="submit" class="btn btn-outline-success right">{{this.Button}}</button>
+                                          </div>
+                                      </div>
+                                  </form>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </section>
+          <div class="row">
+              <div class="col-12">
+                  <div class="card">
+                      <div class="card-header">
+                          <h4 class="card-title">Configuration Tables</h4>
+                          <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+                          <div class="heading-elements">
+                              <ul class="list-inline mb-0">
+                                  <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                                  <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                                  <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                              </ul>
+                          </div>
+                      </div>
+                      <div class="card-content collapse show">
+                          <div class="card-body">
+                          Search : <input [(ngModel)]="searchText" placeholder="Search Categories" class="form-control">
+                              <div class="table-responsive">
+                                  <table class="table">
+                                      <thead>
+                                          <tr>
+                                              <th>Sl. No</th>
+                                              <th>Configuration Name</th>
+                                              <th>Status</th>
+                                              <th>Update</th>
+                                              <th>Delete</th>
+                                          </tr>
+                                      </thead>
+                                      <tbody>
+                                          <tr *ngFor="let config of configs | searchfilter : searchText ; let i = index;   ">
+
+                                              <th scope="row">{{i+1}}</th>
+                                              <td>{{ config.config}}</td>
+                                              <td>{{ config.value }}</td>
+                                              <td>
+                                                  <div class="fonticon-wrap icon-shadow icon-shadow-warning">
+                                                      <a (click)="updateConfiguration(config._id,config.config)"> <i class="la la-pencil la-2x"></i></a>
+                                                  </div>
+                                              </td>
+                                              <td>
+                                                  <div class="fonticon-wrap icon-shadow icon-shadow-danger" (click)="deleteConfiguration(config._id)">
+                                                      <a> <i class="la la-trash la-2x"></i></a>
+                                                  </div>
+                                              </td>
+                                          </tr>
+                                      </tbody>
+                                  </table>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

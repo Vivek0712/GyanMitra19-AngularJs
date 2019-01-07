@@ -16,7 +16,7 @@ export class EventService {
   readonly baseUrl = 'event/';
   constructor(private http: HttpClient, private app: AppService) { }
 
-  createEvent(title: String, category_id: String, department_id: String, description: String, image_name: String, rules: String, start_time: String, end_time: String, event_date: String, prelims: String, round_1: String, round_2: String, finals: String, min_members: Number, max_members: Number, max_limit: Number, contact_email: String, venue: String, amount: Number, allow_gender_mixing: Boolean) {
+  createEvent(title: String, category_id: String, department_id: String, description: String, image_name: String, rules: String, start_time: String, end_time: String, event_date: String, prelims: String, round_1: String, round_2: String, finals: String, min_members: Number, max_members: Number, max_limit: Number, contact_email: String, venue: String, amount: Number, allow_gender_mixing: Boolean,resourse_person: String) {
     const body = {
       title: title,
       category_id: category_id,
@@ -37,7 +37,8 @@ export class EventService {
       contact_email: contact_email,
       venue: venue,
       amount: amount,
-      allow_gender_mixing: allow_gender_mixing
+      allow_gender_mixing: allow_gender_mixing,
+      resourse_person: resourse_person
     };
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
@@ -71,7 +72,7 @@ export class EventService {
     return this.http.get(this.app.getUrl(this.baseUrl) + '?page=' + page);
   }
 
-  updateEvent(id: String, title: String, category_id: String, department_id: String, description: String, image_name: String, rules: String, start_time: String, end_time: String, event_date: String, prelims: String, round_1: String, round_2: String, finals: String, min_members: Number, max_members: Number, max_limit: Number, contact_email: String, venue: String, amount: Number, allow_gender_mixing: Boolean) {
+  updateEvent(id: String, title: String, category_id: String, department_id: String, description: String, image_name: String, rules: String, start_time: String, end_time: String, event_date: String, prelims: String, round_1: String, round_2: String, finals: String, min_members: Number, max_members: Number, max_limit: Number, contact_email: String, venue: String, amount: Number, allow_gender_mixing: Boolean,resource_person:String) {
     const body = {
       title: title,
       category_id: category_id,
@@ -91,7 +92,8 @@ export class EventService {
       contact_email: contact_email,
       venue: venue,
       amount: amount,
-      allow_gender_mixing: allow_gender_mixing
+      allow_gender_mixing: allow_gender_mixing,
+      resource_person: resource_person
     };
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
@@ -102,7 +104,5 @@ export class EventService {
     headers.append('Content-Type', 'application/json');
     return this.http.delete(this.app.getUrl(this.baseUrl + `${id}`)).pipe(map(res => res, { 'headers': headers }));
   }
-
-  
 
 }
