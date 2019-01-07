@@ -22,6 +22,8 @@
     "@angular/router": "^6.1.0",
     "@ng-bootstrap/ng-bootstrap": "^4.0.1",
     "angular2-jwt": "^0.2.3",
+    "angular2-qrscanner": "^1.0.7",
+    "angularx-qrcode": "^1.5.1",
     "core-js": "^2.5.4",
     "jquery": "^3.3.1",
     "ng2-select2": "^1.0.0-beta.16",

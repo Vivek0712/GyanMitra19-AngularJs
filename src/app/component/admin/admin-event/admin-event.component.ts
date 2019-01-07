@@ -213,8 +213,9 @@ export class AdminEventComponent implements OnInit {
     data[0].image_name = '';
     this.eventForm.setValue(data[0]);
   }
-  ChangeBoxes(event) {
-    this.categoryService.ReadACategory(event.target.value).subscribe((response: any) => {
+
+  ChangeBoxes() {
+    this.categoryService.ReadACategory(this.f.category_id.value).subscribe((response: any) => {
       if (!response.error) {
         this.category = response.msg;
         if (this.category.name == "Workshop") {

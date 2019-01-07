@@ -8,6 +8,8 @@ import { Select2Module } from 'ng2-select2';
 /////////////////////////////////////////////////////////////////
 import { routing } from '../routes/app.routes';
 import { AppComponent } from './app.component';
+import { QRCodeModule } from 'angularx-qrcode';
+import { NgQrScannerModule } from 'angular2-qrscanner';
 ////////////////////////////////////////////////////////////
 import { LoginComponent } from './component/user/login/login.component';
 import { ActivationComponent } from './component/user/activation/activation.component';
@@ -66,6 +68,7 @@ import { FilterEventsBasedOnDepartmentPipe } from './pipes/filter-events-based-o
 import { AdminCartConfirmationComponent } from './component/admin/admin-cart-confirmation/admin-cart-confirmation.component';
 import { GyanMitra18Component } from './component/user/gyan-mitra18/gyan-mitra18.component';
 import { IdCardComponent } from './component/user/id-card/id-card.component';
+import { ConfigurationsComponent } from './component/admin/configurations/configurations.component';
 
 /////////////////////////////////////////////////////////////////
 
@@ -112,6 +115,7 @@ import { IdCardComponent } from './component/user/id-card/id-card.component';
     AdminCartConfirmationComponent,
     GyanMitra18Component,
     IdCardComponent,
+    ConfigurationsComponent,
   ],
   imports: [
     BrowserModule,
@@ -120,7 +124,9 @@ import { IdCardComponent } from './component/user/id-card/id-card.component';
     HttpClientModule,
     ReactiveFormsModule,
     NgbModule,
-    Select2Module
+    Select2Module,
+    QRCodeModule,
+    NgQrScannerModule
   ],
   providers: [
     JwtHelper,
