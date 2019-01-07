@@ -8,6 +8,8 @@ import { Select2Module } from 'ng2-select2';
 /////////////////////////////////////////////////////////////////
 import { routing } from '../routes/app.routes';
 import { AppComponent } from './app.component';
+import { QRCodeModule } from 'angularx-qrcode';
+import { NgQrScannerModule } from 'angular2-qrscanner';
 ////////////////////////////////////////////////////////////
 import { LoginComponent } from './component/user/login/login.component';
 import { ActivationComponent } from './component/user/activation/activation.component';
@@ -120,7 +122,9 @@ import { IdCardComponent } from './component/user/id-card/id-card.component';
     HttpClientModule,
     ReactiveFormsModule,
     NgbModule,
-    Select2Module
+    Select2Module,
+    QRCodeModule,
+    NgQrScannerModule
   ],
   providers: [
     JwtHelper,
