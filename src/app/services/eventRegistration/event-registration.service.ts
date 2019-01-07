@@ -86,6 +86,12 @@ export class EventRegistrationService {
     return this.http.post(this.app.getUrl(this.baseUrl + 'confirmCartPayment'), data).pipe(map(res => res, { 'headers': headers }));
   }
 
+  checkRegistration(event_id: string, user_id: string){
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.get(this.app.getUrl(this.baseUrl) + '/checkRegistration/'+event_id+'/'+user_id);
+  }
+
   getUnconfirmedDDPayments() {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
