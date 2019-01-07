@@ -23,7 +23,7 @@ export class EventsComponent implements OnInit {
   constructor(private userService: UserService,private eventRegistration:EventRegistrationService, private eventService: EventService,private eventRegistrationService: EventRegistrationService, private authService: AuthService, private deptService: DepartmentService) { 
     this.selectedEventID='';
     this.loadFull();
-    this.currentUserId = localStorage.getitem('user').id;
+    this.currentUserId = (JSON.parse(localStorage.getItem('user'))).id
   }
   ngOnInit() {
     this.userService.isCartConfirmed(JSON.parse(localStorage.getItem('user')).id).subscribe((response: any)=>{
@@ -47,12 +47,6 @@ export class EventsComponent implements OnInit {
   loadFull(){
     this.eventService.readWithEventCategory('Event').subscribe((response: any) => {
       this.events = response;
-      $(document).ready(function () {
-        $('#searchText').select2({
-          multiple: false,
-            placeholder: 'Departments',
-        });
-      });
     })
     this.deptService.readDepartment(0).subscribe((response: any)=>{
       this.departments = response;

@@ -7,8 +7,8 @@
         </span>
       </span>
       <span class="content-header-left col-md-4 col-4 mb-4">
-        <select [(ngModel)]="searchText" id="searchText" class="custom-select float-right">
-          <option *ngFor="let dept of departments" value="{{dept.name}}">
+        <select id="deptSelect" [(ngModel)]="searchText" class="custom-select float-right">
+          <option  class="custom-select" *ngFor="let dept of departments" value="{{dept.name}}">
             {{dept.name}}
           </option>
         </select>

@@ -6,8 +6,6 @@ import { DepartmentService } from 'src/app/services/department/department.servic
 import { UserService } from 'src/app/services/user/user.service';
 
 declare var M: any;
-declare var $: any;
-
 
 @Component({
   selector: 'app-workshops',
@@ -32,7 +30,23 @@ export class WorkshopsComponent implements OnInit {
           this.isCartConfirmed = response.isCartConfirmed
         }
       })
+      $(document).ready(function() {
+  
+        $(".selLabel").click(function () {
+          $('.dropdown').toggleClass('active');
+        });
+        
+        $(".dropdown-list li").click(function() {
+          $('.selLabel').text($(this).text());
+          $('.dropdown').removeClass('active');
+          $('.selected-item p span').text($('.selLabel').text());
+        });
+        
+      });
     }
+  }
+  hello() {
+    console.log(this.searchText);
   }
 
   reloadEvents() {
@@ -61,16 +75,14 @@ export class WorkshopsComponent implements OnInit {
     })
   }
 
+  setSearchText(text: string){
+    this.searchText = text;
+  }
+
   loadFull() {
     this.eventService.readWithEventCategory('Workshop').subscribe((response: any) => {
       this.workshops = response;
-      $(document).ready(function () {
-        $('#searchText').select2({
-          multiple: false,
-            placeholder: 'Departments',
-        });
-      });
-      
+
     })
     this.deptService.readDepartment(0).subscribe((response: any) => {
       this.departments = response;
