@@ -142,4 +142,12 @@ export class EventRegistrationService {
     return this.http.get(this.app.getUrl(this.baseUrl) + 'getCollegeParticipant/' + college);
   }
 
+  checkEventRegistrationStatus(user_id:String,event_id:String){
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    this.http.get(this.app.getUrl(this.baseUrl) + 'checkEventRegistrationStatus/'+event_id+'/'+user_id).subscribe((response:any)=>{
+      return response.registered;
+    });
+  }
+
 }
