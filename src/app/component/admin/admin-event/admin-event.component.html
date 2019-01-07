@@ -71,7 +71,7 @@
                         </div>
                         <div class="col-6">
                           Event Category
-                          <select class="custom-select" placeholder="Category" formControlName="category_id" (change)="ChangeBoxes($event)">
+                          <select class="custom-select" placeholder="Category" formControlName="category_id" (change)="ChangeBoxes()">
                             <option disabled value="">Category</option>
                             <option *ngFor="let category of categories" value={{category._id}}>{{category.name}}</option>
                           </select>

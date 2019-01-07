@@ -19,16 +19,34 @@ export class WorkshopsComponent implements OnInit {
   searchText: String;
   isCartConfirmed: Boolean = true;
 
-  constructor(private eventService: EventService,private userService:UserService, private eventRegistrationService: EventRegistrationService, private authService: AuthService, private deptService: DepartmentService) {
+  constructor(private eventService: EventService, private userService: UserService, private eventRegistrationService: EventRegistrationService, private authService: AuthService, private deptService: DepartmentService) {
     this.loadFull();
   }
   ngOnInit() {
     this.loadFull();
-    this.userService.isCartConfirmed(JSON.parse(localStorage.getItem('user')).id).subscribe((response: any)=>{
-      if(!response.error){
-        this.isCartConfirmed = response.isCartConfirmed
-      }
-    })
+    if (this.authService.isLoggedIn()) {
+      this.userService.isCartConfirmed(JSON.parse(localStorage.getItem('user')).id).subscribe((response: any) => {
+        if (!response.error) {
+          this.isCartConfirmed = response.isCartConfirmed
+        }
+      })
+      $(document).ready(function() {
+  
+        $(".selLabel").click(function () {
+          $('.dropdown').toggleClass('active');
+        });
+        
+        $(".dropdown-list li").click(function() {
+          $('.selLabel').text($(this).text());
+          $('.dropdown').removeClass('active');
+          $('.selected-item p span').text($('.selLabel').text());
+        });
+        
+      });
+    }
+  }
+  hello() {
+    console.log(this.searchText);
   }
 
   reloadEvents() {
@@ -57,11 +75,16 @@ export class WorkshopsComponent implements OnInit {
     })
   }
 
+  setSearchText(text: string){
+    this.searchText = text;
+  }
+
   loadFull() {
     this.eventService.readWithEventCategory('Workshop').subscribe((response: any) => {
       this.workshops = response;
+
     })
-    this.deptService.readDepartment(0).subscribe((response: any)=>{
+    this.deptService.readDepartment(0).subscribe((response: any) => {
       this.departments = response;
     })
   }
