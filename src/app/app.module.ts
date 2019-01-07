@@ -68,6 +68,10 @@ import { FilterEventsBasedOnDepartmentPipe } from './pipes/filter-events-based-o
 import { AdminCartConfirmationComponent } from './component/admin/admin-cart-confirmation/admin-cart-confirmation.component';
 import { GyanMitra18Component } from './component/user/gyan-mitra18/gyan-mitra18.component';
 import { ConfigurationsComponent } from './component/admin/configurations/configurations.component';
+import { RulesTransformPipe } from './pipes/rules-transform.pipe';
+
+/////////////////////////////////////////////////////////////////
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -110,7 +114,8 @@ import { ConfigurationsComponent } from './component/admin/configurations/config
     FilterEventsBasedOnDepartmentPipe,
     AdminCartConfirmationComponent,
     GyanMitra18Component,
-    ConfigurationsComponent
+    ConfigurationsComponent,
+    RulesTransformPipe,
   ],
   imports: [
     BrowserModule,
