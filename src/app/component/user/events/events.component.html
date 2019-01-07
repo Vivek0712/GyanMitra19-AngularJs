@@ -35,7 +35,6 @@
               <div class="card-body">
                 <h3 class="card-title">{{event.title}} <span class="card-title activator grey-text text-darken-4 float-right"><i
                       class="fas fa-ellipsis-v right"></i></span></h3>
-
                 <h6 class="card-subtitle text-muted">Department of {{event.department_id.name}}</h6>
               </div>
               <img class="activator" src="http://localhost:3000/assests/images/events/{{event.image_name}}">
@@ -47,7 +46,6 @@
                   <a href="mailto:{{event.contact_email}}">{{event.contact_email}}</a>
                 </p>
               </div>
-
               <div class="card-reveal">
                 <span class="card-title grey-text text-darken-4">Rules<i class="fas fa-times float-right"></i></span>
                 {{event.rules}}

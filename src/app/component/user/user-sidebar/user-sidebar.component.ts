@@ -9,10 +9,18 @@ import { AppService } from 'src/app/services/app/app.service';
 })
 export class UserSidebarComponent implements OnInit {
 
-  constructor(private authService: AuthService, private appService: AppService) { }
-
+  constructor(private authService: AuthService,private appService: AppService) { }
+  sideBarImage: string;
   ngOnInit() {
-    console.log(this.appService);
+    this.loadSideBarImage();
   }
-
+  loadSideBarImage() {
+    if (this.appService.isProduction)
+    {
+      this.sideBarImage = this.appService.getFrontEndUrl() + 'public/images/backgrounds/02.jpg';
+      this.sideBarImage.toString();
+    } else {
+      this.sideBarImage = this.appService.getFrontEndUrl() + 'public/images/backgrounds/02.jpg';
+    }
+  }
 }

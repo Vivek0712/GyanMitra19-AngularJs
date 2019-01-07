@@ -19,9 +19,11 @@ export class EventsComponent implements OnInit {
   selectedEventID:String;
   searchText: String;
   isCartConfirmed:Boolean = true;
-  constructor(private userService: UserService, private eventService: EventService,private eventRegistrationService: EventRegistrationService, private authService: AuthService, private deptService: DepartmentService) { 
+  currentUserId:String;
+  constructor(private userService: UserService,private eventRegistration:EventRegistrationService, private eventService: EventService,private eventRegistrationService: EventRegistrationService, private authService: AuthService, private deptService: DepartmentService) { 
     this.selectedEventID='';
     this.loadFull();
+    this.currentUserId = localStorage.getitem('user').id;
   }
   ngOnInit() {
     this.userService.isCartConfirmed(JSON.parse(localStorage.getItem('user')).id).subscribe((response: any)=>{

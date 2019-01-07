@@ -11,6 +11,9 @@ export class AppService {
   public getUrl(uri = '') {
     return `${this.server}/${uri}`;
   }
+  public getFrontEndUrl() {
+    return environment.frontend.server;
+  }
   public getKey() {
     return environment.payment.key;
   }
@@ -28,6 +31,9 @@ export class AppService {
   }
   public getProductInfo() {
     return environment.payment.productInfo;
+  }
+  public isProduction() {
+    return environment.production;
   }
 
 

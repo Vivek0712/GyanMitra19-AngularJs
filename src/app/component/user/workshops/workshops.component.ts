@@ -76,4 +76,5 @@ export class WorkshopsComponent implements OnInit {
       this.departments = response;
     })
   }
+
 }
