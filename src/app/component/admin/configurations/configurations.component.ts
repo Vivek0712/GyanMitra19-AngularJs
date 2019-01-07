@@ -1,54 +1,55 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators , FormBuilder , FormArray, NgForm } from '@angular/forms';
 import { CategoryService } from 'src/app/services/category/category.service';
-
-import { SearchfilterPipe } from 'src/app/pipes/searchfilter.pipe';
+import { ConfigurationsService } from 'src/app/services/configurations/configurations.service';
 
 declare var M: any;
 @Component({
-  selector: 'app-category',
-  templateUrl: './category.component.html',
-  styleUrls: ['./category.component.css']
+  selector: 'app-configurations',
+  templateUrl: './configurations.component.html',
+  styleUrls: ['./configurations.component.css']
 })
-export class CategoryComponent implements OnInit {
+export class ConfigurationsComponent implements OnInit {
 
-  constructor(private categoryService: CategoryService, private formBuilder: FormBuilder) { }
-  categoryForm: FormGroup;
-  categories: Array<any>;
+  constructor(private configService: ConfigurationsService, private formBuilder: FormBuilder) { }
+  ConfigurationForm: FormGroup;
+  configs: Array<any>;
   Button: any;
   submitted:boolean;
+  value:Boolean;
   ngOnInit() {
     this.submitted=false;
     this.createForm();
-    this.getCategorys();
+    this.getConfigs();
+    this.value = false;
   }
 
 
-  get f() { return this.categoryForm.controls; }
+  get f() { return this.ConfigurationForm.controls; }
   onSubmit(form: FormGroup) {
     this.submitted=true;
     if(form.valid){
       if ( form.value._id === '') {
-        this.categoryService.createCategory( this.categoryForm.get('name').value).subscribe((response: any) => {
+        this.configService.createConfig( this.ConfigurationForm.get('name').value,this.value).subscribe((response: any) => {
           if ( response.error ) {
             M.toast({ html: response.msg , classes: 'roundeds'});
-            this.getCategorys();
+            this.getConfigs();
             this.createForm();
           } else {
             M.toast({ html: response.msg , classes: 'roundeds'});
-            this.getCategorys();
+            this.getConfigs();
             this.createForm();
           }
         });
       } else {
-        this.categoryService.updateCategory(form.value._id, form.value.name).subscribe((response: any) => {
+        this.configService.updateConfig(form.value._id, form.value.name,this.value).subscribe((response: any) => {
           if ( response.error ) {
             M.toast({ html: response.msg , classes: 'roundeds'});
-            this.getCategorys();
+            this.getConfigs();
             this.createForm();
           } else {
             M.toast({ html: response.msg , classes: 'roundeds'});
-            this.getCategorys();
+            this.getConfigs();
             this.createForm();
           }
         });
@@ -60,40 +61,48 @@ export class CategoryComponent implements OnInit {
   }
   createForm() {
     this.submitted=false;
-    this.categoryForm = this.formBuilder.group({
+    this.ConfigurationForm = this.formBuilder.group({
       _id: '',
       name: ['',Validators.required]
     });
     this.Button = 'Create';
   }
-  getCategorys() {
-    this.categoryService.readCategory().subscribe((response: any) => {
-      this.categories = response.docs;
+  getConfigs() {
+    this.configService.readConfig().subscribe((response: any) => {
+      this.configs = response.docs;
     });
 
 
     //if(this.categories)
 
   }
-  deleteCategory(id: string) {
-  this.categoryService.deleteCategory(id).subscribe((response: any) => {
+  deleteConfiguration(id: string) {
+  this.configService.deleteConfig(id).subscribe((response: any) => {
     if ( response.error ) {
       M.toast({ html: response.msg , classes: 'roundeds'});
-      this.getCategorys();
+      this.getConfigs();
       this.createForm();
     } else {
       M.toast({ html: response.msg , classes: 'roundeds'});
-      this.getCategorys();
+      this.getConfigs();
       this.createForm();
     }
   });
   }
-  updateCategory(id: string, name: string,locale:String ) {
+  updateConfiguration(id: string, name: string) {
     this.Button = 'Update';
-    this.categoryForm.setValue({
+    this.ConfigurationForm.setValue({
       _id: id,
       name: name
     });
   }
 
+  toggle(){
+    if(this.value == true){
+      this.value = false;
+    }
+    else {
+      this.value = true;
+    }
+  }
 }

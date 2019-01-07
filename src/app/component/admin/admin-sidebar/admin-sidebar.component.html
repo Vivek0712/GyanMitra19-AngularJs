@@ -78,6 +78,13 @@
                 data-i18n="">{{ workshop.title }} </span></a></li>
         </ul>
       </li>
+      <li class="nav-item has-sub"><a><i class="fas fa-cogs"></i><span class="menu-title" data-i18n="">Control Panel</span></a>
+        <ul class="menu-content">
+          <li class="menu-item"><a [routerLink]="['/admin/configurations']"
+              [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><span class="menu-title"
+                data-i18n="">Configurations</span></a></li>
+        </ul>
+      </li>
     </ul>
     <div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 3px;">
       <div class="ps-scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div>

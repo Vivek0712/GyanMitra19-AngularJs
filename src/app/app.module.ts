@@ -66,6 +66,7 @@ import { FilterEventsBasedOnDepartmentPipe } from './pipes/filter-events-based-o
 import { AdminCartConfirmationComponent } from './component/admin/admin-cart-confirmation/admin-cart-confirmation.component';
 import { GyanMitra18Component } from './component/user/gyan-mitra18/gyan-mitra18.component';
 import { IdCardComponent } from './component/user/id-card/id-card.component';
+import { ConfigurationsComponent } from './component/admin/configurations/configurations.component';
 
 /////////////////////////////////////////////////////////////////
 
@@ -112,6 +113,7 @@ import { IdCardComponent } from './component/user/id-card/id-card.component';
     AdminCartConfirmationComponent,
     GyanMitra18Component,
     IdCardComponent,
+    ConfigurationsComponent,
   ],
   imports: [
     BrowserModule,
