@@ -69,6 +69,7 @@ import { AdminCartConfirmationComponent } from './component/admin/admin-cart-con
 import { GyanMitra18Component } from './component/user/gyan-mitra18/gyan-mitra18.component';
 import { IdCardComponent } from './component/user/id-card/id-card.component';
 import { ConfigurationsComponent } from './component/admin/configurations/configurations.component';
+import { RulesTransformPipe } from './pipes/rules-transform.pipe';
 
 /////////////////////////////////////////////////////////////////
 
@@ -116,6 +117,7 @@ import { ConfigurationsComponent } from './component/admin/configurations/config
     GyanMitra18Component,
     IdCardComponent,
     ConfigurationsComponent,
+    RulesTransformPipe,
   ],
   imports: [
     BrowserModule,
