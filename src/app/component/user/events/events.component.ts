@@ -45,6 +45,12 @@ export class EventsComponent implements OnInit {
   loadFull(){
     this.eventService.readWithEventCategory('Event').subscribe((response: any) => {
       this.events = response;
+      $(document).ready(function () {
+        $('#searchText').select2({
+          multiple: false,
+            placeholder: 'Departments',
+        });
+      });
     })
     this.deptService.readDepartment(0).subscribe((response: any)=>{
       this.departments = response;

@@ -6,6 +6,8 @@ import { DepartmentService } from 'src/app/services/department/department.servic
 import { UserService } from 'src/app/services/user/user.service';
 
 declare var M: any;
+declare var $: any;
+
 
 @Component({
   selector: 'app-workshops',
@@ -19,16 +21,18 @@ export class WorkshopsComponent implements OnInit {
   searchText: String;
   isCartConfirmed: Boolean = true;
 
-  constructor(private eventService: EventService,private userService:UserService, private eventRegistrationService: EventRegistrationService, private authService: AuthService, private deptService: DepartmentService) {
+  constructor(private eventService: EventService, private userService: UserService, private eventRegistrationService: EventRegistrationService, private authService: AuthService, private deptService: DepartmentService) {
     this.loadFull();
   }
   ngOnInit() {
     this.loadFull();
-    this.userService.isCartConfirmed(JSON.parse(localStorage.getItem('user')).id).subscribe((response: any)=>{
-      if(!response.error){
-        this.isCartConfirmed = response.isCartConfirmed
-      }
-    })
+    if (this.authService.isLoggedIn()) {
+      this.userService.isCartConfirmed(JSON.parse(localStorage.getItem('user')).id).subscribe((response: any) => {
+        if (!response.error) {
+          this.isCartConfirmed = response.isCartConfirmed
+        }
+      })
+    }
   }
 
   reloadEvents() {
@@ -60,8 +64,15 @@ export class WorkshopsComponent implements OnInit {
   loadFull() {
     this.eventService.readWithEventCategory('Workshop').subscribe((response: any) => {
       this.workshops = response;
+      $(document).ready(function () {
+        $('#searchText').select2({
+          multiple: false,
+            placeholder: 'Departments',
+        });
+      });
+      
     })
-    this.deptService.readDepartment(0).subscribe((response: any)=>{
+    this.deptService.readDepartment(0).subscribe((response: any) => {
       this.departments = response;
     })
   }

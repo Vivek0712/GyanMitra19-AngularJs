@@ -2,23 +2,30 @@
   <div class="content-wrapper">
     <div class="content-wrapper-before"></div>
     <div class="content-header row">
-
-      <div class="content-header-left col-md-4 col-12 mb-2">
-        <h3 class="content-header-title">Events</h3>
-      </div>
-      <div class="content-header-right col-md-8 col-12">
+      <span class="content-header-left h3 col-md-4 col-4 mb-4">
+        <span class="content-header-title">Workshops
+        </span>
+      </span>
+      <span class="content-header-left col-md-4 col-4 mb-4">
+        <select [(ngModel)]="searchText" id="searchText" class="custom-select float-right">
+          <option *ngFor="let dept of departments" value="{{dept.name}}">
+            {{dept.name}}
+          </option>
+        </select>
+      </span>
+      <span class="content-header-right col-md-4 col-4">
         <div class="breadcrumbs-top float-md-right">
           <div class="breadcrumb-wrapper mr-1">
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a [routerLink]="['/user/home']" [routerLinkActive]="['active']"
                   [routerLinkActiveOptions]="{exact:true}">Home</a>
               </li>
-              <li class="breadcrumb-item active">Event
+              <li class="breadcrumb-item active">Workshops
               </li>
             </ol>
           </div>
         </div>
-      </div>
+      </span>
     </div>
     <div class="content-body">
       <section id="content-types">
@@ -51,15 +58,13 @@
                   <div *ngIf="authService.isLoggedIn()">
                     <div *ngIf="!isCartConfirmed">
                       <div *ngIf="event.min_members == event.max_members == 1">
-                        <button type="button" class="btn btn-outline-primary" (click)="selectEvent(event._id)"
-                          style="width:100%">
+                        <button type="button" class="btn btn-outline-primary" (click)="selectEvent(event._id)" style="width:100%">
                           Register Now <i class="la la-angle-right"></i>
                         </button>
                       </div>
                       <div *ngIf="event.min_members != event.max_members">
                         <button type="button" [routerLink]="['/user/teamRegister',event._id]" [routerLinkActive]="['active']"
-                          [routerLinkActiveOptions]="{exact:true}" class="btn btn-outline-primary"
-                          style="width:100%">
+                          [routerLinkActiveOptions]="{exact:true}" class="btn btn-outline-primary" style="width:100%">
                           Register Team <i class="la la-angle-right"></i>
                         </button>
                       </div>

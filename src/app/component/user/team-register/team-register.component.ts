@@ -105,7 +105,6 @@ export class TeamRegisterComponent implements OnInit {
             data: response.msg,
             multiple: true,
             placeholder: 'Add TeamMates',
-            
           });
         });
       }
