@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators, FormBuilder, FormArray, NgForm } fr
 import { EventService } from '../../../services/event/event.service';
 import { CategoryService } from 'src/app/services/category/category.service';
 import { DepartmentService } from 'src/app/services/department/department.service';
+import { elementStyleProp } from '@angular/core/src/render3/instructions';
 
 declare var M: any;
 
@@ -37,10 +38,14 @@ export class AdminEventComponent implements OnInit {
   currentPage: any;
   searchText: any;
   selectedEventID: string;
-
+  workshop: boolean;
+  event: boolean;
+  category: any;
   constructor(private eventService: EventService, private formBuilder: FormBuilder, private categoryService: CategoryService, private departmentService: DepartmentService) { }
 
   ngOnInit() {
+    this.workshop = true;
+    this.event = true;
     this.currentPage=1;
     this.selectedEventID='';
     this.getCategories();
@@ -152,6 +157,9 @@ export class AdminEventComponent implements OnInit {
   }
 
   createForm() {
+    this.event = true;
+    this.workshop = true;
+    console.log(this.event);
     this.submitted = false;
     this.eventForm = this.formBuilder.group({
       _id: '',
@@ -204,5 +212,21 @@ export class AdminEventComponent implements OnInit {
     });
     data[0].image_name = '';
     this.eventForm.setValue(data[0]);
+  }
+  ChangeBoxes(event) {
+    this.categoryService.ReadACategory(event.target.value).subscribe((response: any) => {
+      if (!response.error) {
+        this.category = response.msg;
+        if (this.category.name == "Workshop") {
+          this.event = false;
+          this.workshop = true;
+        }
+        else if(this.category.name=="Event"){
+          this.event = true;
+          this.workshop = false;
+        }
+      }
+    })
+    
   }
 }
