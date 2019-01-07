@@ -129,7 +129,7 @@ export class AdminEventComponent implements OnInit {
     console.log(form.value.image_name);
     if (form.value._id === '') {
       const data = form.value;
-      this.eventService.createEvent(data.title, data.category_id, data.department_id, data.description, 'Not Uploaded', data.rules, data.start_time, data.end_time, data.event_date, data.prelims, data.round_1, data.round_2, data.finals, data.min_members, data.max_members, data.max_limit, data.contact_email, data.venue, data.amount, this.allow_gender_mixing).subscribe((response: any) => {
+      this.eventService.createEvent(data.title, data.category_id, data.department_id, data.description, 'Not Uploaded', data.rules, data.start_time, data.end_time, data.event_date, data.prelims, data.round_1, data.round_2, data.finals, data.min_members, data.max_members, data.max_limit, data.contact_email, data.venue, data.amount, this.allow_gender_mixing,data.resourse_person).subscribe((response: any) => {
         if (response.error) {
           M.toast({ html: response.msg, classes: 'roundeds' });
           this.getEvents(this.currentPage);
@@ -142,7 +142,7 @@ export class AdminEventComponent implements OnInit {
       });
     } else {
       const data = form.value;
-      this.eventService.updateEvent(data._id, data.title, data.category_id, data.department_id, data.description, 'Not Uploaded', data.rules, data.start_time, data.end_time, data.event_date, data.prelims, data.round_1, data.round_2, data.finals, data.min_members, data.max_members, data.max_limit, data.contact_email, data.venue, data.amount, this.allow_gender_mixing).subscribe((response: any) => {
+      this.eventService.updateEvent(data._id, data.title, data.category_id, data.department_id, data.description, 'Not Uploaded', data.rules, data.start_time, data.end_time, data.event_date, data.prelims, data.round_1, data.round_2, data.finals, data.min_members, data.max_members, data.max_limit, data.contact_email, data.venue, data.amount, this.allow_gender_mixing,data.resourse_person).subscribe((response: any) => {
         if (response.error) {
           M.toast({ html: response.msg, classes: 'roundeds' });
           this.getEvents(this.currentPage);
@@ -159,7 +159,6 @@ export class AdminEventComponent implements OnInit {
   createForm() {
     this.event = true;
     this.workshop = true;
-    console.log(this.event);
     this.submitted = false;
     this.eventForm = this.formBuilder.group({
       _id: '',
@@ -182,7 +181,8 @@ export class AdminEventComponent implements OnInit {
       contact_email: '',
       venue: '',
       amount: '',
-      allow_gender_mixing: ''
+      allow_gender_mixing: '',
+      resourse_person:''
     });
     this.Button = 'Create';
   }
