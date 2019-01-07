@@ -2,7 +2,7 @@ export const environment = {
 
   production: true,
   backend: {
-    server: 'http://localhost:3000'
+    server: 'http://mepcoeng.local/nodejs'
   },
   frontend: {
     server: 'http://localhost:4200/'
