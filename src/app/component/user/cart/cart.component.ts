@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { EventRegistrationService } from 'src/app/services/eventRegistration/event-registration.service';
 import { UserService } from 'src/app/services/user/user.service';
+import { PaymentService } from 'src/app/services/payment/payment.service';
+import { AppService } from 'src/app/services/app/app.service';
 
 declare var M: any;
 
@@ -18,12 +20,16 @@ export class CartComponent implements OnInit {
   amount: any;
   isCartConfirmed: boolean = false;
   paymentSent: boolean = false;
-  constructor(private eventRegistrationService: EventRegistrationService, private userService: UserService) {
+  paymentConfirmed: boolean = false;
+  txnId: string;
+  constructor(private eventRegistrationService: EventRegistrationService,
+    private appService:AppService,private paymentService: PaymentService, private userService: UserService) {
     this.workshops = []
     this.events = []
     this.hasWorkshops = false;
     this.hasEvents = false;
     this.user_id = JSON.parse(localStorage.getItem('user')).id;
+
   }
 
   ngOnInit() {
@@ -35,7 +41,8 @@ export class CartComponent implements OnInit {
       if (!response.error) {
         this.isCartConfirmed = response.isCartConfirmed;
       }
-    })
+    });
+    this.genTxnId();
   }
 
   confirmCart() {
@@ -103,6 +110,11 @@ export class CartComponent implements OnInit {
           else{
             this.paymentSent = false;
           }
+          if(this.workshops[0].status == 'Paid'){
+            this.paymentConfirmed = true;
+          }else{
+            this.paymentConfirmed = false;
+          }
         }
       }
     })
@@ -121,6 +133,11 @@ export class CartComponent implements OnInit {
         }
         else {
           this.hasEvents = true;
+        }
+        if(this.events[0].status == 'Paid'){
+          this.paymentConfirmed = true;
+        }else{
+          this.paymentConfirmed = false;
         }
       }
     })
@@ -154,5 +171,21 @@ export class CartComponent implements OnInit {
     if (this.events.length != 0) {
       this.amount += 200;
     }
+  }
+  genTxnId() {
+    this.txnId = JSON.parse(localStorage.getItem('user')).gmID;
+    console.log(this.txnId);
+  }
+  payOnline() {
+    const body = {
+      key: this.appService.getKey()
+    }
+  }
+  hashData(amount: any) {
+    var key = this.appService.getKey();
+    var paymentSalt = this.appService.getSalt();
+    var totalAmount = amount + (amount * this.appService.getTransactionFee());
+    var productInfo = this.appService.getProductInfo();
+    
   }
 }

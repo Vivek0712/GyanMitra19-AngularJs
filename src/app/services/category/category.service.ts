@@ -41,4 +41,10 @@ export class CategoryService {
     headers.append('Content-Type', 'application/json');
     return this.http.delete(this.app.getUrl(this.baseUrl + `${id}` ) ).pipe(map(res => res, {'headers': headers}));
   }
+  ReadACategory(id: String) {
+   
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.get(this.app.getUrl(this.baseUrl + `${id}`)).pipe(map(res => res, {'headers': headers}));
+  }
 }

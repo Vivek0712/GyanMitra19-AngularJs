@@ -15,10 +15,10 @@ export class EventRegistrationService {
 
   createEventRegistration(user_id: String, event_id: String) {
     let data = {
-       event_id: event_id,
-        user_id:user_id,
-        registration_type: "Single"
-      }
+      event_id: event_id,
+      user_id: user_id,
+      registration_type: "Single"
+    }
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this.http.post(this.app.getUrl(this.baseUrl + 'newEventRegistration'), data).pipe(map(res => res, { 'headers': headers }));
@@ -68,13 +68,28 @@ export class EventRegistrationService {
   getWorkshops(user_id: String) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.get(this.app.getUrl(this.baseUrl) + '/getRegistrations/' + user_id + "/Workshop");
+    return this.http.get(this.app.getUrl(this.baseUrl) + 'getRegistrations/' + user_id + "/Workshop");
   }
 
   getEventRegistrations(user_id: String) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.get(this.app.getUrl(this.baseUrl) + '/getRegistrations/' + user_id + "/Event");
+    return this.http.get(this.app.getUrl(this.baseUrl) + 'getRegistrations/' + user_id + "/Event");
+  }
+
+  confirmPayment(user_id: String) {
+    let data = {
+      user_id: user_id
+    }
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post(this.app.getUrl(this.baseUrl + 'confirmCartPayment'), data).pipe(map(res => res, { 'headers': headers }));
+  }
+
+  getUnconfirmedDDPayments() {
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.get(this.app.getUrl(this.baseUrl) + '/getUnconfirmedDDPayments');
   }
 
   getEvents(event_id: String) {

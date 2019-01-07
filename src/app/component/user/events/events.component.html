@@ -2,7 +2,6 @@
   <div class="content-wrapper">
     <div class="content-wrapper-before"></div>
     <div class="content-header row">
-
       <div class="content-header-left col-md-4 col-12 mb-2">
         <h3 class="content-header-title">Events</h3>
       </div>
@@ -28,7 +27,6 @@
               <div class="card-body">
                 <h3 class="card-title">{{event.title}} <span class="card-title activator grey-text text-darken-4 float-right"><i
                       class="fas fa-ellipsis-v right"></i></span></h3>
-
                 <h6 class="card-subtitle text-muted">Department of {{event.department_id.name}}</h6>
               </div>
               <img class="activator" src="http://localhost:3000/assests/images/events/{{event.image_name}}">
@@ -40,7 +38,6 @@
                   <a href="mailto:{{event.contact_email}}">{{event.contact_email}}</a>
                 </p>
               </div>
-
               <div class="card-reveal">
                 <span class="card-title grey-text text-darken-4">Rules<i class="fas fa-times float-right"></i></span>
                 {{event.rules}}
@@ -51,15 +48,13 @@
                   <div *ngIf="authService.isLoggedIn() && !eventRegistration.checkEventRegistrationStatus(currentUserId,event._id)">
                     <div *ngIf="!isCartConfirmed">
                       <div *ngIf="event.min_members == event.max_members == 1">
-                        <button type="button" class="btn btn-outline-primary" (click)="selectEvent(event._id)"
-                          style="width:100%">
+                        <button type="button" class="btn btn-outline-primary" (click)="selectEvent(event._id)" style="width:100%">
                           Register Now <i class="la la-angle-right"></i>
                         </button>
                       </div>
                       <div *ngIf="event.min_members != event.max_members">
                         <button type="button" [routerLink]="['/user/teamRegister',event._id]" [routerLinkActive]="['active']"
-                          [routerLinkActiveOptions]="{exact:true}" class="btn btn-outline-primary"
-                          style="width:100%">
+                          [routerLinkActiveOptions]="{exact:true}" class="btn btn-outline-primary" style="width:100%">
                           Register Team <i class="la la-angle-right"></i>
                         </button>
                       </div>

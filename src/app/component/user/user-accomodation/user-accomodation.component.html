@@ -93,6 +93,13 @@
                       </div>
                     </div>
                   </div>
+                  <div class="danger" *ngIf="hasAccomodation && accomodation.acc_status=='Not Confirmed' && accomodation.acc_payment_status=='Not Paid'">
+                    <div class="container">
+                      <h2>
+                        Wait till your accomodation is opened up for payment
+                      </h2>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
