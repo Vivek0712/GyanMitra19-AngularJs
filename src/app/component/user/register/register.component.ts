@@ -40,7 +40,7 @@ export class RegisterComponent implements OnInit {
       name:['',Validators.compose([Validators.required,Validators.pattern("[a-zA-z]+")])],
       password:['',Validators.required],
       conpassword:['',Validators.required],
-      mobile_number:['',Validators.compose([Validators.required,Validators.pattern("[0-9]{0-10}+")])],
+      mobile_number:['',Validators.compose([Validators.required,Validators.pattern("[0-9]{10}$")])],
       degree_id:['',Validators.required],
       college_id:['',Validators.required],
       course_id:['',Validators.required],

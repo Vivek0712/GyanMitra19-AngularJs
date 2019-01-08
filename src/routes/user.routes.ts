@@ -12,6 +12,7 @@ import { UserAccomodationComponent } from 'src/app/component/user/user-accomodat
 import { UserHomeComponent } from 'src/app/component/user/user-home/user-home.component';
 import { TeamRegisterComponent } from 'src/app/component/user/team-register/team-register.component';
 import { GyanMitra18Component } from 'src/app/component/user/gyan-mitra18/gyan-mitra18.component';
+import { AdminGuard } from 'src/app/guard/admin/admin.guard';
 
 
 export const USER_ROUTE: Routes = [
@@ -20,7 +21,7 @@ export const USER_ROUTE: Routes = [
      { path: 'events', component: EventsComponent },
      { path: 'workshops', component: WorkshopsComponent }, 
      { path: 'login', component: LoginComponent },
-     { path: 'register', component: RegisterComponent },
+     { path: 'register', component: RegisterComponent,canActivate:[AdminGuard] },
      { path: 'activate/:id/:hash',component:ActivationComponent},
      { path: 'cart', component: CartComponent, canActivate:[AuthGuard]},
      { path: 'accomodation', component: UserAccomodationComponent},

@@ -46,8 +46,8 @@ export class AdminEventComponent implements OnInit {
   ngOnInit() {
     this.workshop = true;
     this.event = true;
-    this.currentPage=1;
-    this.selectedEventID='';
+    this.currentPage = 1;
+    this.selectedEventID = '';
     this.getCategories();
     this.createForm();
     this.getEvents(1);
@@ -57,35 +57,35 @@ export class AdminEventComponent implements OnInit {
   }
 
   reloadEvents() {
-    this.searchText='';
+    this.searchText = '';
     this.getEvents(1);
   }
 
-  loadFull(){
+  loadFull() {
     this.eventService.readAllEvents().subscribe((response: any) => {
-      this.events = response; 
+      this.events = response;
     })
   }
 
   getEvents(page: any) {
     this.eventService.readEvent(this.currentPage).subscribe((response: any) => {
-     if(response.error == false){
-       this.events = response.msg;
-     }
-     else{
-       this.currentPage -= 1;
-     }
+      if (response.error == false) {
+        this.events = response.msg;
+      }
+      else {
+        this.currentPage -= 1;
+      }
     });
   }
 
-  nextPage(){
+  nextPage() {
     this.currentPage = this.currentPage + 1;
     this.getEvents(this.currentPage);
   }
-  
+
   previousPage() {
-      this.currentPage = this.currentPage -1;
-      this.getEvents(this.currentPage);
+    this.currentPage = this.currentPage - 1;
+    this.getEvents(this.currentPage);
   }
 
   changeGenderMixing() {
@@ -104,22 +104,22 @@ export class AdminEventComponent implements OnInit {
     });
   }
 
-  selectEvent(_id: string){
+  selectEvent(_id: string) {
     this.selectedEventID = _id;
   }
 
- get f() { return this.eventForm.controls; }
+  get f() { return this.eventForm.controls; }
 
-  processFile(event:any) {
+  processFile(event: any) {
     let fileList: FileList = event.target.files;
-    if(fileList.length > 0) {
-        let file: File = fileList[0];
-        let formData:FormData = new FormData();
-        formData.append('uploadFile', file, file.name);
-        formData.append('_id',this.selectedEventID);
-        this.eventService.uploadFile(formData).subscribe((response: any)=>{
-          console.log(response);
-        })
+    if (fileList.length > 0) {
+      let file: File = fileList[0];
+      let formData: FormData = new FormData();
+      formData.append('uploadFile', file, file.name);
+      formData.append('_id', this.selectedEventID);
+      this.eventService.uploadFile(formData).subscribe((response: any) => {
+        console.log(response);
+      })
     }
   }
 
@@ -129,7 +129,7 @@ export class AdminEventComponent implements OnInit {
     console.log(form.value.image_name);
     if (form.value._id === '') {
       const data = form.value;
-      this.eventService.createEvent(data.title, data.category_id, data.department_id, data.description, 'Not Uploaded', data.rules, data.start_time, data.end_time, data.event_date, data.prelims, data.round_1, data.round_2, data.finals, data.min_members, data.max_members, data.max_limit, data.contact_email, data.venue, data.amount, this.allow_gender_mixing,data.resourse_person).subscribe((response: any) => {
+      this.eventService.createEvent(data.title, data.category_id, data.department_id, data.description, 'Not Uploaded', data.rules, data.start_time, data.end_time, data.event_date, data.prelims, data.round_1, data.round_2, data.finals, data.min_members, data.max_members, data.max_limit, data.contact_email, data.venue, data.amount, this.allow_gender_mixing, data.resourse_person).subscribe((response: any) => {
         if (response.error) {
           M.toast({ html: response.msg, classes: 'roundeds' });
           this.getEvents(this.currentPage);
@@ -142,7 +142,7 @@ export class AdminEventComponent implements OnInit {
       });
     } else {
       const data = form.value;
-      this.eventService.updateEvent(data._id, data.title, data.category_id, data.department_id, data.description, 'Not Uploaded', data.rules, data.start_time, data.end_time, data.event_date, data.prelims, data.round_1, data.round_2, data.finals, data.min_members, data.max_members, data.max_limit, data.contact_email, data.venue, data.amount, this.allow_gender_mixing,data.resourse_person).subscribe((response: any) => {
+      this.eventService.updateEvent(data._id, data.title, data.category_id, data.department_id, data.description, 'Not Uploaded', data.rules, data.start_time, data.end_time, data.event_date, data.prelims, data.round_1, data.round_2, data.finals, data.min_members, data.max_members, data.max_limit, data.contact_email, data.venue, data.amount, this.allow_gender_mixing, data.resourse_person).subscribe((response: any) => {
         if (response.error) {
           M.toast({ html: response.msg, classes: 'roundeds' });
           this.getEvents(this.currentPage);
@@ -182,7 +182,7 @@ export class AdminEventComponent implements OnInit {
       venue: '',
       amount: '',
       allow_gender_mixing: '',
-      resourse_person:''
+      resourse_person: ''
     });
     this.Button = 'Create';
   }
@@ -192,25 +192,33 @@ export class AdminEventComponent implements OnInit {
     this.eventService.deleteEvent(id).subscribe((response: any) => {
       if (response.error) {
         M.toast({ html: response.msg, classes: 'roundeds' });
-        this.events=[];
+        this.events = [];
         this.getEvents(this.currentPage);
 
         this.createForm();
       } else {
         M.toast({ html: response.msg, classes: 'roundeds' });
-        this.events=[];
+        this.events = [];
         this.getEvents(this.currentPage);
         this.createForm();
       }
     });
   }
 
-  updateEvent(id: string) {
+  updateEvent(id: string, type: String) {
     this.Button = 'Update';
     const data = this.events.filter(eventName => {
       return eventName._id === id;
     });
     data[0].image_name = '';
+    if (type == "Workshop") {
+      this.event = false;
+      this.workshop = true;
+    } else if (type == "Event") {
+      data[0].resourse_person = '';
+      this.event = true;
+      this.workshop = false;
+    }
     this.eventForm.setValue(data[0]);
   }
 
@@ -222,12 +230,12 @@ export class AdminEventComponent implements OnInit {
           this.event = false;
           this.workshop = true;
         }
-        else if(this.category.name=="Event"){
+        else if (this.category.name == "Event") {
           this.event = true;
           this.workshop = false;
         }
       }
     })
-    
+
   }
 }

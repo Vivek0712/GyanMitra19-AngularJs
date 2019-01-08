@@ -32,7 +32,7 @@
 								</div>
 								<div class="card-body">
 									<form class="form" [formGroup]="registerForm" (ngSubmit)=onSubmit(registerForm.value)>
-										<div class="form-group position-relative has-icon-left">
+										<div class="form-group">
 											<div class="row">
 												<div class="col-12">
 													<input type="text" class="form-control round" placeholder="Name" formControlName="name" [ngClass]="{'is-invalid': submitted &&f.name.errors}">

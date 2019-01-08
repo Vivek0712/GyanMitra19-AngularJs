@@ -94,6 +94,9 @@
                           Rules of The Event
                           <textarea class="form-control" placeholder="Rules" formControlName="rules" [ngClass]="{'is-invalid': submitted && f.title.errors}">
                         </textarea>
+                        <div class="form-control-feedback">
+                          Use $ symbol for nextLine.Dont use $ at the Last line
+                        </div>
                         </div>
                       </div>
                     </div>
@@ -272,7 +275,7 @@
                         <td>{{event.category_id.name}}</td>
                         <td>
                           <div class="fonticon-wrap icon-shadow icon-shadow-warning">
-                            <a (click)="updateEvent(event._id)"> <i class="la la-pencil la-2x"></i></a>
+                            <a (click)="updateEvent(event._id,event.category_id.name)"> <i class="la la-pencil la-2x"></i></a>
                           </div>
                         </td>
                         <td>
