@@ -8,7 +8,7 @@
       </span>
       <span class="content-header-left col-md-4 col-4 mb-4">
         <select id="deptSelect" [(ngModel)]="searchText" class="custom-select float-right">
-          <option  class="custom-select" *ngFor="let dept of departments" value="{{dept.name}}">
+          <option class="custom-select" *ngFor="let dept of departments" value="{{dept.name}}">
             {{dept.name}}
           </option>
         </select>
@@ -27,6 +27,7 @@
         </div>
       </span>
     </div>
+    <br />
     <div class="content-body">
       <section id="content-types">
         <div class="row match-height">
@@ -40,6 +41,16 @@
               <img class="activator" src="http://localhost:3000/assests/images/events/{{workshop.image_name}}">
               <div class="card-body">
                 {{workshop.description}}
+              </div>
+              <div class="card-body">
+                <div class="container">
+                  <div class="row">
+                    Resource Person
+                  </div>
+                  <div class="row">
+                    {{workshop.resource_person}}
+                  </div>
+                </div>
               </div>
               <div class="card-body">
                 Contact <p class="card-text">
@@ -60,11 +71,22 @@
                 <span class="float-left"> {{workshop.event_date | date }}</span>
                 <span class="float-right">
                   <div *ngIf="authService.isLoggedIn()">
-                    <div *ngIf="!isCartConfirmed">
-                      <button type="button" class="btn btn-outline-primary" (click)="selectWorkshop(workshop._id)"
-                        style="width:100%">
-                        Register Now <i class="la la-angle-right"></i>
-                      </button>
+                      <div *ngIf="statusesLoaded">
+                      <div *ngIf="!isCartConfirmed">
+                        <button type="button" *ngIf="!statuses[workshop._id].registered" class="btn btn-outline-primary"
+                          (click)="selectWorkshop(workshop._id)" style="width:100%">
+                          Register Now <i class="la la-angle-right"></i>
+                        </button>
+                        <button type="button" *ngIf="statuses[workshop._id].registered" class="btn btn-sm round btn-bg-gradient-x-purple-red"
+                          style="width:100%">
+                          <span *ngIf="statuses[workshop._id].msg != 'Already Registered!'">
+                            Parallel Workshop Registered
+                          </span>
+                          <span *ngIf="statuses[workshop._id].msg == 'Already Registered!'">
+                            Already Registered!
+                          </span>
+                        </button>
+                      </div>
                     </div>
                     <div *ngIf="isCartConfirmed">
                       <button type="button" class="btn btn-outline-danger" style="width:100%">

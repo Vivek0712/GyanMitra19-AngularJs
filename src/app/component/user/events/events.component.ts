@@ -19,8 +19,11 @@ export class EventsComponent implements OnInit {
   selectedEventID:String;
   searchText: String;
   isCartConfirmed:Boolean = true;
-  currentUserId:String;
-  constructor(private userService: UserService,private eventRegistration:EventRegistrationService, private eventService: EventService,private eventRegistrationService: EventRegistrationService, public authService: AuthService, private deptService: DepartmentService) { 
+  currentUserId:string;
+  statusesLoaded: Boolean = false;
+  statuses: any;
+
+  constructor(private userService: UserService,private eventRegistration:EventRegistrationService, private eventService: EventService,private eventRegistrationService: EventRegistrationService, private authService: AuthService, private deptService: DepartmentService) { 
     this.selectedEventID='';
     this.loadFull();
     this.currentUserId = (JSON.parse(localStorage.getItem('user'))).id
@@ -32,9 +35,19 @@ export class EventsComponent implements OnInit {
       }
     })
   }
+  checkEventRegistrations() {
+    this.statuses = {}
+    this.events.forEach((event) => {
+      this.eventRegistrationService.checkRegistration(event._id, this.currentUserId).subscribe((response: any) => {
+        this.statuses[event._id] = response;
+      })
+      console.log(event);
+      console.log(this.statuses);
+    })
+    this.statusesLoaded = true;
+  }
 
   selectEvent(_id: string) {
-    //let user_id = JSON.parse(localStorage.getItem('user')).id;
     this.eventRegistrationService.createEventRegistration(JSON.parse(localStorage.getItem('user')).id,_id).subscribe((response: any)=>{
       if (response.error) {
         M.toast({ html: response.msg, classes: 'roundeds' });
@@ -47,6 +60,7 @@ export class EventsComponent implements OnInit {
   loadFull(){
     this.eventService.readWithEventCategory('Event').subscribe((response: any) => {
       this.events = response;
+      this.checkEventRegistrations();
     })
     this.deptService.readDepartment(0).subscribe((response: any)=>{
       this.departments = response;

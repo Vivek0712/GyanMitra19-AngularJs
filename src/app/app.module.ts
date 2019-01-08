@@ -67,8 +67,8 @@ import { TeamRegisterComponent } from './component/user/team-register/team-regis
 import { FilterEventsBasedOnDepartmentPipe } from './pipes/filter-events-based-on-department.pipe';
 import { AdminCartConfirmationComponent } from './component/admin/admin-cart-confirmation/admin-cart-confirmation.component';
 import { GyanMitra18Component } from './component/user/gyan-mitra18/gyan-mitra18.component';
-import { IdCardComponent } from './component/user/id-card/id-card.component';
 import { ConfigurationsComponent } from './component/admin/configurations/configurations.component';
+import { RulesTransformPipe } from './pipes/rules-transform.pipe';
 
 /////////////////////////////////////////////////////////////////
 
@@ -114,8 +114,8 @@ import { ConfigurationsComponent } from './component/admin/configurations/config
     FilterEventsBasedOnDepartmentPipe,
     AdminCartConfirmationComponent,
     GyanMitra18Component,
-    IdCardComponent,
     ConfigurationsComponent,
+    RulesTransformPipe,
   ],
   imports: [
     BrowserModule,

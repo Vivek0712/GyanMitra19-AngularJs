@@ -4,6 +4,8 @@ import { EventRegistrationService } from 'src/app/services/eventRegistration/eve
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { DepartmentService } from 'src/app/services/department/department.service';
 import { UserService } from 'src/app/services/user/user.service';
+import { Router } from '@angular/router';
+import { routerNgProbeToken } from '@angular/router/src/router_module';
 
 declare var M: any;
 
@@ -14,39 +16,38 @@ declare var M: any;
 })
 export class WorkshopsComponent implements OnInit {
 
-  workshops: Array<any>;
+  workshops: Array<any> = [];
+  statuses: any = {};
   departments: Array<any>;
   searchText: String;
+  currentUserId: string;
   isCartConfirmed: Boolean = true;
+  statusesLoaded: Boolean = false;
 
   constructor(private eventService: EventService, private userService: UserService, private eventRegistrationService: EventRegistrationService, public authService: AuthService, private deptService: DepartmentService) {
     this.loadFull();
   }
+
   ngOnInit() {
     this.loadFull();
+    this.currentUserId = JSON.parse(localStorage.getItem('user')).id
     if (this.authService.isLoggedIn()) {
-      this.userService.isCartConfirmed(JSON.parse(localStorage.getItem('user')).id).subscribe((response: any) => {
+      this.userService.isCartConfirmed(this.currentUserId).subscribe((response: any) => {
         if (!response.error) {
           this.isCartConfirmed = response.isCartConfirmed
         }
       })
-      $(document).ready(function() {
-  
-        $(".selLabel").click(function () {
-          $('.dropdown').toggleClass('active');
-        });
-        
-        $(".dropdown-list li").click(function() {
-          $('.selLabel').text($(this).text());
-          $('.dropdown').removeClass('active');
-          $('.selected-item p span').text($('.selLabel').text());
-        });
-        
-      });
     }
   }
-  hello() {
-    console.log(this.searchText);
+
+  checkEventRegistrations() {
+    this.statuses = {}
+    this.workshops.forEach((workshop) => {
+      this.eventRegistrationService.checkRegistration(workshop._id, this.currentUserId).subscribe((response: any) => {
+        this.statuses[workshop._id] = response;
+      })
+    })
+    this.statusesLoaded = true;
   }
 
   reloadEvents() {
@@ -68,6 +69,7 @@ export class WorkshopsComponent implements OnInit {
               M.toast({ html: response.msg, classes: 'roundeds' });
             } else {
               M.toast({ html: response.msg, classes: 'roundeds' });
+              this.reloadEvents();
             }
           })
         }
@@ -75,14 +77,10 @@ export class WorkshopsComponent implements OnInit {
     })
   }
 
-  setSearchText(text: string){
-    this.searchText = text;
-  }
-
   loadFull() {
     this.eventService.readWithEventCategory('Workshop').subscribe((response: any) => {
       this.workshops = response;
-
+      this.checkEventRegistrations();
     })
     this.deptService.readDepartment(0).subscribe((response: any) => {
       this.departments = response;
