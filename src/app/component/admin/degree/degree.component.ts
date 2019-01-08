@@ -10,7 +10,7 @@ declare var M: any;
 })
 export class DegreeComponent implements OnInit {
 
-  constructor(private degreeService: DegreeService, private authService: AuthService, private formBuilder: FormBuilder) { }
+  constructor(private degreeService: DegreeService, public authService: AuthService, private formBuilder: FormBuilder) { }
   degreeForm: FormGroup;
   degrees: any;
   Button: any;

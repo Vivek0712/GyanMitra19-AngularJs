@@ -19,7 +19,7 @@ export class EventParticipantsComponent implements OnInit {
   currentAttendance: String;
 
 
-  constructor(private participantStatusService: ParticipationstatusService, private eventRegistration: EventRegistrationService, private authService: AuthService, private formBuilder: FormBuilder, private route: ActivatedRoute, private location: Location) {
+  constructor(private participantStatusService: ParticipationstatusService, private eventRegistration: EventRegistrationService, public authService: AuthService, private formBuilder: FormBuilder, private route: ActivatedRoute, private location: Location) {
     this.route.params.subscribe(param => {
       this.event_id = param.id
       console.log("Hello");

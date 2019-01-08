@@ -10,7 +10,7 @@ declare var M: any;
 })
 export class CourseComponent implements OnInit {
 
-  constructor(private courseService: CourseService, private authService: AuthService, private formBuilder: FormBuilder) { }
+  constructor(private courseService: CourseService, public authService: AuthService, private formBuilder: FormBuilder) { }
   courseForm: FormGroup;
   courses: any;
   Button: any;

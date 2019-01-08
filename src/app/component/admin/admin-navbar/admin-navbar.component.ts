@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class AdminNavbarComponent implements OnInit {
   user: User = new User();
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(public authService: AuthService, private router: Router) { }
 
   ngOnInit() {
     if ( this.authService.isLoggedIn()) {

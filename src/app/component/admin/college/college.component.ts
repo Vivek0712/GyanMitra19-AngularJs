@@ -12,7 +12,7 @@ declare var M: any;
   styleUrls: ['./college.component.css']
 })
 export class CollegeComponent implements OnInit {
-  constructor(private collegeService: CollegeService, private authService: AuthService, private formBuilder: FormBuilder) { }
+  constructor(private collegeService: CollegeService, public authService: AuthService, private formBuilder: FormBuilder) { }
   collegeForm: FormGroup;
   colleges: any;
   Button: any;

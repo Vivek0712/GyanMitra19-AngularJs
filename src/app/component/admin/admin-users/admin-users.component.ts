@@ -17,12 +17,17 @@ export class AdminUsersComponent implements OnInit {
   roles: Array<any>;
   roles_form: FormArray;
   selectedRoles: Array<any>;
+  users: Array<any>;
+  submitted: boolean;
   ngOnInit() {
+    this.submitted = false;
     this.selectedRoles = [];
     this.getRoles();
     this.createForm();
+    this.getAdmins();
     //this.addRoleCheckBox();
   }
+  get f() { return this.userForm.controls; }
 
   append(_id:string){
     if(this.selectedRoles.includes(_id)){
@@ -36,6 +41,7 @@ export class AdminUsersComponent implements OnInit {
 
   createForm() {
     this.Button = "Create";
+    this.submitted = false;
     this.userForm = this.formBuilder.group({
       _id:[''],
       name: [''],
@@ -51,6 +57,7 @@ export class AdminUsersComponent implements OnInit {
     });
   }
   onSubmit(value: any) {
+    this.submitted = true;
     console.log(value);
   }
 
@@ -66,6 +73,9 @@ export class AdminUsersComponent implements OnInit {
       role_id: ['']
     });
   }
-  
-
+  getAdmins(){
+    this.userService.getAdmin().subscribe((response: any) => {
+      this.users = response.msg;
+    })
+  }
 }

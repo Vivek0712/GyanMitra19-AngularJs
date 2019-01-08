@@ -108,7 +108,7 @@ export class AdminEventComponent implements OnInit {
     this.selectedEventID = _id;
   }
 
-  get f() { return this.eventForm.controls; }
+ get f() { return this.eventForm.controls; }
 
   processFile(event:any) {
     let fileList: FileList = event.target.files;

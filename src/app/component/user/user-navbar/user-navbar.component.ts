@@ -12,7 +12,7 @@ export class UserNavbarComponent implements OnInit {
 
   user: User = new User();
   gender: String = "Male";
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(public authService: AuthService, private router: Router) { }
 
   ngOnInit() {
     if (this.authService.isLoggedIn()) {

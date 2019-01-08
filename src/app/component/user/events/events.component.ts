@@ -20,7 +20,7 @@ export class EventsComponent implements OnInit {
   searchText: String;
   isCartConfirmed:Boolean = true;
   currentUserId:String;
-  constructor(private userService: UserService,private eventRegistration:EventRegistrationService, private eventService: EventService,private eventRegistrationService: EventRegistrationService, private authService: AuthService, private deptService: DepartmentService) { 
+  constructor(private userService: UserService,private eventRegistration:EventRegistrationService, private eventService: EventService,private eventRegistrationService: EventRegistrationService, public authService: AuthService, private deptService: DepartmentService) { 
     this.selectedEventID='';
     this.loadFull();
     this.currentUserId = (JSON.parse(localStorage.getItem('user'))).id

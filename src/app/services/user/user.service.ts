@@ -65,12 +65,6 @@ export class UserService {
     return this.http.get(this.app.getUrl(this.baseUrl)+'isCartConfirmed/'+_id);
   }
 
-  // updateCollege(id: String, name: String,locale: String) {
-  //   const body = { _id: id , name: name, locale: locale };
-  //   const headers = new Headers();
-  //   headers.append('Content-Type', 'application/json');
-  //   return this.http.put(this.app.getUrl(this.baseUrl + `${id}`), body).pipe(map(res => res, {'headers': headers}));
-  // }
   createUser(values:any) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
@@ -80,5 +74,10 @@ export class UserService {
      const headers = new Headers();
      headers.append('Content-Type', 'application/json');
    return this.http.delete(this.app.getUrl(this.baseUrl + `${id}` ) ).pipe(map(res => res, {'headers': headers}));
+   }
+   getAdmin(){
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.get(this.app.getUrl(this.baseUrl)+'/admin');
    }
 }

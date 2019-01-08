@@ -11,7 +11,7 @@ declare var M: any;
 })
 export class YearComponent implements OnInit {
 
-  constructor(private yearService: YearService, private authService: AuthService, private formBuilder: FormBuilder) { }
+  constructor(private yearService: YearService, public authService: AuthService, private formBuilder: FormBuilder) { }
   yearForm: FormGroup;
   years: any;
   Button: any;

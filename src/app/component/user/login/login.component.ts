@@ -11,7 +11,7 @@ declare var M: any;
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private authService: AuthService,private router: Router, private formBuilder: FormBuilder) { }
+  constructor(public authService: AuthService,private router: Router, private formBuilder: FormBuilder) { }
   loginForm: FormGroup;
   Button: any;
   submitted = false;

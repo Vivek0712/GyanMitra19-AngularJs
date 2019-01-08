@@ -10,7 +10,7 @@ declare var M:any;
 })
 export class ParticipantstatusComponent implements OnInit {
 
-  constructor(private participantservice: ParticipationstatusService,private authService: AuthService, private formBuilder: FormBuilder) { }
+  constructor(private participantservice: ParticipationstatusService,public authService: AuthService, private formBuilder: FormBuilder) { }
 
   ParticipationStatusForm: FormGroup;
   participantStatus: any;

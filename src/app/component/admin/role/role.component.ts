@@ -11,7 +11,7 @@ declare var M: any;
 })
 export class RoleComponent implements OnInit {
 
-  constructor(private roleService: RoleService, private authService: AuthService, private formBuilder: FormBuilder) { }
+  constructor(private roleService: RoleService, public authService: AuthService, private formBuilder: FormBuilder) { }
   roleForm: FormGroup;
   roles: any;
   Button: any;

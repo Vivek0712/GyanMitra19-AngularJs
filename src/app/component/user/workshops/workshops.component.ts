@@ -19,7 +19,7 @@ export class WorkshopsComponent implements OnInit {
   searchText: String;
   isCartConfirmed: Boolean = true;
 
-  constructor(private eventService: EventService, private userService: UserService, private eventRegistrationService: EventRegistrationService, private authService: AuthService, private deptService: DepartmentService) {
+  constructor(private eventService: EventService, private userService: UserService, private eventRegistrationService: EventRegistrationService, public authService: AuthService, private deptService: DepartmentService) {
     this.loadFull();
   }
   ngOnInit() {

@@ -9,7 +9,7 @@ import { AppService } from 'src/app/services/app/app.service';
 })
 export class UserSidebarComponent implements OnInit {
 
-  constructor(private authService: AuthService,private appService: AppService) { }
+  constructor(public authService: AuthService,private appService: AppService) { }
   sideBarImage: string;
   ngOnInit() {
     this.loadSideBarImage();

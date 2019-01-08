@@ -12,7 +12,7 @@ declare var M: any;
 })
 export class DepartmentComponent implements OnInit {
 
-  constructor(private departmentService: DepartmentService, private authService: AuthService, private formBuilder: FormBuilder) { }
+  constructor(private departmentService: DepartmentService, public authService: AuthService, private formBuilder: FormBuilder) { }
   departmentForm: FormGroup;
   departments: any;
   Button: any;
