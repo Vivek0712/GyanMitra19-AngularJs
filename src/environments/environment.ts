@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   backend: {
-    server: 'http://localhost:3000'
+    server: 'http://www.gyanmitra19.mepcoeng.ac.in'
   },
   frontend: {
     server: 'http://localhost:4200/'
