@@ -28,14 +28,19 @@ export class EventsComponent implements OnInit {
     this.selectedEventID='';
     this.loadFull(this.currentPage);
     this.currentPage = 1;
-    this.currentUserId = (JSON.parse(localStorage.getItem('user'))).id
+    this.currentUserId = '';
+    if((JSON.parse(localStorage.getItem('user'))) != null){
+      this.currentUserId = (JSON.parse(localStorage.getItem('user'))).id
+    }
   }
   ngOnInit() {
-    this.userService.isCartConfirmed(JSON.parse(localStorage.getItem('user')).id).subscribe((response: any)=>{
-      if(!response.error){
-        this.isCartConfirmed = response.isCartConfirmed
-      }
-    })
+    if(this.currentUserId != ''){
+      this.userService.isCartConfirmed(this.currentUserId).subscribe((response: any)=>{
+        if(!response.error){
+          this.isCartConfirmed = response.isCartConfirmed
+        }
+      })
+    }
   }
   checkEventRegistrations() {
     this.statuses = {}
@@ -60,7 +65,9 @@ export class EventsComponent implements OnInit {
   loadFull(page: any){
     this.eventService.readWithEventCategory('Event').subscribe((response: any) => {
       this.events = response;
-      this.checkEventRegistrations();
+      if(this.currentUserId != ''){
+        this.checkEventRegistrations();
+      }
     })
     this.deptService.readDepartment(0).subscribe((response: any)=>{
       this.departments = response;
