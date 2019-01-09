@@ -20,7 +20,7 @@ export class EventsComponent implements OnInit {
   searchText: String;
   isCartConfirmed:Boolean = true;
   currentUserId:string;
-  statusesLoaded: Boolean = false;
+  statusesLoaded: Boolean;
   statuses: any;
   currentPage: any = 1;
 
@@ -42,6 +42,15 @@ export class EventsComponent implements OnInit {
       })
     }
   }
+  nextPage() {
+    this.currentPage = this.currentPage + 1;
+    this.loadFull(this.currentPage);
+  }
+
+  previousPage() {
+    this.currentPage = this.currentPage - 1;
+    this.loadFull(this.currentPage);
+  }
   checkEventRegistrations() {
     this.statuses = {}
     this.events.forEach((event) => {
@@ -58,12 +67,13 @@ export class EventsComponent implements OnInit {
         M.toast({ html: response.msg, classes: 'roundeds' });
       } else {
         M.toast({ html: response.msg, classes: 'roundeds' });
+        this.loadFull(this.currentPage);
       }
     })
   }
 
   loadFull(page: any){
-    this.eventService.readWithEventCategory('Event').subscribe((response: any) => {
+    this.eventService.readWithEventCategory('Event', page).subscribe((response: any) => {
       this.events = response;
       if(this.currentUserId != ''){
         this.checkEventRegistrations();

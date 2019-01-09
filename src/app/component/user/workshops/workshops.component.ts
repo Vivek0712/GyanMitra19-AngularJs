@@ -23,13 +23,14 @@ export class WorkshopsComponent implements OnInit {
   currentUserId: string;
   isCartConfirmed: Boolean = true;
   statusesLoaded: Boolean = false;
+  currentPage: any = 1
 
   constructor(private eventService: EventService, private userService: UserService, private eventRegistrationService: EventRegistrationService, public authService: AuthService, private deptService: DepartmentService) {
-    this.loadFull();
+    this.loadFull(this.currentPage);
   }
 
   ngOnInit() {
-    this.loadFull();
+    this.loadFull(this.currentPage);
     this.currentUserId = JSON.parse(localStorage.getItem('user')).id
     if (this.authService.isLoggedIn()) {
       this.userService.isCartConfirmed(this.currentUserId).subscribe((response: any) => {
@@ -50,8 +51,18 @@ export class WorkshopsComponent implements OnInit {
     this.statusesLoaded = true;
   }
 
+  nextPage() {
+    this.currentPage = this.currentPage + 1;
+    this.loadFull(this.currentPage);
+  }
+
+  previousPage() {
+    this.currentPage = this.currentPage - 1;
+    this.loadFull(this.currentPage);
+  }
+
   reloadEvents() {
-    this.loadFull();
+    this.loadFull(this.currentPage);
   }
 
   selectWorkshop(_id: string) {
@@ -77,8 +88,8 @@ export class WorkshopsComponent implements OnInit {
     })
   }
 
-  loadFull() {
-    this.eventService.readWithEventCategory('Workshop').subscribe((response: any) => {
+  loadFull(page:any) {
+    this.eventService.readWithEventCategory('Workshop', page).subscribe((response: any) => {
       this.workshops = response;
       this.checkEventRegistrations();
     })
@@ -86,5 +97,4 @@ export class WorkshopsComponent implements OnInit {
       this.departments = response;
     })
   }
-
 }

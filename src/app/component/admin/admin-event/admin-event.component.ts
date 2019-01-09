@@ -61,14 +61,8 @@ export class AdminEventComponent implements OnInit {
     this.getEvents(1);
   }
 
-  loadFull() {
-    this.eventService.readAllEvents().subscribe((response: any) => {
-      this.events = response;
-    })
-  }
-
   getEvents(page: any) {
-    this.eventService.readEvent(this.currentPage).subscribe((response: any) => {
+    this.eventService.readWithPage(page).subscribe((response: any) => {
       if (response.error == false) {
         this.events = response.msg;
       }
@@ -126,7 +120,6 @@ export class AdminEventComponent implements OnInit {
 
   onSubmit(form: FormGroup) {
     this.submitted = true;
-    console.log(form.value.image_name);
     if (form.value._id === '') {
       const data = form.value;
       this.eventService.createEvent(data.title, data.category_id, data.department_id, data.description, 'Not Uploaded', data.rules, data.start_time, data.end_time, data.event_date, data.prelims, data.round_1, data.round_2, data.finals, data.min_members, data.max_members, data.max_limit, data.contact_email, data.venue, data.amount, this.allow_gender_mixing, data.resourse_person).subscribe((response: any) => {
@@ -163,7 +156,7 @@ export class AdminEventComponent implements OnInit {
     this.eventForm = this.formBuilder.group({
       _id: '',
       title: '',
-      category_id: '',
+      category_id:'',
       department_id: '',
       description: '',
       rules: '',
