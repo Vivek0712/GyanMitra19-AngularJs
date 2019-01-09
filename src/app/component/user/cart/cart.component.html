@@ -164,7 +164,7 @@
     </div>
   </div>
   <form action="https://test.payu.in/_payment" id="frm-payment" method="post">
-    <input type="hidden" name="key" value={{key}}>
+    <input type="hidden" name="key" value={{appService.getKey()}}>
     <input type="hidden" name="txnid" value={{genTxnId()}}>    
     <input type="hidden" name="amount" value={{amount}}>
     <input type="hidden" name="productinfo" value={{this.appService.getProductInfo()}}>
@@ -174,7 +174,7 @@
     <input type="hidden" name="gmID" value={{user_gmID}}>            
     <input type="hidden" name="surl" value="http://localhost:4200/payment/success">   
     <input type="hidden" name="furl" value="http://localhost:4200/payment/failure">
-    <input type="hidden" name="hash" value={{hashData(amount)}}>
+    <input type="hidden" name="hash" value={{data}}>
 
   </form>
   <!--</div>
