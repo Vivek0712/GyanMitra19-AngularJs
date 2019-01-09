@@ -51,6 +51,16 @@ export class WorkshopsComponent implements OnInit {
     this.statusesLoaded = true;
   }
 
+  nextPage() {
+    this.currentPage = this.currentPage + 1;
+    this.loadFull(this.currentPage);
+  }
+
+  previousPage() {
+    this.currentPage = this.currentPage - 1;
+    this.loadFull(this.currentPage);
+  }
+
   reloadEvents() {
     this.loadFull(this.currentPage);
   }
@@ -87,5 +97,4 @@ export class WorkshopsComponent implements OnInit {
       this.departments = response;
     })
   }
-
 }

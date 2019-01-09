@@ -2,18 +2,18 @@
   <div class="content-wrapper">
     <div class="content-wrapper-before"></div>
     <div class="content-header row">
-      <span class="content-header-left h3 col-md-4 col-4 mb-4">
+      <span class="content-header-left h3 col-md-3 col-3 mb-3">
         <span class="content-header-title">Workshops
         </span>
       </span>
-      <span class="content-header-left col-md-4 col-4 mb-4">
+      <span class="content-header-left col-md-3 col-3 mb-3">
         <select id="deptSelect" [(ngModel)]="searchText" class="custom-select float-right">
           <option class="custom-select" *ngFor="let dept of departments" value="{{dept.name}}">
             {{dept.name}}
           </option>
         </select>
       </span>
-      <span class="content-header-right col-md-4 col-4">
+      <span class="content-header-right col-md-3 col-3">
         <div class="breadcrumbs-top float-md-right">
           <div class="breadcrumb-wrapper mr-1">
             <ol class="breadcrumb">
@@ -26,6 +26,15 @@
           </div>
         </div>
       </span>
+      <span class="content-header-right col-md-3 col-3">
+          <div class="row float-right white">
+            <span *ngIf="this.currentPage != 1">
+              <span class="btn btn-sm btn-info" (click)="previousPage()"> &lt; </span>
+            </span>
+            &nbsp; Page {{currentPage}} &nbsp;
+            <span class="btn btn-sm btn-info" (click)="nextPage()"> &gt; </span>
+          </div>
+        </span>
     </div>
     <br />
     <div class="content-body">
