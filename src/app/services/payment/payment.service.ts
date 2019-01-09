@@ -1,16 +1,25 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AppService } from '../app/app.service';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PaymentService {
 
-  constructor(private http:HttpClient,private appService:AppService,private paymentService:PaymentService) { }
+  constructor(private http:HttpClient,private app:AppService,private paymentService:PaymentService) { }
   readonly baseUrl = 'payment/';
-  genHash() {
+  genHash(data:any) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
+    return this.http.post(this.app.getUrl(this.baseUrl + 'getHash'), data).pipe(map(res => res, { 'headers': headers }));
   }
+  payment(data: any) {
+    const headers = new Headers();
+    headers.append('Content-Type', 'text/json');
+    console.log(data);
+    return this.http.post(this.app.getPaymentUrl(), data).pipe(map(res => res, { 'headers': headers }));
+  }
+  
 }

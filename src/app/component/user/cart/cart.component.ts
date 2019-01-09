@@ -3,7 +3,9 @@ import { EventRegistrationService } from 'src/app/services/eventRegistration/eve
 import { UserService } from 'src/app/services/user/user.service';
 import { PaymentService } from 'src/app/services/payment/payment.service';
 import { AppService } from 'src/app/services/app/app.service';
-
+import { map } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { FormGroup, FormBuilder } from '@angular/forms';
 declare var M: any;
 
 
@@ -16,6 +18,10 @@ export class CartComponent implements OnInit {
   workshops: Array<any>;
   events: Array<any>;
   user_id: string;
+  user_name: string;
+  user_email: string;
+  user_gmID: string;
+  user_mobile_number: number;
   hasWorkshops: boolean;
   hasEvents: boolean;
   amount: number;
@@ -23,13 +29,19 @@ export class CartComponent implements OnInit {
   paymentSent: boolean = false;
   paymentConfirmed: boolean = false;
   txnId: string;
+  data: string;
+  paymentForm: FormGroup;
   constructor(private eventRegistrationService: EventRegistrationService,
-    private appService: AppService, private paymentService: PaymentService, private userService: UserService) {
+    private appService: AppService, private http: HttpClient,
+    private paymentService: PaymentService,
+    private userService: UserService,
+    private formBuilder: FormBuilder)
+  {
     this.workshops = []
     this.events = []
     this.hasWorkshops = false;
     this.hasEvents = false;
-    this.user_id = JSON.parse(localStorage.getItem('user')).id;
+  
 
   }
 
@@ -43,6 +55,12 @@ export class CartComponent implements OnInit {
         this.isCartConfirmed = response.isCartConfirmed;
       }
     });
+    this.user_id = JSON.parse(localStorage.getItem('user')).id;
+    this.user_name = JSON.parse(localStorage.getItem('user')).name;
+    this.user_email = JSON.parse(localStorage.getItem('user')).email_id;
+    this.user_mobile_number = JSON.parse(localStorage.getItem('user')).mobile_number;
+    this.user_gmID = JSON.parse(localStorage.getItem('user')).gmID;
+    console.log(this.user_email);
   }
 
   confirmCart() {
@@ -174,7 +192,6 @@ export class CartComponent implements OnInit {
   }
   genTxnId() {
     var d = new Date();
-    console.log("Time" + " " + d.getTime());
     this.txnId = JSON.parse(localStorage.getItem('user')).gmID + '_' + this.reverseString(d.getTime().toString());
     this.txnId = this.txnId.substr(0, 25);
     return this.txnId;
@@ -182,10 +199,21 @@ export class CartComponent implements OnInit {
   payOnline() {
     var txnId = this.genTxnId();
     const body = {
-      key: this.appService.getKey()
+      key: this.appService.getKey(),
+      txnId: this.genTxnId(),
+      amount: this.amount,
+      productInfo : this.appService.getProductInfo(),
+      name: JSON.parse(localStorage.getItem('user')).name,
+      email : JSON.parse(localStorage.getItem('user')).email_id,
+      mobile_number: JSON.parse(localStorage.getItem('user')).mobile_number,
+      gmID: JSON.parse(localStorage.getItem('user')).gmID,
+      surl: 'http://localhost:4200/payment/success',
+      furl: 'http://localhost:4200/payment/failure',
+      hash:this.hashData(this.amount)
     }
   }
   hashData(amount: any) {
+   // var hashData;
     var body= {
       key : this.appService.getKey(),
       salt : this.appService.getSalt(),
@@ -195,9 +223,11 @@ export class CartComponent implements OnInit {
       name : JSON.parse(localStorage.getItem('user')).name,
       email : JSON.parse(localStorage.getItem('user')).email_id,
       mobile_number : JSON.parse(localStorage.getItem('user')).mobile_number,
-      gmId : JSON.parse(localStorage.getItem('user')).gmId,
+      gmId : JSON.parse(localStorage.getItem('user')).gmID,
     } 
-   // this.paymentService.genHash(body).su
+    this.paymentService.genHash(body).subscribe((response: any) => {
+      this.data = response.hash;
+    });
   }
   reverseString(str: String) {
     // Step 1. Use the split() method to return a new array
