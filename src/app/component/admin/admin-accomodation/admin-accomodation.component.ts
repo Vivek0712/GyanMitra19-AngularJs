@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CollegeService } from 'src/app/services/college/college.service';
 import { DepartmentService } from 'src/app/services/department/department.service';
 import { AccomodationService } from 'src/app/services/accomodation/accomodation.service';
+import { AppService } from 'src/app/services/app/app.service';
 declare var M: any;
 
 @Component({
@@ -22,7 +23,7 @@ export class AdminAccomodationComponent implements OnInit {
   selectedTransactionID: string;
   ddImage: string;
   selectedID: string;
-  constructor(private collegeService: CollegeService, private departmentService: DepartmentService, private accommodationService: AccomodationService) { }
+  constructor(private appService:AppService, private collegeService: CollegeService, private departmentService: DepartmentService, private accommodationService: AccomodationService) { }
 
   ngOnInit() {
     this.loadColleges();
@@ -41,7 +42,7 @@ export class AdminAccomodationComponent implements OnInit {
   loadDD(id: string, tId: string, imgLoc: string) {
     this.selectedTransactionID = tId;
     this.selectedID = id;
-    this.ddImage="http://localhost:3000/assests/images/accomodation/"+imgLoc;
+    this.ddImage=this.appService.getFrontEndUrl()+'/'+imgLoc;
   }
 
   filter() {
