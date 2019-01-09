@@ -13,6 +13,8 @@ import { UserHomeComponent } from 'src/app/component/user/user-home/user-home.co
 import { TeamRegisterComponent } from 'src/app/component/user/team-register/team-register.component';
 import { GyanMitra18Component } from 'src/app/component/user/gyan-mitra18/gyan-mitra18.component';
 import { AdminGuard } from 'src/app/guard/admin/admin.guard';
+import { PaymentSuccessComponent } from 'src/app/component/user/payment-success/payment-success.component';
+import { PaymentFailureComponent } from 'src/app/component/user/payment-failure/payment-failure.component';
 
 
 export const USER_ROUTE: Routes = [
@@ -26,5 +28,7 @@ export const USER_ROUTE: Routes = [
      { path: 'cart', component: CartComponent, canActivate:[AuthGuard]},
      { path: 'accomodation', component: UserAccomodationComponent},
      { path: 'teamRegister/:id', component: TeamRegisterComponent },
-     {path: 'gyanmitra18',component:GyanMitra18Component},
+     { path: 'gyanmitra18', component: GyanMitra18Component },
+     { path: 'payment/success', component: PaymentSuccessComponent },
+     { path: 'payment/failure',component:PaymentFailureComponent}
 ];

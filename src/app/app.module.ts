@@ -69,6 +69,8 @@ import { AdminCartConfirmationComponent } from './component/admin/admin-cart-con
 import { GyanMitra18Component } from './component/user/gyan-mitra18/gyan-mitra18.component';
 import { ConfigurationsComponent } from './component/admin/configurations/configurations.component';
 import { RulesTransformPipe } from './pipes/rules-transform.pipe';
+import { PaymentSuccessComponent } from './component/user/payment-success/payment-success.component';
+import { PaymentFailureComponent } from './component/user/payment-failure/payment-failure.component';
 
 /////////////////////////////////////////////////////////////////
 
@@ -116,6 +118,8 @@ import { RulesTransformPipe } from './pipes/rules-transform.pipe';
     GyanMitra18Component,
     ConfigurationsComponent,
     RulesTransformPipe,
+    PaymentSuccessComponent,
+    PaymentFailureComponent,
   ],
   imports: [
     BrowserModule,
