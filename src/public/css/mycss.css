@@ -120,6 +120,11 @@ span{
      }
 }
 
+.card-image {
+     height:200px;
+     width: 380px;
+}
+
 .toast {
      border-radius: 2px;
      top: 35px;
