@@ -2,18 +2,18 @@
   <div class="content-wrapper">
     <div class="content-wrapper-before"></div>
     <div class="content-header row">
-      <span class="content-header-left h3 col-md-4 col-4 mb-4">
+      <span class="content-header-left h3 col-md-3 col-3 mb-4">
         <span class="content-header-title">Events
         </span>
       </span>
-      <span class="content-header-left col-md-4 col-4 mb-4">
+      <span class="content-header-left col-md-3 col-3 mb-3">
         <select [(ngModel)]="searchText" id="searchText" class="custom-select float-right">
           <option *ngFor="let dept of departments" value="{{dept.name}}">
             {{dept.name}}
           </option>
         </select>
       </span>
-      <span class="content-header-right col-md-4 col-4">
+      <span class="content-header-right col-md-3 col-3">
         <div class="breadcrumbs-top float-md-right">
           <div class="breadcrumb-wrapper mr-1">
             <ol class="breadcrumb">
@@ -26,6 +26,16 @@
           </div>
         </div>
       </span>
+      <span class="content-header-right col-md-3 col-3">
+        <div class="row float-right white">
+          <span *ngIf="this.currentPage != 1">
+            <span class="btn btn-sm btn-info" (click)="previousPage()"> &lt; </span>
+          </span>
+          &nbsp; Page {{currentPage}} &nbsp;
+          <span class="btn btn-sm btn-info" (click)="nextPage()"> &gt; </span>
+        </div>
+      </span>
+
     </div>
     <div class="content-body">
       <section id="content-types">
@@ -57,24 +67,22 @@
                 <span class="float-right">
                   <div *ngIf="authService.isLoggedIn()">
                     <div *ngIf="!isCartConfirmed">
-                      <div *ngIf="statusesLoaded">
-                        <div *ngIf="event.min_members == event.max_members == 1 && !statuses[event._id].registered">
-                          <button type="button" class="btn btn-outline-primary" (click)="selectEvent(event._id)" style="width:100%">
-                            Register Now <i class="la la-angle-right"></i>
-                          </button>
-                        </div>
-                        <div *ngIf="event.min_members != event.max_members && !statuses[event._id].registered">
-                          <button type="button" [routerLink]="['/user/teamRegister',event._id]" [routerLinkActive]="['active']"
-                            [routerLinkActiveOptions]="{exact:true}" class="btn btn-outline-primary" style="width:100%">
-                            Register Team <i class="la la-angle-right"></i>
-                          </button>
-                        </div>
-                        <div *ngIf="statuses[event._id].registered">
-                          <button type="button" *ngIf="statuses[event._id].registered" class="btn btn-sm round btn-bg-gradient-x-purple-red"
-                            style="width:100%">
-                            Already Registered
-                          </button>
-                        </div>
+                      <div *ngIf="event.min_members == event.max_members == 1 && !statuses[event._id].registered">
+                        <button type="button" class="btn btn-outline-primary" (click)="selectEvent(event._id)" style="width:100%">
+                          Register Now <i class="la la-angle-right"></i>
+                        </button>
+                      </div>
+                      <div *ngIf="event.min_members != event.max_members && !statuses[event._id].registered">
+                        <button type="button" [routerLink]="['/user/teamRegister',event._id]" [routerLinkActive]="['active']"
+                          [routerLinkActiveOptions]="{exact:true}" class="btn btn-outline-primary" style="width:100%">
+                          Register Team <i class="la la-angle-right"></i>
+                        </button>
+                      </div>
+                      <div *ngIf="statuses[event._id].registered">
+                        <button type="button" *ngIf="statuses[event._id].registered" class="btn btn-sm round btn-bg-gradient-x-purple-red"
+                          style="width:100%">
+                          Already Registered
+                        </button>
                       </div>
                       <div *ngIf="isCartConfirmed">
                         <button type="button" class="btn btn-outline-danger" style="width:100%">

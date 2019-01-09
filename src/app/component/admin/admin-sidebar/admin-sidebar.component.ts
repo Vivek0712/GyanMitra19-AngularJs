@@ -20,12 +20,12 @@ export class AdminSidebarComponent implements OnInit {
   }
 
   loadEvents(){
-    this.eventService.readWithEventCategory('Event').subscribe((response: any) => {
+    this.eventService.readWithEventCategory('Event',0).subscribe((response: any) => {
       this.events = response;
     })
   }
   loadWorkshops(){
-    this.eventService.readWithEventCategory('Workshop').subscribe((response: any) => {
+    this.eventService.readWithEventCategory('Workshop',0).subscribe((response: any) => {
       this.workshops = response;
     })
   }

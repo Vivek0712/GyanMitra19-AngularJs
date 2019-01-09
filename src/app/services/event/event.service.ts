@@ -57,10 +57,10 @@ export class EventService {
     return this.http.get(this.app.getUrl(this.baseUrl) + 'all');
   }
 
-  readWithEventCategory(event: String){
+  readWithEventCategory(event: String, page: number){
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.get(this.app.getUrl(this.baseUrl) + event);
+    return this.http.get(this.app.getUrl(this.baseUrl) + event+'/'+page);
   }
 
   readEvent(page: any) {

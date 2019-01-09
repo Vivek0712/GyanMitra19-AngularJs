@@ -20,7 +20,7 @@ export class EventsComponent implements OnInit {
   searchText: String;
   isCartConfirmed:Boolean = true;
   currentUserId:string;
-  statusesLoaded: Boolean = false;
+  statusesLoaded: Boolean;
   statuses: any;
   currentPage: any = 1;
 
@@ -28,7 +28,8 @@ export class EventsComponent implements OnInit {
     this.selectedEventID='';
     this.loadFull(this.currentPage);
     this.currentPage = 1;
-    this.currentUserId = (JSON.parse(localStorage.getItem('user'))).id
+    this.currentUserId = (JSON.parse(localStorage.getItem('user'))).id;
+    this.statusesLoaded = false;
   }
   ngOnInit() {
     this.userService.isCartConfirmed(JSON.parse(localStorage.getItem('user')).id).subscribe((response: any)=>{
@@ -36,6 +37,15 @@ export class EventsComponent implements OnInit {
         this.isCartConfirmed = response.isCartConfirmed
       }
     })
+  }
+  nextPage() {
+    this.currentPage = this.currentPage + 1;
+    this.loadFull(this.currentPage);
+  }
+
+  previousPage() {
+    this.currentPage = this.currentPage - 1;
+    this.loadFull(this.currentPage);
   }
   checkEventRegistrations() {
     this.statuses = {}
@@ -53,12 +63,13 @@ export class EventsComponent implements OnInit {
         M.toast({ html: response.msg, classes: 'roundeds' });
       } else {
         M.toast({ html: response.msg, classes: 'roundeds' });
+        this.loadFull(this.currentPage);
       }
     })
   }
 
   loadFull(page: any){
-    this.eventService.readWithEventCategory('Event').subscribe((response: any) => {
+    this.eventService.readWithEventCategory('Event', page).subscribe((response: any) => {
       this.events = response;
       this.checkEventRegistrations();
     })
