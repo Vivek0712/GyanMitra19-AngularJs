@@ -22,10 +22,12 @@ export class EventsComponent implements OnInit {
   currentUserId:string;
   statusesLoaded: Boolean = false;
   statuses: any;
+  currentPage: any = 1;
 
   constructor(private userService: UserService,private eventRegistration:EventRegistrationService, private eventService: EventService,private eventRegistrationService: EventRegistrationService, private authService: AuthService, private deptService: DepartmentService) { 
     this.selectedEventID='';
-    this.loadFull();
+    this.loadFull(this.currentPage);
+    this.currentPage = 1;
     this.currentUserId = (JSON.parse(localStorage.getItem('user'))).id
   }
   ngOnInit() {
@@ -55,7 +57,7 @@ export class EventsComponent implements OnInit {
     })
   }
 
-  loadFull(){
+  loadFull(page: any){
     this.eventService.readWithEventCategory('Event').subscribe((response: any) => {
       this.events = response;
       this.checkEventRegistrations();
