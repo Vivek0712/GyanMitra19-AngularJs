@@ -144,25 +144,40 @@
                     </div>
                   </div>
                 </div> -->
- 
-                <div class="card-footer border-top-blue-grey border-top-lighten-5 text-muted col-12">
-                  <div *ngIf="!paymentConfirmed">
-                    <div *ngIf="isCartConfirmed && !paymentSent">
-                      <div class="col-12 ">
-                        <div class="row">
-                          <div class="col-6">
-                            <button class="btn btn-bg-gradient-x-blue-cyan border-white border-2 float-right" (click)=payOnline()>Pay Online</button>
-                          </div>
-                          <div class="col-6">
-                            <button class="btn btn-bg-gradient-x-blue-cyan border-white border-2  float-right" data-toggle="modal"
-                              data-target="#DDModal">Pay
-                              through Demand Draft</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+
+<div class="card-footer border-top-blue-grey border-top-lighten-5 text-muted col-12">
+  <div *ngIf="!paymentConfirmed">
+    <div *ngIf="isCartConfirmed && !paymentSent">
+      <div class="col-12 ">
+        <div class="row">
+          <div class="col-6">
+            <button onclick="$('#frm-payment').submit()" class="btn btn-bg-gradient-x-blue-cyan border-white border-2 float-right" (click)=payOnline()>Pay
+              Online</button>
+          </div>
+          <div class="col-6">
+            <button class="btn btn-bg-gradient-x-blue-cyan border-white border-2  float-right" data-toggle="modal"
+              data-target="#DDModal">Pay
+              through Demand Draft</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <form action="https://test.payu.in/_payment" id="frm-payment" method="post">
+    <input type="hidden" name="key" value={{key}}>
+    <input type="hidden" name="txnid" value={{genTxnId()}}>    
+    <input type="hidden" name="amount" value={{amount}}>
+    <input type="hidden" name="productinfo" value={{this.appService.getProductInfo()}}>
+    <input type="hidden" name="firstname" value={{user_name}}>
+    <input type="hidden" name="email" value={{user_email}}>
+    <input type="hidden" name="phone" value={{user_mobile_number}}>
+    <input type="hidden" name="gmID" value={{user_gmID}}>            
+    <input type="hidden" name="surl" value="http://localhost:4200/payment/success">   
+    <input type="hidden" name="furl" value="http://localhost:4200/payment/failure">
+    <input type="hidden" name="hash" value={{hashData(amount)}}>
+
+  </form>
+  <!--</div>
              </div>
             </div>
           </div>
@@ -170,4 +185,4 @@
       </div>
     </div>
   </div>
-</div>
+</div>-->
