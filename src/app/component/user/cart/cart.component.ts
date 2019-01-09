@@ -6,24 +6,25 @@ import { AppService } from 'src/app/services/app/app.service';
 
 declare var M: any;
 
+
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit {
-  workshops: any;
-  events: any;
+  workshops: Array<any>;
+  events: Array<any>;
   user_id: string;
   hasWorkshops: boolean;
   hasEvents: boolean;
-  amount: any;
+  amount: number;
   isCartConfirmed: boolean = false;
   paymentSent: boolean = false;
   paymentConfirmed: boolean = false;
   txnId: string;
   constructor(private eventRegistrationService: EventRegistrationService,
-    private appService:AppService,private paymentService: PaymentService, private userService: UserService) {
+    private appService: AppService, private paymentService: PaymentService, private userService: UserService) {
     this.workshops = []
     this.events = []
     this.hasWorkshops = false;
@@ -33,16 +34,15 @@ export class CartComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.amount = 0;
+    //this.amount = 0;
+    this.calculateAmount();
     this.getWorkshops();
     this.getEvents();
-    this.calculateAmount();
     this.userService.isCartConfirmed(this.user_id).subscribe((response: any) => {
       if (!response.error) {
         this.isCartConfirmed = response.isCartConfirmed;
       }
     });
-    this.genTxnId();
   }
 
   confirmCart() {
@@ -104,15 +104,15 @@ export class CartComponent implements OnInit {
         }
         else {
           this.hasWorkshops = true;
-          if(this.workshops[0].status == 'Verifying Payment'){
+          if (this.workshops[0].status == 'Verifying Payment') {
             this.paymentSent = true;
           }
-          else{
+          else {
             this.paymentSent = false;
           }
-          if(this.workshops[0].status == 'Paid'){
+          if (this.workshops[0].status == 'Paid') {
             this.paymentConfirmed = true;
-          }else{
+          } else {
             this.paymentConfirmed = false;
           }
         }
@@ -134,34 +134,34 @@ export class CartComponent implements OnInit {
         else {
           this.hasEvents = true;
         }
-        if(this.events[0].status == 'Paid'){
+        if (this.events[0].status == 'Paid') {
           this.paymentConfirmed = true;
-        }else{
+        } else {
           this.paymentConfirmed = false;
         }
       }
     })
   }
-  
-  processFile(event: any) {
-    let fileList: FileList = event.target.files;
-    if (fileList.length > 0) {
-      let file: File = fileList[0];
-      let formData: FormData = new FormData();
-      formData.append('uploadFile', file, file.name);
-      formData.append('id', this.user_id);
-      this.userService.uploadCartDDImage(formData).subscribe((response: any) => {
-        if(response.error == true){
-          M.toast({ html: response.msg, classes: 'roundeds danger' });
-        }
-        else{
-          M.toast({ html: response.msg, classes: 'roundeds' });
-          this.getEvents();
-          this.getWorkshops();
-        }
-      })
-    }
-  }
+
+  // processFile(hadEvent:any) {
+  //   let fileList: FileList = hadEvent.target.files;
+  //   if (fileList.length > 0) {
+  //     let file: File = fileList[0];
+  //     let formData: FormData = new FormData();
+  //     formData.append('uploadFile', file, file.name);
+  //     formData.append('id', this.user_id);
+  //     this.userService.uploadCartDDImage(formData).subscribe((response: any) => {
+  //       if (response.error == true) {
+  //         M.toast({ html: response.msg, classes: 'roundeds danger' });
+  //       }
+  //       else {
+  //         M.toast({ html: response.msg, classes: 'roundeds' });
+  //         this.getEvents();
+  //         this.getWorkshops();
+  //       }
+  //     })
+  //   }
+  // }
 
   calculateAmount() {
     this.amount = 0;
@@ -173,19 +173,46 @@ export class CartComponent implements OnInit {
     }
   }
   genTxnId() {
-    this.txnId = JSON.parse(localStorage.getItem('user')).gmID;
-    console.log(this.txnId);
+    var d = new Date();
+    console.log("Time" + " " + d.getTime());
+    this.txnId = JSON.parse(localStorage.getItem('user')).gmID + '_' + this.reverseString(d.getTime().toString());
+    this.txnId = this.txnId.substr(0, 25);
+    return this.txnId;
   }
   payOnline() {
+    var txnId = this.genTxnId();
     const body = {
       key: this.appService.getKey()
     }
   }
   hashData(amount: any) {
-    var key = this.appService.getKey();
-    var paymentSalt = this.appService.getSalt();
-    var totalAmount = amount + (amount * this.appService.getTransactionFee());
-    var productInfo = this.appService.getProductInfo();
-    
+    var body= {
+      key : this.appService.getKey(),
+      salt : this.appService.getSalt(),
+      totalAmount : amount + (amount * this.appService.getTransactionFee()),
+      txnId : this.genTxnId(),
+      productInfo : this.appService.getProductInfo(),
+      name : JSON.parse(localStorage.getItem('user')).name,
+      email : JSON.parse(localStorage.getItem('user')).email_id,
+      mobile_number : JSON.parse(localStorage.getItem('user')).mobile_number,
+      gmId : JSON.parse(localStorage.getItem('user')).gmId,
+    } 
+   // this.paymentService.genHash(body).su
+  }
+  reverseString(str: String) {
+    // Step 1. Use the split() method to return a new array
+    var splitString = str.split(""); // var splitString = "hello".split("");
+    // ["h", "e", "l", "l", "o"]
+
+    // Step 2. Use the reverse() method to reverse the new created array
+    var reverseArray = splitString.reverse(); // var reverseArray = ["h", "e", "l", "l", "o"].reverse();
+    // ["o", "l", "l", "e", "h"]
+
+    // Step 3. Use the join() method to join all elements of the array into a string
+    var joinArray = reverseArray.join(""); // var joinArray = ["o", "l", "l", "e", "h"].join("");
+    // "olleh"
+
+    //Step 4. Return the reversed string
+    return joinArray; // "olleh"
   }
 }

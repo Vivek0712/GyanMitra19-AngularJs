@@ -40,10 +40,8 @@ export class EventsComponent implements OnInit {
     this.events.forEach((event) => {
       this.eventRegistrationService.checkRegistration(event._id, this.currentUserId).subscribe((response: any) => {
         this.statuses[event._id] = response;
-      })
-      console.log(event);
-      console.log(this.statuses);
-    })
+      });
+    });
     this.statusesLoaded = true;
   }
 

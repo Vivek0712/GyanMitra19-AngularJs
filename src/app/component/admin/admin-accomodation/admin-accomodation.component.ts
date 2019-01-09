@@ -52,7 +52,7 @@ export class AdminAccomodationComponent implements OnInit {
   }
 
   deleteRequest(id: string){
-    console.log(id);
+   
     this.accommodationService.deleteAccomodation(id).subscribe((response: any)=>{
       if (response.error) {
         M.toast({ html: response.msg, classes: 'roundeds' });

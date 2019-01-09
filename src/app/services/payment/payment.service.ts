@@ -7,5 +7,10 @@ import { AppService } from '../app/app.service';
 })
 export class PaymentService {
 
-  constructor(private http:HttpClient,private appService:AppService) { }
+  constructor(private http:HttpClient,private appService:AppService,private paymentService:PaymentService) { }
+  readonly baseUrl = 'payment/';
+  genHash() {
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+  }
 }

@@ -1,6 +1,35 @@
-<div id="particles-js"></div>
-<script> $(function () {
-    particlesJS.load('particles-js', '../../../../public/particles/package.json', function () {
-    });
-  });
-</script>
+<div class="app-content content">
+  <div class="content-wrapper">
+    <div class="content-wrapper-before"></div>
+    <div class="content-header row">
+      <div class="content-header-left col-md-4 col-12 mb-2">
+        <h3 class="content-header-title">Home</h3>
+      </div>
+      <div class="content-header-right col-md-8 col-12">
+        <div class="breadcrumbs-top float-md-right">
+          <div class="breadcrumb-wrapper mr-1">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a [routerLink]="['/user/home']" [routerLinkActive]="['active']"
+                  [routerLinkActiveOptions]="{exact:true}">Home</a>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="content-body">
+      <section id="content-types">
+        <div class="container">
+          <div class="row match-height justify-content-md-center">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-header">
+                  <h1 class="text-center">MEPCO SCHLENK ENGINEERING COLLEGE,SIVAKASI</h1>
+                  <h2 class="text-center">GyanMitra19</h2>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
