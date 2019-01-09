@@ -16,17 +16,23 @@ declare var M: any;
 })
 export class WorkshopsComponent implements OnInit {
 
-  workshops: Array<any> = [];
+  workshops: Array<any>;
   statuses: any = {};
   departments: Array<any>;
-  searchText: String;
+  searchText: String = 'Computer Science and Engineering and Information Technology';
   currentUserId: string;
   isCartConfirmed: Boolean = true;
   statusesLoaded: Boolean = false;
   currentPage: any = 1
 
   constructor(private eventService: EventService, private userService: UserService, private eventRegistrationService: EventRegistrationService, public authService: AuthService, private deptService: DepartmentService) {
-    this.loadFull(this.currentPage);
+    this.currentPage = 1;
+    this.eventService.readWithPageAndDepartment('Workshop', this.searchText, 1).subscribe((response: any) => {
+      this.workshops = response;
+      if (this.currentUserId != '') {
+        this.checkEventRegistrations();
+      }
+    })
   }
 
   ngOnInit() {
@@ -88,10 +94,23 @@ export class WorkshopsComponent implements OnInit {
     })
   }
 
-  loadFull(page:any) {
-    this.eventService.readWithEventCategory('Workshop', page).subscribe((response: any) => {
-      this.workshops = response;
-      this.checkEventRegistrations();
+  filter() {
+    this.currentPage = 1
+    this.loadFull(this.currentPage);
+  }
+
+  loadFull(page: any) {
+    this.eventService.readWithPageAndDepartment('Workshop', this.searchText, page).subscribe((response: any) => {
+      if (response.length == []) {
+        this.currentPage -= 1
+      }
+      else {
+        this.workshops = response;
+
+      }
+      if (this.currentUserId != '') {
+        this.checkEventRegistrations();
+      }
     })
     this.deptService.readDepartment(0).subscribe((response: any) => {
       this.departments = response;

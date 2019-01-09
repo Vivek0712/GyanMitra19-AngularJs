@@ -17,7 +17,7 @@ export class EventsComponent implements OnInit {
   events:Array<any>;
   departments: Array<any>;
   selectedEventID:String;
-  searchText: String;
+  searchText: String = 'All';
   isCartConfirmed:Boolean = true;
   currentUserId:string;
   statusesLoaded: Boolean;
@@ -39,9 +39,21 @@ export class EventsComponent implements OnInit {
         if(!response.error){
           this.isCartConfirmed = response.isCartConfirmed
         }
+        this.eventService.readWithPageAndDepartment('Event', 'All', 1).subscribe((response: any) => {
+          this.events = response;
+          if(this.currentUserId != ''){
+            this.checkEventRegistrations();
+          }
+        })
       })
     }
   }
+
+  filter(){
+    this.currentPage = 1;
+    this.loadFull(this.currentPage);
+  }
+
   nextPage() {
     this.currentPage = this.currentPage + 1;
     this.loadFull(this.currentPage);
@@ -73,12 +85,33 @@ export class EventsComponent implements OnInit {
   }
 
   loadFull(page: any){
-    this.eventService.readWithEventCategory('Event', page).subscribe((response: any) => {
-      this.events = response;
-      if(this.currentUserId != ''){
-        this.checkEventRegistrations();
-      }
-    })
+    if(this.searchText == 'All'){
+      this.eventService.readWithPageAndDepartment('Event', 'All', this.currentPage).subscribe((response: any) => {
+        if(response.length == []){
+          this.currentPage -=1
+        }
+        else {
+        this.events = response;
+        }
+        if(this.currentUserId != ''){
+          this.checkEventRegistrations();
+        }
+      })
+    }
+    else {
+      this.eventService.readWithPageAndDepartment('Event',this.searchText, page).subscribe((response: any)=>{
+        if(response.length == []){
+          this.currentPage -=1
+        }
+        else {
+        this.events = response;
+
+        }
+        if(this.currentUserId != ''){
+          this.checkEventRegistrations();
+        }
+      })
+    }
     this.deptService.readDepartment(0).subscribe((response: any)=>{
       this.departments = response;
     })

@@ -66,16 +66,18 @@ export class EventService {
   readEvent(page: any) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    headers.append('Content-Type', 'application/jpeg');
-    headers.append('Content-Type', 'application/png');
-    headers.append('Content-Type', 'application/jpg');
     return this.http.get(this.app.getUrl(this.baseUrl) + '?page=' + page);
   }
 
   readWithPage(page: any){
     const headers = new Headers();
-    console.log(this.app.getUrl(this.baseUrl) + 'all'+'/'+page)
     return this.http.get(this.app.getUrl(this.baseUrl) + 'all'+'/'+page);
+  }
+
+  readWithPageAndDepartment(type: any, department:any, page:any){
+    const headers = new Headers();
+    console.log(this.app.getUrl(this.baseUrl) +type+'/'+department+'/'+page)
+    return this.http.get(this.app.getUrl(this.baseUrl) +type+'/'+department+'/'+page);
   }
 
   updateEvent(id: String, title: String, category_id: String, department_id: String, description: String, image_name: String, rules: String, start_time: String, end_time: String, event_date: String, prelims: String, round_1: String, round_2: String, finals: String, min_members: Number, max_members: Number, max_limit: Number, contact_email: String, venue: String, amount: Number, allow_gender_mixing: Boolean,resource_person:String) {
