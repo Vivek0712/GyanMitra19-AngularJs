@@ -58,8 +58,8 @@
                 </p>
               </div>
               <div class="card-reveal">
-				<span class="card-title grey-text text-darken-4">Description<i class="fas fa-times float-right"></i></span>
-				{{event.description}}
+                <span class="card-title grey-text text-darken-4">Description<i class="fas fa-times float-right"></i></span>
+                {{event.description}}
                 <span class="card-title grey-text text-darken-4">Rules</span>
                 <ul>
                   <li *ngFor="let rule of (event.rules | rulesTransform)">{{ rule }}</li>
@@ -70,28 +70,28 @@
                 <span class="float-right">
                   <ng-container *ngIf="user; else notLoggedIn">
                     <ng-container *ngIf="user.cart_confirmed; else cartNotConfirmed">
-                        <button type="button" class="btn btn-outline-danger" style="width:100%">
-                            Cart already Confirmed
-                          </button>
+                      <button type="button" class="btn btn-outline-danger" style="width:100%">
+                        Cart already Confirmed
+                      </button>
                     </ng-container>
                     <ng-template #cartNotConfirmed>
-                        <div *ngIf="event.min_members == event.max_members == 1 && !registeredEvents.includes(event._id)">
-                            <button type="button" class="btn btn-outline-primary" (click)="selectEvent(event._id)" style="width:100%">
-                              Register Now <i class="la la-angle-right"></i>
-                            </button>
-                          </div>
-                          <div *ngIf="event.min_members != event.max_members && !registeredEvents.includes(event._id)">
-                            <button type="button" [routerLink]="['/user/teamRegister',event._id]" [routerLinkActive]="['active']"
-                              [routerLinkActiveOptions]="{exact:true}" class="btn btn-outline-primary" style="width:100%">
-                              Register Team <i class="la la-angle-right"></i>
-                            </button>
-                          </div>
-                          <div *ngIf="registeredEvents.includes(event._id)">
-                            <button type="button" *ngIf="registeredEvents.includes(event._id)d" class="btn btn-sm round btn-bg-gradient-x-purple-red"
-                              style="width:100%">
-                              Already Registered
-                            </button>
-                          </div>
+                      <div *ngIf="event.min_members == event.max_members == 1 && !registeredEvents.includes(event._id)">
+                        <button type="button" class="btn btn-outline-primary" (click)="selectEvent(event._id)" style="width:100%">
+                          Register Now <i class="la la-angle-right"></i>
+                        </button>
+                      </div>
+                      <div *ngIf="event.min_members != event.max_members && !registeredEvents.includes(event._id)">
+                        <button type="button" [routerLink]="['/user/teamRegister',event._id]" [routerLinkActive]="['active']"
+                          [routerLinkActiveOptions]="{exact:true}" class="btn btn-outline-primary" style="width:100%">
+                          Register Team <i class="la la-angle-right"></i>
+                        </button>
+                      </div>
+                      <div *ngIf="registeredEvents.includes(event._id)">
+                        <button type="button" *ngIf="registeredEvents.includes(event._id)d" class="btn btn-sm round btn-bg-gradient-x-purple-red"
+                          style="width:100%">
+                          Already Registered
+                        </button>
+                      </div>
                     </ng-template>
                   </ng-container>
                   <ng-template #notLoggedIn>

@@ -22,6 +22,7 @@ export class CartComponent implements OnInit {
   workshops: Array<string> = [];
   events: Array<string>=[];
   user: any;
+  totalAmount: number;
   public currentUserId: string;
   isCartConfirmed: Boolean;
   constructor(private eventRegistrationService: EventRegistrationService) { 
@@ -30,6 +31,7 @@ export class CartComponent implements OnInit {
   
   ngOnInit() {
     this.currentUserId = '';
+    this.totalAmount = 0;
     this.user = (JSON.parse(localStorage.getItem('user')))
     if (this.user != null) {
       this.currentUserId = this.user.id;
@@ -39,17 +41,33 @@ export class CartComponent implements OnInit {
     this.getUserWorkshops(this.user.id);
     this.getUserEvents(this.user.id);
   }
+
   getUserWorkshops(user_id:string) {
     this.eventRegistrationService.getUserWorkshops(user_id).subscribe((res: any)=>{
       if(res){
         this.events = res.msg;
+        this.calculateAmount();
       }
     })
   }
+
+  calculateAmount(){
+    this.totalAmount = 0;
+    if(this.events.length != 0){
+      this.totalAmount += 200
+    }
+    if(this.workshops.length != 0){
+      this.workshops.forEach((workshop: any)=>{
+        this.totalAmount += workshop.event_id.amount
+      })
+    }
+  }
+
   getUserEvents(user_id: string) {
     this.eventRegistrationService.getUserEvents(user_id).subscribe((res: any)=>{
       if(res){
         this.workshops = res.msg;
+        this.calculateAmount()
       }
     })
   }
