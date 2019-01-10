@@ -23,7 +23,7 @@ export const USER_ROUTE: Routes = [
      { path: 'events', component: EventsComponent },
      { path: 'workshops', component: WorkshopsComponent }, 
      { path: 'login', component: LoginComponent },
-     { path: 'register', component: RegisterComponent,canActivate:[AdminGuard] },
+     { path: 'register', component: RegisterComponent },
      { path: 'activate/:id/:hash',component:ActivationComponent},
      { path: 'cart', component: CartComponent, canActivate:[AuthGuard]},
      { path: 'accomodation', component: UserAccomodationComponent},
