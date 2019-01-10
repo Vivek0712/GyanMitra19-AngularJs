@@ -161,10 +161,5 @@ export class EventRegistrationService {
       return response.registered;
     });
   }
-  getWorkshops() {
-    const headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-
-  }
 
 }

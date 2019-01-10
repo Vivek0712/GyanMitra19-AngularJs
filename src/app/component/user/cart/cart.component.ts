@@ -18,8 +18,8 @@ declare var M: any;
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit {
-  workshops: Array<any>;
-  events: Array<any>;
+  workshops: any;
+  events: any;
   user_id: string;
   user_name: string;
   user_email: string;
@@ -45,29 +45,24 @@ export class CartComponent implements OnInit {
     this.hasWorkshops = false;
     this.hasEvents = false;
     this.amount = 0;
-
-
+      
   }
 
   ngOnInit() {
-    
-    this.calculateAmount();
-    this.getWorkshops();
-    this.getEvents();
-
-    // this.userService.isCartConfirmed(this.user_id).subscribe((response: any) => {
-    //   if (!response.error) {
-    //     this.isCartConfirmed = response.isCartConfirmed;
-    //   }
-    // });
     this.user_id = JSON.parse(localStorage.getItem('user')).id;
     this.user_name = JSON.parse(localStorage.getItem('user')).name;
     this.user_email = JSON.parse(localStorage.getItem('user')).email_id;
     this.user_mobile_number = JSON.parse(localStorage.getItem('user')).mobile_number;
     this.user_gmID = JSON.parse(localStorage.getItem('user')).gmID;
+    this.userService.isCartConfirmed(this.user_id).subscribe((response: any) => {
+      if (!response.error) {
+        this.isCartConfirmed = response.isCartConfirmed;
+      }
+    });
+    this.calculateAmount();
     this.hashData(this.amount);
-    console.log(this.amount);
-    //console.log(this.data);
+    this.getWorkshops();
+    this.getEvents();
   }
 
   confirmCart() {
@@ -117,78 +112,42 @@ export class CartComponent implements OnInit {
   }
 
   getWorkshops() {
-    // this.eventRegistrationService.getWorkshops(this.user_id).subscribe((response: any) => {
-    //   if (response.error == true) {
-    //     M.toast({ html: response.msg, classes: 'roundeds danger' });
-    //   }
-    //   else {
-    //     this.workshops = response;
-    //     console.log(this.workshops);
-    //     // this.calculateAmount();
-    //     // if (this.workshops.length == 0) {
-    //     //   this.hasWorkshops = false;
-    //     // }
-    //     // else {
-    //     //   this.hasWorkshops = true;
-    //       // if (this.workshops[0].status == 'Verifying Payment') {
-    //       //   this.paymentSent = true;
-    //       // }
-    //       // else {
-    //       //   this.paymentSent = false;
-    //       // }
-    //       // if (this.workshops[0].status == 'Paid') {
-    //       //   this.paymentConfirmed = true;
-    //       // } else {
-    //       //   this.paymentConfirmed = false;
-    //       // }
-    //     // }
-    //   }
-    // })
+    this.eventRegistrationService.getUserWorkshops(this.user_id).subscribe((docs: any)=>{
+      if(docs.length == 0){
+        this.hasWorkshops = false
+      }
+      else {
+        this.workshops = docs
+        this.hasWorkshops = true
+      }
+    })
   }
 
   getEvents() {
-    // this.eventRegistrationService.getEventRegistrations(this.user_id).subscribe((response: any) => {
-    //   if (response.error == true) {
-    //     M.toast({ html: response.msg, classes: 'roundeds danger' });
-    //   }
-    //   else {
-    //     this.events = response;
-    //     console.log("Events"+this.events);
-    //     //this.calculateAmount()
-    //     //   if (this.events.length == 0) {
-    //     //     this.hasEvents = false;
-    //     //   }
-    //     //   else {
-    //     //     this.hasEvents = true;
-    //     //   }
-    //     //   if (this.events[0].status == 'Paid') {
-    //     //     this.paymentConfirmed = true;
-    //     //   } else {
-    //     //     this.paymentConfirmed = false;
-    //     //   }
-    //      }
-    //   });
+    this.eventRegistrationService.getUserEvents(this.user_id).subscribe((docs)=>{
+      this.events = docs
+    })
   }
 
-  // processFile(hadEvent:any) {
-  //   let fileList: FileList = hadEvent.target.files;
-  //   if (fileList.length > 0) {
-  //     let file: File = fileList[0];
-  //     let formData: FormData = new FormData();
-  //     formData.append('uploadFile', file, file.name);
-  //     formData.append('id', this.user_id);
-  //     this.userService.uploadCartDDImage(formData).subscribe((response: any) => {
-  //       if (response.error == true) {
-  //         M.toast({ html: response.msg, classes: 'roundeds danger' });
-  //       }
-  //       else {
-  //         M.toast({ html: response.msg, classes: 'roundeds' });
-  //         this.getEvents();
-  //         this.getWorkshops();
-  //       }
-  //     })
-  //   }
-  // }
+  processFile(hadEvent:any) {
+    let fileList: FileList = hadEvent.target.files;
+    if (fileList.length > 0) {
+      let file: File = fileList[0];
+      let formData: FormData = new FormData();
+      formData.append('uploadFile', file, file.name);
+      formData.append('id', this.user_id);
+      this.userService.uploadCartDDImage(formData).subscribe((response: any) => {
+        if (response.error == true) {
+          M.toast({ html: response.msg, classes: 'roundeds danger' });
+        }
+        else {
+          M.toast({ html: response.msg, classes: 'roundeds' });
+          this.getEvents();
+          this.getWorkshops();
+        }
+      })
+    }
+  }
 
   calculateAmount() {
     this.workshops.forEach(workshop => {
@@ -220,8 +179,6 @@ export class CartComponent implements OnInit {
     console.log(this.amount);
     this.paymentService.genHash(body).subscribe((response: any) => {
       this.data.push(response.hash);
-
-      //console.log(hashdata);
     });
     
   }
