@@ -7,8 +7,7 @@ import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { AES } from 'crypto-ts';
-import * as sha512 from 'js-sha512';
+
 declare var M: any;
 
 
