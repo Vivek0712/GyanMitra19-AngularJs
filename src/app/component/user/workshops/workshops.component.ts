@@ -18,14 +18,6 @@ declare var M: any;
 export class WorkshopsComponent implements OnInit {
   user: any;
   registeredEvents: Array<string> = [];
-
-  // constructor(private appService: AppService, private eventService: EventService,private authService:AuthService,private deptService: DepartmentService,private eventRegistrationService:EventRegistrationService) { }
-  
-  // ngOnInit() {
-  //   //this.user = [];
-  //   this.getCurrentUser();
-  //   this.getWorkshop(this.currentPage);
-  // }
   getCurrentUser() {
     this.authService.getCurrentUser().subscribe((response: any) => {
       this.user = response.profile;
@@ -51,9 +43,9 @@ export class WorkshopsComponent implements OnInit {
     })
   }
 
-  workshops: Array<any>;
+  workshops: Array<any> =[];
   statuses: any = {};
-  departments: Array<any>;
+  departments: Array<any> = [];
   searchText: String = 'Computer Science and Engineering and Information Technology';
   currentUserId: string;
   isCartConfirmed: Boolean = true;

@@ -50,19 +50,17 @@ export class AdminCartConfirmationComponent implements OnInit {
   }
 
   loadEvents(_id: string) {
-    this.eventRegistrtationService.getEventRegistrations(_id).subscribe((response: any) => {
-      this.events = response;
-      this.calculateAmount();
-
-    })
+    // this.eventRegistrtationService.getEventRegistrations(_id).subscribe((response: any) => {
+    //   this.events = response;
+    //   this.calculateAmount();
+    // })
   }
 
   loadWorkshops(_id: string) {
-    this.eventRegistrtationService.getWorkshops(_id).subscribe((response: any) => {
-      this.workshops = response;
-      this.calculateAmount();
-
-    })
+    // this.eventRegistrtationService.getWorkshops(_id).subscribe((response: any) => {
+    //   this.workshops = response;
+    //   this.calculateAmount();
+    // })
   }
 
   calculateAmount() {
