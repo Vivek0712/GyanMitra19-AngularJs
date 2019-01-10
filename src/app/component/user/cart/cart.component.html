@@ -1,67 +1,81 @@
 <div class="app-content content">
-    <div class="content-wrapper">
-        <div class="content-wrapper-before"></div>
-        <div class="content-header row">
-            <div class="content-header-left col-md-4 col-12 mb-2">
-                <h3 class="content-header-title">Cart</h3>
-            </div>
-            <div class="content-header-right col-md-8 col-12">
-                <div class="breadcrumbs-top float-md-right">
-                    <div class="breadcrumb-wrapper mr-1">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.html">Home</a>
-                            </li>
-                            <li class="breadcrumb-item active"> Cart
-                            </li>
-                        </ol>
-                    </div>
-                </div>
-            </div>
+  <div class="content-wrapper">
+    <div class="content-wrapper-before"></div>
+    <div class="content-header row">
+      <div class="content-header-left col-md-4 col-12 mb-2">
+        <h3 class="content-header-title">Cart</h3>
+      </div>
+      <div class="content-header-right col-md-8 col-12">
+        <div class="breadcrumbs-top float-md-right">
+          <div class="breadcrumb-wrapper mr-1">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="index.html">Home</a>
+              </li>
+              <li class="breadcrumb-item active"> Cart
+              </li>
+            </ol>
+          </div>
         </div>
-        <div class="content-body">
-            <section id="content-types">
-                <div class="row match-height">
-                    <div class="col-4" *ngFor="let workshop of workshops">
-                        <div class="card pull-up">
-                            <div class="card-body">
-                                <h3 class="card-title">{{workshop.event_id.title}} <span class="card-title activator grey-text text-darken-4 float-right"><i
-                                            class="fas fa-ellipsis-v right"></i></span></h3>
-                                <h6 class="card-subtitle text-muted">Department of {{workshop.event_id.department_id.name}}</h6>
-                            </div>
-                            <img class="activator card-image" src="http://www.gyanmitra19.mepcoeng.ac.in/assests/images/events/{{workshop.event_id.image_name}}">
-                            <div class="card-body">
-                                {{workshop.event_id.description}}
-                            </div>
-                            <div class="card-body">
-                                <div class="container">
-                                    <div class="row">
-                                        Resource Person
-                                    </div>
-                                    <div class="row">
-                                        {{workshop.event_id.resource_person}}
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                Contact <p class="card-text">
-                                    <a href="mailto:{{workshop.event_id.contact_email}}">{{workshop.event_id.contact_email}}</a>
-                                </p>
-                            </div>
-                            <div class="card-reveal">
-                                <span class="card-title grey-text text-darken-4">Pre Requesites<i class="fas fa-times float-right"></i></span>
-                                {{workshop.event_id.rules}}
-                                <hr />
-                                <h4>Timing</h4>
-
-                                Date : {{workshop.event_id.event_date | date}}
-                                {{workshop.event_id.start_time}} -
-                                {{workshop.event_id.end_time}}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+      </div>
+    </div>
+    <div class="content-body">
+      <section id="content-types">
+        <div class="row match-height">
+          <div class="col-4" *ngFor="let workshop of workshops">
+            <div class="card pull-up">
+              <div class="card-body">
+                <h3 class="card-title"> Workshop - {{workshop.event_id.title}} <span class="card-title activator grey-text text-darken-4 float-right"><i
+                      class="fas fa-ellipsis-v right"></i></span></h3>
+                <h6 class="card-subtitle text-muted">Department of {{workshop.event_id.department_id.name}}</h6>
+              </div>
+              <div class="card-body">
+                <span class="card-title grey-text text-darken-4">Pre Requesites</span> <br />
+                {{workshop.event_id.rules}}
+                <hr />
+              </div>
+              <div class="card-body">
+                Contact <p class="card-text">
+                  <a href="mailto:{{workshop.event_id.contact_email}}">{{workshop.event_id.contact_email}}</a>
+                </p>
+              </div>
+              <div class="card-reveal">
+                <h4>Timing</h4>
+                Date : {{workshop.event_id.event_date | date}}
+                {{workshop.event_id.start_time}} -
+                {{workshop.event_id.end_time}}
+              </div>
+            </div>
+          </div>
         </div>
+        <div class="row match-height">
+                <div class="col-4" *ngFor="let event of events">
+                  <div class="card pull-up">
+                    <div class="card-body">
+                      <h3 class="card-title"> Event - {{event.event_id.title}} <span class="card-title activator grey-text text-darken-4 float-right"><i
+                            class="fas fa-ellipsis-v right"></i></span></h3>
+                      <h6 class="card-subtitle text-muted">Department of {{event.event_id.department_id.name}}</h6>
+                    </div>
+                    <div class="card-body">
+                      <span class="card-title grey-text text-darken-4">Rules</span> <br />
+                      {{event.event_id.rules | rulesTransform}}
+                      <hr />
+                    </div>
+                    <div class="card-body">
+                      Contact <p class="card-text">
+                        <a href="mailto:{{event.event_id.contact_email}}">{{event.event_id.contact_email}}</a>
+                      </p>
+                    </div>
+                    <div class="card-reveal">
+                      <h4>Timing</h4>
+                      Date : {{event.event_id.event_date | date}}
+                      {{event.event_id.start_time}} -
+                      {{event.event_id.end_time}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+      </section>
+    </div>
 
 
 
@@ -105,7 +119,7 @@
 
 
 
-        <!--   Modal
+    <!--   Modal
         <div class="modal fade" id="DDModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -203,7 +217,7 @@
                                 <div *ngIf="hasEvents">
                                     <div class="row">
                                         <div *ngFor="let event of events">
-                                            <!-- <div class="col-12">
+                                             <div class="col-12">
                                                 <div class="card pull-up">
                                                     <h5 class="card-header">{{event.event_id.title}}</h5>
                                                     <div class="card-body">
