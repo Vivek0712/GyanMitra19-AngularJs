@@ -48,19 +48,7 @@
                 <h6 class="card-subtitle text-muted">Department of {{workshop.department_id.name}}</h6>
               </div>
               <img class="activator card-image" src="http://www.gyanmitra19.mepcoeng.ac.in/assests/images/events/{{workshop.image_name}}">
-              <div class="card-body">
-                {{workshop.description}}
-              </div>
-              <div class="card-body">
-                <div class="container">
-                  <div class="row">
-                    Resource Person
-                  </div>
-                  <div class="row">
-                    {{workshop.resource_person}}
-                  </div>
-                </div>
-              </div>
+              
               <div class="card-body">
                 Contact <p class="card-text">
                   <a href="mailto:{{workshop.contact_email}}">{{workshop.contact_email}}</a>
@@ -70,6 +58,10 @@
                 <span class="card-title grey-text text-darken-4">Pre Requesites<i class="fas fa-times float-right"></i></span>
                 {{workshop.rules}}
                 <hr />
+				
+				<span class="card-title grey-text text-darken-4">Description</span>
+				{{workshop.description}}
+				
                 <h4>Timing</h4>
 
                 Date : {{workshop.event_date | date}}

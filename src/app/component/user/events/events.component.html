@@ -49,16 +49,18 @@
                 <h6 class="card-subtitle text-muted">Department of {{event.department_id.name}}</h6>
               </div>
               <img class="activator card-image" src="http://www.gyanmitra19.mepcoeng.ac.in/assests/images/events/{{event.image_name}}">
-              <div class="card-body">
+              <!--<div class="card-body">
                 {{event.description}}
-              </div>
+              </div>-->
               <div class="card-body">
                 Contact <p class="card-text">
                   <a href="mailto:{{event.contact_email}}">{{event.contact_email}}</a>
                 </p>
               </div>
               <div class="card-reveal">
-                <span class="card-title grey-text text-darken-4">Rules<i class="fas fa-times float-right"></i></span>
+				<span class="card-title grey-text text-darken-4">Description<i class="fas fa-times float-right"></i></span>
+				{{event.description}}
+                <span class="card-title grey-text text-darken-4">Rules</span>
                 <ul>
                   <li *ngFor="let rule of (event.rules | rulesTransform)">{{ rule }}</li>
                 </ul>
