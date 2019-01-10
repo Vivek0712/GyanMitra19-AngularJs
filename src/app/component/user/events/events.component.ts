@@ -16,7 +16,6 @@ declare var M: any;
 export class EventsComponent implements OnInit {
   events: Array<any>;
   departments: Array<any>;
-  selectedEventID: String;
   searchText: String = 'All';
   currentUserId: string;
   currentPage: any = 1;
@@ -32,7 +31,6 @@ export class EventsComponent implements OnInit {
         this.events = response;
       })
     }
-    this.selectedEventID = '';
     this.currentPage = 1;
     this.currentUserId = '';
     this.user = (JSON.parse(localStorage.getItem('user')))

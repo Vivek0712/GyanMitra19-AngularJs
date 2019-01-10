@@ -17,15 +17,15 @@ declare var M: any;
 })
 export class WorkshopsComponent implements OnInit {
   user: any;
-  confirmed: Boolean;
-  paid: Boolean;
-  constructor(private appService: AppService, private eventService: EventService,private authService:AuthService,private deptService: DepartmentService,private eventRegistrationService:EventRegistrationService) { }
+  registeredEvents: Array<string> = [];
+
+  // constructor(private appService: AppService, private eventService: EventService,private authService:AuthService,private deptService: DepartmentService,private eventRegistrationService:EventRegistrationService) { }
   
-  ngOnInit() {
-    //this.user = [];
-    this.getCurrentUser();
-    this.getWorkshop(this.currentPage);
-  }
+  // ngOnInit() {
+  //   //this.user = [];
+  //   this.getCurrentUser();
+  //   this.getWorkshop(this.currentPage);
+  // }
   getCurrentUser() {
     this.authService.getCurrentUser().subscribe((response: any) => {
       this.user = response.profile;
@@ -38,10 +38,12 @@ export class WorkshopsComponent implements OnInit {
       }
       else {
         this.workshops = response;
+        this.getRegistrations();
+
 
       }
       if (this.currentUserId != '') {
-        //this.checkEventRegistrations();
+        this.checkEventRegistrations();
       }
     })
     this.deptService.readDepartment(0).subscribe((response: any) => {
@@ -58,27 +60,37 @@ export class WorkshopsComponent implements OnInit {
   statusesLoaded: Boolean = false;
   currentPage: any = 1
 
-  // constructor(private eventService: EventService, private userService: UserService, private eventRegistrationService: EventRegistrationService, public authService: AuthService, private deptService: DepartmentService) {
-  //   this.currentPage = 1;
-  //   this.eventService.readWithPageAndDepartment('Workshop', this.searchText, 1).subscribe((response: any) => {
-  //     this.workshops = response;
-  //     if (this.currentUserId != '') {
-  //       this.checkEventRegistrations();
-  //     }
-  //   })
-  // }
+  constructor(private eventService: EventService, private userService: UserService, private eventRegistrationService: EventRegistrationService, public authService: AuthService, private deptService: DepartmentService) {
+    this.currentPage = 1;
+    this.eventService.readWithPageAndDepartment('Workshop', this.searchText, 1).subscribe((response: any) => {
+      this.workshops = response;
+      if (this.currentUserId != '') {
+        this.checkEventRegistrations();
+      }
+    })
+  }
 
-  // ngOnInit() {
-  //   this.loadFull(this.currentPage);
-  //   this.currentUserId = JSON.parse(localStorage.getItem('user')).id
-  //   if (this.authService.isLoggedIn()) {
-  //     this.userService.isCartConfirmed(this.currentUserId).subscribe((response: any) => {
-  //       if (!response.error) {
-  //         this.isCartConfirmed = response.isCartConfirmed
-  //       }
-  //     })
-  //   }
-  // }
+  ngOnInit() {
+    if (this.currentUserId != '') {
+      this.eventService.readWithPageAndDepartment('Workshop', 'All', 1).subscribe((response: any) => {
+        this.workshops = response;
+      })
+    }
+    this.currentPage = 1;
+    this.currentUserId = '';
+    this.user = (JSON.parse(localStorage.getItem('user')))
+    if (this.user != null) {
+      this.currentUserId = this.user.id;
+    }
+    this.getRegistrations();
+    this.loadFull(this.currentPage);
+  }
+
+  getRegistrations() {
+    this.eventRegistrationService.getRegisteredEvents(this.currentUserId, 'Event').subscribe((response: any) => {
+      this.registeredEvents = response.msg
+    })
+  }
 
   checkEventRegistrations() {
     this.statuses = {}
@@ -127,26 +139,38 @@ export class WorkshopsComponent implements OnInit {
     })
   }
 
-  // filter() {
-  //   this.currentPage = 1
-  //   this.loadFull(this.currentPage);
-  // }
+  filter() {
+    this.currentPage = 1
+    this.loadFull(this.currentPage);
+  }
 
-  // loadFull(page: any) {
-  //   this.eventService.readWithPageAndDepartment('Workshop', this.searchText, page).subscribe((response: any) => {
-  //     if (response.length == []) {
-  //       this.currentPage -= 1
-  //     }
-  //     else {
-  //       this.workshops = response;
+  
+  loadFull(page: any) {
+    if (this.searchText == 'All') {
+      this.eventService.readWithPageAndDepartment('Workshop', 'All', this.currentPage).subscribe((response: any) => {
+        if (response.length == []) {
+          this.currentPage -= 1
+        }
+        else {
+          this.getRegistrations();
+          this.workshops = response;
 
-  //     }
-  //     if (this.currentUserId != '') {
-  //       //this.checkEventRegistrations();
-  //     }
-  //   })
-  //   this.deptService.readDepartment(0).subscribe((response: any) => {
-  //     this.departments = response;
-  //   })
-  // }
+        }
+      })
+    }
+    else {
+      this.eventService.readWithPageAndDepartment('Workshop', this.searchText, page).subscribe((response: any) => {
+        if (response.length == []) {
+          this.currentPage -= 1
+        }
+        else {
+          this.getRegistrations();
+          this.workshops = response;
+        }
+      })
+    }
+    this.deptService.readDepartment(0).subscribe((response: any) => {
+      this.departments = response;
+    })
+  }
 }
