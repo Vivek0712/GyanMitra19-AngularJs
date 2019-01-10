@@ -1,4 +1,4 @@
-<!-- <div class="app-content content">
+<div class="app-content content">
     <div class="content-wrapper">
         <div class="content-wrapper-before"></div>
         <div class="content-header row">
@@ -67,46 +67,47 @@
                             <div class="card-body">
                                 <h3 class="white">Workshops</h3>
                                 <br />
-                                <div *ngIf="!hasWorkshops">
-                                    <h5 class="white">You have no workshop registrations. Register in one of our
-                                        workshops!!!</h5>
-                                </div>
-                                <div *ngIf="hasWorkshops">
-                                    <div class="row">
-                                        <div *ngFor="let workshop of workshops">
-                                            <div class="col-12">
-                                                <div class="card pull-up">
-                                                    <div class="card-header">
-                                                        <div class="h4">{{workshop.event_id.title}}</div>
-                                                    </div>
-                                                    <div class="card-body">
-                                                        <h5 class="card-title">What you need to know</h5>
-                                                        <div class="row">
-                                                            <div class="col-6">
-                                                                Date : {{workshop.event_id.event_date}}
+                                <ng-container *ngIf="!hasWorkshops; else hasWorkshop">
+                                        <h5 class="white">You have no workshop registrations. Register in one of our
+                                                workshops!!!</h5>
+                                </ng-container>
+                                <ng-template #hasWorkshop>
+                                        <div class="row">
+                                                <div *ngFor="let workshop of workshops">
+                                                    <div class="col-12">
+                                                        <div class="card pull-up">
+                                                            <div class="card-header">
+                                                                <div class="h4">{{workshop.event_id.title}}</div>
                                                             </div>
-                                                            <div class="col-6">
-                                                                Venue : {{workshop.event_id.venue}}
+                                                            <div class="card-body">
+                                                                <h5 class="card-title">What you need to know</h5>
+                                                                <div class="row">
+                                                                    <div class="col-6">
+                                                                        Date : {{workshop.event_id.event_date}}
+                                                                    </div>
+                                                                    <div class="col-6">
+                                                                        Venue : {{workshop.event_id.venue}}
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col">
+                                                                        Contact : <a href="mailto://{{workshop.event_id.contact_email}}">{{workshop.event_id.contact_email}}</a>
+                                                                    </div>
+                                                                </div>
+                                                                <span [ngClass]="{'danger': workshop.satus != 'Paid'}">
+                                                                    {{workshop.status}}
+                                                                </span>
+                                                                <button *ngIf="!isCartConfirmed" class="btn btn-bg-gradient-x-red-pink float-right"
+                                                                    (click)="cancelWorkshopRegistration(workshop._id)">
+                                                                    Remove from Cart
+                                                                </button>
                                                             </div>
                                                         </div>
-                                                        <div class="row">
-                                                            <div class="col">
-                                                                Contact : <a href="mailto://{{workshop.event_id.contact_email}}">{{workshop.event_id.contact_email}}</a>
-                                                            </div>
-                                                        </div>
-                                                        <span [ngClass]="{'danger': workshop.satus != 'Paid'}">
-                                                            {{workshop.status}}
-                                                        </span>
-                                                        <button *ngIf="!isCartConfirmed" class="btn btn-bg-gradient-x-red-pink float-right"
-                                                            (click)="cancelWorkshopRegistration(workshop._id)">
-                                                            Remove from Cart
-                                                        </button>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                </ng-template>
+                                    
                                 <h3 class="white">Events</h3>
 
                                 <div *ngIf="!hasEvents">
@@ -115,7 +116,7 @@
                                 <div *ngIf="hasEvents">
                                     <div class="row">
                                         <div *ngFor="let event of events">
-                                            <div class="col-12">
+                                            <!-- <div class="col-12">
                                                 <div class="card pull-up">
                                                     <h5 class="card-header">{{event.event_id.title}}</h5>
                                                     <div class="card-body">
@@ -144,11 +145,10 @@
                                                         </button>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> -->
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="card-footer border-top-blue-grey border-top-lighten-5 text-muted col-12">
                                     <div *ngIf="!paymentConfirmed">
                                         <div *ngIf="isCartConfirmed && !paymentSent">
@@ -219,4 +219,4 @@
 
         </form>
     </div>
-</div> -->
+</div>
