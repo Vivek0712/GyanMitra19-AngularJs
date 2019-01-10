@@ -14,42 +14,42 @@ declare var M: any;
 })
 
 export class EventsComponent implements OnInit {
-  events:Array<any>;
+  events: Array<any>;
   departments: Array<any>;
-  selectedEventID:String;
+  selectedEventID: String;
   searchText: String = 'All';
-  isCartConfirmed:Boolean = true;
-  currentUserId:string;
-  statusesLoaded: Boolean;
-  statuses: any;
+  currentUserId: string;
   currentPage: any = 1;
+  user: any;
+  registeredEvents: Array<string> = [];
 
-  constructor(private userService: UserService,private eventRegistration:EventRegistrationService, private eventService: EventService,private eventRegistrationService: EventRegistrationService, private authService: AuthService, private deptService: DepartmentService) { 
-    this.selectedEventID='';
-    this.loadFull(this.currentPage);
-    this.currentPage = 1;
-    this.currentUserId = '';
-    if((JSON.parse(localStorage.getItem('user'))) != null){
-      this.currentUserId = (JSON.parse(localStorage.getItem('user'))).id
-    }
+  constructor(private userService: UserService, private eventRegistration: EventRegistrationService, private eventService: EventService, private eventRegistrationService: EventRegistrationService, private authService: AuthService, private deptService: DepartmentService) {
+
   }
   ngOnInit() {
-    if(this.currentUserId != ''){
-      this.userService.isCartConfirmed(this.currentUserId).subscribe((response: any)=>{
-        if(!response.error){
-          this.isCartConfirmed = response.isCartConfirmed
-        }
-        this.eventService.readWithPageAndDepartment('Event', 'All', 1).subscribe((response: any) => {
-          this.events = response;
-          if(this.currentUserId != ''){
-            this.checkEventRegistrations();
-          }
-        })
+    if (this.currentUserId != '') {
+      this.eventService.readWithPageAndDepartment('Event', 'All', 1).subscribe((response: any) => {
+        this.events = response;
       })
     }
+    this.selectedEventID = '';
+    this.currentPage = 1;
+    this.currentUserId = '';
+    this.user = (JSON.parse(localStorage.getItem('user')))
+    if (this.user != null) {
+      this.currentUserId = this.user.id;
+    }
+    this.getRegistrations();
+    this.loadFull(this.currentPage);
   }
 
-  filter(){
+  getRegistrations() {
+    this.eventRegistrationService.getRegisteredEvents(this.currentUserId, 'Event').subscribe((response: any) => {
+      this.registeredEvents = response.msg
+    })
+  }
+
+  filter() {
     this.currentPage = 1;
     this.loadFull(this.currentPage);
   }
@@ -63,18 +63,9 @@ export class EventsComponent implements OnInit {
     this.currentPage = this.currentPage - 1;
     this.loadFull(this.currentPage);
   }
-  checkEventRegistrations() {
-    this.statuses = {}
-    this.events.forEach((event) => {
-      this.eventRegistrationService.checkRegistration(event._id, this.currentUserId).subscribe((response: any) => {
-        this.statuses[event._id] = response;
-      });
-    });
-    this.statusesLoaded = true;
-  }
 
   selectEvent(_id: string) {
-    this.eventRegistrationService.createEventRegistration(JSON.parse(localStorage.getItem('user')).id,_id).subscribe((response: any)=>{
+    this.eventRegistrationService.createEventRegistration(JSON.parse(localStorage.getItem('user')).id, _id).subscribe((response: any) => {
       if (response.error) {
         M.toast({ html: response.msg, classes: 'roundeds' });
       } else {
@@ -84,35 +75,31 @@ export class EventsComponent implements OnInit {
     })
   }
 
-  loadFull(page: any){
-    if(this.searchText == 'All'){
+  loadFull(page: any) {
+    if (this.searchText == 'All') {
       this.eventService.readWithPageAndDepartment('Event', 'All', this.currentPage).subscribe((response: any) => {
-        if(response.length == []){
-          this.currentPage -=1
+        if (response.length == []) {
+          this.currentPage -= 1
         }
         else {
-        this.events = response;
-        }
-        if(this.currentUserId != ''){
-          this.checkEventRegistrations();
+          this.getRegistrations();
+          this.events = response;
+
         }
       })
     }
     else {
-      this.eventService.readWithPageAndDepartment('Event',this.searchText, page).subscribe((response: any)=>{
-        if(response.length == []){
-          this.currentPage -=1
+      this.eventService.readWithPageAndDepartment('Event', this.searchText, page).subscribe((response: any) => {
+        if (response.length == []) {
+          this.currentPage -= 1
         }
         else {
-        this.events = response;
-
-        }
-        if(this.currentUserId != ''){
-          this.checkEventRegistrations();
+          this.getRegistrations();
+          this.events = response;
         }
       })
     }
-    this.deptService.readDepartment(0).subscribe((response: any)=>{
+    this.deptService.readDepartment(0).subscribe((response: any) => {
       this.departments = response;
     })
   }

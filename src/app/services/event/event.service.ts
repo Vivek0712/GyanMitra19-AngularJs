@@ -76,7 +76,6 @@ export class EventService {
 
   readWithPageAndDepartment(type: any, department:any, page:any){
     const headers = new Headers();
-    console.log(this.app.getUrl(this.baseUrl) +type+'/'+department+'/'+page)
     return this.http.get(this.app.getUrl(this.baseUrl) +type+'/'+department+'/'+page);
   }
 

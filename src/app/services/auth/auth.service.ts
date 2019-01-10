@@ -14,7 +14,6 @@ export class AuthService {
   user: any;
   constructor(private http: HttpClient, private app: AppService , private jwtHelper: JwtHelper, private router: Router) { }
   authenticate(email_id: string, password: string) {
-    
     const body = { email_id: email_id, password: password };
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');

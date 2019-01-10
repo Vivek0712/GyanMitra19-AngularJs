@@ -66,37 +66,36 @@
               <div class="card-footer border-top-blue-grey border-top-lighten-5 text-muted">
                 <span class="float-left"> {{event.event_date | date }}</span>
                 <span class="float-right">
-                  <div *ngIf="authService.isLoggedIn()">
-                    <div *ngIf="!isCartConfirmed">
-                      <div *ngIf="event.min_members == event.max_members == 1 && !statuses[event._id].registered">
-                        <button type="button" class="btn btn-outline-primary" (click)="selectEvent(event._id)" style="width:100%">
-                          Register Now <i class="la la-angle-right"></i>
-                        </button>
-                      </div>
-                      <div *ngIf="event.min_members != event.max_members && !statuses[event._id].registered">
-                        <button type="button" [routerLink]="['/user/teamRegister',event._id]" [routerLinkActive]="['active']"
-                          [routerLinkActiveOptions]="{exact:true}" class="btn btn-outline-primary" style="width:100%">
-                          Register Team <i class="la la-angle-right"></i>
-                        </button>
-                      </div>
-                      <div *ngIf="statuses[event._id].registered">
-                        <button type="button" *ngIf="statuses[event._id].registered" class="btn btn-sm round btn-bg-gradient-x-purple-red"
-                          style="width:100%">
-                          Already Registered
-                        </button>
-                      </div>
-                      <div *ngIf="isCartConfirmed">
+                  <ng-container *ngIf="user; else notLoggedIn">
+                    <ng-container *ngIf="user.cart_confirmed; else cartNotConfirmed">
                         <button type="button" class="btn btn-outline-danger" style="width:100%">
-                          Cart already Confirmed
-                        </button>
-                      </div>
-                    </div>
-
-                  </div>
-                  <div *ngIf="!authService.isLoggedIn()">
+                            Cart already Confirmed
+                          </button>
+                    </ng-container>
+                    <ng-template #cartNotConfirmed>
+                        <div *ngIf="event.min_members == event.max_members == 1 && !registeredEvents.includes(event._id)">
+                            <button type="button" class="btn btn-outline-primary" (click)="selectEvent(event._id)" style="width:100%">
+                              Register Now <i class="la la-angle-right"></i>
+                            </button>
+                          </div>
+                          <div *ngIf="event.min_members != event.max_members && !registeredEvents.includes(event._id)">
+                            <button type="button" [routerLink]="['/user/teamRegister',event._id]" [routerLinkActive]="['active']"
+                              [routerLinkActiveOptions]="{exact:true}" class="btn btn-outline-primary" style="width:100%">
+                              Register Team <i class="la la-angle-right"></i>
+                            </button>
+                          </div>
+                          <div *ngIf="registeredEvents.includes(event._id)">
+                            <button type="button" *ngIf="registeredEvents.includes(event._id)d" class="btn btn-sm round btn-bg-gradient-x-purple-red"
+                              style="width:100%">
+                              Already Registered
+                            </button>
+                          </div>
+                    </ng-template>
+                  </ng-container>
+                  <ng-template #notLoggedIn>
                     <a class="btn btn-lg btn-glow btn-bg-gradient-x-blue-purple-2" style="width:100%" [routerLink]="['/user/login']"
                       [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">Login to Register</a>
-                  </div>
+                  </ng-template>
                 </span>
               </div>
             </div>
