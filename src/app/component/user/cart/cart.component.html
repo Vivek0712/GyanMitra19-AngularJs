@@ -1,9 +1,9 @@
-<!-- <div class="app-content content">
+<div class="app-content content">
     <div class="content-wrapper">
         <div class="content-wrapper-before"></div>
         <div class="content-header row">
             <div class="content-header-left col-md-4 col-12 mb-2">
-                <h3 class="content-header-title">Cart - Rs. {{amount}}</h3>
+                <h3 class="content-header-title">Cart</h3>
             </div>
             <div class="content-header-right col-md-8 col-12">
                 <div class="breadcrumbs-top float-md-right">
@@ -18,7 +18,94 @@
                 </div>
             </div>
         </div>
-        Modal
+        <div class="content-body">
+            <section id="content-types">
+                <div class="row match-height">
+                    <div class="col-4" *ngFor="let workshop of workshops">
+                        <div class="card pull-up">
+                            <div class="card-body">
+                                <h3 class="card-title">{{workshop.title}} <span class="card-title activator grey-text text-darken-4 float-right"><i
+                                            class="fas fa-ellipsis-v right"></i></span></h3>
+                                <h6 class="card-subtitle text-muted">Department of {{workshop.department_id.name}}</h6>
+                            </div>
+                            <img class="activator card-image" src="http://www.gyanmitra19.mepcoeng.ac.in/assests/images/events/{{workshop.image_name}}">
+                            <div class="card-body">
+                                {{workshop.description}}
+                            </div>
+                            <div class="card-body">
+                                <div class="container">
+                                    <div class="row">
+                                        Resource Person
+                                    </div>
+                                    <div class="row">
+                                        {{workshop.resource_person}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                Contact <p class="card-text">
+                                    <a href="mailto:{{workshop.contact_email}}">{{workshop.contact_email}}</a>
+                                </p>
+                            </div>
+                            <div class="card-reveal">
+                                <span class="card-title grey-text text-darken-4">Pre Requesites<i class="fas fa-times float-right"></i></span>
+                                {{workshop.rules}}
+                                <hr />
+                                <h4>Timing</h4>
+
+                                Date : {{workshop.event_date | date}}
+                                {{workshop.start_time}} -
+                                {{workshop.end_time}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <!--   Modal
         <div class="modal fade" id="DDModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
             <div class="modal-dialog" role="document">

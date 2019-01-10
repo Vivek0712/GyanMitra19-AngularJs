@@ -72,15 +72,16 @@ export class EventRegistrationService {
   }
 
   getUserWorkshops(user_id: String) {
+    console.log(user_id);
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.get(this.app.getUrl(this.baseUrl) + 'getRegistrations/' + user_id + "/Workshop");
+    return this.http.get(this.app.getUrl(this.baseUrl) + 'userRegisteredEvents/' + user_id + "/Workshop");
   }
 
   getUserEvents(user_id: String) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.get(this.app.getUrl(this.baseUrl) + 'getRegistrations/' + user_id + "/Event");
+    return this.http.get(this.app.getUrl(this.baseUrl) + 'userRegisteredEvents/' + user_id + "/Event");
   }
 
   confirmPayment(user_id: String) {
@@ -160,11 +161,6 @@ export class EventRegistrationService {
     this.http.get(this.app.getUrl(this.baseUrl) + 'checkEventRegistrationStatus/'+event_id+'/'+user_id).subscribe((response:any)=>{
       return response.registered;
     });
-  }
-  getWorkshops() {
-    const headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-
   }
 
 }
