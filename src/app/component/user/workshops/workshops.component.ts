@@ -6,6 +6,7 @@ import { DepartmentService } from 'src/app/services/department/department.servic
 import { UserService } from 'src/app/services/user/user.service';
 import { Router } from '@angular/router';
 import { routerNgProbeToken } from '@angular/router/src/router_module';
+import { AppService } from 'src/app/services/app/app.service';
 
 declare var M: any;
 
@@ -15,6 +16,38 @@ declare var M: any;
   styleUrls: ['./workshops.component.css']
 })
 export class WorkshopsComponent implements OnInit {
+  user: any;
+  confirmed: Boolean;
+  paid: Boolean;
+  constructor(private appService: AppService, private eventService: EventService,private authService:AuthService,private deptService: DepartmentService,private eventRegistrationService:EventRegistrationService) { }
+  
+  ngOnInit() {
+    //this.user = [];
+    this.getCurrentUser();
+    this.getWorkshop(this.currentPage);
+  }
+  getCurrentUser() {
+    this.authService.getCurrentUser().subscribe((response: any) => {
+      this.user = response.profile;
+    })
+  }
+  getWorkshop(page: any) {
+    this.eventService.readWithPageAndDepartment('Workshop', this.searchText, page).subscribe((response: any) => {
+      if (response.length == []) {
+        this.currentPage -= 1
+      }
+      else {
+        this.workshops = response;
+
+      }
+      if (this.currentUserId != '') {
+        //this.checkEventRegistrations();
+      }
+    })
+    this.deptService.readDepartment(0).subscribe((response: any) => {
+      this.departments = response;
+    })
+  }
 
   workshops: Array<any>;
   statuses: any = {};
@@ -25,27 +58,27 @@ export class WorkshopsComponent implements OnInit {
   statusesLoaded: Boolean = false;
   currentPage: any = 1
 
-  constructor(private eventService: EventService, private userService: UserService, private eventRegistrationService: EventRegistrationService, public authService: AuthService, private deptService: DepartmentService) {
-    this.currentPage = 1;
-    this.eventService.readWithPageAndDepartment('Workshop', this.searchText, 1).subscribe((response: any) => {
-      this.workshops = response;
-      if (this.currentUserId != '') {
-        this.checkEventRegistrations();
-      }
-    })
-  }
+  // constructor(private eventService: EventService, private userService: UserService, private eventRegistrationService: EventRegistrationService, public authService: AuthService, private deptService: DepartmentService) {
+  //   this.currentPage = 1;
+  //   this.eventService.readWithPageAndDepartment('Workshop', this.searchText, 1).subscribe((response: any) => {
+  //     this.workshops = response;
+  //     if (this.currentUserId != '') {
+  //       this.checkEventRegistrations();
+  //     }
+  //   })
+  // }
 
-  ngOnInit() {
-    this.loadFull(this.currentPage);
-    this.currentUserId = JSON.parse(localStorage.getItem('user')).id
-    if (this.authService.isLoggedIn()) {
-      this.userService.isCartConfirmed(this.currentUserId).subscribe((response: any) => {
-        if (!response.error) {
-          this.isCartConfirmed = response.isCartConfirmed
-        }
-      })
-    }
-  }
+  // ngOnInit() {
+  //   this.loadFull(this.currentPage);
+  //   this.currentUserId = JSON.parse(localStorage.getItem('user')).id
+  //   if (this.authService.isLoggedIn()) {
+  //     this.userService.isCartConfirmed(this.currentUserId).subscribe((response: any) => {
+  //       if (!response.error) {
+  //         this.isCartConfirmed = response.isCartConfirmed
+  //       }
+  //     })
+  //   }
+  // }
 
   checkEventRegistrations() {
     this.statuses = {}
@@ -59,16 +92,16 @@ export class WorkshopsComponent implements OnInit {
 
   nextPage() {
     this.currentPage = this.currentPage + 1;
-    this.loadFull(this.currentPage);
+    this.getWorkshop(this.currentPage);
   }
 
   previousPage() {
     this.currentPage = this.currentPage - 1;
-    this.loadFull(this.currentPage);
+    this.getWorkshop(this.currentPage);
   }
 
   reloadEvents() {
-    this.loadFull(this.currentPage);
+    this.getWorkshop(this.currentPage);
   }
 
   selectWorkshop(_id: string) {
@@ -94,26 +127,26 @@ export class WorkshopsComponent implements OnInit {
     })
   }
 
-  filter() {
-    this.currentPage = 1
-    this.loadFull(this.currentPage);
-  }
+  // filter() {
+  //   this.currentPage = 1
+  //   this.loadFull(this.currentPage);
+  // }
 
-  loadFull(page: any) {
-    this.eventService.readWithPageAndDepartment('Workshop', this.searchText, page).subscribe((response: any) => {
-      if (response.length == []) {
-        this.currentPage -= 1
-      }
-      else {
-        this.workshops = response;
+  // loadFull(page: any) {
+  //   this.eventService.readWithPageAndDepartment('Workshop', this.searchText, page).subscribe((response: any) => {
+  //     if (response.length == []) {
+  //       this.currentPage -= 1
+  //     }
+  //     else {
+  //       this.workshops = response;
 
-      }
-      if (this.currentUserId != '') {
-        this.checkEventRegistrations();
-      }
-    })
-    this.deptService.readDepartment(0).subscribe((response: any) => {
-      this.departments = response;
-    })
-  }
+  //     }
+  //     if (this.currentUserId != '') {
+  //       //this.checkEventRegistrations();
+  //     }
+  //   })
+  //   this.deptService.readDepartment(0).subscribe((response: any) => {
+  //     this.departments = response;
+  //   })
+  // }
 }

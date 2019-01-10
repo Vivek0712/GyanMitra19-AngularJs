@@ -6,7 +6,11 @@ import { AppService } from 'src/app/services/app/app.service';
 import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { AES } from 'crypto-ts';
+import * as sha512 from 'js-sha512';
 declare var M: any;
+
 
 
 @Component({
@@ -29,38 +33,42 @@ export class CartComponent implements OnInit {
   paymentSent: boolean = false;
   paymentConfirmed: boolean = false;
   txnId: string;
-  data: string;
+  data: Array<any>;
   paymentForm: FormGroup;
   constructor(private eventRegistrationService: EventRegistrationService,
     private appService: AppService, private http: HttpClient,
     private paymentService: PaymentService,
     private userService: UserService,
-    private formBuilder: FormBuilder)
-  {
+    private formBuilder: FormBuilder) {
     this.workshops = []
     this.events = []
+    this.data = [];
     this.hasWorkshops = false;
     this.hasEvents = false;
-  
+    this.amount = 0;
+
 
   }
 
   ngOnInit() {
-    //this.amount = 0;
+    
     this.calculateAmount();
     this.getWorkshops();
     this.getEvents();
-    this.userService.isCartConfirmed(this.user_id).subscribe((response: any) => {
-      if (!response.error) {
-        this.isCartConfirmed = response.isCartConfirmed;
-      }
-    });
+
+    // this.userService.isCartConfirmed(this.user_id).subscribe((response: any) => {
+    //   if (!response.error) {
+    //     this.isCartConfirmed = response.isCartConfirmed;
+    //   }
+    // });
     this.user_id = JSON.parse(localStorage.getItem('user')).id;
     this.user_name = JSON.parse(localStorage.getItem('user')).name;
     this.user_email = JSON.parse(localStorage.getItem('user')).email_id;
     this.user_mobile_number = JSON.parse(localStorage.getItem('user')).mobile_number;
     this.user_gmID = JSON.parse(localStorage.getItem('user')).gmID;
-    console.log(this.user_email);
+    this.hashData(this.amount);
+    console.log(this.amount);
+    //console.log(this.data);
   }
 
   confirmCart() {
@@ -116,24 +124,25 @@ export class CartComponent implements OnInit {
       }
       else {
         this.workshops = response;
-        this.calculateAmount();
-        if (this.workshops.length == 0) {
-          this.hasWorkshops = false;
-        }
-        else {
-          this.hasWorkshops = true;
-          if (this.workshops[0].status == 'Verifying Payment') {
-            this.paymentSent = true;
-          }
-          else {
-            this.paymentSent = false;
-          }
-          if (this.workshops[0].status == 'Paid') {
-            this.paymentConfirmed = true;
-          } else {
-            this.paymentConfirmed = false;
-          }
-        }
+        console.log(this.workshops);
+        // this.calculateAmount();
+        // if (this.workshops.length == 0) {
+        //   this.hasWorkshops = false;
+        // }
+        // else {
+        //   this.hasWorkshops = true;
+          // if (this.workshops[0].status == 'Verifying Payment') {
+          //   this.paymentSent = true;
+          // }
+          // else {
+          //   this.paymentSent = false;
+          // }
+          // if (this.workshops[0].status == 'Paid') {
+          //   this.paymentConfirmed = true;
+          // } else {
+          //   this.paymentConfirmed = false;
+          // }
+        // }
       }
     })
   }
@@ -145,20 +154,21 @@ export class CartComponent implements OnInit {
       }
       else {
         this.events = response;
-        this.calculateAmount()
-        if (this.events.length == 0) {
-          this.hasEvents = false;
-        }
-        else {
-          this.hasEvents = true;
-        }
-        if (this.events[0].status == 'Paid') {
-          this.paymentConfirmed = true;
-        } else {
-          this.paymentConfirmed = false;
-        }
-      }
-    })
+        console.log("Events"+this.events);
+        //this.calculateAmount()
+        //   if (this.events.length == 0) {
+        //     this.hasEvents = false;
+        //   }
+        //   else {
+        //     this.hasEvents = true;
+        //   }
+        //   if (this.events[0].status == 'Paid') {
+        //     this.paymentConfirmed = true;
+        //   } else {
+        //     this.paymentConfirmed = false;
+        //   }
+         }
+      });
   }
 
   // processFile(hadEvent:any) {
@@ -182,7 +192,6 @@ export class CartComponent implements OnInit {
   // }
 
   calculateAmount() {
-    this.amount = 0;
     this.workshops.forEach(workshop => {
       this.amount += workshop.event_id.amount;
     });
@@ -196,38 +205,26 @@ export class CartComponent implements OnInit {
     this.txnId = this.txnId.substr(0, 25);
     return this.txnId;
   }
-  payOnline() {
-    var txnId = this.genTxnId();
-    const body = {
-      key: this.appService.getKey(),
-      txnId: this.genTxnId(),
-      amount: this.amount,
-      productInfo : this.appService.getProductInfo(),
-      name: JSON.parse(localStorage.getItem('user')).name,
-      email : JSON.parse(localStorage.getItem('user')).email_id,
-      mobile_number: JSON.parse(localStorage.getItem('user')).mobile_number,
-      gmID: JSON.parse(localStorage.getItem('user')).gmID,
-      surl: 'http://localhost:4200/payment/success',
-      furl: 'http://localhost:4200/payment/failure',
-      hash:this.hashData(this.amount)
-    }
-  }
+  
   hashData(amount: any) {
-   // var hashData;
-    var body= {
-      key : this.appService.getKey(),
-      salt : this.appService.getSalt(),
-      totalAmount : amount + (amount * this.appService.getTransactionFee()),
-      txnId : this.genTxnId(),
-      productInfo : this.appService.getProductInfo(),
-      name : JSON.parse(localStorage.getItem('user')).name,
-      email : JSON.parse(localStorage.getItem('user')).email_id,
-      mobile_number : JSON.parse(localStorage.getItem('user')).mobile_number,
-      gmId : JSON.parse(localStorage.getItem('user')).gmID,
-    } 
+    var body = {
+      key: this.appService.getKey(),
+      salt: this.appService.getSalt(),
+      totalAmount: amount + (amount * this.appService.getTransactionFee()),
+      txnId: this.genTxnId(),
+      productInfo: this.appService.getProductInfo(),
+      name: JSON.parse(localStorage.getItem('user')).name,
+      email: JSON.parse(localStorage.getItem('user')).email_id,
+      mobile_number: JSON.parse(localStorage.getItem('user')).mobile_number,
+      gmId: JSON.parse(localStorage.getItem('user')).gmID,
+    }
+    console.log(this.amount);
     this.paymentService.genHash(body).subscribe((response: any) => {
-      this.data = response.hash;
+      this.data.push(response.hash);
+
+      //console.log(hashdata);
     });
+    
   }
   reverseString(str: String) {
     // Step 1. Use the split() method to return a new array

@@ -71,13 +71,13 @@ export class EventRegistrationService {
     return this.http.get(this.app.getUrl(this.baseUrl) + 'checkEventRegistration/' + event_id + "/" + user_id);
   }
 
-  getWorkshops(user_id: String) {
+  getUserWorkshops(user_id: String) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this.http.get(this.app.getUrl(this.baseUrl) + 'getRegistrations/' + user_id + "/Workshop");
   }
 
-  getEventRegistrations(user_id: String) {
+  getUserEvents(user_id: String) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this.http.get(this.app.getUrl(this.baseUrl) + 'getRegistrations/' + user_id + "/Event");
@@ -160,6 +160,11 @@ export class EventRegistrationService {
     this.http.get(this.app.getUrl(this.baseUrl) + 'checkEventRegistrationStatus/'+event_id+'/'+user_id).subscribe((response:any)=>{
       return response.registered;
     });
+  }
+  getWorkshops() {
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
   }
 
 }

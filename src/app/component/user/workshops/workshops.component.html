@@ -80,13 +80,16 @@
                 <span class="float-left"> {{workshop.event_date | date }}</span>
                 <span class="float-right">
                   <div *ngIf="authService.isLoggedIn()">
-                      <div *ngIf="statusesLoaded">
-                      <div *ngIf="!isCartConfirmed">
-                        <button type="button" *ngIf="!statuses[workshop._id].registered" class="btn btn-outline-primary"
+                      <!--<div *ngIf="statusesLoaded">
+                      <div *ngIf="!isCartConfirmed">-->
+                        <button type="button" class="btn btn-outline-primary"
                           (click)="selectWorkshop(workshop._id)" style="width:100%">
                           Register Now <i class="la la-angle-right"></i>
                         </button>
-                        <button type="button" *ngIf="statuses[workshop._id].registered" class="btn btn-sm round btn-bg-gradient-x-purple-red"
+                        <span *ngIf="user.cart_confirmed">
+                            Already Registered!
+                          </span>
+                        <!--<button type="button" *ngIf="statuses[workshop._id].registered" class="btn btn-sm round btn-bg-gradient-x-purple-red"
                           style="width:100%">
                           <span *ngIf="statuses[workshop._id].msg != 'Already Registered!'">
                             Parallel Workshop Registered
@@ -96,15 +99,15 @@
                           </span>
                         </button>
                       </div>
-                    </div>
-                    <div *ngIf="isCartConfirmed">
+                    </div>-->
+                    <!--<div *ngIf="isCartConfirmed">
                       <button type="button" class="btn btn-outline-danger" style="width:100%">
                         Cart already Confirmed
                       </button>
-                    </div>
+                    </div>-->
                   </div>
                   <div *ngIf="!authService.isLoggedIn()">
-                    <a class="btn btn-lg btn-glow btn-bg-gradient-x-blue-purple-2" style="width:100%" [routerLink]="['/user/login']"
+                    <a class="btn btn-outline-primary" style="width:100%" [routerLink]="['/user/login']"
                       [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">Login to Register</a>
                   </div>
                 </span>
