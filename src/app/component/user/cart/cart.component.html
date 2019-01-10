@@ -24,13 +24,13 @@
                     <div class="col-4" *ngFor="let workshop of workshops">
                         <div class="card pull-up">
                             <div class="card-body">
-                                <h3 class="card-title">{{workshop.title}} <span class="card-title activator grey-text text-darken-4 float-right"><i
+                                <h3 class="card-title">{{workshop.event_id.title}} <span class="card-title activator grey-text text-darken-4 float-right"><i
                                             class="fas fa-ellipsis-v right"></i></span></h3>
-                                <h6 class="card-subtitle text-muted">Department of {{workshop.department_id.name}}</h6>
+                                <h6 class="card-subtitle text-muted">Department of {{workshop.event_id.department_id.name}}</h6>
                             </div>
-                            <img class="activator card-image" src="http://www.gyanmitra19.mepcoeng.ac.in/assests/images/events/{{workshop.image_name}}">
+                            <img class="activator card-image" src="http://www.gyanmitra19.mepcoeng.ac.in/assests/images/events/{{workshop.event_id.image_name}}">
                             <div class="card-body">
-                                {{workshop.description}}
+                                {{workshop.event_id.description}}
                             </div>
                             <div class="card-body">
                                 <div class="container">
@@ -38,24 +38,24 @@
                                         Resource Person
                                     </div>
                                     <div class="row">
-                                        {{workshop.resource_person}}
+                                        {{workshop.event_id.resource_person}}
                                     </div>
                                 </div>
                             </div>
                             <div class="card-body">
                                 Contact <p class="card-text">
-                                    <a href="mailto:{{workshop.contact_email}}">{{workshop.contact_email}}</a>
+                                    <a href="mailto:{{workshop.event_id.contact_email}}">{{workshop.event_id.contact_email}}</a>
                                 </p>
                             </div>
                             <div class="card-reveal">
                                 <span class="card-title grey-text text-darken-4">Pre Requesites<i class="fas fa-times float-right"></i></span>
-                                {{workshop.rules}}
+                                {{workshop.event_id.rules}}
                                 <hr />
                                 <h4>Timing</h4>
 
-                                Date : {{workshop.event_date | date}}
-                                {{workshop.start_time}} -
-                                {{workshop.end_time}}
+                                Date : {{workshop.event_id.event_date | date}}
+                                {{workshop.event_id.start_time}} -
+                                {{workshop.event_id.end_time}}
                             </div>
                         </div>
                     </div>

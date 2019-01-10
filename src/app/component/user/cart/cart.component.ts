@@ -29,7 +29,6 @@ export class CartComponent implements OnInit {
   }
   
   ngOnInit() {
-    
     this.getUserEvents();
     this.currentUserId = '';
     this.user = (JSON.parse(localStorage.getItem('user')))
@@ -38,14 +37,12 @@ export class CartComponent implements OnInit {
     }
     const data = this.getUserWorkshops.bind(this);
     data(this.currentUserId);
-    console.log();
+    this.getUserWorkshops(this.user.id);
   }
   getUserWorkshops(user_id:string) {
-    this.eventRegistrationService.getUserWorkshops(user_id).subscribe((response: any) => {
-      if (response.error) {
-        console.log(response.msg);
-      } else {
-        this.workshops = response.msg;
+    this.eventRegistrationService.getUserWorkshops(user_id).subscribe((res: any)=>{
+      if(res){
+        this.workshops = res.msg;
       }
     })
   }
