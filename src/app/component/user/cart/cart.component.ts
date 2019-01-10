@@ -118,57 +118,57 @@ export class CartComponent implements OnInit {
   }
 
   getWorkshops() {
-    this.eventRegistrationService.getWorkshops(this.user_id).subscribe((response: any) => {
-      if (response.error == true) {
-        M.toast({ html: response.msg, classes: 'roundeds danger' });
-      }
-      else {
-        this.workshops = response;
-        console.log(this.workshops);
-        // this.calculateAmount();
-        // if (this.workshops.length == 0) {
-        //   this.hasWorkshops = false;
-        // }
-        // else {
-        //   this.hasWorkshops = true;
-          // if (this.workshops[0].status == 'Verifying Payment') {
-          //   this.paymentSent = true;
-          // }
-          // else {
-          //   this.paymentSent = false;
-          // }
-          // if (this.workshops[0].status == 'Paid') {
-          //   this.paymentConfirmed = true;
-          // } else {
-          //   this.paymentConfirmed = false;
-          // }
-        // }
-      }
-    })
+    // this.eventRegistrationService.getWorkshops(this.user_id).subscribe((response: any) => {
+    //   if (response.error == true) {
+    //     M.toast({ html: response.msg, classes: 'roundeds danger' });
+    //   }
+    //   else {
+    //     this.workshops = response;
+    //     console.log(this.workshops);
+    //     // this.calculateAmount();
+    //     // if (this.workshops.length == 0) {
+    //     //   this.hasWorkshops = false;
+    //     // }
+    //     // else {
+    //     //   this.hasWorkshops = true;
+    //       // if (this.workshops[0].status == 'Verifying Payment') {
+    //       //   this.paymentSent = true;
+    //       // }
+    //       // else {
+    //       //   this.paymentSent = false;
+    //       // }
+    //       // if (this.workshops[0].status == 'Paid') {
+    //       //   this.paymentConfirmed = true;
+    //       // } else {
+    //       //   this.paymentConfirmed = false;
+    //       // }
+    //     // }
+    //   }
+    // })
   }
 
   getEvents() {
-    this.eventRegistrationService.getEventRegistrations(this.user_id).subscribe((response: any) => {
-      if (response.error == true) {
-        M.toast({ html: response.msg, classes: 'roundeds danger' });
-      }
-      else {
-        this.events = response;
-        console.log("Events"+this.events);
-        //this.calculateAmount()
-        //   if (this.events.length == 0) {
-        //     this.hasEvents = false;
-        //   }
-        //   else {
-        //     this.hasEvents = true;
-        //   }
-        //   if (this.events[0].status == 'Paid') {
-        //     this.paymentConfirmed = true;
-        //   } else {
-        //     this.paymentConfirmed = false;
-        //   }
-         }
-      });
+    // this.eventRegistrationService.getEventRegistrations(this.user_id).subscribe((response: any) => {
+    //   if (response.error == true) {
+    //     M.toast({ html: response.msg, classes: 'roundeds danger' });
+    //   }
+    //   else {
+    //     this.events = response;
+    //     console.log("Events"+this.events);
+    //     //this.calculateAmount()
+    //     //   if (this.events.length == 0) {
+    //     //     this.hasEvents = false;
+    //     //   }
+    //     //   else {
+    //     //     this.hasEvents = true;
+    //     //   }
+    //     //   if (this.events[0].status == 'Paid') {
+    //     //     this.paymentConfirmed = true;
+    //     //   } else {
+    //     //     this.paymentConfirmed = false;
+    //     //   }
+    //      }
+    //   });
   }
 
   // processFile(hadEvent:any) {
