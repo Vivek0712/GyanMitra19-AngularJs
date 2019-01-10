@@ -24,15 +24,17 @@
               Cart</button>
           </ng-container>
           <ng-template #paymentEnable>
-            <!-- <ng-container *ngIf="!user.cart_dd_image; else showPayment">
-
-            </ng-container> -->
-            <!-- <ng-template #showPayment> -->
+            <ng-container *ngIf="user.cart_paid; else showPayment">
+                <span class="white">
+                    Cart Confirmed | Paid
+                </span>
+            </ng-container>
+            <ng-template #showPayment>
               <button class="btn btn-bg-gradient-x-orange-yellow border-white border-2">Pay
                 Online</button>
               <button class="btn btn-bg-gradient-x-blue-cyan border-white border-2  float-right" data-toggle="modal"
                 data-target="#DDModal">Upload DD</button>
-            <!-- </ng-template> -->
+            </ng-template>
 
           </ng-template>
         </span>
