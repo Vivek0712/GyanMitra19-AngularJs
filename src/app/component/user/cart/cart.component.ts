@@ -24,9 +24,8 @@ export class CartComponent implements OnInit {
   user: any;
   totalAmount: number;
   public currentUserId: string;
-  isCartConfirmed: Boolean;
-  constructor(private eventRegistrationService: EventRegistrationService) { 
-  
+  isCartConfirmed: Boolean = false;
+  constructor(private eventRegistrationService: EventRegistrationService, private userService: UserService) { 
   }
   
   ngOnInit() {
@@ -35,6 +34,7 @@ export class CartComponent implements OnInit {
     this.user = (JSON.parse(localStorage.getItem('user')))
     if (this.user != null) {
       this.currentUserId = this.user.id;
+      this.isCartConfirmed = this.user.cart_confirmed
     }
     const data = this.getUserWorkshops.bind(this);
     data(this.currentUserId);
@@ -45,7 +45,7 @@ export class CartComponent implements OnInit {
   getUserWorkshops(user_id:string) {
     this.eventRegistrationService.getUserWorkshops(user_id).subscribe((res: any)=>{
       if(res){
-        this.events = res.msg;
+        this.workshops = res.msg;
         this.calculateAmount();
       }
     })
@@ -63,14 +63,41 @@ export class CartComponent implements OnInit {
     }
   }
 
+  removeRegistration(registration_id: string){
+    this.eventRegistrationService.cancelEventRegistration(registration_id).subscribe((response: any)=>{
+
+    })
+  }
+
   getUserEvents(user_id: string) {
     this.eventRegistrationService.getUserEvents(user_id).subscribe((res: any)=>{
       if(res){
-        this.workshops = res.msg;
+        this.events = res.msg;
         this.calculateAmount()
       }
     })
   }
+
+  
+  confirmCart() {
+    this.userService.confirmCart(this.user.id).subscribe((response: any) => {
+      if (response.error == true) {
+        M.toast({ html: response.msg, classes: 'roundeds' });
+      }
+      else {
+        M.toast({ html: response.msg, classes: 'roundeds' });
+        this.getUserEvents(this.user.id);
+        this.getUserWorkshops(this.user.id);
+        this.calculateAmount();
+        this.userService.isCartConfirmed(this.user.id).subscribe((response: any) => {
+          if (!response.error) {
+            this.isCartConfirmed = response.isCartConfirmed;
+          }
+        })
+      }
+    })
+  }
+
   // workshops: Array<any>;
   // events: Array<any>;
   // user_id: string;
