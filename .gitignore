@@ -7,8 +7,9 @@
 
 # dependencies
 /node_modules
-
+/src/environments
 # IDEs and editors
+/config
 /.idea
 .project
 .classpath
