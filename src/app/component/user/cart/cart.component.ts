@@ -20,65 +20,69 @@ declare var M: any;
 })
 export class CartComponent implements OnInit {
   workshops: Array<string> = [];
-  events: Array<string>=[];
+  events: Array<string> = [];
   user: any;
   totalAmount: number;
   public currentUserId: string;
   isCartConfirmed: Boolean = false;
-  constructor(private eventRegistrationService: EventRegistrationService, private userService: UserService) { 
+  constructor(private eventRegistrationService: EventRegistrationService, private userService: UserService) {
   }
-  
+
   ngOnInit() {
     this.currentUserId = '';
     this.totalAmount = 0;
     this.user = (JSON.parse(localStorage.getItem('user')))
     if (this.user != null) {
       this.currentUserId = this.user.id;
-      this.isCartConfirmed = this.user.cart_confirmed
     }
     const data = this.getUserWorkshops.bind(this);
     data(this.currentUserId);
     this.getUserWorkshops(this.user.id);
     this.getUserEvents(this.user.id);
+    this.checkCartConfirmation();
   }
 
-  getUserWorkshops(user_id:string) {
-    this.eventRegistrationService.getUserWorkshops(user_id).subscribe((res: any)=>{
-      if(res){
+  checkCartConfirmation() {
+    this.userService.isCartConfirmed(this.user.id).subscribe((response: any) => {
+      this.isCartConfirmed = response.isCartConfirmed
+    })
+  }
+
+  getUserWorkshops(user_id: string) {
+    this.eventRegistrationService.getUserWorkshops(user_id).subscribe((res: any) => {
+      if (res) {
         this.workshops = res.msg;
         this.calculateAmount();
       }
     })
   }
 
-  calculateAmount(){
+  calculateAmount() {
     this.totalAmount = 0;
-    if(this.events.length != 0){
+    if (this.events.length != 0) {
       this.totalAmount += 200
     }
-    if(this.workshops.length != 0){
-      this.workshops.forEach((workshop: any)=>{
+    if (this.workshops.length != 0) {
+      this.workshops.forEach((workshop: any) => {
         this.totalAmount += workshop.event_id.amount
       })
     }
   }
 
-  removeRegistration(registration_id: string){
-    this.eventRegistrationService.cancelEventRegistration(registration_id).subscribe((response: any)=>{
+  removeRegistration(registration_id: string) {
+    this.eventRegistrationService.cancelEventRegistration(registration_id).subscribe((response: any) => {
 
     })
   }
 
   getUserEvents(user_id: string) {
-    this.eventRegistrationService.getUserEvents(user_id).subscribe((res: any)=>{
-      if(res){
+    this.eventRegistrationService.getUserEvents(user_id).subscribe((res: any) => {
+      if (res) {
         this.events = res.msg;
         this.calculateAmount()
       }
     })
   }
-
-  
   confirmCart() {
     this.userService.confirmCart(this.user.id).subscribe((response: any) => {
       if (response.error == true) {
@@ -86,6 +90,7 @@ export class CartComponent implements OnInit {
       }
       else {
         M.toast({ html: response.msg, classes: 'roundeds' });
+        this.isCartConfirmed = true;
         this.getUserEvents(this.user.id);
         this.getUserWorkshops(this.user.id);
         this.calculateAmount();
@@ -94,6 +99,40 @@ export class CartComponent implements OnInit {
             this.isCartConfirmed = response.isCartConfirmed;
           }
         })
+      }
+    })
+  }
+
+  processFile(hadEvent: any) {
+    let fileList: FileList = hadEvent.target.files;
+    if (fileList.length > 0) {
+      let file: File = fileList[0];
+      let formData: FormData = new FormData();
+      formData.append('uploadFile', file, file.name);
+      formData.append('id', this.user.id);
+      this.userService.uploadCartDDImage(formData).subscribe((response: any) => {
+        if (response.error == true) {
+          M.toast({ html: response.msg, classes: 'roundeds danger' });
+        }
+        else {
+          M.toast({ html: response.msg, classes: 'roundeds' });
+          this.getUserEvents(this.user.id);
+          this.getUserWorkshops(this.user.id);
+        }
+      })
+    }
+  }
+
+  cancelEventRegistration(_id: string) {
+    this.eventRegistrationService.cancelEventRegistration(_id).subscribe((response: any) => {
+      if (response.error == true) {
+        M.toast({ html: response.msg, classes: 'roundeds' });
+      }
+      else {
+        M.toast({ html: response.msg, classes: 'roundeds' });
+        this.getUserEvents(this.user.id);
+        this.getUserWorkshops(this.user.id)
+        this.calculateAmount();
       }
     })
   }
@@ -128,7 +167,7 @@ export class CartComponent implements OnInit {
   // }
 
   // ngOnInit() {
-    
+
   //   this.calculateAmount();
   //   this.getWorkshops();
   //   this.getEvents();
@@ -281,7 +320,7 @@ export class CartComponent implements OnInit {
   //   this.txnId = this.txnId.substr(0, 25);
   //   return this.txnId;
   // }
-  
+
   // hashData(amount: any) {
   //   var body = {
   //     key: this.appService.getKey(),
@@ -300,7 +339,7 @@ export class CartComponent implements OnInit {
 
   //     //console.log(hashdata);
   //   });
-    
+
   // }
   // reverseString(str: String) {
   //   // Step 1. Use the split() method to return a new array
