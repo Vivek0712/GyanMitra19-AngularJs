@@ -3,12 +3,12 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false,
+  production: true,
   backend: {
-    server: 'http://localhost:3000'
+    server: 'http://www.gyanmitra19.mepcoeng.ac.in'
   },
   frontend: {
-    server: 'http://localhost:4200'
+    server: 'http://www.gyanmitra19.mepcoeng.ac.in'
   },
   payment: {
     key: 'gtKFFx',
