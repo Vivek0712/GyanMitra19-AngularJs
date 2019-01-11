@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EventRegistrationService } from 'src/app/services/eventRegistration/event-registration.service';
+import { AppService } from 'src/app/services/app/app.service';
 declare var M: any;
 
 @Component({
@@ -14,7 +15,7 @@ export class AdminCartConfirmationComponent implements OnInit {
   unconfirmedUsers: Array<any> = [];
   ddImage: string;
   selectedUser: string;
-  constructor(private eventRegistrtationService: EventRegistrationService) { }
+  constructor(private eventRegistrtationService: EventRegistrationService, private appService: AppService) { }
 
   ngOnInit() {
     this.loadUnconfirmedDDPayments();
@@ -50,28 +51,30 @@ export class AdminCartConfirmationComponent implements OnInit {
   }
 
   loadEvents(_id: string) {
-    // this.eventRegistrtationService.getEventRegistrations(_id).subscribe((response: any) => {
-    //   this.events = response;
-    //   this.calculateAmount();
-    // })
+    this.eventRegistrtationService.getUserEvents(_id).subscribe((response: any) => {
+      this.events = response.msg;
+      this.calculateAmount();
+    })
   }
 
   loadWorkshops(_id: string) {
-    // this.eventRegistrtationService.getWorkshops(_id).subscribe((response: any) => {
-    //   this.workshops = response;
-    //   this.calculateAmount();
-    // })
+    this.eventRegistrtationService.getUserWorkshops(_id).subscribe((response: any) => {
+      this.workshops = response.msg;
+      this.calculateAmount();
+    })
   }
 
+  
   calculateAmount() {
     this.amount = 0;
-    this.workshops.forEach(workshop => {
-      this.amount += workshop.event_id.amount;
-    });
     if (this.events.length != 0) {
-      this.amount += 200;
+      this.amount += 200
     }
-
+    if (this.workshops.length != 0) {
+      this.workshops.forEach((workshop: any) => {
+        this.amount += workshop.event_id.amount
+      })
+    }
   }
 }
 

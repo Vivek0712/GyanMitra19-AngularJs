@@ -32,10 +32,10 @@ export class UserService {
     return this.http.get(this.app.getUrl(this.baseUrl)+'participants');
   }
 
-  uploadCartDDImage(formData: FormData) {
+  confirmDD(id: string) {
     let headers = new Headers();
     headers.append('Content-Type', 'multipart/form-data');
-    return this.http.post(this.app.getUrl(this.baseUrl) + 'uploadCartDDImage/'+formData.get('id'), formData);
+    return this.http.post(this.app.getUrl(this.baseUrl) + 'uploadCartDDImage/'+id,{});
   }
 
   confirmCart(_id){
