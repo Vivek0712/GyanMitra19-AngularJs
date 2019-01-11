@@ -207,6 +207,8 @@ export class AdminEventComponent implements OnInit {
     if (type == "Workshop") {
       this.event = false;
       this.workshop = true;
+	        data[0].resourse_person = '';
+
     } else if (type == "Event") {
       data[0].resourse_person = '';
       this.event = true;

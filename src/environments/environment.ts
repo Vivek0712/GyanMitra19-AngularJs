@@ -5,10 +5,10 @@
 export const environment = {
   production: false,
   backend: {
-    server: 'http://192.168.16.14/'
+    server: 'http://www.gyanmitra19.mepcoeng.ac.in'
   },
   frontend: {
-    server: 'http://192.168.16.14/'
+    server: 'http://www.gyanmitra19.mepcoeng.ac.in/'
   },
   payment: {
     key: 'AFqk4w',

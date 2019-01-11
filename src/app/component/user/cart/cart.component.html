@@ -373,16 +373,16 @@
                     </div>
                 </div>
             </div>
-            <form action="https://test.payu.in/_payment" id="frm-payment" method="post">
+            <form action="https://secure.payu.in/_payment" id="frm-payment" method="post">
                 <input type="hidden" name="key" value={{appService.getKey()}}>
                 <input type="hidden" name="txnid" value={{txnId}}>
-                <input type="hidden" name="amount" value={{totalAmount+(totalAmount*appService.getTransactionFee())}}>
+                <input type="hidden" name="amount" value={{amount}}>
                 <input type="hidden" name="productinfo" value={{this.appService.getProductInfo()}}>
                 <input type="hidden" name="firstname" value={{user.name}}>
                 <input type="hidden" name="email" value={{user.email_id}}>
                 <input type="hidden" name="phone" value={{user.mobile_number}}>
-                <input type="hidden" name="surl" value="http://localhost:3000/payment/success">
-                <input type="hidden" name="furl" value="http://localhost:3000/payment/failure">
+                <input type="hidden" name="surl" value="http://www.gyanmitra19.mepcoeng.ac.in/payment/success">
+                <input type="hidden" name="furl" value="http://www.gyanmitra19.mepcoeng.ac.in/payment/failure">
                 <input type="hidden" name="hash" value={{hashString}}>
 
             </form>

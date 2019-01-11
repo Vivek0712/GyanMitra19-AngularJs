@@ -24,6 +24,7 @@ export class CartComponent implements OnInit {
   hashString: string;
   submitted: Boolean = false;
   count: number;
+  amount:number;
   constructor(private eventRegistrationService: EventRegistrationService,
     private userService: UserService,
     private paymentService: PaymentService,
@@ -36,6 +37,7 @@ export class CartComponent implements OnInit {
   }
 
   ngOnInit() {
+  this.amount=1;
     this.count = 0;
     this.currentUserId = '';
     this.totalAmount = 0;
@@ -159,7 +161,7 @@ export class CartComponent implements OnInit {
       var body = {
         key: this.appService.getKey(),
         salt: this.appService.getSalt(),
-        amount: tamount,
+        amount: 1,
         txnId: this.txnId,
         productInfo: this.appService.getProductInfo(),
         name: JSON.parse(localStorage.getItem('user')).name,
