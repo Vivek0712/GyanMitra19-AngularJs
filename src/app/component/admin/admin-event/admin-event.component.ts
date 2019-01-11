@@ -176,7 +176,7 @@ export class AdminEventComponent implements OnInit {
       amount: '',
       allow_gender_mixing: '',
       resourse_person: '',
-	  __v: ''
+	    __v: ''
     });
     this.Button = 'Create';
   }
@@ -208,7 +208,7 @@ export class AdminEventComponent implements OnInit {
     if (type == "Workshop") {
       this.event = false;
       this.workshop = true;
-	  data[0].resourse_person = '';
+	    data[0].resourse_person = '';
 
     } else if (type == "Event") {
       data[0].resourse_person = '';
