@@ -15,11 +15,6 @@ export class PaymentService {
     headers.append('Content-Type', 'application/json');
     return this.http.post(this.app.getUrl(this.baseUrl + 'getHash'), data).pipe(map(res => res, { 'headers': headers }));
   }
-  payment(data: any) {
-    const headers = new Headers();
-    headers.append('Content-Type', 'text/json');
-    console.log(data);
-    return this.http.post(this.app.getPaymentUrl(), data).pipe(map(res => res, { 'headers': headers }));
-  }
+
   
 }

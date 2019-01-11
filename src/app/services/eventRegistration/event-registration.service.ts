@@ -72,7 +72,6 @@ export class EventRegistrationService {
   }
 
   getUserWorkshops(user_id: String) {
-    console.log(user_id);
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this.http.get(this.app.getUrl(this.baseUrl) + 'userRegisteredEvents/' + user_id + "/Workshop");

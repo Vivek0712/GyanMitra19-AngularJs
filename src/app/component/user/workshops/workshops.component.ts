@@ -3,6 +3,7 @@ import { EventService } from 'src/app/services/event/event.service';
 import { EventRegistrationService } from 'src/app/services/eventRegistration/event-registration.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { DepartmentService } from 'src/app/services/department/department.service';
+import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 declare var M: any;
 
 @Component({
@@ -21,7 +22,12 @@ export class WorkshopsComponent implements OnInit {
   isCartConfirmed: Boolean = true;
   statusesLoaded: Boolean = false;
   currentPage: any = 1
-  constructor(private eventService: EventService,  private eventRegistrationService: EventRegistrationService, public authService: AuthService, private deptService: DepartmentService) {
+  paymentForm: FormGroup;
+  constructor(private eventService: EventService,
+    private eventRegistrationService: EventRegistrationService,
+    public authService: AuthService,
+    private deptService: DepartmentService,
+    private formBuilder:FormBuilder) {
     this.currentPage = 1;
     this.eventService.readWithPageAndDepartment('Workshop', this.searchText, 1).subscribe((response: any) => {
       this.workshops = response;
@@ -73,11 +79,6 @@ export class WorkshopsComponent implements OnInit {
       this.departments = response;
     })
   }
-
-  
-
-  
- 
 
   getRegistrations() {
     this.eventRegistrationService.getRegisteredEvents(this.currentUserId, 'Workshop').subscribe((response: any) => {

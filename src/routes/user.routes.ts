@@ -15,6 +15,8 @@ import { GyanMitra18Component } from 'src/app/component/user/gyan-mitra18/gyan-m
 import { AdminGuard } from 'src/app/guard/admin/admin.guard';
 import { PaymentSuccessComponent } from 'src/app/component/user/payment-success/payment-success.component';
 import { PaymentFailureComponent } from 'src/app/component/user/payment-failure/payment-failure.component';
+import { AccFailureComponent } from 'src/app/component/user/acc-failure/acc-failure.component';
+import { AccSuccessComponent } from 'src/app/component/user/acc-success/acc-success.component';
 
 
 export const USER_ROUTE: Routes = [
@@ -29,6 +31,9 @@ export const USER_ROUTE: Routes = [
      { path: 'accomodation', component: UserAccomodationComponent},
      { path: 'teamRegister/:id', component: TeamRegisterComponent },
      { path: 'gyanmitra18', component: GyanMitra18Component },
-     { path: 'payment/success', component: PaymentSuccessComponent },
-     { path: 'payment/failure',component:PaymentFailureComponent}
+     { path: 'payment/success', component: PaymentSuccessComponent,canActivate:[AuthGuard]},
+     { path: 'payment/failure', component: PaymentFailureComponent, canActivate: [AuthGuard] },
+     { path: 'acc/payment/success', component: AccSuccessComponent,canActivate:[AuthGuard]},
+     { path: 'acc/payment/failure', component: AccFailureComponent, canActivate: [AuthGuard] }
+          
 ];

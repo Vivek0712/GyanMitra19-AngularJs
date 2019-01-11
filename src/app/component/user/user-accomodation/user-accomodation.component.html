@@ -52,22 +52,22 @@
                     <div class="form-group">
                       <div class="row">
                         <div class="col-5">
-                         
-                          <select class="custom-select"  placeholder="Number of Days"formControlName="acc_days">
-                            <option value="0" selected disabled>Number of Days</option>  
+
+                          <select class="custom-select" placeholder="Number of Days" formControlName="acc_days">
+                            <option value="0" selected disabled>Number of Days</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
                           </select>
-  
+
                         </div>
                         <div class="col-2">
-                            <button type="reset" class="btn btn-outline-success right">Reset</button>
+                          <button type="reset" class="btn btn-outline-success right">Reset</button>
                         </div>
                         <div class="col-2">
-                            <button type="submit" class="btn btn-outline-success right">Apply</button>
+                          <button type="submit" class="btn btn-outline-success right">Apply</button>
                         </div>
                       </div>
-                      
+
                     </div>
                   </form>
                 </div>
@@ -78,7 +78,8 @@
                       <hr />
                       <div class="form-group">
                         <div class="row">
-                          <button class="btn btn-linkedin" type="button">Pay Online</button>
+                            <button class="btn btn-bg-gradient-x-blue-cyan border-white border-2  float-right"
+                            (click)="payOnline()" data-toggle="modal" data-target="#PayOnline">Online</button>
                           <button class="btn btn-google" type="button" data-toggle="collapse" data-target="#DDUpload">Upload
                             Demand Draft</button>
                         </div>
@@ -106,6 +107,39 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+<form action="https://test.payu.in/_payment" id="frm-payment" method="post">
+  <input type="hidden" name="key" value={{appService.getKey()}}>
+  <input type="hidden" name="txnid" value={{txnId}}>
+  <input type="hidden" name="amount" value={{totalAmount+(totalAmount*appService.getTransactionFee())}}>
+  <input type="hidden" name="productinfo" value={{this.appService.getProductInfo()}}>
+  <input type="hidden" name="firstname" value={{user.name}}>
+  <input type="hidden" name="email" value={{user.email_id}}>
+  <input type="hidden" name="phone" value={{user.mobile_number}}>
+  <input type="hidden" name="surl" value="http://localhost:3000/payment/acc/success">
+  <input type="hidden" name="furl" value="http://localhost:3000/payment/acc/failure">
+  <input type="hidden" name="hash" value={{hashString}}>
+
+</form>
+<div class="modal fade" id="PayOnline" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Cart Amount - Rs.
+          {{totalAmount+(totalAmount*appService.getTransactionFee())}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        DO You Really Want Pay Online?
+      </div>
+      <div class="modal-footer">
+        <button type="submit" onclick="$('#frm-payment').submit()" class="btn btn-secondary">PAY</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>

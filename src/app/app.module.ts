@@ -71,6 +71,8 @@ import { ConfigurationsComponent } from './component/admin/configurations/config
 import { RulesTransformPipe } from './pipes/rules-transform.pipe';
 import { PaymentSuccessComponent } from './component/user/payment-success/payment-success.component';
 import { PaymentFailureComponent } from './component/user/payment-failure/payment-failure.component';
+import { AccFailureComponent } from './component/user/acc-failure/acc-failure.component';
+import { AccSuccessComponent } from './component/user/acc-success/acc-success.component';
 
 /////////////////////////////////////////////////////////////////
 
@@ -120,6 +122,8 @@ import { PaymentFailureComponent } from './component/user/payment-failure/paymen
     RulesTransformPipe,
     PaymentSuccessComponent,
     PaymentFailureComponent,
+    AccFailureComponent,
+    AccSuccessComponent,
   ],
   imports: [
     BrowserModule,
