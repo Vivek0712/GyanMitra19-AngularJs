@@ -175,7 +175,8 @@ export class AdminEventComponent implements OnInit {
       venue: '',
       amount: '',
       allow_gender_mixing: '',
-      resourse_person: ''
+      resourse_person: '',
+	  __v: ''
     });
     this.Button = 'Create';
   }
