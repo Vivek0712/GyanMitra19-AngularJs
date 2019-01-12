@@ -78,8 +78,7 @@
                       <hr />
                       <div class="form-group">
                         <div class="row">
-                            <button class="btn btn-bg-gradient-x-blue-cyan border-white border-2  float-right"
-                            (click)="payOnline()" data-toggle="modal" data-target="#PayOnline">Online</button>
+                            
                           <button class="btn btn-google" type="button" data-toggle="collapse" data-target="#DDUpload">Upload
                             Demand Draft</button>
                         </div>
@@ -119,8 +118,8 @@
   <input type="hidden" name="firstname" value={{user.name}}>
   <input type="hidden" name="email" value={{user.email_id}}>
   <input type="hidden" name="phone" value={{user.mobile_number}}>
-  <input type="hidden" name="surl" value="http://localhost:3000/payment/acc/success">
-  <input type="hidden" name="furl" value="http://localhost:3000/payment/acc/failure">
+  <input type="hidden" name="surl" value="http://www.gyanmitra19.mepcoeng.ac.in/payment/acc/success">
+  <input type="hidden" name="furl" value="http://www.gyanmitra19.mepcoeng.ac.in/payment/acc/failure">
   <input type="hidden" name="hash" value={{hashString}}>
 
 </form>
