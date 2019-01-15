@@ -3,7 +3,7 @@
     <div class="content-wrapper-before"></div>
     <div class="content-header row">
       <div class="content-header-left col-4">
-        <h3 class="content-header-title">Cart - Rs. {{totalAmount}}</h3>
+        <h3 class="content-header-title">Carts - Rs. {{this.totalAmount}}</h3>
       </div>
       <div class="content-header-right col-4">
         <div class="breadcrumbs-top float-md-right">
@@ -43,7 +43,7 @@
     <form action="https://secure.payu.in/_payment" id="frm-payment" method="post">
       <input type="hidden" name="key" value={{appService.getKey()}}>
       <input type="hidden" name="txnid" value={{txnId}}>
-      <input type="hidden" name="amount" value={{amount}}>
+      <input type="hidden" name="amount" value={{totalAmount}}>
       <input type="hidden" name="productinfo" value={{this.appService.getProductInfo()}}>
       <input type="hidden" name="firstname" value={{user.name}}>
       <input type="hidden" name="email" value={{user.email_id}}>
@@ -57,7 +57,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">Cart Amount - Rs.
-              {{totalAmount+(totalAmount*appService.getTransactionFee())}}</h5>
+              {{totalAmount}}</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>

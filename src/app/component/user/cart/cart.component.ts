@@ -23,8 +23,8 @@ export class CartComponent implements OnInit {
   txnId: string;
   hashString: string;
   submitted: Boolean = false;
-  count: number;
-  amount:number;
+   amount:number;
+  
   constructor(private eventRegistrationService: EventRegistrationService,
     private userService: UserService,
     private paymentService: PaymentService,
@@ -37,8 +37,6 @@ export class CartComponent implements OnInit {
   }
 
   ngOnInit() {
-  this.amount=1;
-    this.count = 0;
     this.currentUserId = '';
     this.totalAmount = 0;
     this.user = (JSON.parse(localStorage.getItem('user')))
@@ -80,6 +78,7 @@ export class CartComponent implements OnInit {
         this.totalAmount += workshop.event_id.amount
       })
     }
+	this.totalAmount=this.totalAmount + (this.totalAmount * this.appService.getTransactionFee());
   }
 
   removeRegistration(registration_id: string) {
@@ -171,7 +170,7 @@ export class CartComponent implements OnInit {
       var body = {
         key: this.appService.getKey(),
         salt: this.appService.getSalt(),
-        amount: 1,
+        amount: this.totalAmount,
         txnId: this.txnId,
         productInfo: this.appService.getProductInfo(),
         name: JSON.parse(localStorage.getItem('user')).name,
@@ -181,10 +180,8 @@ export class CartComponent implements OnInit {
       console.log("In Traxn HashData" + this.txnId);
       this.paymentService.genHash(body).subscribe((response: any) => {
         if (response.error) {
-          console.log('ehello');
           this.hashString = response.hash;
         }
-        console.log(this.hashString);
       });
     }
   }

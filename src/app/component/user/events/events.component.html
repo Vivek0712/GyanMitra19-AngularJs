@@ -57,6 +57,7 @@
               <div class="card-reveal">
                 <span class="card-title grey-text text-darken-4">Description<i class="fas fa-times float-right"></i></span>
                 {{event.description}}
+				<hr/>
                 <span class="card-title grey-text text-darken-4">Rules</span>
                 <ul>
                   <li *ngFor="let rule of (event.rules | rulesTransform)">{{ rule }}</li>
@@ -92,7 +93,7 @@
                     </ng-template>
                   </ng-container>
                   <ng-template #notLoggedIn>
-                    <a class="btn btn-lg btn-glow btn-bg-gradient-x-blue-purple-2" style="width:100%" [routerLink]="['/user/login']"
+                    <a class="btn btn-outline-primary" style="width:100%" [routerLink]="['/user/login']"
                       [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">Login to Register</a>
                   </ng-template>
                 </span>
