@@ -29,13 +29,14 @@ export class RegistrationComponent implements OnInit {
   selectedGender: string;
   selectedParticipant: any;
 
-  constructor(private collegeService:CollegeService, private userService: UserService,private degreeService: DegreeService, private departmentService: DepartmentService) { }
+  constructor(private collegeService: CollegeService, private userService: UserService, private degreeService: DegreeService, private departmentService: DepartmentService) { }
 
   ngOnInit() {
-    this.currentPage=1;
+    this.currentPage = 1;
     this.getParticipants(1);
     this.getColleges();
-    this.selectedGender="Male";
+    this.selectedGender = "";
+    this.selectedCollegeId = "";
     this.selectedParticipant = {
       name: '',
       college_id: '',
@@ -47,12 +48,13 @@ export class RegistrationComponent implements OnInit {
       activated: false,
       confirmed: false
     }
+    this.searchText = "";
   }
 
-  getSelectedDepartment(){
+  getSelectedDepartment() {
     this.departmentService.readDepartment(0).subscribe((response: any) => {
       let dept: Array<any> = response;
-      dept = dept.filter((it)=>{
+      dept = dept.filter((it) => {
         return it._id == this.selectedParticipant.department_id;
       })
       this.selectedDepartment = dept[0].name;
@@ -60,33 +62,33 @@ export class RegistrationComponent implements OnInit {
   }
 
   getSelectedDegree() {
-    this.degreeService.readDegree(0).subscribe((response: any)=>{
+    this.degreeService.readDegree(0).subscribe((response: any) => {
       let degree: Array<any> = response;
-      degree = degree.filter((it)=>{
+      degree = degree.filter((it) => {
         return it._id == this.selectedParticipant.degree_id;
       })
       this.selectedDegree = degree[0].name;
     })
   }
 
-  getColleges(){
-    this.collegeService.readCollege(0).subscribe((response: any)=>{
-      this.colleges= response;
+  getColleges() {
+    this.collegeService.readCollege(0).subscribe((response: any) => {
+      this.colleges = response;
     })
   }
 
-  getAllParticipants(){
+  getAllParticipants() {
     this.userService.getAllParticipants().subscribe((response: any) => {
       this.participants = response;
     });
   }
 
-  reload(){
-    this.searchText='';
+  reload() {
+    this.searchText = '';
     this.getParticipants(1);
   }
 
-  loadFull(){
+  loadFull() {
     this.getAllParticipants();
   }
 
@@ -96,14 +98,14 @@ export class RegistrationComponent implements OnInit {
   //   })
   // }
 
-  confirmPayment(){
-    this.userService.confirmPayment(this.selectedParticipant._id).subscribe((response: any)=>{
+  confirmPayment() {
+    this.userService.confirmPayment(this.selectedParticipant._id).subscribe((response: any) => {
       M.toast({ html: response.msg, classes: 'roundeds' });
     })
   }
 
-  moreInfo(_id:String){
-    this.userService.getParticipant(_id).subscribe((response: any)=>{
+  moreInfo(_id: String) {
+    this.userService.getParticipant(_id).subscribe((response: any) => {
       this.selectedParticipant = response;
       this.getSelectedDepartment();
       this.getSelectedDegree();
@@ -111,43 +113,74 @@ export class RegistrationComponent implements OnInit {
   }
 
 
-  getParticipants(page: any){
+  getParticipants(page: any) {
     this.userService.getParticpants(page).subscribe((response: any) => {
-      if(response.docs.length == 0){
+      if (response.docs.length == 0) {
         this.currentPage -= 1;
         this.participants = []
       }
-      else{
+      else {
         this.participants = []
         this.participants = response.docs;
       }
     });
   }
 
-  nextPage(){
+  nextPage() {
     this.currentPage = this.currentPage + 1;
     this.getParticipants(this.currentPage);
   }
-  
+
   previousPage() {
-    if(this.currentPage == 1) {
+    if (this.currentPage == 1) {
     }
-    else{
-      this.currentPage = this.currentPage -1;
+    else {
+      this.currentPage = this.currentPage - 1;
       this.getParticipants(this.currentPage);
     }
   }
   deleteParticipant(id: string) {
-    console.log('helo');
     this.userService.deleteUser(id).subscribe((response: any) => {
-      if ( response.error ) {
-        M.toast({ html: response.msg, classes: 'roundeds' }); 
+      if (response.error) {
+        M.toast({ html: response.msg, classes: 'roundeds' });
         this.getParticipants(this.currentPage);
       } else {
         M.toast({ html: response.msg, classes: 'roundeds' });
         this.getParticipants(this.currentPage);
       }
     });
-    }
+  }
+
+  filter() {
+    this.userService.getAllParticipants().subscribe((response: any) => {
+      this.participants = [];
+
+      if (this.selectedGender != "" && this.selectedCollegeId != "") {
+        for (let user of response) {
+          if (user.gender == this.selectedGender && user.college_id == this.selectedCollegeId) {
+            this.participants.push(user);
+          }
+        }
+      }
+      else if (this.selectedGender != "") {
+        for (let user of response) {
+          if (user.gender == this.selectedGender) {
+            this.participants.push(user);
+          }
+        }
+      }
+      else if (this.selectedCollegeId != "") {
+        for (let user of response) {
+          if (user.college_id == this.selectedCollegeId) {
+            this.participants.push(user);
+          }
+        }
+      }
+      else {
+        this.participants = response;
+      }
+    });
+  }
+
 
 }

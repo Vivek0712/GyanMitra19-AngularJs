@@ -16,11 +16,13 @@ export class CourseComponent implements OnInit {
   Button: any;
   submitted:boolean;
   currentPage:any;
+  searchText: any;
   ngOnInit() {
     this.submitted=false;
     this.currentPage=1;
     this.createForm();
     this.getCourses(this.currentPage);
+    this.searchText = "";
   }
   nextPage(){
     this.currentPage = this.currentPage + 1;

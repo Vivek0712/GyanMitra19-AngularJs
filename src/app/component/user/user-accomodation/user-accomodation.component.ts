@@ -15,7 +15,7 @@ declare var M: any;
 })
 export class UserAccomodationComponent implements OnInit {
   _id: string;
-  accomodation: Array<any>;
+  accomodation: any;
   accomodationForm: FormGroup;
   imageForm: FormGroup;
   submitted: boolean;
@@ -23,7 +23,7 @@ export class UserAccomodationComponent implements OnInit {
   txnId: string;
   hashString: string;
   constructor(private accomodationService: AccomodationService,
-    private appService: AppService,
+    public appService: AppService,
     private paymentService:PaymentService,private formBuilder: FormBuilder) { }
 
   ngOnInit() {

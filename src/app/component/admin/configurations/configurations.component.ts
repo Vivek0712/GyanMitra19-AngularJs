@@ -17,11 +17,13 @@ export class ConfigurationsComponent implements OnInit {
   Button: any;
   submitted:boolean;
   value:Boolean;
+  searchText: any;
   ngOnInit() {
     this.submitted=false;
     this.createForm();
     this.getConfigs();
     this.value = false;
+    this.searchText = "";
   }
 
 

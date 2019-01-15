@@ -18,11 +18,13 @@ export class CollegeComponent implements OnInit {
   Button: any;
   submitted:boolean;
   page:any;
+  searchText: any;
   ngOnInit() {
     this.submitted=false;
     this.page = 1;
     this.createForm();
     this.getColleges(1);
+    this.searchText = "";
   }
 
   nextPage(){

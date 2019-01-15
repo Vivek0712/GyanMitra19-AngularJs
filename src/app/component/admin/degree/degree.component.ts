@@ -16,11 +16,13 @@ export class DegreeComponent implements OnInit {
   Button: any;
   submitted:boolean;
   currentPage:any;
+  searchText: any;
   ngOnInit() {
     this.submitted=false;
     this.currentPage=1;
     this.createForm();
     this.getDegrees(this.currentPage);
+    this.searchText = "";
   }
   nextPage(){
     this.currentPage = this.currentPage + 1;

@@ -25,12 +25,12 @@ export class YearService {
     const body = { _id: id , name: name };
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.put(this.app.getUrl(this.baseUrl + `${id}`), body).pipe(map(res => res, {'headers': headers}));
+    return this.http.post(this.app.getUrl(this.baseUrl + "update/"+`${id}`), body).pipe(map(res => res, {'headers': headers}));
   }
   deleteYear(id: String) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.delete(this.app.getUrl(this.baseUrl + `${id}` ) ).pipe(map(res => res, {'headers': headers}));
+    return this.http.post(this.app.getUrl(this.baseUrl +"delete/"+ `${id}` ),{}).pipe(map(res => res, {'headers': headers}));
   }
 
 
