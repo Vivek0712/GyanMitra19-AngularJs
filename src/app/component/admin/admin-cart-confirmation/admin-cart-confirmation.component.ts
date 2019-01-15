@@ -15,7 +15,7 @@ export class AdminCartConfirmationComponent implements OnInit {
   unconfirmedUsers: Array<any> = [];
   ddImage: string;
   selectedUser: string;
-  constructor(private eventRegistrtationService: EventRegistrationService, private appService: AppService) { }
+  constructor(private eventRegistrtationService: EventRegistrationService, public appService: AppService) { }
 
   ngOnInit() {
     this.loadUnconfirmedDDPayments();

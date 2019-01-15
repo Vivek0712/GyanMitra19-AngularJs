@@ -40,8 +40,8 @@
 											<div class="row">
 												<div class="col-12">
 													<input type="text" class="form-control" placeholder="Team Name" formControlName="name" required pattern="[a-zA-Z ]*"
-													 [ngClass]="{'is-invalid': submitted && f.name.errors}">
-													<div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+													 [ngClass]="{'is-invalid': Submitted && f.name.errors}">
+													<div *ngIf="Submitted && f.name.errors" class="invalid-feedback">
 														<div *ngIf="f.name.errors.required">Team Name is required</div>
 														<div *ngIf="f.name.errors && !f.name.errors.required">Only Alpahabets</div>
 													</div>
