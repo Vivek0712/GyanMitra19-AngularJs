@@ -82,6 +82,14 @@ export class EventRegistrationService {
     headers.append('Content-Type', 'application/json');
     return this.http.get(this.app.getUrl(this.baseUrl) + 'userRegisteredEvents/' + user_id + "/Event");
   }
+  refusePayment(user_id: String) {
+    let data = {
+      user_id: user_id
+    }
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post(this.app.getUrl(this.baseUrl + 'refuseCartPayment'), data).pipe(map(res => res, { 'headers': headers }));
+  }
 
   confirmPayment(user_id: String) {
     let data = {

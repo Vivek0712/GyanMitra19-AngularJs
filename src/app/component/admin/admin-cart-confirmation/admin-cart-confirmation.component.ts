@@ -41,7 +41,15 @@ export class AdminCartConfirmationComponent implements OnInit {
   }
 
   refusePayment(_id: string) {
-
+    this.eventRegistrtationService.refusePayment(this.selectedUser).subscribe((response: any) => {
+      if (response.error) {
+        M.toast({ html: response.msg, classes: 'roundeds' });
+        this.loadUnconfirmedDDPayments()
+      } else {
+        M.toast({ html: response.msg, classes: 'roundeds' });
+        this.loadUnconfirmedDDPayments()
+      }
+    })
   }
 
   loadUnconfirmedDDPayments() {
