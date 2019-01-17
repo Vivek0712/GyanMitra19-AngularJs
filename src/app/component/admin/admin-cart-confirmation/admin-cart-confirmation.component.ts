@@ -28,7 +28,7 @@ export class AdminCartConfirmationComponent implements OnInit {
     this.ddImage = "http://localhost:3000/assests/images/cart/" + dd_image;
   }
 
-  confirmPayment(_id: string) {
+  confirmPayment() {
     this.eventRegistrtationService.confirmPayment(this.selectedUser).subscribe((response: any) => {
       if (response.error) {
         M.toast({ html: response.msg, classes: 'roundeds' });

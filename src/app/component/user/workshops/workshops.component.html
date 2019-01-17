@@ -1,106 +1,108 @@
 <div class="app-content content">
-  <div class="content-wrapper">
-    <div class="content-wrapper-before"></div>
-    <div class="content-header row">
-      <span class="content-header-left h3 col-md-3 col-3 mb-3">
-        <span class="content-header-title">Workshops
-        </span>
-      </span>
-      <span class="content-header-left col-md-3 col-3 mb-3">
-        <select id="deptSelect" (click)="filter()" [(ngModel)]="searchText" class="custom-select float-right">
-          <option class="custom-select" *ngFor="let dept of departments" value="{{dept.name}}">
-            {{dept.name}}
-          </option>
-        </select>
-      </span>
-      <span class="content-header-right col-md-3 col-3">
-        <div class="breadcrumbs-top float-md-right">
-          <div class="breadcrumb-wrapper mr-1">
-            <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a [routerLink]="['/user/home']" [routerLinkActive]="['active']"
-                  [routerLinkActiveOptions]="{exact:true}">Home</a>
-              </li>
-              <li class="breadcrumb-item active">Workshops
-              </li>
-            </ol>
-          </div>
-        </div>
-      </span>
-      <span class="content-header-right col-md-3 col-3">
-        <div class="row float-right white">
-          <span *ngIf="this.currentPage != 1">
-            <span class="btn btn-sm btn-info" (click)="previousPage()"> &lt; </span>
-          </span>
-          &nbsp; Page {{currentPage}} &nbsp;
-          <span class="btn btn-sm btn-info" (click)="nextPage()"> &gt; </span>
-        </div>
-      </span>
-    </div>
-    <br />
-    <div class="content-body">
-      <section id="content-types">
-        <div class="row match-height">
-          <div class="col-4" *ngFor="let workshop of workshops | filterEventsBasedOnDepartment : searchText">
-            <div class="card pull-up">
-              <div class="card-body">
-                <h3 class="card-title">{{workshop.title}} <span class="card-title activator grey-text text-darken-4 float-right"><i
-                      class="fas fa-ellipsis-v right"></i></span></h3>
-                <h6 class="card-subtitle text-muted">Department of {{workshop.department_id.name}}</h6>
-              </div>
-              <img class="activator card-image" src="http://www.gyanmitra19.mepcoeng.ac.in/assests/images/events/{{workshop.image_name}}">
-              
-              <div class="card-body">
-                Contact <p class="card-text">
-                  <a href="mailto:{{workshop.contact_email}}">{{workshop.contact_email}}</a>
-                </p>
-              </div>
-              <div class="card-reveal">
-                <span class="card-title grey-text text-darken-4">Pre Requesites<i class="fas fa-times float-right"></i></span>
-                {{workshop.rules}}
-                <hr />
-				
-				<span class="card-title grey-text text-darken-4">Description</span>
-				{{workshop.description}}
-				<hr>
-                <h4>Timing</h4>
-
-                Date : {{workshop.event_date | date}}
-                {{workshop.start_time}} -
-                {{workshop.end_time}}
-              </div>
-              <div class="card-footer border-top-blue-grey border-top-lighten-5 text-muted">
-                <span class="float-left"> {{workshop.event_date | date }}</span>
-                <span class="float-right">
-                  <ng-container *ngIf="user; else notLoggedIn">
-                      <ng-container *ngIf="user.cart_confirmed; else cartNotConfirmed">
-                          <button type="button" class="btn btn-outline-danger" style="width:100%">
-                              Cart already Confirmed
-                            </button>
-                      </ng-container>
-                      <ng-template #cartNotConfirmed>
-                          <div *ngIf="!registeredEvents.includes(workshop._id)">
-                              <button type="button" class="btn btn-outline-primary" (click)="selectWorkshop(workshop._id)" style="width:100%">
-                                Register Now <i class="la la-angle-right"></i>
-                              </button>
-                            </div>
-                            <div *ngIf="registeredEvents.includes(workshop._id)">
-                              <button type="button" *ngIf="registeredEvents.includes(workshop._id)d" class="btn btn-sm round btn-bg-gradient-x-purple-red"
-                                style="width:100%">
-                                Already Registered | Parallel Event
-                              </button>
-                            </div>
-                      </ng-template>
-                    </ng-container>
-                    <ng-template #notLoggedIn>
-                      <a class="btn btn-outline-primary" style="width:100%" [routerLink]="['/user/login']"
-                        [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">Login to Register</a>
-                    </ng-template>
+    <div class="content-wrapper">
+        <div class="content-wrapper-before"></div>
+        <div class="content-header row">
+            <span class="content-header-left h3 col-md-3 col-3 mb-3">
+                <span class="content-header-title">Workshops
                 </span>
-              </div>
-            </div>
-          </div>
+            </span>
+            <span class="content-header-left col-md-3 col-3 mb-3">
+                <select id="deptSelect" (click)="filter()" [(ngModel)]="searchText" class="custom-select float-right">
+                    <option class="custom-select" *ngFor="let dept of departments" value="{{dept.name}}">
+                        {{dept.name}}
+                    </option>
+                </select>
+            </span>
+            <span class="content-header-right col-md-3 col-3">
+                <div class="breadcrumbs-top float-md-right">
+                    <div class="breadcrumb-wrapper mr-1">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a [routerLink]="['/user/home']" [routerLinkActive]="['active']"
+                                    [routerLinkActiveOptions]="{exact:true}">Home</a>
+                            </li>
+                            <li class="breadcrumb-item active">Workshops
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </span>
+            <span class="content-header-right col-md-3 col-3">
+                <div class="row float-right white">
+                    <span *ngIf="this.currentPage != 1">
+                        <span class="btn btn-sm btn-info" (click)="previousPage()"> &lt; </span>
+                    </span>
+                    &nbsp; Page {{currentPage}} &nbsp;
+                    <span class="btn btn-sm btn-info" (click)="nextPage()"> &gt; </span>
+                </div>
+            </span>
         </div>
-      </section>
+        <br />
+        <div class="content-body">
+            <section id="content-types">
+                <div class="row match-height">
+                    <div class="col-4" *ngFor="let workshop of workshops | filterEventsBasedOnDepartment : searchText">
+                        <div class="card pull-up">
+                            <div class="card-body">
+                                <h3 class="card-title">{{workshop.title}} <span class="card-title activator grey-text text-darken-4 float-right"><i
+                                            class="fas fa-ellipsis-v right"></i></span></h3>
+                                <h6 class="card-subtitle text-muted">Department of {{workshop.department_id.name}}</h6>
+                            </div>
+                            <img class="activator card-image" src="http://www.gyanmitra19.mepcoeng.ac.in/assests/images/events/{{workshop.image_name}}">
+
+                            <div class="card-body">
+                                Contact <p class="card-text">
+                                    <a href="mailto:{{workshop.contact_email}}">{{workshop.contact_email}}</a>
+                                </p>
+                            </div>
+                            <div class="card-reveal">
+                                <span class="card-title grey-text text-darken-4">Pre Requesites<i class="fas fa-times float-right"></i></span>
+                                {{workshop.rules}}
+                                <hr />
+
+                                <span class="card-title grey-text text-darken-4">Description</span>
+                                {{workshop.description}}
+                                <hr>
+                                <h4>Timing</h4>
+
+                                Date : {{workshop.event_date | date}}
+                                {{workshop.start_time}} -
+                                {{workshop.end_time}}
+                            </div>
+                            <div class="card-footer border-top-blue-grey border-top-lighten-5 text-muted">
+                                <span class="float-left"> {{workshop.event_date | date }}</span>
+                                <span class="float-right">
+                                    <ng-container *ngIf="user; else notLoggedIn">
+                                        <ng-container *ngIf="user.cart_confirmed; else cartNotConfirmed">
+                                            <button type="button" class="btn btn-outline-danger" style="width:100%">
+                                                Cart already Confirmed
+                                            </button>
+                                        </ng-container>
+                                        <ng-template #cartNotConfirmed>
+                                            <div *ngIf="!registeredEvents.includes(workshop._id)">
+                                                <button type="button" class="btn btn-outline-primary" (click)="selectWorkshop(workshop._id)"
+                                                    style="width:100%">
+                                                    Register Now <i class="la la-angle-right"></i>
+                                                </button>
+                                            </div>
+                                            <div *ngIf="registeredEvents.includes(workshop._id)">
+                                                <button type="button" *ngIf="registeredEvents.includes(workshop._id)d"
+                                                    class="btn btn-sm round btn-bg-gradient-x-purple-red" style="width:100%">
+                                                    Already Registered | Parallel Event
+                                                </button>
+                                            </div>
+                                        </ng-template>
+                                    </ng-container>
+                                    <ng-template #notLoggedIn>
+                                        <a class="btn btn-outline-primary" style="width:100%" [routerLink]="['/user/login']"
+                                            [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">Login
+                                            to Register</a>
+                                    </ng-template>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
     </div>
-  </div>
 </div>
