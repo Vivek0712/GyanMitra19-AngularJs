@@ -22,9 +22,13 @@ export class UserAccomodationComponent implements OnInit {
   hasAccomodation: boolean;
   txnId: string;
   hashString: string;
+  totalAmount: number;
+  user: any;
   constructor(private accomodationService: AccomodationService,
     public appService: AppService,
-    private paymentService:PaymentService,private formBuilder: FormBuilder) { }
+    private paymentService:PaymentService,private formBuilder: FormBuilder) {
+      this.user = JSON.parse(localStorage.getItem('user'))
+     }
 
   ngOnInit() {
     this._id = JSON.parse(localStorage.getItem('user')).id;
