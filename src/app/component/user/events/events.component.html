@@ -101,6 +101,15 @@
             </div>
           </div>
         </div>
+		<span class="content-header-right col-md-3 col-3">
+        <div class="row float-right black">
+          <span *ngIf="this.currentPage != 1">
+            <span class="btn btn-sm btn-info" (click)="previousPage()"> &lt; </span>
+          </span>
+          &nbsp; Page {{currentPage}} &nbsp;
+          <span class="btn btn-sm btn-info" (click)="nextPage()"> &gt; </span>
+        </div>
+      </span>
       </section>
     </div>
   </div>

@@ -51,6 +51,7 @@ import { UserComponent } from './component/user/user.component';
 import { UserNavbarComponent } from './component/user/user-navbar/user-navbar.component';
 import { UserSidebarComponent } from './component/user/user-sidebar/user-sidebar.component';
 import { AboutComponent } from './component/user/about/about.component';
+import { ContactUsComponent } from './component/user/contact-us/contact-us.component';
 import { EventsComponent } from './component/user/events/events.component';
 import { WorkshopsComponent } from './component/user/workshops/workshops.component';
 import { CartComponent } from './component/user/cart/cart.component';
@@ -124,6 +125,7 @@ import { AccSuccessComponent } from './component/user/acc-success/acc-success.co
     PaymentFailureComponent,
     AccFailureComponent,
     AccSuccessComponent,
+	ContactUsComponent,
   ],
   imports: [
     BrowserModule,
