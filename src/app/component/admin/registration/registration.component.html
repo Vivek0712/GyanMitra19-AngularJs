@@ -35,14 +35,12 @@
       <div class="modal-body" *ngIf="viewDetails">
         Name : {{selectedParticipant.name}} <br />
         Gender : {{selectedParticipant.gender}} <br /> <br />
-        <!-- College: {{selectedParticipant.college_id.name}} <br /> -->
-        <!-- Year : {{selectedParticipant.year_id.name }} <br /> -->
-        <!-- Degree : {{selectedParticipant.degree_id.name}} <br /> -->
-        <!-- Department : {{selectedParticipant.college_id.name}} <br /><br /> -->
+        College: {{selectedParticipant.college_id.name}} <br />
+        Year : {{selectedParticipant.year_id.name }} <br />
+        Degree : {{selectedParticipant.degree_id.name}} <br />
+        Department : {{selectedParticipant.college_id.name}} <br /><br />
         Mobile Number : {{selectedParticipant.mobile_number}} <br />
         EMail ID : {{selectedParticipant.email_id}} <br /><br />
-        Activated : {{selectedParticipant.activated}} <br />
-        Confirmed : {{selectedParticipant.confirmed}} <br />
         Registration Mode: {{ selectedParticipant.registration_mode }}
       </div>
       <div class="modal-footer">
@@ -120,6 +118,7 @@
                         <th>Name</th>
                         <th>Email</th>
                         <th>MobileNumber</th>
+						<th>Info</th>
                         <th>Delete</th>
                       </tr>
                     </thead>
