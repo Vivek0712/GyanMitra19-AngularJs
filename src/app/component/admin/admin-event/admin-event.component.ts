@@ -61,6 +61,10 @@ export class AdminEventComponent implements OnInit {
     this.getEvents(1);
   }
 
+  loadFull(){
+    this.getEvents(1);
+  }
+
   getEvents(page: any) {
     this.eventService.readWithPage(page).subscribe((response: any) => {
       if (response.error == false) {

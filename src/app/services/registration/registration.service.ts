@@ -55,11 +55,11 @@ export class RegistrationService {
     };
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.put(this.app.getUrl(this.baseUrl + `${id}`), body).pipe(map(res => res, { 'headers': headers }));
+    return this.http.post(this.app.getUrl(this.baseUrl + `${id}`), body).pipe(map(res => res, { 'headers': headers }));
   }
   deleteCategory(id: String) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.delete(this.app.getUrl(this.baseUrl + `${id}`)).pipe(map(res => res, { 'headers': headers }));
+    return this.http.post(this.app.getUrl(this.baseUrl + `${id}`),{}).pipe(map(res => res, { 'headers': headers }));
   }
 }

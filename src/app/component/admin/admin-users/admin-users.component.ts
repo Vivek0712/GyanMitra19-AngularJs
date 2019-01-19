@@ -19,12 +19,14 @@ export class AdminUsersComponent implements OnInit {
   selectedRoles: Array<any>;
   users: Array<any>;
   submitted: boolean;
+  searchText: any;
   ngOnInit() {
     this.submitted = false;
     this.selectedRoles = [];
     this.getRoles();
     this.createForm();
     this.getAdmins();
+    this.searchText="";
     //this.addRoleCheckBox();
   }
   get f() { return this.userForm.controls; }

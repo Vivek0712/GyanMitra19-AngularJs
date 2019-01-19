@@ -11,7 +11,8 @@ import { UserHomeComponent } from 'src/app/component/user/user-home/user-home.co
 /////////////////////////////////////////////////
 const APP_ROUTES: Routes = [
      {path: 'admin', component: AdminComponent, children: ADMIN_ROUTE, canActivate: [AuthGuard,AdminGuard]},
-     {path: 'user',component:UserComponent,children:USER_ROUTE}
+     {path: 'user',component:UserComponent,children:USER_ROUTE},
+     {path: '',component: UserHomeComponent}
      //Start typing here the import is automatically done is VS CODE
 ];
 export const routing = RouterModule.forRoot(APP_ROUTES);

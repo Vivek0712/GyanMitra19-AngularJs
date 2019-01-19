@@ -16,11 +16,13 @@ export class CategoryComponent implements OnInit {
   categoryForm: FormGroup;
   categories: Array<any>;
   Button: any;
+  searchText: any;
   submitted:boolean;
   ngOnInit() {
     this.submitted=false;
     this.createForm();
     this.getCategorys();
+    this.searchText = "";
   }
 
 

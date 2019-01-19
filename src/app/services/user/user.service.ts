@@ -73,7 +73,7 @@ export class UserService {
    deleteUser(id: String) {
      const headers = new Headers();
      headers.append('Content-Type', 'application/json');
-   return this.http.delete(this.app.getUrl(this.baseUrl + `${id}` ) ).pipe(map(res => res, {'headers': headers}));
+   return this.http.post(this.app.getUrl(this.baseUrl +"delete/"+ `${id}` ),{}).pipe(map(res => res, {'headers': headers}));
    }
    getAdmin(){
     const headers = new Headers();

@@ -51,7 +51,6 @@ export class WorkshopsComponent implements OnInit {
     }
     this.getRegistrations();
     this.loadFull(this.currentPage);
-   
   }
 
 
@@ -82,7 +81,7 @@ export class WorkshopsComponent implements OnInit {
 
   getRegistrations() {
     this.eventRegistrationService.getRegisteredEvents(this.currentUserId, 'Workshop').subscribe((response: any) => {
-      this.registeredEvents = response.msg
+      this.registeredEvents = response;
     })
   }
 

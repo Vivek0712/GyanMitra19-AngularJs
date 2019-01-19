@@ -23,7 +23,7 @@ export class AdminAccomodationComponent implements OnInit {
   selectedTransactionID: string;
   ddImage: string;
   selectedID: string;
-  constructor(private appService:AppService, private collegeService: CollegeService, private departmentService: DepartmentService, private accommodationService: AccomodationService) { }
+  constructor(public appService:AppService, private collegeService: CollegeService, private departmentService: DepartmentService, private accommodationService: AccomodationService) { }
 
   ngOnInit() {
     this.loadColleges();

@@ -15,16 +15,20 @@ declare var M: any;
 })
 export class UserAccomodationComponent implements OnInit {
   _id: string;
-  accomodation: Array<any>;
+  accomodation: any;
   accomodationForm: FormGroup;
   imageForm: FormGroup;
   submitted: boolean;
   hasAccomodation: boolean;
   txnId: string;
   hashString: string;
+  totalAmount: number;
+  user: any;
   constructor(private accomodationService: AccomodationService,
-    private appService: AppService,
-    private paymentService:PaymentService,private formBuilder: FormBuilder) { }
+    public appService: AppService,
+    private paymentService:PaymentService,private formBuilder: FormBuilder) {
+      this.user = JSON.parse(localStorage.getItem('user'))
+     }
 
   ngOnInit() {
     this._id = JSON.parse(localStorage.getItem('user')).id;

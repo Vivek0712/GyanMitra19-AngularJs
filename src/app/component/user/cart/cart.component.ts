@@ -28,7 +28,7 @@ export class CartComponent implements OnInit {
   constructor(private eventRegistrationService: EventRegistrationService,
     private userService: UserService,
     private paymentService: PaymentService,
-    private appService: AppService) {
+    public appService: AppService) {
       const hash = this.hashData.bind(this);
       const transaction = this.genTxnId.bind(this);
       hash(false);

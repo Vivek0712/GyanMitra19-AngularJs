@@ -15,7 +15,7 @@ export class AdminCartConfirmationComponent implements OnInit {
   unconfirmedUsers: Array<any> = [];
   ddImage: string;
   selectedUser: string;
-  constructor(private eventRegistrtationService: EventRegistrationService, private appService: AppService) { }
+  constructor(private eventRegistrtationService: EventRegistrationService, public appService: AppService) { }
 
   ngOnInit() {
     this.loadUnconfirmedDDPayments();
@@ -28,7 +28,7 @@ export class AdminCartConfirmationComponent implements OnInit {
     this.ddImage = "http://localhost:3000/assests/images/cart/" + dd_image;
   }
 
-  confirmPayment(_id: string) {
+  confirmPayment() {
     this.eventRegistrtationService.confirmPayment(this.selectedUser).subscribe((response: any) => {
       if (response.error) {
         M.toast({ html: response.msg, classes: 'roundeds' });
@@ -41,7 +41,15 @@ export class AdminCartConfirmationComponent implements OnInit {
   }
 
   refusePayment(_id: string) {
-
+    this.eventRegistrtationService.refusePayment(this.selectedUser).subscribe((response: any) => {
+      if (response.error) {
+        M.toast({ html: response.msg, classes: 'roundeds' });
+        this.loadUnconfirmedDDPayments()
+      } else {
+        M.toast({ html: response.msg, classes: 'roundeds' });
+        this.loadUnconfirmedDDPayments()
+      }
+    })
   }
 
   loadUnconfirmedDDPayments() {
