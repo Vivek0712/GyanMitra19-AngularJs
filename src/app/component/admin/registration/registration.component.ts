@@ -28,6 +28,7 @@ export class RegistrationComponent implements OnInit {
   selectedDegree: string;
   selectedGender: string;
   selectedParticipant: any;
+  viewDetails: Boolean;
 
   constructor(private collegeService: CollegeService, private userService: UserService, private degreeService: DegreeService, private departmentService: DepartmentService) { }
 
@@ -37,39 +38,29 @@ export class RegistrationComponent implements OnInit {
     this.getColleges();
     this.selectedGender = "";
     this.selectedCollegeId = "";
-    this.selectedParticipant = {
-      name: '',
-      college_id: '',
-      department_id: '',
-      degree_id: '',
-      gender: '',
-      mobile_number: '',
-      email_id: '',
-      activated: false,
-      confirmed: false
-    }
     this.searchText = "";
+    this.viewDetails = false;
   }
 
-  getSelectedDepartment() {
-    this.departmentService.readDepartment(0).subscribe((response: any) => {
-      let dept: Array<any> = response;
-      dept = dept.filter((it) => {
-        return it._id == this.selectedParticipant.department_id;
-      })
-      this.selectedDepartment = dept[0].name;
-    })
-  }
+  // getSelectedDepartment() {
+  //   this.departmentService.readDepartment(0).subscribe((response: any) => {
+  //     let dept: Array<any> = response;
+  //     dept = dept.filter((it) => {
+  //       return it._id == this.selectedParticipant.department_id;
+  //     })
+  //     this.selectedDepartment = dept[0].name;
+  //   })
+  // }
 
-  getSelectedDegree() {
-    this.degreeService.readDegree(0).subscribe((response: any) => {
-      let degree: Array<any> = response;
-      degree = degree.filter((it) => {
-        return it._id == this.selectedParticipant.degree_id;
-      })
-      this.selectedDegree = degree[0].name;
-    })
-  }
+  // getSelectedDegree() {
+  //   this.degreeService.readDegree(0).subscribe((response: any) => {
+  //     let degree: Array<any> = response;
+  //     degree = degree.filter((it) => {
+  //       return it._id == this.selectedParticipant.degree_id;
+  //     })
+  //     this.selectedDegree = degree[0].name;
+  //   })
+  // }
 
   getColleges() {
     this.collegeService.readCollege(0).subscribe((response: any) => {
@@ -105,12 +96,16 @@ export class RegistrationComponent implements OnInit {
   }
 
   moreInfo(_id: String) {
+    this.viewDetails = true;
     this.userService.getParticipant(_id).subscribe((response: any) => {
       this.selectedParticipant = response;
-      this.getSelectedDepartment();
-      this.getSelectedDegree();
+      console.log(this.selectedParticipant);
     })
   }
+
+  viewed(){
+    this.viewDetails = false;
+  }  
 
 
   getParticipants(page: any) {
