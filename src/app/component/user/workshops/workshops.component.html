@@ -36,8 +36,6 @@
                 </div>
             </span>
         </div>
-<<<<<<< HEAD
-      </span>
     </div>
     <br />
     <div class="content-body">
@@ -54,7 +52,7 @@
               
               <div class="card-body">
 				<p class="card-text">
-					Registration Fee: {{ workshop.amount }}
+					Registration Fee: {{ workshop.amount }} Rs.
 				</p>
                 Contact <p class="card-text">
                   <a href="mailto:{{workshop.contact_email}}">{{workshop.contact_email}}</a>
@@ -83,6 +81,9 @@
                             <img class="activator card-image" src="http://www.gyanmitra19.mepcoeng.ac.in/assests/images/events/{{workshop.image_name}}">
 
                             <div class="card-body">
+								<p class="card-text">
+									Registration Fee: {{ workshop.amount }}
+                                </p>
                                 Contact <p class="card-text">
                                     <a href="mailto:{{workshop.contact_email}}">{{workshop.contact_email}}</a>
                                 </p>
