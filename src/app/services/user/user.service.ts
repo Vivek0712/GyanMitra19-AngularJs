@@ -73,11 +73,19 @@ export class UserService {
    deleteUser(id: String) {
      const headers = new Headers();
      headers.append('Content-Type', 'application/json');
-   return this.http.post(this.app.getUrl(this.baseUrl +"delete/"+ `${id}` ),{}).pipe(map(res => res, {'headers': headers}));
+    return this.http.post(this.app.getUrl(this.baseUrl +"delete/"+ `${id}` ),{}).pipe(map(res => res, {'headers': headers}));
    }
    getAdmin(){
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this.http.get(this.app.getUrl(this.baseUrl)+'/admin');
    }
+
+   updateUser(values:any) {
+    console.log(values);
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post(this.app.getUrl(this.baseUrl +'update/'+values._id),values).pipe(map(res => res, {'headers': headers}));
+  }
+
 }

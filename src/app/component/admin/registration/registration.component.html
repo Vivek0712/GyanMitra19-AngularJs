@@ -18,39 +18,254 @@
         </div>
       </div>
     </div>
-    
-<<<<<<< HEAD
 
-=======
->>>>>>> 125bdd31d4b943eccc3bf972a1151f784c212725
-<div class="modal fade" id="participantModal" tabindex="-1" role="dialog" aria-labelledby="participantModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="participantModalLabel">Participant Details</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body" *ngIf="viewDetails">
-        Name : {{selectedParticipant.name}} <br />
-        Gender : {{selectedParticipant.gender}} <br /> <br />
-        College: {{selectedParticipant.college_id.name}} <br />
-        Year : {{selectedParticipant.year_id.name }} <br />
-        Degree : {{selectedParticipant.degree_id.name}} <br />
-        Department : {{selectedParticipant.college_id.name}} <br /><br />
-        Mobile Number : {{selectedParticipant.mobile_number}} <br />
-        EMail ID : {{selectedParticipant.email_id}} <br /><br />
-        Registration Mode: {{ selectedParticipant.registration_mode }}
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-success" (click)="confirmPayment()">Confirm Payment</button>
-        <!-- <button type="button" class="btn btn-danger" (click)="unfreezeEvents()">Unfreeze Events</button> -->
-        <button type="button" class="btn btn-secondary" data-dismiss="modal"  (click)="viewed()">Close</button>
+    <div class="modal fade" id="participantModal" tabindex="-1" role="dialog" aria-labelledby="participantModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="participantModalLabel">Participant Details</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="editClick()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body" *ngIf="viewDetails">
+            <div class="card" *ngIf="!edit">
+              <div class="card-content">
+                <div class="card-title">
+                  <div class="row">
+                    <div class="col-2">
+                      <h2>Details</h2>
+                    </div>
+                    <div class="col-10">
+                      <div class="fonticon-wrap icon-shadow icon-shadow-warning" (click)="editClick()"><a><i class="la la-pencil la-2x"></i></a></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-body">
+
+                  <div class="row">
+                    <div class="col-3">
+                      <b>Name: </b>
+                    </div>
+                    <div class="col-3">
+                      {{selectedParticipant.name}}
+                    </div>
+                    <div class="col-3">
+                      <b>Gender: </b>
+                    </div>
+                    <div class="col-3">
+                      {{selectedParticipant.gender}}
+                    </div>
+                  </div>
+                  <br><br><br>
+                  <h6>Educational Details</h6>
+                  <div class="row">
+                    <div class="col-3">
+                      <b>College: </b>
+                    </div>
+                    <div class="col-3">
+                      {{selectedParticipant.college_id.name}}
+                    </div>
+                    <div class="col-3">
+                      <b>Year: </b>
+                    </div>
+                    <div class="col-3">
+                      {{selectedParticipant.year_id.name }}
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-3">
+                      <b>Degree: </b>
+                    </div>
+                    <div class="col-3">
+                      {{selectedParticipant.degree_id.name}}
+                    </div>
+                    <div class="col-3">
+                      <b>Department: </b>
+                    </div>
+                    <div class="col-3">
+                      {{selectedParticipant.department_id.name}}
+                    </div>
+                  </div><br><br><br>
+                  <h6>Contact details:</h6>
+                  <div class="row">
+                    <div class="col-3">
+                      <b>Email ID: </b>
+                    </div>
+                    <div class="col-3">
+                      {{selectedParticipant.email_id}}
+                    </div>
+                    <div class="col-3">
+                      <b>Mobile Number: </b>
+                    </div>
+                    <div class="col-3">
+                      {{selectedParticipant.mobile_number}}
+                    </div>
+                  </div>
+                  <br><br><br><br>
+                  <div class="row">
+                    <div class="col-3">
+                      <b>Registration Mode: </b>
+                    </div>
+                    <div class="col-3">
+                      {{ selectedParticipant.registration_mode }}
+                    </div>
+                  </div><br><br>
+                  <div class="row">
+                    <button type="button" class="btn btn-success" (click)="confirmPayment()">Confirm Payment</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Name : {{selectedParticipant.name}} <br />
+            Gender : {{selectedParticipant.gender}} <br /> <br />
+            College: {{selectedParticipant.college_id.name}} <br />
+            Year : {{selectedParticipant.year_id.name }} <br />
+            Degree : {{selectedParticipant.degree_id.name}} <br />
+            Department : {{selectedParticipant.college_id.name}} <br /><br />
+            Mobile Number : {{selectedParticipant.mobile_number}} <br />
+            EMail ID : {{selectedParticipant.email_id}} <br /><br />
+            Registration Mode: {{ selectedParticipant.registration_mode }} -->
+
+            <div class="card" *ngIf="edit">
+              <div class="card-content">
+                <div class="card-body">
+                  <h4 class="card-title">Edit details</h4>
+                </div>
+                <div class="card-body">
+                  <form class="form" [formGroup]="userForm" (ngSubmit)=onSubmit(userForm.value)>
+                    <div class="row">
+                      <div class="col-4">
+                        <div class="form-group">
+
+                          <input type="text" class="form-control" placeholder="Name" formControlName="name" [ngClass]="{'is-invalid': submitted &&f.name.errors}">
+                          <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                            <div *ngIf="f.name.errors.required">Name is required
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <div class="form-group">
+                          <input type="email" class="form-control" placeholder="Email ID" formControlName="email_id"
+                            [ngClass]="{'is-invalid': submitted &&f.email_id.errors}">
+                          <div *ngIf="submitted && f.email_id.errors" class="invalid-feedback">
+                            <div *ngIf="f.email_id.errors.required">Email_id is required
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <div class="form-group">
+
+                          <input type="text" class="form-control" placeholder="Mobile Number" formControlName="mobile_number"
+                            [ngClass]="{'is-invalid': submitted &&f.mobile_number.errors}">
+                          <div *ngIf="submitted && f.mobile_number.errors" class="invalid-feedback">
+                            <div *ngIf="f.mobile_number.errors.required">Mobile Number is required
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-6">
+                        <div class="form-group">
+                          College
+                          <select class="custom-select" formControlName="college_id">
+                            <option disabled value="">College</option>
+                            <option *ngFor="let college of colleges" value={{college._id}}>{{college.name}}</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-6">
+                        <div class="form-group">
+                          Year of Studying
+                          <select class="custom-select" formControlName="year_id">
+                            <option disabled value="">Year of Studying</option>
+                            <option *ngFor="let year of years" value={{year._id}}>{{year.name}}</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-6">
+                        <div class="form-group">
+                          Degree
+                          <select class="custom-select" formControlName="degree_id">
+                            <option disabled value="">Degree</option>
+                            <option *ngFor="let degree of degrees" value={{degree._id}}>{{degree.name}}</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-6">
+                        <div class="form-group">
+                          Department
+                          <select class="custom-select" formControlName="department_id">
+                            <option disabled value="">Department</option>
+                            <option *ngFor="let department of departments" value={{department._id}}>{{department.name}}</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-action left row">
+                      <div class="col">
+                        <button type="submit" class="btn btn-outline-success right" (click)="updateUser()">Update</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-content">
+                <div class="card-title">
+                  Event and Workshop Registrations
+                </div>
+                <div class="card-body">
+                  <h6>Workshop</h6>
+                  <hr><br>
+                  <h6>Events</h6>
+                  <div class="table-responsive">
+                      <table class="table">
+                        <thead>
+                          <tr>
+                            <th>Sl. No</th>
+                            <th>Event Name</th>
+                            <th>Venue</th>
+                            <!-- <th>Delete</th> -->
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let event of getRegisteredEvents; let i = index;">
+                            <th scope="row">{{i+1}}</th>
+                            <td>{{event.event_id.title}}</td>
+                            <!-- <td>{{event.event_id.department_id.name}}</td> -->
+                            <td>{{ event.event_id }}</td>
+                            <!--                             
+                            <td>
+                              <div class="fonticon-wrap icon-shadow icon-shadow-danger" (click)="deleteParticipant(participant._id)">
+                                <a> <i class="la la-trash la-2x"></i></a>
+                              </div>
+                            </td> -->
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <!-- <button type="button" class="btn btn-danger" (click)="unfreezeEvents()">Unfreeze Events</button> -->
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="viewed()">Close</button>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
     <div class="content-body">
       <div class="row">
         <div class="col-12">
@@ -89,19 +304,36 @@
                     </div>
                   </div>
                   <br />
-                  College
+                  <div class="row">
+                    <div class="col-3">
+                      College
+                    </div>
+                    <div class="col-3">
+                      Gender
+                    </div>
+                    <div class="col-3">
+                      Payment status
+                    </div>
+                  </div>
                   <div class="row">
                     <div class="col-3">
                       <select class="custom-select" placeholder="College" [(ngModel)]="selectedCollegeId" id="slctCollege">
-                        <option value="Disabled" disabled>College</option>
+                        <option value="" selected>All</option>
                         <option *ngFor="let college of colleges" value={{college._id}}>{{college.name}}</option>
                       </select>
                     </div>
                     <div class="col-3">
                       <select class="custom-select" [(ngModel)]="selectedGender" id="slctGender">
-                        <option value="Disabled" disabled>Gender</option>
+                        <option value="" selected>ALL</option>
                         <option value="Male">Male</option>
                         <option value="Female">Female</option>
+                      </select>
+                    </div>
+                    <div class="col-3">
+                      <select class="custom-select" [(ngModel)]="paidStatus" id="slctPaid">
+                        <option value="" selected="true">ALL</option>
+                        <option value="true">Paid</option>
+                        <option value="false">Not paid</option>
                       </select>
                     </div>
                     <div class="col-3">
@@ -118,27 +350,28 @@
                         <th>Name</th>
                         <th>Email</th>
                         <th>MobileNumber</th>
-						<th>Info</th>
+                        <th>Info</th>
                         <th>Delete</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr *ngFor="let participant of participants | searchfilter : searchText ; let i = index;">
                         <th scope="row">{{i+1}}</th>
-                      
+
                         <td>{{participant.name}}</td>
                         <td>{{participant.email_id}}</td>
                         <td>{{participant.mobile_number}}</td>
                         <td>
-                          <div class="fonticon-wrap icon-shadow icon-shadow-info" data-toggle="modal" data-target="#participantModal" (click)="moreInfo(participant._id)">
+                          <div class="fonticon-wrap icon-shadow icon-shadow-info" data-toggle="modal" data-target="#participantModal"
+                            (click)="moreInfo(participant._id)">
                             <a> <i class="la la-info-circle la-2x"></i></a>
                           </div>
                         </td>
                         <td>
                           <div class="fonticon-wrap icon-shadow icon-shadow-danger" (click)="deleteParticipant(participant._id)">
-                              <a> <i class="la la-trash la-2x"></i></a>
+                            <a> <i class="la la-trash la-2x"></i></a>
                           </div>
-                      </td>
+                        </td>
                       </tr>
                     </tbody>
                   </table>
