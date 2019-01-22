@@ -79,26 +79,10 @@ export class AccomodationService {
     headers.append('Content-Type', 'multipart/form-data');
     return this.http.post(this.app.getUrl(this.baseUrl) + 'uploadImage/'+formData.get('id'), formData);
   }
-
-  updateAccomodation(id: String, acc_transaction_id: String,acc_mode_of_payment: String,acc_days: String,acc_file_name: String,acc_payment_status: String,acc_status: String,user_id: String,acc_amount: String) {
-    const body = { 
-      _id: id,
-      acc_transaction_id: acc_transaction_id,
-      acc_mode_of_payment: acc_mode_of_payment,
-      acc_days: acc_days,
-      acc_file_name: acc_file_name,
-      acc_payment_status: acc_payment_status,
-      acc_status: acc_status,
-      user_id: user_id,
-      acc_amount: acc_amount
-    };
-    const headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-    return this.http.put(this.app.getUrl(this.baseUrl + `${id}`), body).pipe(map(res => res, {'headers': headers}));
-  }
+  
   deleteAccomodation(id: String) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post(this.app.getUrl(this.baseUrl + `${id}` ),{} ).pipe(map(res => res, {'headers': headers}));
+    return this.http.post(this.app.getUrl(this.baseUrl +'remove/'+ `${id}` ),{} ).pipe(map(res => res, {'headers': headers}));
   }
 }
