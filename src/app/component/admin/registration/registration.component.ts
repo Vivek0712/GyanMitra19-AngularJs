@@ -187,6 +187,7 @@ export class RegistrationComponent implements OnInit {
 
   viewed(){
     this.viewDetails = false;
+	this.selectedParticipant = {};
     this.edit = false;
   }  
 
