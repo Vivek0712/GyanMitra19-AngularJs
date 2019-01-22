@@ -219,7 +219,7 @@
               </div>
             </div>
 
-            <div class="card">
+            <!-- <div class="card">
               <div class="card-content">
                 <div class="card-title">
                   Event and Workshop Registrations
@@ -235,28 +235,27 @@
                             <th>Sl. No</th>
                             <th>Event Name</th>
                             <th>Venue</th>
-                            <!-- <th>Delete</th> -->
                           </tr>
                         </thead>
                         <tbody>
                           <tr *ngFor="let event of getRegisteredEvents; let i = index;">
                             <th scope="row">{{i+1}}</th>
                             <td>{{event.event_id.title}}</td>
-                            <!-- <td>{{event.event_id.department_id.name}}</td> -->
+                             <td>{{event.event_id.department_id.name}}</td>
                             <td>{{ event.event_id }}</td>
-                            <!--                             
+                                                     
                             <td>
                               <div class="fonticon-wrap icon-shadow icon-shadow-danger" (click)="deleteParticipant(participant._id)">
                                 <a> <i class="la la-trash la-2x"></i></a>
                               </div>
-                            </td> -->
+                            </td> 
                           </tr>
                         </tbody>
                       </table>
-                    </div>
-                </div>
-              </div>
-            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
 
           </div>
           <div class="modal-footer">
@@ -349,20 +348,21 @@
                         <th>Sl. No</th>
                         <th>Name</th>
                         <th>Email</th>
-                        <th>Mobile Number</th>
-                        <th>More Info</th>
+                        <th>MobileNumber</th>
+                        <th>Info</th>
                         <th>Delete</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr *ngFor="let participant of participants | searchfilter : searchText ; let i = index;">
                         <th scope="row">{{i+1}}</th>
+
                         <td>{{participant.name}}</td>
-                        <td>{{participant.college_id.name}} </td>
                         <td>{{participant.email_id}}</td>
                         <td>{{participant.mobile_number}}</td>
                         <td>
-                          <div class="fonticon-wrap icon-shadow icon-shadow-info" data-toggle="modal" data-target="#participantModal" (click)="moreInfo(participant._id)">
+                          <div class="fonticon-wrap icon-shadow icon-shadow-info" data-toggle="modal" data-target="#participantModal"
+                            (click)="moreInfo(participant._id)">
                             <a> <i class="la la-info-circle la-2x"></i></a>
                           </div>
                         </td>

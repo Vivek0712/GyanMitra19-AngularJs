@@ -1,0 +1,76 @@
+<div class="app-content content">
+  <div class="content-wrapper">
+    <div class="content-wrapper-before"></div>
+    <div class="content-header row">
+      <div class="content-header-left col-md-4 col-12 mb-2">
+        <h3 class="content-header-title">Users</h3>
+      </div>
+      <div class="content-header-right col-md-8 col-12">
+        <div class="breadcrumbs-top float-md-right">
+          <div class="breadcrumb-wrapper mr-1">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="index.html">Home</a>
+              </li>
+              <li class="breadcrumb-item active">Users
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-content">
+        <div class="card-title">
+          <h3>Payment details</h3>
+        </div>
+        <div class="card-body">
+          <div class="card">
+            <div class="card-title">
+              Mode of Payment
+              <div class="row">
+                <div class="col-1"></div>
+                <div class="col-3">
+                  <button class="btn btn-outline-black" (click)="getDDPayedUsers()">DD Payed Users</button>
+                </div>
+                <div class="col-1"></div>
+                <div class="col-3">
+                  <button class="btn btn-outline-black" (click)="getOnlinePayedUsers()">Online Payed Users</button>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+
+
+              <div class="table-responsive" *ngIf="click">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Sl. No</th>
+                      <th>Name</th>
+                      <th>Transaction ID</th>
+                      <th>Amount</th>
+                      <th>Email</th>
+                      <th>MobileNumber</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let pay of payedUsers; let i = index;">
+                      <th scope="row">{{i+1}}</th>
+                      <td>{{ pay.user_id.name }}</td>
+                      <td>{{ pay.transaction_id }}</td>
+                      <td>{{ pay.amount }}</td>
+                      <td>{{ pay.user_id.email_id }}</td>
+                      <td>{{ pay.user_id.mobile_number }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> <br>
+
+
+
+    </div>
+  </div>

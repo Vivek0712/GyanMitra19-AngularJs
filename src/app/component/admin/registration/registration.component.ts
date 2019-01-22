@@ -3,7 +3,7 @@ import { CollegeService } from 'src/app/services/college/college.service';
 import { UserService } from 'src/app/services/user/user.service'
 import { DegreeService } from 'src/app/services/degree/degree.service';
 import { DepartmentService } from 'src/app/services/department/department.service';
-import { FormGroup, FormControl, Validators , FormBuilder , FormArray, NgForm } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder, FormArray, NgForm } from '@angular/forms';
 import { YearService } from 'src/app/services/year/year.service';
 import { CourseService } from 'src/app/services/course/course.service';
 import { EventRegistrationService } from 'src/app/services/eventRegistration/event-registration.service';
@@ -34,21 +34,21 @@ export class RegistrationComponent implements OnInit {
   selectedGender: string;
   selectedParticipant: any;
   viewDetails: Boolean;
-  paidStatus: Boolean;
-  edit:Boolean = false;
-  userForm:FormGroup;
-  submitted:Boolean = false;
+  paidStatus: String = "";
+  edit: Boolean = false;
+  userForm: FormGroup;
+  submitted: Boolean = false;
   degrees: Array<any>;
-  years : Array<any>;
+  years: Array<any>;
   departments: Array<any>;
-  registeredWorkshops:Array<any>;
+  registeredWorkshops: Array<any>;
   registeredEvents: Array<any>;
 
-  constructor(private eventregisterService:EventRegistrationService,private yearService:YearService,private collegeService: CollegeService, private userService: UserService, private degreeService: DegreeService, private courseService: CourseService, private formBuilder: FormBuilder) { }
+  constructor(private eventregisterService: EventRegistrationService, private yearService: YearService, private collegeService: CollegeService, private userService: UserService, private degreeService: DegreeService, private courseService: CourseService, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.currentPage = 1;
-    this.getParticipants(1);
+    this.getParticipants();
     this.getColleges();
     this.getDegrees();
     this.getYears();
@@ -59,17 +59,17 @@ export class RegistrationComponent implements OnInit {
     this.viewDetails = false;
   }
 
-  getRegisteredWorkshops() {
-    this.eventregisterService.getRegisteredEvents(this.selectedParticipant._id,"Workshop").subscribe((response:any)=>{
-      this.getRegisteredWorkshops = response.doc;
-    })
-  }
-  
-  getRegisteredEvents() {
-    this.eventregisterService.getRegisteredEvents(this.selectedParticipant._id,"Event").subscribe((response:any)=>{
-      this.getRegisteredEvents = response.doc;
-    })
-  }
+  // getRegisteredWorkshops() {
+  //   this.eventregisterService.getRegisteredEvents(this.selectedParticipant._id,"Workshop").subscribe((response:any)=>{
+  //     this.getRegisteredWorkshops = response.doc;
+  //   })
+  // }
+
+  // getRegisteredEvents() {
+  //   this.eventregisterService.getRegisteredEvents(this.selectedParticipant._id,"Event").subscribe((response:any)=>{
+  //     this.getRegisteredEvents = response.doc;
+  //   })
+  // }
 
   getYears() {
     this.yearService.readYear(0).subscribe((response: any) => {
@@ -89,22 +89,22 @@ export class RegistrationComponent implements OnInit {
   }
 
   createForm() {
-    this.submitted=false;
+    this.submitted = false;
     this.userForm = this.formBuilder.group({
       _id: '',
-      name: ['',Validators.required],
-      email_id: ['',Validators.required],
-      mobile_number: ['',Validators.required],
-      college_id: ['',Validators.required],
-      year_id: ['',Validators.required],      
-      degree_id: ['',Validators.required],      
-      department_id: ['',Validators.required]   
+      name: ['', Validators.required],
+      email_id: ['', Validators.required],
+      mobile_number: ['', Validators.required],
+      college_id: ['', Validators.required],
+      year_id: ['', Validators.required],
+      degree_id: ['', Validators.required],
+      department_id: ['', Validators.required]
     });
   }
 
-  editClick(){
-    if(this.edit==true){
-      this.edit=false;
+  editClick() {
+    if (this.edit == true) {
+      this.edit = false;
     }
     else {
       this.edit = true;
@@ -156,7 +156,7 @@ export class RegistrationComponent implements OnInit {
 
   reload() {
     this.searchText = '';
-    this.getParticipants(1);
+    this.getParticipants();
   }
 
   loadFull() {
@@ -177,91 +177,95 @@ export class RegistrationComponent implements OnInit {
 
   moreInfo(_id: String) {
     this.viewDetails = true;
-    this.getRegisteredEvents();
-    this.getRegisteredWorkshops();
     this.userService.getParticipant(_id).subscribe((response: any) => {
       this.selectedParticipant = response;
     })
-     
+
   }
 
-  viewed(){
+  viewed() {
     this.viewDetails = false;
-	this.selectedParticipant = {};
+    this.selectedParticipant = {};
     this.edit = false;
-  }  
+  }
 
 
-  getParticipants(page: any) {
-    this.userService.getParticpants(page).subscribe((response: any) => {
-      if (response.docs.length == 0) {
-        this.currentPage -= 1;
-        this.participants = []
-      }
-      else {
-        this.participants = []
-        this.participants = response.docs;
-      }
+  getParticipants() {
+    this.userService.getAllParticipants().subscribe((response: any) => {
+      this.participants = response;
+      console.log(this.participants);
     });
   }
 
-  nextPage() {
-    this.currentPage = this.currentPage + 1;
-    this.getParticipants(this.currentPage);
-  }
+  // nextPage() {
+  //   this.currentPage = this.currentPage + 1;
+  //   this.getParticipants(this.currentPage);
+  // }
 
-  previousPage() {
-    if (this.currentPage == 1) {
-    }
-    else {
-      this.currentPage = this.currentPage - 1;
-      this.getParticipants(this.currentPage);
-    }
-  }
+  // previousPage() {
+  //   if (this.currentPage == 1) {
+  //   }
+  //   else {
+  //     this.currentPage = this.currentPage - 1;
+  //     this.getParticipants(this.currentPage);
+  //   }
+  // }
+
   deleteParticipant(id: string) {
     this.userService.deleteUser(id).subscribe((response: any) => {
       if (response.error) {
         M.toast({ html: response.msg, classes: 'roundeds' });
-        this.getParticipants(this.currentPage);
+        this.getParticipants();
       } else {
         M.toast({ html: response.msg, classes: 'roundeds' });
-        this.getParticipants(this.currentPage);
-      } 
+        this.getParticipants();
+      }
     });
   }
 
   filter() {
     this.userService.getAllParticipants().subscribe((response: any) => {
       this.participants = [];
-      if (this.selectedGender != "" && this.selectedCollegeId != "" && this.paidStatus != undefined) {
+      let paid: Boolean;
+      if (this.paidStatus == "true") {
+        paid = true;
+      }
+      else {
+        paid = false;
+      }
+      if (this.selectedGender != "" && this.selectedCollegeId != "" && this.paidStatus != "") {
         for (let user of response) {
-          if (user.gender == this.selectedGender && user.college_id == this.selectedCollegeId && user.cart_paid == this.paidStatus) {
+          if (user.gender == this.selectedGender && user.college_id._id == this.selectedCollegeId && user.cart_paid == paid) {
             this.participants.push(user);
           }
         }
       }
       else if (this.selectedGender != "" && this.selectedCollegeId != "") {
+        console.log("2");
         for (let user of response) {
-          if (user.gender == this.selectedGender && user.college_id == this.selectedCollegeId) {
+          if (user.gender == this.selectedGender && user.college_id._id == this.selectedCollegeId) {
             this.participants.push(user);
           }
         }
       }
-      else if (this.selectedCollegeId != "" && this.paidStatus != undefined) {
+      else if (this.selectedCollegeId != "" && this.paidStatus != "") {
+        console.log("3");
         for (let user of response) {
-          if (user.college_id == this.selectedCollegeId && user.cart_paid == this.paidStatus) {
+          if (user.college_id._id == this.selectedCollegeId && user.cart_paid == paid) {
             this.participants.push(user);
           }
         }
       }
-      if (this.selectedGender != "" && this.paidStatus != undefined) {
+      else if (this.selectedGender != "" && this.paidStatus != "") {
+        console.log("4");
         for (let user of response) {
-          if (user.gender == this.selectedGender && user.cart_paid == this.paidStatus) {
+          if (user.gender == this.selectedGender && user.cart_paid == paid) {
             this.participants.push(user);
           }
         }
       }
       else if (this.selectedGender != "") {
+        console.log("5");
         for (let user of response) {
           if (user.gender == this.selectedGender) {
             this.participants.push(user);
@@ -269,28 +273,31 @@ export class RegistrationComponent implements OnInit {
         }
       }
       else if (this.selectedCollegeId != "") {
+        console.log("6");
         for (let user of response) {
-          if (user.college_id == this.selectedCollegeId) {
+          if (user.college_id._id == this.selectedCollegeId) {
             this.participants.push(user);
           }
         }
       }
-      else if (this.paidStatus != undefined) {
+      else if (this.paidStatus != "") {
+        console.log("7");
         for (let user of response) {
-          if (user.cart_paid == this.paidStatus) {
+          if (user.cart_paid == paid) {
             this.participants.push(user);
           }
         }
       }
       else {
+        console.log("8");
         this.participants = response;
       }
     });
   }
 
-  updateUser(){
-    this.userService.updateUser(this.userForm.value).subscribe((response:any)=>{
-      if(response.error) {
+  updateUser() {
+    this.userService.updateUser(this.userForm.value).subscribe((response: any) => {
+      if (response.error) {
         M.toast({ html: response.msg, classes: 'roundeds' });
         this.edit = false;
       }
