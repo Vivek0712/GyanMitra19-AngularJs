@@ -34,7 +34,7 @@ export class RegistrationComponent implements OnInit {
   selectedGender: string;
   selectedParticipant: any;
   viewDetails: Boolean;
-  paidStatus: String ="";
+  paidStatus: String = "";
   edit: Boolean = false;
   userForm: FormGroup;
   submitted: Boolean = false;
@@ -48,7 +48,7 @@ export class RegistrationComponent implements OnInit {
 
   ngOnInit() {
     this.currentPage = 1;
-    this.getParticipants(1);
+    this.getParticipants();
     this.getColleges();
     this.getDegrees();
     this.getYears();
@@ -156,7 +156,7 @@ export class RegistrationComponent implements OnInit {
 
   reload() {
     this.searchText = '';
-    this.getParticipants(1);
+    this.getParticipants();
   }
 
   loadFull() {
@@ -190,40 +190,35 @@ export class RegistrationComponent implements OnInit {
   }
 
 
-  getParticipants(page: any) {
-    this.userService.getParticpants(page).subscribe((response: any) => {
-      if (response.docs.length == 0) {
-        this.currentPage -= 1;
-        this.participants = []
-      }
-      else {
-        this.participants = []
-        this.participants = response.docs;
-      }
+  getParticipants() {
+    this.userService.getAllParticipants().subscribe((response: any) => {
+      this.participants = response;
+      console.log(this.participants);
     });
   }
 
-  nextPage() {
-    this.currentPage = this.currentPage + 1;
-    this.getParticipants(this.currentPage);
-  }
+  // nextPage() {
+  //   this.currentPage = this.currentPage + 1;
+  //   this.getParticipants(this.currentPage);
+  // }
 
-  previousPage() {
-    if (this.currentPage == 1) {
-    }
-    else {
-      this.currentPage = this.currentPage - 1;
-      this.getParticipants(this.currentPage);
-    }
-  }
+  // previousPage() {
+  //   if (this.currentPage == 1) {
+  //   }
+  //   else {
+  //     this.currentPage = this.currentPage - 1;
+  //     this.getParticipants(this.currentPage);
+  //   }
+  // }
+
   deleteParticipant(id: string) {
     this.userService.deleteUser(id).subscribe((response: any) => {
       if (response.error) {
         M.toast({ html: response.msg, classes: 'roundeds' });
-        this.getParticipants(this.currentPage);
+        this.getParticipants();
       } else {
         M.toast({ html: response.msg, classes: 'roundeds' });
-        this.getParticipants(this.currentPage);
+        this.getParticipants();
       }
     });
   }
