@@ -57,9 +57,9 @@
               <div class="card-reveal">
                 <span class="card-title grey-text text-darken-4">Description<i class="fas fa-times float-right"></i></span>
                 {{event.description}}
-				<hr/>
+				      <hr/>
                 <span class="card-title grey-text text-darken-4">Rules</span>
-                <ul>
+               <ul>
                   <li *ngFor="let rule of (event.rules | rulesTransform)">{{ rule }}</li>
                 </ul>
               </div>

@@ -3,6 +3,11 @@ import { CollegeService } from 'src/app/services/college/college.service';
 import { UserService } from 'src/app/services/user/user.service'
 import { DegreeService } from 'src/app/services/degree/degree.service';
 import { DepartmentService } from 'src/app/services/department/department.service';
+import { FormGroup, FormControl, Validators , FormBuilder , FormArray, NgForm } from '@angular/forms';
+import { YearService } from 'src/app/services/year/year.service';
+import { CourseService } from 'src/app/services/course/course.service';
+import { EventRegistrationService } from 'src/app/services/eventRegistration/event-registration.service';
+
 
 declare var M: any;
 
@@ -29,17 +34,92 @@ export class RegistrationComponent implements OnInit {
   selectedGender: string;
   selectedParticipant: any;
   viewDetails: Boolean;
+  paidStatus: Boolean;
+  edit:Boolean = false;
+  userForm:FormGroup;
+  submitted:Boolean = false;
+  degrees: Array<any>;
+  years : Array<any>;
+  departments: Array<any>;
+  registeredWorkshops:Array<any>;
+  registeredEvents: Array<any>;
 
-  constructor(private collegeService: CollegeService, private userService: UserService, private degreeService: DegreeService, private departmentService: DepartmentService) { }
+  constructor(private eventregisterService:EventRegistrationService,private yearService:YearService,private collegeService: CollegeService, private userService: UserService, private degreeService: DegreeService, private courseService: CourseService, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.currentPage = 1;
     this.getParticipants(1);
     this.getColleges();
+    this.getDegrees();
+    this.getYears();
+    this.getDepartments();
     this.selectedGender = "";
     this.selectedCollegeId = "";
     this.searchText = "";
     this.viewDetails = false;
+  }
+
+  getRegisteredWorkshops() {
+    this.eventregisterService.getRegisteredEvents(this.selectedParticipant._id,"Workshop").subscribe((response:any)=>{
+      this.getRegisteredWorkshops = response.doc;
+    })
+  }
+  
+  getRegisteredEvents() {
+    this.eventregisterService.getRegisteredEvents(this.selectedParticipant._id,"Event").subscribe((response:any)=>{
+      this.getRegisteredEvents = response.doc;
+    })
+  }
+
+  getYears() {
+    this.yearService.readYear(0).subscribe((response: any) => {
+      this.years = response;
+    });
+  }
+
+  getDepartments() {
+    this.courseService.readCourse(0).subscribe((response: any) => {
+      this.departments = response;
+    });
+  }
+  getDegrees() {
+    this.degreeService.readDegree(0).subscribe((response: any) => {
+      this.degrees = response;
+    });
+  }
+
+  createForm() {
+    this.submitted=false;
+    this.userForm = this.formBuilder.group({
+      _id: '',
+      name: ['',Validators.required],
+      email_id: ['',Validators.required],
+      mobile_number: ['',Validators.required],
+      college_id: ['',Validators.required],
+      year_id: ['',Validators.required],      
+      degree_id: ['',Validators.required],      
+      department_id: ['',Validators.required]   
+    });
+  }
+
+  editClick(){
+    if(this.edit==true){
+      this.edit=false;
+    }
+    else {
+      this.edit = true;
+      this.createForm();
+      this.userForm.setValue({
+        _id: this.selectedParticipant._id,
+        name: this.selectedParticipant.name,
+        email_id: this.selectedParticipant.email_id,
+        mobile_number: this.selectedParticipant.mobile_number,
+        college_id: this.selectedParticipant.college_id,
+        year_id: this.selectedParticipant.year_id,
+        degree_id: this.selectedParticipant.degree_id,
+        department_id: this.selectedParticipant.department_id
+      })
+    }
   }
 
   // getSelectedDepartment() {
@@ -97,15 +177,18 @@ export class RegistrationComponent implements OnInit {
 
   moreInfo(_id: String) {
     this.viewDetails = true;
+    this.getRegisteredEvents();
+    this.getRegisteredWorkshops();
     this.userService.getParticipant(_id).subscribe((response: any) => {
       this.selectedParticipant = response;
-      console.log(this.selectedParticipant);
     })
+     
   }
 
   viewed(){
     this.viewDetails = false;
 	this.selectedParticipant = {};
+    this.edit = false;
   }  
 
 
@@ -143,17 +226,37 @@ export class RegistrationComponent implements OnInit {
       } else {
         M.toast({ html: response.msg, classes: 'roundeds' });
         this.getParticipants(this.currentPage);
-      }
+      } 
     });
   }
 
   filter() {
     this.userService.getAllParticipants().subscribe((response: any) => {
       this.participants = [];
-
-      if (this.selectedGender != "" && this.selectedCollegeId != "") {
+      if (this.selectedGender != "" && this.selectedCollegeId != "" && this.paidStatus != undefined) {
+        for (let user of response) {
+          if (user.gender == this.selectedGender && user.college_id == this.selectedCollegeId && user.cart_paid == this.paidStatus) {
+            this.participants.push(user);
+          }
+        }
+      }
+      else if (this.selectedGender != "" && this.selectedCollegeId != "") {
         for (let user of response) {
           if (user.gender == this.selectedGender && user.college_id == this.selectedCollegeId) {
+            this.participants.push(user);
+          }
+        }
+      }
+      else if (this.selectedCollegeId != "" && this.paidStatus != undefined) {
+        for (let user of response) {
+          if (user.college_id == this.selectedCollegeId && user.cart_paid == this.paidStatus) {
+            this.participants.push(user);
+          }
+        }
+      }
+      if (this.selectedGender != "" && this.paidStatus != undefined) {
+        for (let user of response) {
+          if (user.gender == this.selectedGender && user.cart_paid == this.paidStatus) {
             this.participants.push(user);
           }
         }
@@ -172,11 +275,29 @@ export class RegistrationComponent implements OnInit {
           }
         }
       }
+      else if (this.paidStatus != undefined) {
+        for (let user of response) {
+          if (user.cart_paid == this.paidStatus) {
+            this.participants.push(user);
+          }
+        }
+      }
       else {
         this.participants = response;
       }
     });
   }
 
+  updateUser(){
+    this.userService.updateUser(this.userForm.value).subscribe((response:any)=>{
+      if(response.error) {
+        M.toast({ html: response.msg, classes: 'roundeds' });
+        this.edit = false;
+      }
+      else {
+        M.toast({ html: response.msg, classes: 'roundeds' });
+      }
+    });
+  }
 
 }

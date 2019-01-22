@@ -1,9 +1,5 @@
-@import url('bootstrap.css');
-@import url('all.css');
+@import url('bootstrap.min.css');
+@import url('fontawesome.css');
 @import url('../fonts/feather/style.min.css');
 @import url('../fonts/line-awesome/css/line-awesome.min.css');
 @import url('../vendors/css/extensions/pace.css');
-/* cyrillic-ext */
-
-
- 
