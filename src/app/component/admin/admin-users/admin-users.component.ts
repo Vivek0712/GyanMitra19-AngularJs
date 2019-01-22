@@ -60,7 +60,7 @@ export class AdminUsersComponent implements OnInit {
   }
   onSubmit(value: any) {
     this.submitted = true;
-    console.log(value);
+  
   }
 
   addRoleCheckBox(): void {

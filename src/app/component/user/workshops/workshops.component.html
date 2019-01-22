@@ -36,11 +36,42 @@
                 </div>
             </span>
         </div>
+    </div>
+    <br />
+    <div class="content-body">
+      <section id="content-types">
+        <div class="row match-height">
+          <div class="col-lg 4 col-md-4 col-sm-12 col-xs-12" *ngFor="let workshop of workshops | filterEventsBasedOnDepartment : searchText">
+            <div class="card pull-up">
+              <div class="card-body">
+                <h3 class="card-title">{{workshop.title}} <span class="card-title activator grey-text text-darken-4 float-right"><i
+                      class="fas fa-ellipsis-v right"></i></span></h3>
+                <h6 class="card-subtitle text-muted">Department of {{workshop.department_id.name}}</h6>
+              </div>
+              <img class="activator card-image" src="http://www.gyanmitra19.mepcoeng.ac.in/assests/images/events/{{workshop.image_name}}">
+              
+              <div class="card-body">
+				<p class="card-text">
+					Registration Fee: {{ workshop.amount }} Rs.
+				</p>
+                Contact <p class="card-text">
+                  <a href="mailto:{{workshop.contact_email}}">{{workshop.contact_email}}</a>
+                </p>
+              </div>
+              <div class="card-reveal">
+                <span class="card-title grey-text text-darken-4">Pre Requesites<i class="fas fa-times float-right"></i></span>
+                {{workshop.rules}}
+                <hr />
+				
+				<span class="card-title grey-text text-darken-4">Description</span>
+				{{workshop.description}}
+				<hr>
+                <h4>Timing</h4>
         <br />
         <div class="content-body">
             <section id="content-types">
                 <div class="row match-height">
-                    <div class="col-4" *ngFor="let workshop of workshops | filterEventsBasedOnDepartment : searchText">
+                    <div class="col-lg 4 col-md-4 col-sm-12 col-xs-12" *ngFor="let workshop of workshops | filterEventsBasedOnDepartment : searchText">
                         <div class="card pull-up">
                             <div class="card-body">
                                 <h3 class="card-title">{{workshop.title}} <span class="card-title activator grey-text text-darken-4 float-right"><i
@@ -50,6 +81,9 @@
                             <img class="activator card-image" src="http://www.gyanmitra19.mepcoeng.ac.in/assests/images/events/{{workshop.image_name}}">
 
                             <div class="card-body">
+								<p class="card-text">
+									Registration Fee: {{ workshop.amount }}
+                                </p>
                                 Contact <p class="card-text">
                                     <a href="mailto:{{workshop.contact_email}}">{{workshop.contact_email}}</a>
                                 </p>
