@@ -74,6 +74,7 @@ import { PaymentSuccessComponent } from './component/user/payment-success/paymen
 import { PaymentFailureComponent } from './component/user/payment-failure/payment-failure.component';
 import { AccFailureComponent } from './component/user/acc-failure/acc-failure.component';
 import { AccSuccessComponent } from './component/user/acc-success/acc-success.component';
+import { PaymentComponent } from './component/admin/payment/payment.component';
 /////////////////////////////////////////////////////////////////
 
 @NgModule({
@@ -125,6 +126,7 @@ import { AccSuccessComponent } from './component/user/acc-success/acc-success.co
     AccFailureComponent,
     AccSuccessComponent,
 	ContactUsComponent,
+	PaymentComponent,
   ],
   imports: [
     BrowserModule,
