@@ -19,7 +19,10 @@
       </div>
     </div>
     
-<!-- Modal 
+<<<<<<< HEAD
+
+=======
+>>>>>>> 125bdd31d4b943eccc3bf972a1151f784c212725
 <div class="modal fade" id="participantModal" tabindex="-1" role="dialog" aria-labelledby="participantModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -29,26 +32,25 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body" *ngIf="viewDetails">
         Name : {{selectedParticipant.name}} <br />
-        College: {{selectedParticipant.college_id | resolvecollege}} <br />
-        Gender : {{selectedParticipant.gender}} <br />
-        Year : {{selectedParticipant.year}} <br />
-        Degree : {{selectedDegree}} <br />
-        Department : {{selectedDepartment}} <br />
+        Gender : {{selectedParticipant.gender}} <br /> <br />
+        College: {{selectedParticipant.college_id.name}} <br />
+        Year : {{selectedParticipant.year_id.name }} <br />
+        Degree : {{selectedParticipant.degree_id.name}} <br />
+        Department : {{selectedParticipant.college_id.name}} <br /><br />
         Mobile Number : {{selectedParticipant.mobile_number}} <br />
-        EMail ID : {{selectedParticipant.email_id}} <br />
-        Activated : {{selectedParticipant.activated}} <br />
-        Confirmed : {{selectedParticipant.confirmed}}
+        EMail ID : {{selectedParticipant.email_id}} <br /><br />
+        Registration Mode: {{ selectedParticipant.registration_mode }}
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-success" (click)="confirmPayment()">Confirm Payment</button>
-        <button type="button" class="btn btn-danger" (click)="unfreezeEvents()">Unfreeze Events</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <!-- <button type="button" class="btn btn-danger" (click)="unfreezeEvents()">Unfreeze Events</button> -->
+        <button type="button" class="btn btn-secondary" data-dismiss="modal"  (click)="viewed()">Close</button>
       </div>
     </div>
   </div>
-</div>-->
+</div>
     <div class="content-body">
       <div class="row">
         <div class="col-12">
@@ -114,9 +116,9 @@
                       <tr>
                         <th>Sl. No</th>
                         <th>Name</th>
-                        <th>College</th>
                         <th>Email</th>
                         <th>MobileNumber</th>
+						<th>Info</th>
                         <th>Delete</th>
                       </tr>
                     </thead>
@@ -125,14 +127,13 @@
                         <th scope="row">{{i+1}}</th>
                       
                         <td>{{participant.name}}</td>
-                        <td>{{participant.college_id | resolvecollege}} </td>
                         <td>{{participant.email_id}}</td>
                         <td>{{participant.mobile_number}}</td>
-                        <!--<td>
+                        <td>
                           <div class="fonticon-wrap icon-shadow icon-shadow-info" data-toggle="modal" data-target="#participantModal" (click)="moreInfo(participant._id)">
                             <a> <i class="la la-info-circle la-2x"></i></a>
                           </div>
-                        </td>-->
+                        </td>
                         <td>
                           <div class="fonticon-wrap icon-shadow icon-shadow-danger" (click)="deleteParticipant(participant._id)">
                               <a> <i class="la la-trash la-2x"></i></a>

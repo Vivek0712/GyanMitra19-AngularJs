@@ -1,6 +1,7 @@
 import { RouterModule, Routes } from '@angular/router';
 
 import { AboutComponent } from 'src/app/component/user/about/about.component';
+import { ContactUsComponent } from 'src/app/component/user/contact-us/contact-us.component';
 import { EventsComponent } from 'src/app/component/user/events/events.component';
 import { WorkshopsComponent } from 'src/app/component/user/workshops/workshops.component';
 import { CartComponent } from 'src/app/component/user/cart/cart.component';
@@ -16,10 +17,7 @@ import { AdminGuard } from 'src/app/guard/admin/admin.guard';
 import { PaymentSuccessComponent } from 'src/app/component/user/payment-success/payment-success.component';
 import { PaymentFailureComponent } from 'src/app/component/user/payment-failure/payment-failure.component';
 import { AccFailureComponent } from 'src/app/component/user/acc-failure/acc-failure.component';
-import { AccSuccessComponent } from 'src/app/component/user/acc-success/acc-success.component';
-
-
-export const USER_ROUTE: Routes = [
+import { AccSuccessComponent } from 'src/app/component/user/acc-success/acc-success.component';export const USER_ROUTE: Routes = [
      { path: 'home', component: UserHomeComponent },
      { path: 'about', component: AboutComponent },
      { path: 'events', component: EventsComponent },
@@ -31,6 +29,7 @@ export const USER_ROUTE: Routes = [
      { path: 'accomodation', component: UserAccomodationComponent},
      { path: 'teamRegister/:id', component: TeamRegisterComponent },
      { path: 'gyanmitra18', component: GyanMitra18Component },
+	 { path: 'contactus', component: ContactUsComponent },
      { path: 'payment/success', component: PaymentSuccessComponent,canActivate:[AuthGuard]},
      { path: 'payment/failure', component: PaymentFailureComponent, canActivate: [AuthGuard] },
      { path: 'acc/payment/success', component: AccSuccessComponent,canActivate:[AuthGuard]},
