@@ -71,8 +71,9 @@ export class RegisterComponent implements OnInit {
       else {
         this.Button="Sending Mail......";
         this.reg.createUser(name,college_id,course_id,degree_id,email_id,gender,mobile_number,password,year,false,"online").subscribe((response: any) => {
-          if (response.error) {
+		  if (response.error) {
             M.toast({ html: response.msg, classes: 'roundeds' });
+			
           } else {
             M.toast({ html: response.msg, classes: 'roundeds' });
             this.createForm();    
