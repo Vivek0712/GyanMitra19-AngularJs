@@ -116,7 +116,7 @@ export class AdminEventComponent implements OnInit {
       formData.append('uploadFile', file, file.name);
       formData.append('_id', this.selectedEventID);
       this.eventService.uploadFile(formData).subscribe((response: any) => {
-        console.log(response);
+    
       })
     }
   }

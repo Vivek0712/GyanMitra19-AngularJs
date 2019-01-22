@@ -17,7 +17,7 @@ export class AdminNavbarComponent implements OnInit {
         this.user = res.profile;
       },
        err => {
-         console.log(err);
+       
          return false;
        });
     }

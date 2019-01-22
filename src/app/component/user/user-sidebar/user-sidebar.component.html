@@ -1,4 +1,4 @@
-<div class="main-menu menu-fixed menu-light menu-accordion menu-shadow " data-scroll-to-active="true" data-img='public/images/backgrounds/02.jpg'>
+<div class="main-menu menu-fixed menu-light menu-accordion menu-shadow " data-scroll-to-active="true" data-img="public/images/backgrounds/02.jpg">
   <div class="navbar-header">
     <ul class="nav navbar-nav flex-row">
       <li class="nav-item mr-auto">
@@ -28,11 +28,9 @@
           [routerLinkActiveOptions]="{exact:true}"><i class="fab fa-fort-awesome"></i><span class="menu-title"
             data-i18n="">Accomodation</span></a></li>
       <li *ngIf="!authService.isLoggedIn()" class="nav-item"><a [routerLink]="['/user/login']" [routerLinkActive]="['active']"
-          [routerLinkActiveOptions]="{exact:true}"><i class="fas fa-sign-in-alt"></i><span class="menu-title"
-            data-i18n="">Login</span></a></li>
+          [routerLinkActiveOptions]="{exact:true}"><i class="fas fa-sign-in-alt"></i><span class="menu-title" data-i18n="">Login</span></a></li>
       <li *ngIf="!authService.isLoggedIn()" class="nav-item"><a [routerLink]="['/user/register']" [routerLinkActive]="['active']"
-          [routerLinkActiveOptions]="{exact:true}"><i class="far fa-edit"></i><span class="menu-title"
-            data-i18n="">Register</span></a></li>
+          [routerLinkActiveOptions]="{exact:true}"><i class="far fa-edit"></i><span class="menu-title" data-i18n="">Register</span></a></li>
     </ul>
   </div>
   <div class="navigation-background"></div>
