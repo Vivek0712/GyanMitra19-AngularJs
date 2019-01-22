@@ -24,19 +24,18 @@
                             "src/public/images"
                         ],
                         "styles": [
-                            "src/public/css/vendors.css",
-                            "src/public/css/app-lite.css",
+                            "src/public/css/vendors.min.css",
+                            "src/public/css/app.min.css",
                             "src/public/css/core/menu/menu-types/vertical-menu.css",
-                            "src/public/css/core/colors/palette-gradient.css",   
-                            "src/public/vendors/css/forms/selects/select2.min.css",
-                            "src/public/css/mycss.css"
+                            "src/public/css/core/colors/palette-gradient.css",
+                            "src/public/css/mycss.css" 
+                           
                         ],
                         "scripts": [
                             "src/public/vendors/js/vendors.min.js",
                             "src/public/js/core/materialize.min.js",
-                            "src/public/js/core/app-menu-lite.js",
-                            "src/public/js/core/app-lite.js",
-                            "src/public/js/scripts/picker.date.js",
+                            "src/public/js/core/app-menu.min.js",
+                            "src/public/js/core/app.min.js",
                             "src/public/js/scripts/select2.min.js",
                             "src/public/js/scripts/myjquery.js"
                         ]
