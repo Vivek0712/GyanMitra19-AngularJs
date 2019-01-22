@@ -257,129 +257,129 @@
       </div>
     </div> -->
 
-  </div>
-  <div class="modal-footer">
-    <!-- <button type="button" class="btn btn-danger" (click)="unfreezeEvents()">Unfreeze Events</button> -->
-    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="viewed()">Close</button>
-  </div>
-</div>
-</div>
-</div>
-<div class="content-body">
-  <div class="row">
-    <div class="col-12">
-      <div class="card">
-        <div class="card-header">
-          <h4 class="card-title">Participants</h4>
-          <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
-          <div class="heading-elements">
-            <ul class="list-inline mb-0">
-              <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
-              <li><a data-action="reload" (click)="reload()"><i class="ft-rotate-cw"></i></a></li>
-              <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
-            </ul>
+          </div>
+          <div class="modal-footer">
+            <!-- <button type="button" class="btn btn-danger" (click)="unfreezeEvents()">Unfreeze Events</button> -->
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="viewed()">Close</button>
           </div>
         </div>
-        <div class="card-content collapse show">
-          <div class="card-body">
-            <div class="container">
-              <div class="row">
-                <div class="col-6">
-                  <input [(ngModel)]="searchText" placeholder="Search Participants" class="form-control">
-                </div>
-                <div class="col-2">
-                  <span class="fonticon-wrap success">
-                    <a (click)="loadFull()">
-                      <i class="la la-search la-2x"></i>
-                    </a>
-                  </span>
-                </div>
-                <div class="col-4 ">
-                  <div class="right">
-                    <span class="btn btn-info" (click)="previousPage()"> &lt; </span> &nbsp; Page {{currentPage}}
-                    &nbsp;
-                    <span class="btn btn-info" (click)="nextPage()"> &gt; </span>
-                  </div>
-                </div>
-              </div>
-              <br />
-              <div class="row">
-                <div class="col-3">
-                  College
-                </div>
-                <div class="col-3">
-                  Gender
-                </div>
-                <div class="col-3">
-                  Payment status
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-3">
-                  <select class="custom-select" placeholder="College" [(ngModel)]="selectedCollegeId" id="slctCollege">
-                    <option value="" selected>All</option>
-                    <option *ngFor="let college of colleges" value={{college._id}}>{{college.name}}</option>
-                  </select>
-                </div>
-                <div class="col-3">
-                  <select class="custom-select" [(ngModel)]="selectedGender" id="slctGender">
-                    <option value="" selected>ALL</option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                  </select>
-                </div>
-                <div class="col-3">
-                  <select class="custom-select" [(ngModel)]="paidStatus" id="slctPaid">
-                    <option value="" selected="true">ALL</option>
-                    <option value="true">Paid</option>
-                    <option value="false">Not paid</option>
-                  </select>
-                </div>
-                <div class="col-3">
-                  <input type="button" class="btn btn-success" (click)="filter()" value="Filter" />
-                </div>
+      </div>
+    </div>
+    <div class="content-body">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <h4 class="card-title">Participants</h4>
+              <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+              <div class="heading-elements">
+                <ul class="list-inline mb-0">
+                  <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                  <li><a data-action="reload" (click)="reload()"><i class="ft-rotate-cw"></i></a></li>
+                  <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                </ul>
               </div>
             </div>
-            <br />
-            <div class="table-responsive">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th>Sl. No</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>MobileNumber</th>
-                    <th>Info</th>
-                    <th>Delete</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let participant of participants | searchfilter : searchText ; let i = index;">
-                    <th scope="row">{{i+1}}</th>
+            <div class="card-content collapse show">
+              <div class="card-body">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-6">
+                      <input [(ngModel)]="searchText" placeholder="Search Participants" class="form-control">
+                    </div>
+                    <div class="col-2">
+                      <span class="fonticon-wrap success">
+                        <a (click)="loadFull()">
+                          <i class="la la-search la-2x"></i>
+                        </a>
+                      </span>
+                    </div>
+                    <div class="col-4 ">
+                      <div class="right">
+                        <span class="btn btn-info" (click)="previousPage()"> &lt; </span> &nbsp; Page {{currentPage}}
+                        &nbsp;
+                        <span class="btn btn-info" (click)="nextPage()"> &gt; </span>
+                      </div>
+                    </div>
+                  </div>
+                  <br />
+                  <div class="row">
+                    <div class="col-3">
+                      College
+                    </div>
+                    <div class="col-3">
+                      Gender
+                    </div>
+                    <div class="col-3">
+                      Payment status
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-3">
+                      <select class="custom-select" placeholder="College" [(ngModel)]="selectedCollegeId" id="slctCollege">
+                        <option value="" selected>All</option>
+                        <option *ngFor="let college of colleges" value={{college._id}}>{{college.name}}</option>
+                      </select>
+                    </div>
+                    <div class="col-3">
+                      <select class="custom-select" [(ngModel)]="selectedGender" id="slctGender">
+                        <option value="" selected>ALL</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                      </select>
+                    </div>
+                    <div class="col-3">
+                      <select class="custom-select" [(ngModel)]="paidStatus" id="slctPaid">
+                        <option value="" selected="true">ALL</option>
+                        <option value="true">Paid</option>
+                        <option value="false">Not paid</option>
+                      </select>
+                    </div>
+                    <div class="col-3">
+                      <input type="button" class="btn btn-success" (click)="filter()" value="Filter" />
+                    </div>
+                  </div>
+                </div>
+                <br />
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Sl. No</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>MobileNumber</th>
+                        <th>Info</th>
+                        <th>Delete</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let participant of participants | searchfilter : searchText ; let i = index;">
+                        <th scope="row">{{i+1}}</th>
 
-                    <td>{{participant.name}}</td>
-                    <td>{{participant.email_id}}</td>
-                    <td>{{participant.mobile_number}}</td>
-                    <td>
-                      <div class="fonticon-wrap icon-shadow icon-shadow-info" data-toggle="modal" data-target="#participantModal"
-                        (click)="moreInfo(participant._id)">
-                        <a> <i class="la la-info-circle la-2x"></i></a>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="fonticon-wrap icon-shadow icon-shadow-danger" (click)="deleteParticipant(participant._id)">
-                        <a> <i class="la la-trash la-2x"></i></a>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+                        <td>{{participant.name}}</td>
+                        <td>{{participant.email_id}}</td>
+                        <td>{{participant.mobile_number}}</td>
+                        <td>
+                          <div class="fonticon-wrap icon-shadow icon-shadow-info" data-toggle="modal" data-target="#participantModal"
+                            (click)="moreInfo(participant._id)">
+                            <a> <i class="la la-info-circle la-2x"></i></a>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="fonticon-wrap icon-shadow icon-shadow-danger" (click)="deleteParticipant(participant._id)">
+                            <a> <i class="la la-trash la-2x"></i></a>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
-</div>
 </div>

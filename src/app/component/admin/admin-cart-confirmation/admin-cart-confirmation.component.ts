@@ -72,7 +72,7 @@ export class AdminCartConfirmationComponent implements OnInit {
     })
   }
 
-  
+
   calculateAmount() {
     this.amount = 0;
     if (this.events.length != 0) {
