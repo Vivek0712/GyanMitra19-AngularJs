@@ -17,22 +17,23 @@ import { AdminGuard } from 'src/app/guard/admin/admin.guard';
 import { PaymentSuccessComponent } from 'src/app/component/user/payment-success/payment-success.component';
 import { PaymentFailureComponent } from 'src/app/component/user/payment-failure/payment-failure.component';
 import { AccFailureComponent } from 'src/app/component/user/acc-failure/acc-failure.component';
-import { AccSuccessComponent } from 'src/app/component/user/acc-success/acc-success.component';export const USER_ROUTE: Routes = [
+import { AccSuccessComponent } from 'src/app/component/user/acc-success/acc-success.component'; import { HowToReachUsComponent } from 'src/app/component/user/how-to-reach-us/how-to-reach-us.component';
+export const USER_ROUTE: Routes = [
      { path: 'home', component: UserHomeComponent },
      { path: 'about', component: AboutComponent },
      { path: 'events', component: EventsComponent },
-     { path: 'workshops', component: WorkshopsComponent }, 
+     { path: 'workshops', component: WorkshopsComponent },
      { path: 'login', component: LoginComponent },
      { path: 'register', component: RegisterComponent },
-     { path: 'activate/:id/:hash',component:ActivationComponent},
-     { path: 'cart', component: CartComponent, canActivate:[AuthGuard]},
-     { path: 'accomodation', component: UserAccomodationComponent},
+     { path: 'activate/:id/:hash', component: ActivationComponent },
+     { path: 'cart', component: CartComponent, canActivate: [AuthGuard] },
+     { path: 'accomodation', component: UserAccomodationComponent },
      { path: 'teamRegister/:id', component: TeamRegisterComponent },
      { path: 'gyanmitra18', component: GyanMitra18Component },
-	 { path: 'contactus', component: ContactUsComponent },
-     { path: 'payment/success', component: PaymentSuccessComponent,canActivate:[AuthGuard]},
+     { path: 'contactus', component: ContactUsComponent },
+     { path: 'payment/success', component: PaymentSuccessComponent, canActivate: [AuthGuard] },
      { path: 'payment/failure', component: PaymentFailureComponent, canActivate: [AuthGuard] },
-     { path: 'acc/payment/success', component: AccSuccessComponent,canActivate:[AuthGuard]},
-     { path: 'acc/payment/failure', component: AccFailureComponent, canActivate: [AuthGuard] }
-          
+     { path: 'acc/payment/success', component: AccSuccessComponent, canActivate: [AuthGuard] },
+     { path: 'acc/payment/failure', component: AccFailureComponent, canActivate: [AuthGuard] },
+     { path: 'howtoreachus', component: HowToReachUsComponent }
 ];
