@@ -25,6 +25,11 @@ export class PaymentComponent implements OnInit {
             this.payedUsers.push(user);
           }
         }
+        console.log("HElli");
+        console.log(this.payedUsers);
+      }
+      else {
+          console.log("error");
       }
     })
   }
@@ -39,6 +44,11 @@ export class PaymentComponent implements OnInit {
             this.payedUsers.push(user);
           }
         }
+        console.log("HElli");
+        console.log(this.payedUsers);
+      }
+      else {
+        console.log("error");
       }
     })
   }
