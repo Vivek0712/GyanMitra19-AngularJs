@@ -7,7 +7,6 @@ import { YearService } from 'src/app/services/year/year.service';
 import { CourseService } from 'src/app/services/course/course.service';
 import { ExcelService } from 'src/app/services/excel.service';
 import { Location, DatePipe } from '@angular/common';
-import { EventRegistrationService } from 'src/app/services/eventRegistration/event-registration.service';
 
 
 declare var M: any;
