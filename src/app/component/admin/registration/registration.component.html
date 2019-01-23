@@ -329,7 +329,17 @@
                       </select>
                     </div>
                     <div class="col-3">
-                      <input type="button" class="btn btn-success" (click)="filter()" value="Filter" />
+                      <select class="custom-select" [(ngModel)]="paidStatus" id="slctPaid">
+                        <option value="" selected="true">ALL</option>
+                        <option value="true">Paid</option>
+                        <option value="false">Not paid</option>
+                      </select>
+                    </div>
+                    <div class="col-3">
+                      <div class="btn-group">
+                        <input type="button" class="btn btn-success" (click)="filter()" value="Filter" />
+                      <input type="button" class="btn btn-secondary" (click)="exportAsXLSX()" value="Generte Excel" />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -340,8 +350,9 @@
                       <tr>
                         <th>Sl. No</th>
                         <th>Name</th>
+                        <th>College</th>
                         <th>Email</th>
-                        <th>MobileNumber</th>
+                        <th>Mobile Number</th>
                         <th>Info</th>
                         <th>Delete</th>
                       </tr>
@@ -349,8 +360,8 @@
                     <tbody>
                       <tr *ngFor="let participant of participants | searchfilter : searchText ; let i = index;">
                         <th scope="row">{{i+1}}</th>
-
                         <td>{{participant.name}}</td>
+                        <td>{{participant.college_id.name}}</td>
                         <td>{{participant.email_id}}</td>
                         <td>{{participant.mobile_number}}</td>
                         <td>

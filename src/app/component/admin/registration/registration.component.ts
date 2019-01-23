@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { CollegeService } from 'src/app/services/college/college.service';
 import { UserService } from 'src/app/services/user/user.service'
 import { DegreeService } from 'src/app/services/degree/degree.service';
-import { DepartmentService } from 'src/app/services/department/department.service';
 import { FormGroup, FormControl, Validators, FormBuilder, FormArray, NgForm } from '@angular/forms';
 import { YearService } from 'src/app/services/year/year.service';
 import { CourseService } from 'src/app/services/course/course.service';
+import { ExcelService } from 'src/app/services/excel.service';
+import { Location, DatePipe } from '@angular/common';
 import { EventRegistrationService } from 'src/app/services/eventRegistration/event-registration.service';
 
 
@@ -19,7 +20,8 @@ export interface College {
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
-  styleUrls: ['./registration.component.css']
+  styleUrls: ['./registration.component.css'],
+  providers: [DatePipe]
 })
 
 
@@ -44,7 +46,7 @@ export class RegistrationComponent implements OnInit {
   registeredWorkshops: Array<any>;
   registeredEvents: Array<any>;
 
-  constructor(private eventregisterService: EventRegistrationService, private yearService: YearService, private collegeService: CollegeService, private userService: UserService, private degreeService: DegreeService, private courseService: CourseService, private formBuilder: FormBuilder) { }
+  constructor(private datePipe: DatePipe, private excelService: ExcelService, private yearService: YearService, private collegeService: CollegeService, private userService: UserService, private degreeService: DegreeService, private courseService: CourseService, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.currentPage = 1;
@@ -163,12 +165,6 @@ export class RegistrationComponent implements OnInit {
     this.getAllParticipants();
   }
 
-  // filter() {
-  //   this.loadAllParticipants().((response: any)=>{
-
-  //   })
-  // }
-
   confirmPayment() {
     this.userService.confirmPayment(this.selectedParticipant._id).subscribe((response: any) => {
       M.toast({ html: response.msg, classes: 'roundeds' });
@@ -193,8 +189,8 @@ export class RegistrationComponent implements OnInit {
   getParticipants() {
     this.userService.getAllParticipants().subscribe((response: any) => {
       this.participants = response;
-      console.log(this.participants);
     });
+    
   }
 
   // nextPage() {
@@ -265,4 +261,33 @@ export class RegistrationComponent implements OnInit {
     });
   }
 
+  exportAsXLSX() {
+    var filename = 'All Participants - ' + this.datePipe.transform(Date.now(), 'dd-MM-yyyy');
+    var slNo = 1;
+    var reportArray: Array<any> = [];
+    this.participants.forEach((ele: any) => {
+      var reportData: any = [];
+      reportData["Sl. No"] = slNo++
+      reportData["Name"] = ele.name;
+      reportData["College"] = ele.college_id.name;
+      reportData["Degree"] = ele.degree_id.name;
+      reportData["Department"] = ele.department_id.name;
+      reportData["Year"] = ele.year_id.name;
+      reportData["Mobile Number"] = ele.mobile_number;
+      reportData["Gender"] = ele.gender;
+      reportData["E Mail ID"] = ele.email_id;
+      if(ele.cart_confirmed){
+        reportData["Cart Confirmed"] = "Yes"
+      } else {
+        reportData["Cart Confirmed"] = "No"
+      }
+      if(ele.cart_paid){
+        reportData["Payment Status"] = "Yes"
+      } else {
+        reportData["Payment Status"] = "No"
+      }
+      reportArray.push(reportData)
+    })
+    this.excelService.exportAsExcelFile(reportArray, filename);
+  }
 }
