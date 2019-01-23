@@ -59,17 +59,7 @@ export class RegistrationComponent implements OnInit {
     this.viewDetails = false;
   }
 
-  getRegisteredWorkshops() {
-    this.eventregisterService.getRegisteredEvents(this.selectedParticipant._id,"Workshop").subscribe((response:any)=>{
-      this.getRegisteredWorkshops = response.doc;
-    })
-  }
-  
-  getRegisteredEvents() {
-    this.eventregisterService.getRegisteredEvents(this.selectedParticipant._id,"Event").subscribe((response:any)=>{
-      this.getRegisteredEvents = response.doc;
-    })
-  }
+
 
   getYears() {
     this.yearService.readYear(0).subscribe((response: any) => {
@@ -177,8 +167,6 @@ export class RegistrationComponent implements OnInit {
 
   moreInfo(_id: String) {
     this.viewDetails = true;
-    this.getRegisteredEvents();
-    this.getRegisteredWorkshops();
     this.userService.getParticipant(_id).subscribe((response: any) => {
       this.selectedParticipant = response;
     })

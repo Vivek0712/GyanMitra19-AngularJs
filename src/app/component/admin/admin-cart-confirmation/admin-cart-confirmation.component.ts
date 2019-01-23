@@ -40,7 +40,7 @@ export class AdminCartConfirmationComponent implements OnInit {
     })
   }
 
-  refusePayment(_id: string) {
+  refusePayment() {
     this.eventRegistrtationService.refusePayment(this.selectedUser).subscribe((response: any) => {
       if (response.error) {
         M.toast({ html: response.msg, classes: 'roundeds' });
