@@ -226,46 +226,14 @@ export class RegistrationComponent implements OnInit {
   filter() {
     this.userService.getAllParticipants().subscribe((response: any) => {
       this.participants = [];
-      let paid: Boolean;
-      if (this.paidStatus == "true") {
-        paid = true;
-      }
-      else {
-        paid = false;
-      }
-      if (this.selectedGender != "" && this.selectedCollegeId != "" && this.paidStatus != "") {
-        for (let user of response) {
-          if (user.gender == this.selectedGender && user.college_id._id == this.selectedCollegeId && user.cart_paid == paid) {
-            this.participants.push(user);
-          }
-        }
-      }
-      else if (this.selectedGender != "" && this.selectedCollegeId != "") {
-        console.log("2");
+      if (this.selectedGender != "" && this.selectedCollegeId != "") {
         for (let user of response) {
           if (user.gender == this.selectedGender && user.college_id._id == this.selectedCollegeId) {
             this.participants.push(user);
           }
         }
       }
-      else if (this.selectedCollegeId != "" && this.paidStatus != "") {
-        console.log("3");
-        for (let user of response) {
-          if (user.college_id._id == this.selectedCollegeId && user.cart_paid == paid) {
-            this.participants.push(user);
-          }
-        }
-      }
-      else if (this.selectedGender != "" && this.paidStatus != "") {
-        console.log("4");
-        for (let user of response) {
-          if (user.gender == this.selectedGender && user.cart_paid == paid) {
-            this.participants.push(user);
-          }
-        }
-      }
       else if (this.selectedGender != "") {
-        console.log("5");
         for (let user of response) {
           if (user.gender == this.selectedGender) {
             this.participants.push(user);
@@ -273,23 +241,13 @@ export class RegistrationComponent implements OnInit {
         }
       }
       else if (this.selectedCollegeId != "") {
-        console.log("6");
         for (let user of response) {
           if (user.college_id._id == this.selectedCollegeId) {
             this.participants.push(user);
           }
         }
       }
-      else if (this.paidStatus != "") {
-        console.log("7");
-        for (let user of response) {
-          if (user.cart_paid == paid) {
-            this.participants.push(user);
-          }
-        }
-      }
       else {
-        console.log("8");
         this.participants = response;
       }
     });
