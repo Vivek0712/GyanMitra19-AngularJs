@@ -4,7 +4,7 @@ import { FormGroup, FormControl, Validators, FormBuilder, FormArray, NgForm } fr
 import { EventRegistrationService } from 'src/app/services/eventRegistration/event-registration.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { ParticipationstatusService } from 'src/app/services/participationstatus/participationstatus.service';
-import { Location } from '@angular/common';
+import { Location, DatePipe } from '@angular/common';
 import { ExcelService } from 'src/app/services/excel.service';
 
 declare var M: any;
@@ -12,7 +12,8 @@ declare var M: any;
 @Component({
   selector: 'app-event-participants',
   templateUrl: './event-participants.component.html',
-  styleUrls: ['./event-participants.component.css']
+  styleUrls: ['./event-participants.component.css'],
+  providers: [DatePipe]
 })
 export class EventParticipantsComponent implements OnInit {
 
@@ -20,10 +21,9 @@ export class EventParticipantsComponent implements OnInit {
   currentAttendance: String;
 
 
-  constructor(private participantStatusService: ParticipationstatusService, private excelService: ExcelService, private eventRegistration: EventRegistrationService, public authService: AuthService, private formBuilder: FormBuilder, private route: ActivatedRoute, private location: Location) {
+  constructor(private datePipe: DatePipe ,private participantStatusService: ParticipationstatusService, private excelService: ExcelService, private eventRegistration: EventRegistrationService, public authService: AuthService, private formBuilder: FormBuilder, private route: ActivatedRoute, private location: Location) {
     this.route.params.subscribe(param => {
       this.event_id = param.id
-
     });
   }
 
@@ -136,11 +136,15 @@ export class EventParticipantsComponent implements OnInit {
   }
 
   exportAsXLSX() {
+    var filename = this.participants[0].event_id.title+ ' - ' + this.datePipe.transform(Date.now(), 'dd-MM-yyyy') ;
     var reportArray: Array<any> = [];
     this.participants.forEach((ele: any)=>{
        var reportData: any = [];
-       reportData["Name"] = ele.user_id.name?ele.user_id.name:"";
-       reportData["College"] = ele.college_id.name ? ele.college_id.name : ' ';
+       reportData["Name"] = ele.user_id.name;
+       reportData["College"] = ele.user_id.college_id.name;
+       reportData["Degree"] = ele.user_id.degree_id.name;
+       reportData["Department"] = ele.user_id.department_id.name;
+       reportData["Year"] = ele.user_id.year_id.name;
        reportData["Mobile Number"] = ele.user_id.mobile_number;
        reportData["Gender"] = ele.user_id.gender;
        reportData["E Mail ID"] = ele.user_id.email_id;
@@ -148,7 +152,7 @@ export class EventParticipantsComponent implements OnInit {
        reportData["Payment Status"] = ele.status;
        reportArray.push(reportData)
     })
-    this.excelService.exportAsExcelFile(reportArray, 'Event Participants');
+    this.excelService.exportAsExcelFile(reportArray, filename);
   }
 
 }
