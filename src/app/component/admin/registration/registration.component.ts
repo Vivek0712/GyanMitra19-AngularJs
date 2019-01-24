@@ -7,6 +7,7 @@ import { YearService } from 'src/app/services/year/year.service';
 import { CourseService } from 'src/app/services/course/course.service';
 import { ExcelService } from 'src/app/services/excel.service';
 import { Location, DatePipe } from '@angular/common';
+import { EventRegistrationService } from 'src/app/services/eventRegistration/event-registration.service';
 
 
 declare var M: any;
@@ -42,10 +43,10 @@ export class RegistrationComponent implements OnInit {
   degrees: Array<any>;
   years: Array<any>;
   departments: Array<any>;
-  registeredWorkshops: Array<any>;
-  registeredEvents: Array<any>;
+  registeredWorkshops: Array<any>=[];
+  registeredEvents: Array<any>=[];
 
-  constructor(private datePipe: DatePipe, private excelService: ExcelService, private yearService: YearService, private collegeService: CollegeService, private userService: UserService, private degreeService: DegreeService, private courseService: CourseService, private formBuilder: FormBuilder) { }
+  constructor(private datePipe: DatePipe, private excelService: ExcelService, private yearService: YearService, private collegeService: CollegeService, private userService: UserService, private degreeService: DegreeService, private courseService: CourseService, private formBuilder: FormBuilder,private eventRegister: EventRegistrationService) { }
 
   ngOnInit() {
     this.currentPage = 1;
@@ -60,17 +61,17 @@ export class RegistrationComponent implements OnInit {
     this.viewDetails = false;
   }
 
-  // getRegisteredWorkshops() {
-  //   this.eventregisterService.getRegisteredEvents(this.selectedParticipant._id,"Workshop").subscribe((response:any)=>{
-  //     this.getRegisteredWorkshops = response.doc;
-  //   })
-  // }
+  getRegisteredWorkshops(id:string) {
+    this.eventRegister.getRegisteredEvents(id,"Workshop").subscribe((response:any)=>{
+      this.registeredWorkshops = response.doc;
+    })
+  }
 
-  // getRegisteredEvents() {
-  //   this.eventregisterService.getRegisteredEvents(this.selectedParticipant._id,"Event").subscribe((response:any)=>{
-  //     this.getRegisteredEvents = response.doc;
-  //   })
-  // }
+  getRegisteredEvents(id:string) {
+    this.eventRegister.getRegisteredEvents(id,"Event").subscribe((response:any)=>{
+      this.registeredEvents = response.doc;
+    })
+  }
 
   getYears() {
     this.yearService.readYear(0).subscribe((response: any) => {
@@ -170,11 +171,13 @@ export class RegistrationComponent implements OnInit {
     })
   }
 
-  moreInfo(_id: String) {
+  moreInfo(_id: string) {
     this.viewDetails = true;
     this.userService.getParticipant(_id).subscribe((response: any) => {
       this.selectedParticipant = response;
     })
+    this.getRegisteredEvents(_id);
+    this.getRegisteredWorkshops(_id);
 
   }
 
