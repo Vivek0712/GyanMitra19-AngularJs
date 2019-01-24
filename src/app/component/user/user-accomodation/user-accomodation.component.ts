@@ -22,7 +22,7 @@ export class UserAccomodationComponent implements OnInit {
   hasAccomodation: boolean;
   txnId: string;
   hashString: string;
-  totalAmount: Number;
+  totalAmount: number;
   user: any;
   constructor(private accomodationService: AccomodationService,
     public appService: AppService,
