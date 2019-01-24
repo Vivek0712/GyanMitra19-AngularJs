@@ -147,9 +147,15 @@
                             <a> <i class="la la-close la-2x"></i></a> </div>
                         </td>
                         <td>
-                          <div *ngIf="accomodation.acc_mode_of_payment == 'Demand Draft' && accomodation.acc_payment_status=='Paid' && accomodation.acc_status == 'Approved' "
-                            class="btn btn-success" data-toggle="modal" data-target="#DDModal" (click)="loadDD(accomodation._id,accomodation.acc__transaction_id, accomodation.acc_file_name)">
-                            Verify DD
+                          <div *ngIf="accomodation.acc_mode_of_payment == 'Demand Draft' && accomodation.acc_payment_status=='DD Confirmed' && accomodation.acc_status == 'Approved' "
+                            class="btn btn-success" data-toggle="modal" (click)="loadDD(accomodation._id,accomodation.acc__transaction_id, accomodation.acc_file_name)">
+                            Accept DD
+                          </div>
+                        </td>
+                        <td>
+                          <div *ngIf="accomodation.acc_mode_of_payment == 'Demand Draft' && accomodation.acc_payment_status=='DD Confirmed' && accomodation.acc_status == 'Approved' "
+                            class="btn btn-danger"(click)="refusePayment(accomodation._id)">
+                            Refuse Payment
                           </div>
                         </td>
                       </tr>

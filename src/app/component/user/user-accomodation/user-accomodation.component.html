@@ -78,9 +78,8 @@
                       <hr />
                       <div class="form-group">
                         <div class="row">
-                            
-                          <button class="btn btn-google" type="button" data-toggle="collapse" data-target="#DDUpload">Upload
-                            Demand Draft</button>
+                          <button class="btn btn-bg-gradient-x-blue-cyan border-white border-2  float-right" data-toggle="modal"
+                data-target="#DDModal">Pay Through DD</button>
                         </div>
                       </div>
                       <div class="row">
@@ -123,6 +122,38 @@
   <input type="hidden" name="hash" value={{hashString}}>
 
 </form>
+      <!-- Modal -->
+      <div class="modal fade" id="DDModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Confirm offline Payment - Rs.{{(totalAmount+(totalAmount*appService.getTransactionFee()))}}</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <ol>
+                  <li>The Demand draft must be drawn in the favour of Mepco Schlenk Engineering College (Autonomous), Sivakasi</li>
+                  <li>The Demand draft must be payable at Sivakasi, Tamil Nadu</li>
+                  <li>You are required to pay <b>Rs. {{totalAmount+(totalAmount*appService.getTransactionFee())}}</b></li>
+                  <li>
+                        Demand draft must reach us on or before <b>05-Feb-2019</b> via any means to the address : <br />
+                        The Convenor,<br />
+                        GyanMitra 19,<br />
+                        Mepco Schlenk Engineering College,<br />
+                        Virudhunagar District,<br />
+                        Tamil Nadu - 626 006<br />
+                  </li>
+              </ol>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-success" (click)="confirmDD()">Confirm Payment</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
 <div class="modal fade" id="PayOnline" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">

@@ -41,6 +41,7 @@ export class AuthService {
       return false;
     }
   }
+  
   getCurrentUser()  {
     const token = localStorage.getItem('token');
     const httpOptions = {
@@ -51,6 +52,7 @@ export class AuthService {
     };
     return this.http.get(this.app.getUrl('auth/profile'), httpOptions).pipe(map(res => res));
   }
+
   getCurrentUserId() {
     if (this.isLoggedIn()) {
       const user = localStorage.getItem('user');

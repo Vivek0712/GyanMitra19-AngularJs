@@ -41,8 +41,15 @@ export class AdminAccomodationComponent implements OnInit {
 
   loadDD(id: string, tId: string, imgLoc: string) {
     this.selectedTransactionID = tId;
-    this.selectedID = id;
-    this.ddImage=this.appService.getFrontEndUrl()+'/'+imgLoc;
+    this.accommodationService.confirmAccomodation(id).subscribe((response:any )=>{
+      if (response.error) {
+        M.toast({ html: response.msg, classes: 'roundeds' });
+        this.loadAllAccomodations()
+      } else {
+        M.toast({ html: response.msg, classes: 'roundeds' });
+        this.loadAllAccomodations()
+      }
+    })
   }
 
   filter() {

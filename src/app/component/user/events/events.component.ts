@@ -17,7 +17,7 @@ export class EventsComponent implements OnInit {
   events: Array<any>;
   departments: Array<any>;
   searchText: String = 'All';
-  currentUserId: string;
+  currentUserId: string = '';
   currentPage: any = 1;
   user: any;
   registeredEvents: Array<string> = [];
@@ -34,6 +34,7 @@ export class EventsComponent implements OnInit {
     this.currentPage = 1;
     this.currentUserId = '';
     this.user = (JSON.parse(localStorage.getItem('user')))
+    console.log(this.user)
     if (this.user != null) {
       this.currentUserId = this.user.id;
     }
@@ -43,7 +44,7 @@ export class EventsComponent implements OnInit {
 
   getRegistrations() {
     this.eventRegistrationService.getRegisteredEvents(this.currentUserId, 'Event').subscribe((response: any) => {
-      this.registeredEvents = response.msg
+      this.registeredEvents = response.msg;
     })
   }
 

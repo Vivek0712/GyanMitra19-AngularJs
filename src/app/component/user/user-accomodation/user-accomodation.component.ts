@@ -22,7 +22,7 @@ export class UserAccomodationComponent implements OnInit {
   hasAccomodation: boolean;
   txnId: string;
   hashString: string;
-  totalAmount: number;
+  totalAmount: Number;
   user: any;
   constructor(private accomodationService: AccomodationService,
     public appService: AppService,
@@ -51,6 +51,17 @@ export class UserAccomodationComponent implements OnInit {
     });
   }
 
+  confirmDD(){
+    this.accomodationService.confirmAccomodation(this._id).subscribe((response: any) => {
+      if(response.error == true){
+        M.toast({ html: response.msg, classes: 'roundeds danger' });
+      }
+      else{
+        M.toast({ html: response.msg, classes: 'roundeds' });
+      }
+    })
+  }
+
   createForm() {
     this.submitted = false;
     this.accomodationForm = this.formBuilder.group({
@@ -68,6 +79,7 @@ export class UserAccomodationComponent implements OnInit {
         else{
           this.hasAccomodation = true
           this.accomodation = response.docs[0];
+          this.totalAmount = Number(this.accomodation.acc_amount);
         }
       }
     });
@@ -137,7 +149,6 @@ export class UserAccomodationComponent implements OnInit {
           email: JSON.parse(localStorage.getItem('user')).email_id,
           mobile_number: JSON.parse(localStorage.getItem('user')).mobile_number,
         }
-        console.log("In Traxn HashData" + this.txnId);
         this.paymentService.genHash(body).subscribe((response: any) => {
           if (response.error) {
             this.hashString = response.hash;

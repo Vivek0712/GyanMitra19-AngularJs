@@ -71,13 +71,19 @@ export class AccomodationService {
   getAccomodation(id: any) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.get(this.app.getUrl(this.baseUrl)+'?id='+id);
+    return this.http.get(this.app.getUrl(this.baseUrl)+'getAccomodation/'+id);
   }
 
   uploadFile(formData: FormData) {
     let headers = new Headers();
     headers.append('Content-Type', 'multipart/form-data');
     return this.http.post(this.app.getUrl(this.baseUrl) + 'uploadImage/'+formData.get('id'), formData);
+  }
+
+  confirmDDPayment(id: any){
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.get(this.app.getUrl(this.baseUrl)+'confirmDDUser/'+id);
   }
 
   updateAccomodation(id: String, acc_transaction_id: String,acc_mode_of_payment: String,acc_days: String,acc_file_name: String,acc_payment_status: String,acc_status: String,user_id: String,acc_amount: String) {
@@ -100,6 +106,6 @@ export class AccomodationService {
   deleteAccomodation(id: String) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post(this.app.getUrl(this.baseUrl +'remove/'+ `${id}` ),{} ).pipe(map(res => res, {'headers': headers}));
+    return this.http.post(this.app.getUrl(this.baseUrl +'delete/'+ `${id}` ),{} ).pipe(map(res => res, {'headers': headers}));
   }
 }
