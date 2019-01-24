@@ -175,11 +175,11 @@ export class CartComponent implements OnInit {
   }
   hashData(value: Boolean) {
     if (value) {
-      const tamount = this.totalAmount + (this.totalAmount * this.appService.getTransactionFee());
+     // const tamount = this.totalAmount + (this.totalAmount * this.appService.getTransactionFee());
       var body = {
-        key: this.appService.getKey(),
-        salt: this.appService.getSalt(),
-        amount: this.totalAmount,
+        //key: this.appService.getKey(),
+        //salt: this.appService.getSalt(),
+       // amount: this.totalAmount,
         txnId: this.txnId,
         productInfo: this.appService.getProductInfo(),
         name: JSON.parse(localStorage.getItem('user')).name,
