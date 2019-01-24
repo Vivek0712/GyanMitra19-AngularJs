@@ -208,7 +208,7 @@ export class AdminEventComponent implements OnInit {
     const data = this.events.filter(eventName => {
       return eventName._id === id;
     });
-    data[0].image_name = '';
+    //data[0].image_name = '';
     if (type == "Workshop") {
       this.event = false;
       this.workshop = true;

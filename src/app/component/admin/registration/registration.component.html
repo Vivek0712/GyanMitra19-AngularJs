@@ -219,43 +219,65 @@
               </div>
             </div>
 
-            <!-- <div class="card">
+            <div class="card" *ngIf="registeredEvents.length != 0">
               <div class="card-content">
                 <div class="card-title">
-                  Event and Workshop Registrations
+                  Event Registrations
                 </div>
                 <div class="card-body">
-                  <h6>Workshop</h6>
-                  <hr><br>
                   <h6>Events</h6>
                   <div class="table-responsive">
-                      <table class="table">
-                        <thead>
-                          <tr>
-                            <th>Sl. No</th>
-                            <th>Event Name</th>
-                            <th>Venue</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let event of getRegisteredEvents; let i = index;">
-                            <th scope="row">{{i+1}}</th>
-                            <td>{{event.event_id.title}}</td>
-                             <td>{{event.event_id.department_id.name}}</td>
-                            <td>{{ event.event_id }}</td>
-                                                     
-                            <td>
-                              <div class="fonticon-wrap icon-shadow icon-shadow-danger" (click)="deleteParticipant(participant._id)">
-                                <a> <i class="la la-trash la-2x"></i></a>
-                              </div>
-                            </td> 
-                          </tr>
-                        </tbody>
-                      </table>
-          </div>
-        </div>
-      </div>
-    </div> -->
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Sl. No</th>
+                          <th>Event Name</th>
+                          <th>Department</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let event of registeredEvents; let i = index;">
+                          <th scope="row">{{i+1}}</th>
+                          <td>{{event.event_id.title}}</td>
+                          <td>{{event.event_id.department_id.name}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="card" *ngIf="registeredWorkshops.length != 0">
+              <div class="card-content">
+                <div class="card-title">
+                  Workshop Registrations
+                </div>
+                <div class="card-body">
+                  <h6>Events</h6>
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Sl. No</th>
+                          <th>Workshop Name</th>
+                          <th>Department</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let event of registeredWorkshops; let i = index;">
+                          <th scope="row">{{i+1}}</th>
+                          <td>{{event.event_id.title}}</td>
+                          <td>{{event.event_id.department_id.name}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+
 
           </div>
           <div class="modal-footer">

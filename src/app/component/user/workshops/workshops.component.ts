@@ -155,7 +155,6 @@ export class WorkshopsComponent implements OnInit {
         else {
           this.getRegistrations();
           this.workshops = response;
-
         }
       })
     }
