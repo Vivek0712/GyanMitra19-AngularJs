@@ -52,7 +52,7 @@ export class UserAccomodationComponent implements OnInit {
   }
 
   confirmDD(){
-    this.accomodationService.confirmAccomodation(this._id).subscribe((response: any) => {
+    this.accomodationService.confirmDDPayment(this._id).subscribe((response: any) => {
       if(response.error == true){
         M.toast({ html: response.msg, classes: 'roundeds danger' });
       }

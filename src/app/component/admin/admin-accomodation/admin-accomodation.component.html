@@ -138,22 +138,22 @@
                           </div>
                         </td>
                         <td>
-                          <div class="fonticon-wrap icon-shadow icon-shadow-success" *ngIf="accomodation.acc_status == 'Not Confirmed'"
+                          <div class="fonticon-wrap icon-shadow icon-shadow-success" *ngIf="accomodation.acc_status == 'Not Confirmed' && accomodation.acc_payment_status != 'Paid'"
                             (click)="approveAccomodation(accomodation._id)">
                             <a> <i class="la la-check la-2x"></i></a>
                           </div>
-                          <div class="fonticon-wrap icon-shadow icon-shadow-danger" *ngIf="accomodation.acc_status == 'Approved'"
+                          <div class="fonticon-wrap icon-shadow icon-shadow-danger" *ngIf="accomodation.acc_status == 'Approved' && accomodation.acc_payment_status != 'Paid'"
                             (click)="deproveAccomodation(accomodation._id)">
                             <a> <i class="la la-close la-2x"></i></a> </div>
                         </td>
                         <td>
-                          <div *ngIf="accomodation.acc_mode_of_payment == 'Demand Draft' && accomodation.acc_payment_status=='DD Confirmed' && accomodation.acc_status == 'Approved' "
+                          <div *ngIf="accomodation.acc_mode_of_payment == 'Demand Draft' && accomodation.acc_payment_status=='DD Pending' && accomodation.acc_status == 'Approved' "
                             class="btn btn-success" data-toggle="modal" (click)="loadDD(accomodation._id,accomodation.acc__transaction_id, accomodation.acc_file_name)">
                             Accept DD
                           </div>
                         </td>
                         <td>
-                          <div *ngIf="accomodation.acc_mode_of_payment == 'Demand Draft' && accomodation.acc_payment_status=='DD Confirmed' && accomodation.acc_status == 'Approved' "
+                          <div *ngIf="accomodation.acc_mode_of_payment == 'Demand Draft' && accomodation.acc_payment_status=='DD Pending' && accomodation.acc_status == 'Approved' "
                             class="btn btn-danger"(click)="refusePayment(accomodation._id)">
                             Refuse Payment
                           </div>
