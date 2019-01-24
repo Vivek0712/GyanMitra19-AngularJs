@@ -52,6 +52,7 @@
                   <h6 class="card-subtitle text-muted">Add Event</h6>
                   <form class="form" [formGroup]="eventForm" (ngSubmit)=onSubmit(eventForm)>
                     <input type="hidden" formControlName="_id">
+                    <input type="hidden" formControlName="image_name">
                     <div class="form-group">
                       <div class="row">
                         <div class="col-12">
