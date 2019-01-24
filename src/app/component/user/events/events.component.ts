@@ -34,9 +34,12 @@ export class EventsComponent implements OnInit {
     this.currentPage = 1;
     this.currentUserId = '';
     this.user = (JSON.parse(localStorage.getItem('user')))
-    console.log(this.user)
     if (this.user != null) {
       this.currentUserId = this.user.id;
+      this.userService.refreshUser().subscribe((response) => {
+        this.authService.refreshSession((response));
+        this.user = (JSON.parse(localStorage.getItem('user')))
+      })
     }
     this.getRegistrations();
     this.loadFull(this.currentPage);

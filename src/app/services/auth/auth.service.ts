@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AppService } from '../app/app.service';
+import { JsonPipe } from '@angular/common';
 @Injectable({
   providedIn: 'root'
 })
@@ -23,6 +24,14 @@ export class AuthService {
   createSession(response) {
     localStorage.setItem('user', JSON.stringify(response.user));
     localStorage.setItem('token', response.token);
+  }
+
+  refreshSession(response: any){
+    var tempuser = JSON.parse(localStorage.getItem('user'));
+    tempuser["cart_confirmed"] = response.msg.cart_confirmed;
+    tempuser["cart_paid"] = response.msg.cart_paid;
+    tempuser["gmID"] = response.msg.gmID;
+    localStorage.setItem('user', JSON.stringify(tempuser));
   }
   
   destroySession() {

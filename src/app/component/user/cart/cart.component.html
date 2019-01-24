@@ -78,7 +78,7 @@
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Confirm offline Payment - Rs.{{totalAmount+(totalAmount*appService.getTransactionFee())}}</h5>
+              <h5 class="modal-title" id="exampleModalLabel">Confirm offline Payment - Rs. {{totalAmount}}</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -87,7 +87,7 @@
               <ol>
                   <li>The Demand draft must be drawn in the favour of Mepco Schlenk Engineering College (Autonomous), Sivakasi</li>
                   <li>The Demand draft must be payable at Sivakasi, Tamil Nadu</li>
-                  <li>You are required to pay <b>Rs. {{totalAmount+(totalAmount*appService.getTransactionFee())}}</b></li>
+                  <li>You are required to pay <b>Rs. {{totalAmount}}</b></li>
                   <li>
                         Demand draft must reach us on or before <b>05-Feb-2019</b> via any means to the address : <br />
                         The Convenor,<br />
@@ -134,8 +134,8 @@
                 <span [ngClass]="{'danger': workshop.status != 'Paid'}">
                   {{workshop.status}}
                 </span>
-                <button *ngIf="!isCartConfirmed" class="btn  btn-bg-gradient-x-red-pink float-right" (click)="cancelEventRegistration(event._id)">
-                  Remove from Cart
+                <button *ngIf="!isCartConfirmed" class="btn  btn-bg-gradient-x-red-pink float-right" (click)="cancelEventRegistration(workshop._id)">
+                  Remove from Cart 
                 </button>
               </div>
               <div class="card-reveal">

@@ -19,6 +19,12 @@ export class UserService {
   //   return this.http.post(this.app.getUrl(this.baseUrl + 'create'), body).pipe(map(res => res, {'headers': headers}));
   // }
 
+  refreshUser(){
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.get(this.app.getUrl('users/refreshUser/')+JSON.parse(localStorage.getItem('user')).id);
+  }
+
   confirmPayment(_id: string){
     const body = { _id: _id};
     const headers = new Headers();
