@@ -4,6 +4,7 @@ import { EventRegistrationService } from 'src/app/services/eventRegistration/eve
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { DepartmentService } from 'src/app/services/department/department.service';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import { UserService } from 'src/app/services/user/user.service';
 declare var M: any;
 
 @Component({
@@ -14,12 +15,11 @@ declare var M: any;
 export class WorkshopsComponent implements OnInit {
   user: any;
   registeredEvents: Array<string> = [];
-  workshops: Array<any> =[];
+  workshops: Array<any> = [];
   statuses: any = {};
   departments: Array<any> = [];
   searchText: String = 'Computer Science and Engineering and Information Technology';
   currentUserId: string;
-  isCartConfirmed: Boolean = true;
   statusesLoaded: Boolean = false;
   currentPage: any = 1
   paymentForm: FormGroup;
@@ -27,7 +27,8 @@ export class WorkshopsComponent implements OnInit {
     private eventRegistrationService: EventRegistrationService,
     public authService: AuthService,
     private deptService: DepartmentService,
-    private formBuilder:FormBuilder) {
+    private formBuilder: FormBuilder,
+    private userService: UserService) {
     this.currentPage = 1;
     this.eventService.readWithPageAndDepartment('Workshop', this.searchText, 1).subscribe((response: any) => {
       this.workshops = response;
@@ -38,16 +39,23 @@ export class WorkshopsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.userService.refreshUser().subscribe((response: any) => {
+      this.authService.refreshSession(response)
+      this.user = (JSON.parse(localStorage.getItem('user')))
+    })
+    this.currentPage = 1;
+    this.user = (JSON.parse(localStorage.getItem('user')))
     if (this.currentUserId != '') {
       this.eventService.readWithPageAndDepartment('Workshop', 'All', 1).subscribe((response: any) => {
         this.workshops = response;
       })
     }
-    this.currentPage = 1;
-    this.currentUserId = '';
-    this.user = (JSON.parse(localStorage.getItem('user')))
-    if (this.user != null) {
+    if (this.user != null) {      
       this.currentUserId = this.user.id;
+      this.userService.refreshUser().subscribe((response) => {
+        this.authService.refreshSession((response));
+        this.user = (JSON.parse(localStorage.getItem('user')))
+      })
     }
     this.getRegistrations();
     this.loadFull(this.currentPage);
@@ -137,7 +145,7 @@ export class WorkshopsComponent implements OnInit {
     this.loadFull(this.currentPage);
   }
 
-  
+
   loadFull(page: any) {
     if (this.searchText == 'All') {
       this.eventService.readWithPageAndDepartment('Workshop', 'All', this.currentPage).subscribe((response: any) => {

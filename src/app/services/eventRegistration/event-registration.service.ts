@@ -39,6 +39,7 @@ export class EventRegistrationService {
   getRegisteredEvents(user_id: string, type: string){
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
+    console.log(this.app.getUrl(this.baseUrl) + 'registeredEvents/'+user_id+'/'+type)
     return this.http.get(this.app.getUrl(this.baseUrl) + 'registeredEvents/'+user_id+'/'+type);
   }
 
@@ -127,7 +128,7 @@ export class EventRegistrationService {
   cancelEventRegistration(_id: String) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post(this.app.getUrl(this.baseUrl) + _id , {});
+    return this.http.post(this.app.getUrl(this.baseUrl)+'delete/' + _id , {});
   }
 
   getUserByEmail(email_id: String) {

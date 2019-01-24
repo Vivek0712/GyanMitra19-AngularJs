@@ -3,6 +3,7 @@ import { EventRegistrationService } from 'src/app/services/eventRegistration/eve
 import { UserService } from 'src/app/services/user/user.service';
 import { PaymentService } from 'src/app/services/payment/payment.service';
 import { AppService } from 'src/app/services/app/app.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 declare var M: any;
 
@@ -23,16 +24,17 @@ export class CartComponent implements OnInit {
   txnId: string;
   hashString: string;
   submitted: Boolean = false;
-   amount:number;
-  
+  amount: number;
+
   constructor(private eventRegistrationService: EventRegistrationService,
     private userService: UserService,
     private paymentService: PaymentService,
-    public appService: AppService) {
-      const hash = this.hashData.bind(this);
-      const transaction = this.genTxnId.bind(this);
-      hash(false);
-      transaction(false);
+    public appService: AppService,
+    private authService: AuthService) {
+    const hash = this.hashData.bind(this);
+    const transaction = this.genTxnId.bind(this);
+    hash(false);
+    transaction(false);
 
   }
 
@@ -42,6 +44,10 @@ export class CartComponent implements OnInit {
     this.user = (JSON.parse(localStorage.getItem('user')))
     if (this.user != null) {
       this.currentUserId = this.user.id;
+      this.userService.refreshUser().subscribe((response) => {
+        this.authService.refreshSession((response));
+        this.user = (JSON.parse(localStorage.getItem('user')))
+      })
     }
     const data = this.getUserWorkshops.bind(this);
     data(this.currentUserId);
@@ -49,13 +55,15 @@ export class CartComponent implements OnInit {
     this.getUserWorkshops(this.user.id);
     this.getUserEvents(this.user.id);
     this.checkCartConfirmation();
-    
+
 
   }
 
   checkCartConfirmation() {
-    this.userService.isCartConfirmed(this.user.id).subscribe((response: any) => {
-      this.isCartConfirmed = response.isCartConfirmed
+    this.userService.refreshUser().subscribe((response: any) => {
+      this.authService.refreshSession(response)
+      this.user = (JSON.parse(localStorage.getItem('user')))
+      this.isCartConfirmed = this.user.cart_confirmed
     })
   }
 
@@ -78,7 +86,7 @@ export class CartComponent implements OnInit {
         this.totalAmount += workshop.event_id.amount
       })
     }
-	this.totalAmount=this.totalAmount + (this.totalAmount * this.appService.getTransactionFee());
+    this.totalAmount = this.totalAmount + (this.totalAmount * this.appService.getTransactionFee());
   }
 
   removeRegistration(registration_id: string) {
@@ -96,7 +104,7 @@ export class CartComponent implements OnInit {
     })
   }
 
-  confirmDD(){
+  confirmDD() {
     this.userService.confirmDD(this.user.id).subscribe((response: any) => {
       if (response.error == true) {
         M.toast({ html: response.msg, classes: 'roundeds' });
@@ -121,27 +129,28 @@ export class CartComponent implements OnInit {
         this.userService.isCartConfirmed(this.user.id).subscribe((response: any) => {
           if (!response.error) {
             this.isCartConfirmed = response.isCartConfirmed;
+            this.userService.refreshUser().subscribe((response) => {
+              this.authService.refreshSession((response));
+              this.user = (JSON.parse(localStorage.getItem('user')))
+            })
           }
         })
       }
     })
   }
   payOnline() {
-    
+
     this.genTxnId(true);
 
     this.hashData(true);
     //this.finished();
-    console.log("Pay " + this.txnId)
-
-    console.log("HASH " + this.hashString)
 
   }
   genTxnId(value: Boolean) {
     if (value) {
       this.txnId = '';
       var d = new Date();
-      this.txnId = JSON.parse(localStorage.getItem('user')).gmID+'_'+ this.reverseString(d.getTime().toString());
+      this.txnId = JSON.parse(localStorage.getItem('user')).gmID + '_' + this.reverseString(d.getTime().toString());
       this.txnId = this.txnId.substr(0, 25);
 
     }
@@ -177,7 +186,6 @@ export class CartComponent implements OnInit {
         email: JSON.parse(localStorage.getItem('user')).email_id,
         mobile_number: JSON.parse(localStorage.getItem('user')).mobile_number,
       }
-      console.log("In Traxn HashData" + this.txnId);
       this.paymentService.genHash(body).subscribe((response: any) => {
         if (response.error) {
           this.hashString = response.hash;
@@ -187,7 +195,7 @@ export class CartComponent implements OnInit {
   }
 
   finsish() {
-    
+
   }
   cancelEventRegistration(_id: string) {
     this.eventRegistrationService.cancelEventRegistration(_id).subscribe((response: any) => {

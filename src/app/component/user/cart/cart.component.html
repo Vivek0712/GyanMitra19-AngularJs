@@ -134,8 +134,8 @@
                 <span [ngClass]="{'danger': workshop.status != 'Paid'}">
                   {{workshop.status}}
                 </span>
-                <button *ngIf="!isCartConfirmed" class="btn  btn-bg-gradient-x-red-pink float-right" (click)="cancelEventRegistration(event._id)">
-                  Remove from Cart
+                <button *ngIf="!isCartConfirmed" class="btn  btn-bg-gradient-x-red-pink float-right" (click)="cancelEventRegistration(workshop._id)">
+                  Remove from Cart 
                 </button>
               </div>
               <div class="card-reveal">
