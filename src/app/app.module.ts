@@ -76,6 +76,7 @@ import { AccFailureComponent } from './component/user/acc-failure/acc-failure.co
 import { AccSuccessComponent } from './component/user/acc-success/acc-success.component';
 import { PaymentComponent } from './component/admin/payment/payment.component';
 import { HowToReachUsComponent } from './component/user/how-to-reach-us/how-to-reach-us.component';
+import { ReportserviceService } from './services/report/reportservice.service';
 /////////////////////////////////////////////////////////////////
 
 @NgModule({
@@ -126,9 +127,9 @@ import { HowToReachUsComponent } from './component/user/how-to-reach-us/how-to-r
     PaymentFailureComponent,
     AccFailureComponent,
     AccSuccessComponent,
-	ContactUsComponent,
-	PaymentComponent,
-	HowToReachUsComponent,
+    ContactUsComponent,
+    PaymentComponent,
+    HowToReachUsComponent,
   ],
   imports: [
     BrowserModule,
@@ -156,7 +157,8 @@ import { HowToReachUsComponent } from './component/user/how-to-reach-us/how-to-r
     TeamService,
     TeamMemberService,
     AuthGuard,
-    EventRegistrationService
+    EventRegistrationService,
+    ReportserviceService
   ],
   bootstrap: [AppComponent]
 })

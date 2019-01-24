@@ -7,6 +7,7 @@ import { YearService } from 'src/app/services/year/year.service';
 import { CourseService } from 'src/app/services/course/course.service';
 import { ExcelService } from 'src/app/services/excel.service';
 import { Location, DatePipe } from '@angular/common';
+import { ReportserviceService } from 'src/app/services/report/reportservice.service';
 
 
 declare var M: any;
@@ -45,7 +46,7 @@ export class RegistrationComponent implements OnInit {
   registeredWorkshops: Array<any>;
   registeredEvents: Array<any>;
 
-  constructor(private datePipe: DatePipe, private excelService: ExcelService, private yearService: YearService, private collegeService: CollegeService, private userService: UserService, private degreeService: DegreeService, private courseService: CourseService, private formBuilder: FormBuilder) { }
+  constructor(private reportserviceService: ReportserviceService, private datePipe: DatePipe, private excelService: ExcelService, private yearService: YearService, private collegeService: CollegeService, private userService: UserService, private degreeService: DegreeService, private courseService: CourseService, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.currentPage = 1;
@@ -189,7 +190,7 @@ export class RegistrationComponent implements OnInit {
     this.userService.getAllParticipants().subscribe((response: any) => {
       this.participants = response;
     });
-    
+
   }
 
   // nextPage() {
@@ -259,6 +260,33 @@ export class RegistrationComponent implements OnInit {
       }
     });
   }
+  exportAsXLSXwithEvents() {
+    var filename = 'All Participants - With Events - ' + this.datePipe.transform(Date.now(), 'dd-MM-yyyy');
+    this.reportserviceService.getRegisteredEvents().subscribe((response: any) => {
+      var responseArray: Array<any> = response.msg;
+      var slNo = 1;
+      var reportArray: Array<any> = [];
+      responseArray.forEach((ele: any) => {
+        var reportData: any = [];
+        reportData["Sl. No"] = slNo++
+        reportData["Name"] = ele.user_id.name;
+        reportData["College"] = ele.user_id.college_id;
+        reportData["Degree"] = ele.user_id.degree_id.name;
+        reportData["Department"] = ele.user_id.department_id.name;
+        reportData["Year"] = ele.user_id.year_id.name;
+        reportData["Mobile Number"] = ele.user_id.mobile_number;
+        reportData["Gender"] = ele.user_id.gender;
+        reportData["E Mail ID"] = ele.user_id.email_id;
+        if (ele.user_id.cart_confirmed) {
+          reportData["Cart Confirmed"] = "Yes"
+        } else {
+          reportData["Cart Confirmed"] = "No"
+        }
+        reportArray.push(reportData)
+      })
+      this.excelService.exportAsExcelFile(reportArray, filename);
+    })
+  }
 
   exportAsXLSX() {
     var filename = 'All Participants - ' + this.datePipe.transform(Date.now(), 'dd-MM-yyyy');
@@ -275,12 +303,12 @@ export class RegistrationComponent implements OnInit {
       reportData["Mobile Number"] = ele.mobile_number;
       reportData["Gender"] = ele.gender;
       reportData["E Mail ID"] = ele.email_id;
-      if(ele.cart_confirmed){
+      if (ele.cart_confirmed) {
         reportData["Cart Confirmed"] = "Yes"
       } else {
         reportData["Cart Confirmed"] = "No"
       }
-      if(ele.cart_paid){
+      if (ele.cart_paid) {
         reportData["Payment Status"] = "Yes"
       } else {
         reportData["Payment Status"] = "No"

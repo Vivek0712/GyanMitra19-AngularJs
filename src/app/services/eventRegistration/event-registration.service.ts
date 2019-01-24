@@ -39,7 +39,6 @@ export class EventRegistrationService {
   getRegisteredEvents(user_id: string, type: string){
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    console.log(this.app.getUrl(this.baseUrl) + 'registeredEvents/'+user_id+'/'+type)
     return this.http.get(this.app.getUrl(this.baseUrl) + 'registeredEvents/'+user_id+'/'+type);
   }
 
