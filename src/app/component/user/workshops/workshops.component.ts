@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 import { DepartmentService } from 'src/app/services/department/department.service';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { UserService } from 'src/app/services/user/user.service';
+import { ConfigurationsService } from 'src/app/services/configurations/configurations.service';
 declare var M: any;
 
 @Component({
@@ -22,18 +23,27 @@ export class WorkshopsComponent implements OnInit {
   currentUserId: string;
   statusesLoaded: Boolean = false;
   currentPage: any = 1
+  registrationEnabled: boolean = true;
   paymentForm: FormGroup;
   constructor(private eventService: EventService,
     private eventRegistrationService: EventRegistrationService,
     public authService: AuthService,
     private deptService: DepartmentService,
     private formBuilder: FormBuilder,
-    private userService: UserService) {
+    private userService: UserService,
+    private configService: ConfigurationsService) {
     this.currentPage = 1;
     this.eventService.readWithPageAndDepartment('Workshop', this.searchText, 1).subscribe((response: any) => {
       this.workshops = response;
       if (this.currentUserId != '') {
         this.checkEventRegistrations();
+      }
+    })
+    configService.getConfig('Registration').subscribe((response: any) => {
+      if (response.error) {
+        this.registrationEnabled = false
+      } else {
+        this.registrationEnabled = response.msg
       }
     })
   }
@@ -50,7 +60,7 @@ export class WorkshopsComponent implements OnInit {
         this.workshops = response;
       })
     }
-    if (this.user != null) {      
+    if (this.user != null) {
       this.currentUserId = this.user.id;
       this.userService.refreshUser().subscribe((response) => {
         this.authService.refreshSession((response));

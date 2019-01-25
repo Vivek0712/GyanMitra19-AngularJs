@@ -74,31 +74,38 @@
             <div class="card-footer border-top-blue-grey border-top-lighten-5 text-muted">
               <span class="float-left"> {{workshop.event_date | date }}</span>
               <span class="float-right">
-                <ng-container *ngIf="user; else notLoggedIn">
-                  <ng-container *ngIf="user.cart_confirmed; else cartNotConfirmed">
-                    <button type="button" class="btn btn-outline-danger" style="width:100%">
-                      Cart already Confirmed
-                    </button>
+                <div *ngIf="registrationEnabled">
+                  <ng-container *ngIf="user; else notLoggedIn">
+                    <ng-container *ngIf="user.cart_confirmed; else cartNotConfirmed">
+                      <button type="button" class="btn btn-outline-danger" style="width:100%">
+                        Cart already Confirmed
+                      </button>
+                    </ng-container>
+                    <ng-template #cartNotConfirmed>
+                      <div *ngIf="registeredEvents.length == 0">
+                        <button type="button" class="btn btn-outline-primary" (click)="selectWorkshop(workshop._id)"
+                          style="width:100%">
+                          Register Now <i class="la la-angle-right"></i>
+                        </button>
+                      </div>
+                      <div *ngIf="registeredEvents.length != 0">
+                        <button type="button" class="btn btn-sm round btn-bg-gradient-x-purple-red" style="width:100%">
+                          You have a Parallel Workshop | Already Registered
+                        </button>
+                      </div>
+                    </ng-template>
                   </ng-container>
-                  <ng-template #cartNotConfirmed>
-                    <div *ngIf="registeredEvents.length == 0">
-                      <button type="button" class="btn btn-outline-primary" (click)="selectWorkshop(workshop._id)"
-                        style="width:100%">
-                        Register Now <i class="la la-angle-right"></i>
-                      </button>
-                    </div>
-                    <div *ngIf="registeredEvents.length != 0">
-                      <button type="button" class="btn btn-sm round btn-bg-gradient-x-purple-red" style="width:100%">
-                        You have a Parallel Workshop | Already Registered
-                      </button>
-                    </div>
+                  <ng-template #notLoggedIn>
+                    <a class="btn btn-outline-primary" style="width:100%" [routerLink]="['/user/login']"
+                      [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">Login
+                      to Register</a>
                   </ng-template>
-                </ng-container>
-                <ng-template #notLoggedIn>
-                  <a class="btn btn-outline-primary" style="width:100%" [routerLink]="['/user/login']"
-                    [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">Login
-                    to Register</a>
-                </ng-template>
+                </div>
+                <div *ngIf="!registrationEnabled">
+                  <button type="button" class="btn btn-sm round btn-bg-gradient-x-purple-red" style="width:100%">
+                    Registrations are Closed
+                  </button>
+                </div>
               </span>
             </div>
           </div>

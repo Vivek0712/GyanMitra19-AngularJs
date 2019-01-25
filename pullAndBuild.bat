@@ -1,4 +1,4 @@
 git pull > status.txt
-set /p %status%= < status.txt
+$status = $(cat status.txt)
 del status.txt
-echo %password%
+echo "$status"

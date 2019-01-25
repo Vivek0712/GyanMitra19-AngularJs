@@ -1,190 +1,193 @@
 <div class="app-content content">
-	<div class="content-wrapper">
-		<div class="content-wrapper-before"></div>
-		<div class="content-header row">
-			<div class="content-header-left col-md-4 col-12 mb-2">
-				<h3 class="content-header-title">Register</h3>
-			</div>
-			<div class="content-header-right col-md-8 col-12">
-				<div class="breadcrumbs-top float-md-right">
-					<div class="breadcrumb-wrapper mr-1">
-						<ol class="breadcrumb">
-							<li class="breadcrumb-item"><a [routerLink]="['/user/home']" [routerLinkActive]="['active']"
-								 [routerLinkActiveOptions]="{exact:true}">Home</a>
-							</li>
-							<li class="breadcrumb-item active">Register
-							</li>
-						</ol>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="content-body">
-			<section id="content-types">
-				<div class="row match-height justify-content-md-center">
-					<div class="col-xl-6 col-md-12">
-						<div class="card">
-							<div class="card-content">
-								<div class="card-body">
-									<div class="font-large-1  text-center">
-										Register <i class="far fa-edit"></i>
-									</div>
-								</div>
-								<div class="card-body">
-									<form class="form" [formGroup]="registerForm" (ngSubmit)=onSubmit(registerForm.value)>
-										<div class="form-group">
-											<div class="row">
-												<div class="col-12">
-													<input type="text" class="form-control round" placeholder="Name" formControlName="name" [ngClass]="{'is-invalid': submitted &&f.name.errors}">
-													<div *ngIf="submitted && f.name.errors" class="invalid-feedback">
-														<div *ngIf="f.name.errors.required">Name is required
-														</div>
-														<div *ngIf="f.name.errors && !f.name.errors.required">Not a Name
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="form-group">
-											<div class="row">
-												<div class="col-12">
-													<input type="email" class="form-control round" placeholder="Email ID" formControlName="email_id" [ngClass]="{'is-invalid': submitted &&f.email_id.errors}">
-													<div *ngIf="submitted && f.email_id.errors" class="invalid-feedback">
-														<div *ngIf="f.email_id.errors.required">Email_id is required
-														</div>
-														<div *ngIf="f.email_id.errors && !f.email_id.errors.required">Not a Valid Email ID
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
+  <div class="content-wrapper">
+    <div class="content-wrapper-before"></div>
+    <div class="content-header row">
+      <div class="content-header-left col-md-4 col-12 mb-2">
+        <h3 class="content-header-title">Register</h3>
+      </div>
+      <div class="content-header-right col-md-8 col-12">
+        <div class="breadcrumbs-top float-md-right">
+          <div class="breadcrumb-wrapper mr-1">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a [routerLink]="['/user/home']" [routerLinkActive]="['active']"
+                  [routerLinkActiveOptions]="{exact:true}">Home</a>
+              </li>
+              <li class="breadcrumb-item active">Register
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="content-body">
+      <section id="content-types">
+        <div class="row match-height justify-content-md-center">
+          <div class="col-xl-6 col-md-12">
+            <div class="card" [ngClass]="{'alert-danger': !registrationEnabled}">
+              <div class="card-content">
+                <div class="card-body">
+                  <div class="font-large-1  text-center">
+                    Register <i class="far fa-edit"></i>
+                  </div>
+                </div>
+                <div class="card-body" *ngIf="registrationEnabled">
+                  <form class="form" [formGroup]="registerForm" (ngSubmit)=onSubmit(registerForm.value)>
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-12">
+                          <input type="text" class="form-control round" placeholder="Name" formControlName="name"
+                            [ngClass]="{'is-invalid': submitted &&f.name.errors}">
+                          <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                            <div *ngIf="f.name.errors.required">Name is required
+                            </div>
+                            <div *ngIf="f.name.errors && !f.name.errors.required">Not a Name
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-12">
+                          <input type="email" class="form-control round" placeholder="Email ID" formControlName="email_id"
+                            [ngClass]="{'is-invalid': submitted &&f.email_id.errors}">
+                          <div *ngIf="submitted && f.email_id.errors" class="invalid-feedback">
+                            <div *ngIf="f.email_id.errors.required">Email_id is required
+                            </div>
+                            <div *ngIf="f.email_id.errors && !f.email_id.errors.required">Not a Valid Email ID
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
 
-										<div class="form-group">
-											<div class="row">
-												<div class="col-6">
-													<input type="text" class="form-control round" placeholder="Mobile Number" formControlName="mobile_number"
-													 [ngClass]="{'is-invalid': submitted && f.mobile_number.errors}">
-													<div *ngIf="submitted && f.mobile_number.errors" class="invalid-feedback">
-														<div *ngIf="f.mobile_number.errors.required">Mobile Number is required
-														</div>
-														<div *ngIf="f.mobile_number.errors && !f.mobile_number.errors.required">Not a Valid Mobile Number
-														</div>
-													</div>
-												</div>
-												<div class="col-6">
-													<select class="custom-select round" formControlName="gender" [ngClass]="{'is-invalid': submitted && f.gender.errors}">
-														<option disabled value="">Gender</option>
-														<option value="Male">Male</option>
-														<option value="Female">Female</option>
-													</select>
-													<div *ngIf="submitted && f.gender.errors" class="invalid-feedback">
-														<div *ngIf="f.gender.errors.required">Gender is required
-														</div>
-														<div *ngIf="f.gender.errors && !f.gender.errors.required ">Not a Valid Gender
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="form-group">
-											<div class="row">
-												<div class="col-6">
-													<select class="custom-select round" formControlName="college_id" [ngClass]="{'is-invalid': submitted && f.college_id.errors}">
-														<option disabled value="">College</option>
-														<option *ngFor="let college of colleges" value={{college._id}}>{{college.name}}</option>
-													</select>
-													<div *ngIf="submitted && f.college_id.errors" class="invalid-feedback">
-														<div *ngIf="f.college_id.errors.required">College is required
-														</div>
-														<div *ngIf="f.college_id.errors && !f.college_id.errors.required">Not a Valid College
-														</div>
-													</div>
-												</div>
-												
-												<div class="col-6">
-													<select class="custom-select round" formControlName="year_id" [ngClass]="{'is-invalid': submitted && f.year_id.errors}">
-														<option disabled value="">Year of Studying</option>
-														<option *ngFor="let year of years" value={{year._id}}>{{year.name}}</option>
-													</select>
-													<div *ngIf="submitted && f.year_id.errors" class="invalid-feedback">
-														<div *ngIf="f.year_id.errors.required">Year is required
-														</div>
-														<div *ngIf="f.year_id.errors && !f.year_id.errors.required">Not a Valid Year
-														</div>
-													</div>
-												</div>
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-6">
+                          <input type="text" class="form-control round" placeholder="Mobile Number" formControlName="mobile_number"
+                            [ngClass]="{'is-invalid': submitted && f.mobile_number.errors}">
+                          <div *ngIf="submitted && f.mobile_number.errors" class="invalid-feedback">
+                            <div *ngIf="f.mobile_number.errors.required">Mobile Number is required
+                            </div>
+                            <div *ngIf="f.mobile_number.errors && !f.mobile_number.errors.required">Not a Valid Mobile
+                              Number
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-6">
+                          <select class="custom-select round" formControlName="gender" [ngClass]="{'is-invalid': submitted && f.gender.errors}">
+                            <option disabled value="">Gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                          </select>
+                          <div *ngIf="submitted && f.gender.errors" class="invalid-feedback">
+                            <div *ngIf="f.gender.errors.required">Gender is required
+                            </div>
+                            <div *ngIf="f.gender.errors && !f.gender.errors.required ">Not a Valid Gender
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-6">
+                          <select class="custom-select round" formControlName="college_id" [ngClass]="{'is-invalid': submitted && f.college_id.errors}">
+                            <option disabled value="">College</option>
+                            <option *ngFor="let college of colleges" value={{college._id}}>{{college.name}}</option>
+                          </select>
+                          <div *ngIf="submitted && f.college_id.errors" class="invalid-feedback">
+                            <div *ngIf="f.college_id.errors.required">College is required
+                            </div>
+                            <div *ngIf="f.college_id.errors && !f.college_id.errors.required">Not a Valid College
+                            </div>
+                          </div>
+                        </div>
 
-											</div>
-										</div>
-										<div class="form-group">
-											<div class="row">
-												
-												<div class="col-6">
-													<select class="custom-select round" formControlName="degree_id" [ngClass]="{'is-invalid': submitted && f.degree_id.errors}">
-														<option disabled value="">Degree</option>
-														<option *ngFor="let degree of degrees" value={{degree._id}}>{{degree.name}}</option>
-													</select>
-													<div *ngIf="submitted && f.degree_id.errors" class="invalid-feedback">
-														<div *ngIf="f.degree_id.errors.required">Degree is required
-														</div>
-														<div *ngIf="f.degree_id.errors && !f.degree_id.errors.required">Not a Valid Degree
-														</div>
-													</div>
-												</div>
+                        <div class="col-6">
+                          <select class="custom-select round" formControlName="year_id" [ngClass]="{'is-invalid': submitted && f.year_id.errors}">
+                            <option disabled value="">Year of Studying</option>
+                            <option *ngFor="let year of years" value={{year._id}}>{{year.name}}</option>
+                          </select>
+                          <div *ngIf="submitted && f.year_id.errors" class="invalid-feedback">
+                            <div *ngIf="f.year_id.errors.required">Year is required
+                            </div>
+                            <div *ngIf="f.year_id.errors && !f.year_id.errors.required">Not a Valid Year
+                            </div>
+                          </div>
+                        </div>
 
-												<div class="col-6">
-													<select class="custom-select round" formControlName="course_id" [ngClass]="{'is-invalid': submitted && f.college_id.errors}">
-														<option disabled value="">Course</option>
-														<option *ngFor="let course of courses" value={{course._id}}>{{course.name}}</option>
-													</select>
-													<div *ngIf="submitted && f.course_id.errors" class="invalid-feedback">
-														<div *ngIf="f.course_id.errors.required">Course is required
-														</div>
-														<div *ngIf="f.course_id.errors && !f.course_id.errors.required">Not a Valid Course
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="form-group">
-											<div class="row">
-												<div class="col-6">
-													<input type="password" class="form-control round" placeholder="Password" formControlName="password"
-													 [ngClass]="{'is-invalid': submitted &&f.password.errors}">
-													<div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-														<div *ngIf="f.password.errors.required">Password is required
-														</div>
-													</div>
-												</div>
-												<div class="col-6">
-													<input type="password" class="form-control round" placeholder="Confirm Password" formControlName="conpassword"
-													 [ngClass]="{'is-invalid': submitted &&f.conpassword.errors}">
-													<div *ngIf="submitted && f.conpassword.errors" class="invalid-feedback">
-														<div *ngIf="f.conpassword.errors.required">Confirm Password is required
-														</div>
-													</div>
-												</div>
-												
-											</div>
-										</div>
-										<div class="form-action left row">
-											<div class="col">
-												<span (click)="createForm()" class="btn btn-outline-danger left round">Reset</span>
-											</div>
-											<div class="col">
-												<button type="submit" class="btn btn-outline-success right round">{{this.Button}}</button>
-											</div>
-										</div>
-									</form>
-								</div>
-							</div>
-							<div class="card-body">
-								<h1> </h1>
-							</div>
-						</div>
-					</div>
-				</div>
-			</section>
-		</div>
-	</div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="row">
+
+                        <div class="col-6">
+                          <select class="custom-select round" formControlName="degree_id" [ngClass]="{'is-invalid': submitted && f.degree_id.errors}">
+                            <option disabled value="">Degree</option>
+                            <option *ngFor="let degree of degrees" value={{degree._id}}>{{degree.name}}</option>
+                          </select>
+                          <div *ngIf="submitted && f.degree_id.errors" class="invalid-feedback">
+                            <div *ngIf="f.degree_id.errors.required">Degree is required
+                            </div>
+                            <div *ngIf="f.degree_id.errors && !f.degree_id.errors.required">Not a Valid Degree
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-6">
+                          <select class="custom-select round" formControlName="course_id" [ngClass]="{'is-invalid': submitted && f.college_id.errors}">
+                            <option disabled value="">Course</option>
+                            <option *ngFor="let course of courses" value={{course._id}}>{{course.name}}</option>
+                          </select>
+                          <div *ngIf="submitted && f.course_id.errors" class="invalid-feedback">
+                            <div *ngIf="f.course_id.errors.required">Course is required
+                            </div>
+                            <div *ngIf="f.course_id.errors && !f.course_id.errors.required">Not a Valid Course
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-6">
+                          <input type="password" class="form-control round" placeholder="Password" formControlName="password"
+                            [ngClass]="{'is-invalid': submitted &&f.password.errors}">
+                          <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                            <div *ngIf="f.password.errors.required">Password is required
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-6">
+                          <input type="password" class="form-control round" placeholder="Confirm Password"
+                            formControlName="conpassword" [ngClass]="{'is-invalid': submitted &&f.conpassword.errors}">
+                          <div *ngIf="submitted && f.conpassword.errors" class="invalid-feedback">
+                            <div *ngIf="f.conpassword.errors.required">Confirm Password is required
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                    <div class="form-action left row">
+                      <div class="col">
+                        <span (click)="createForm()" class="btn btn-outline-danger left round">Reset</span>
+                      </div>
+                      <div class="col">
+                        <button type="submit" class="btn btn-outline-success right round">{{this.Button}}</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <div class="card-body" class="white text-center" *ngIf="!registrationEnabled">
+                  <h2>User Registrations are Closed</h2>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
 </div>
