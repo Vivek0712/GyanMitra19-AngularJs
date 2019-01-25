@@ -108,7 +108,6 @@ export class UserAccomodationComponent implements OnInit {
 
     this.hashData(true);
     console.log("Pay " + this.txnId)
-
     console.log("HASH " + this.hashString)
 
   }
@@ -138,11 +137,7 @@ export class UserAccomodationComponent implements OnInit {
   }
     hashData(value: Boolean) {
       if (value) {
-        const tamount = 100 + (100* this.appService.getTransactionFee());
         var body = {
-          key: this.appService.getKey(),
-          salt: this.appService.getSalt(),
-          amount: tamount,
           txnId: this.txnId,
           productInfo: this.appService.getProductInfo(),
           name: JSON.parse(localStorage.getItem('user')).name,
