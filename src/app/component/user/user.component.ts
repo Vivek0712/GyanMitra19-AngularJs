@@ -20,7 +20,6 @@ export class UserComponent implements OnInit {
    });
 
     // We have all the params now -> you can access it by name
-    console.log(urlParams["loaded"]);
 
     if(urlParams["loaded"]) {}else{
 

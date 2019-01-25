@@ -107,7 +107,6 @@ export class UserService {
   }
 
   updateUser(values: any) {
-    console.log(values);
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this.http.post(this.app.getUrl(this.baseUrl + 'update/' + values._id), values).pipe(map(res => res, { 'headers': headers }));

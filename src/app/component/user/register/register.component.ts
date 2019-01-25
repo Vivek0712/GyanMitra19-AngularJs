@@ -63,7 +63,6 @@ export class RegisterComponent implements OnInit {
       const degree_id = this.registerForm.get('degree_id').value;
       const course_id = this.registerForm.get('course_id').value;
       const year = this.registerForm.get('year_id').value;
-      console.log(this.registerForm.get('email_id').value);
       if(password !== conpassword){
         M.toast({ html: 'Passwords does not match', classes: 'rounded' });
         this.createForm();

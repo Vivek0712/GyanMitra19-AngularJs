@@ -27,7 +27,6 @@ export class ForgotpasswordComponent implements OnInit {
     if (this.resetForm.valid) {
       const email_id = this.resetForm.value.email_id;
       this.userService.forgotPassword(email_id).subscribe((response: any) => {
-        console.log(response)
         if (response.error) {
           M.toast({ html: 'An Error Occured', classes: 'rounded' });
         } else {

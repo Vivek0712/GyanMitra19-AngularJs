@@ -21,7 +21,6 @@ export class UserNavbarComponent implements OnInit {
         this.gender = res.profile.gender;
       },
        err => {
-         console.log(err);
          return false;
        });
     }

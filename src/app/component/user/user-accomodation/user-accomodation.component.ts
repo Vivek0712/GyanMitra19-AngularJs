@@ -107,8 +107,6 @@ export class UserAccomodationComponent implements OnInit {
     this.genTxnId(true);
 
     this.hashData(true);
-    console.log("Pay " + this.txnId)
-    console.log("HASH " + this.hashString)
 
   }
   genTxnId(value: Boolean) {
