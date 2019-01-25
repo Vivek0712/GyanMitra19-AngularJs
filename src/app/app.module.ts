@@ -77,6 +77,8 @@ import { AccSuccessComponent } from './component/user/acc-success/acc-success.co
 import { PaymentComponent } from './component/admin/payment/payment.component';
 import { HowToReachUsComponent } from './component/user/how-to-reach-us/how-to-reach-us.component';
 import { ReportserviceService } from './services/report/reportservice.service';
+import { ResetPasswordComponent } from './component/user/reset-password/reset-password.component';
+import { ForgotpasswordComponent } from './component/user/forgotpassword/forgotpassword.component';
 /////////////////////////////////////////////////////////////////
 
 @NgModule({
@@ -130,6 +132,8 @@ import { ReportserviceService } from './services/report/reportservice.service';
     ContactUsComponent,
     PaymentComponent,
     HowToReachUsComponent,
+    ResetPasswordComponent,
+    ForgotpasswordComponent,
   ],
   imports: [
     BrowserModule,

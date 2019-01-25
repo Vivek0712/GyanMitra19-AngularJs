@@ -81,16 +81,15 @@
                     </button>
                   </ng-container>
                   <ng-template #cartNotConfirmed>
-                    <div *ngIf="!registeredEvents.includes(workshop._id)">
+                    <div *ngIf="registeredEvents.length == 0">
                       <button type="button" class="btn btn-outline-primary" (click)="selectWorkshop(workshop._id)"
                         style="width:100%">
                         Register Now <i class="la la-angle-right"></i>
                       </button>
                     </div>
-                    <div *ngIf="registeredEvents.includes(workshop._id)">
-                      <button type="button" *ngIf="registeredEvents.includes(workshop._id)d" class="btn btn-sm round btn-bg-gradient-x-purple-red"
-                        style="width:100%">
-                        Already Registered | Parallel Event
+                    <div *ngIf="registeredEvents.length != 0">
+                      <button type="button" class="btn btn-sm round btn-bg-gradient-x-purple-red" style="width:100%">
+                        You have a Parallel Workshop | Already Registered
                       </button>
                     </div>
                   </ng-template>
@@ -108,4 +107,3 @@
     </section>
   </div>
 </div>
-

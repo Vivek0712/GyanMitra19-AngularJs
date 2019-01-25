@@ -133,6 +133,7 @@ export class WorkshopsComponent implements OnInit {
             } else {
               M.toast({ html: response.msg, classes: 'roundeds' });
               this.reloadEvents();
+              this.getRegistrations();
             }
           })
         }

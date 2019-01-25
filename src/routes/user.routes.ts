@@ -18,6 +18,8 @@ import { PaymentSuccessComponent } from 'src/app/component/user/payment-success/
 import { PaymentFailureComponent } from 'src/app/component/user/payment-failure/payment-failure.component';
 import { AccFailureComponent } from 'src/app/component/user/acc-failure/acc-failure.component';
 import { AccSuccessComponent } from 'src/app/component/user/acc-success/acc-success.component'; import { HowToReachUsComponent } from 'src/app/component/user/how-to-reach-us/how-to-reach-us.component';
+import { ResetPasswordComponent } from 'src/app/component/user/reset-password/reset-password.component';
+import { ForgotpasswordComponent } from 'src/app/component/user/forgotpassword/forgotpassword.component';
 export const USER_ROUTE: Routes = [
      { path: 'home', component: UserHomeComponent },
      { path: 'about', component: AboutComponent },
@@ -35,5 +37,7 @@ export const USER_ROUTE: Routes = [
      { path: 'payment/failure', component: PaymentFailureComponent, canActivate: [AuthGuard] },
      { path: 'acc/payment/success', component: AccSuccessComponent, canActivate: [AuthGuard] },
      { path: 'acc/payment/failure', component: AccFailureComponent, canActivate: [AuthGuard] },
-     { path: 'howtoreachus', component: HowToReachUsComponent }
+     { path: 'howtoreachus', component: HowToReachUsComponent },
+     { path: 'resetPassword/:token', component: ResetPasswordComponent },
+     { path: 'forgotPassword', component: ForgotpasswordComponent }
 ];
