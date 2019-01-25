@@ -143,7 +143,7 @@ export class CartComponent implements OnInit {
     this.genTxnId(true);
 
     this.hashData(true);
-    //this.finished();
+    
 
   }
   genTxnId(value: Boolean) {
@@ -158,11 +158,8 @@ export class CartComponent implements OnInit {
     //return this.txnId;
   }
   reverseString(str: String) {
-    // Step 1. Use the split() method to return a new array
+    
     var splitString = str.split(""); // var splitString = "hello".split("");
-    // ["h", "e", "l", "l", "o"]
-
-    // Step 2. Use the reverse() method to reverse the new created array
     var reverseArray = splitString.reverse(); // var reverseArray = ["h", "e", "l", "l", "o"].reverse();
     // ["o", "l", "l", "e", "h"]
 
@@ -175,11 +172,12 @@ export class CartComponent implements OnInit {
   }
   hashData(value: Boolean) {
     if (value) {
-     // const tamount = this.totalAmount + (this.totalAmount * this.appService.getTransactionFee());
       var body = {
-        //key: this.appService.getKey(),
-        //salt: this.appService.getSalt(),
-       // amount: this.totalAmount,
+        /* 
+          Dont send salt,amount and key here because this is sent has json to the backend. 
+          Json is visible in the browser.
+          Salt is the unique identity given to us
+        */
         txnId: this.txnId,
         productInfo: this.appService.getProductInfo(),
         name: JSON.parse(localStorage.getItem('user')).name,
