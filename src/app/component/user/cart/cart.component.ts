@@ -139,12 +139,8 @@ export class CartComponent implements OnInit {
     })
   }
   payOnline() {
-
     this.genTxnId(true);
-
     this.hashData(true);
-    
-
   }
   genTxnId(value: Boolean) {
     if (value) {
@@ -152,21 +148,13 @@ export class CartComponent implements OnInit {
       var d = new Date();
       this.txnId = JSON.parse(localStorage.getItem('user')).gmID + '_' + this.reverseString(d.getTime().toString());
       this.txnId = this.txnId.substr(0, 25);
-
     }
   }
   reverseString(str: String) {
-    
-    var splitString = str.split(""); // var splitString = "hello".split("");
-    var reverseArray = splitString.reverse(); // var reverseArray = ["h", "e", "l", "l", "o"].reverse();
-    // ["o", "l", "l", "e", "h"]
-
-    // Step 3. Use the join() method to join all elements of the array into a string
-    var joinArray = reverseArray.join(""); // var joinArray = ["o", "l", "l", "e", "h"].join("");
-    // "olleh"
-
-    //Step 4. Return the reversed string
-    return joinArray; // "olleh"
+    var splitString = str.split("");
+    var reverseArray = splitString.reverse(); 
+    var joinArray = reverseArray.join(""); 
+    return joinArray;
   }
   hashData(value: Boolean) {
     if (value) {
@@ -174,7 +162,7 @@ export class CartComponent implements OnInit {
         /* 
           Dont send salt,amount and key here because this is sent has json to the backend. 
           Json is visible in the browser.
-          Salt is the unique identity given to us
+          Salt is the unique identity given to us by payumoney.
         */
         txnId: this.txnId,
         productInfo: this.appService.getProductInfo(),
