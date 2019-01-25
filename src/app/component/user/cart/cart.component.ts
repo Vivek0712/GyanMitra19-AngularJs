@@ -154,8 +154,6 @@ export class CartComponent implements OnInit {
       this.txnId = this.txnId.substr(0, 25);
 
     }
-    // console.log("In Gen TXN"+this.txnId);
-    //return this.txnId;
   }
   reverseString(str: String) {
     
