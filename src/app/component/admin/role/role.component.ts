@@ -42,8 +42,9 @@ export class RoleComponent implements OnInit {
   onSubmit(form: FormGroup) {
     this.submitted=true;
     if(form.valid){
-      if ( form.value._id === '') {
+      if ( this.roleForm.get('_id').value == '') {
         this.roleService.createRole( this.roleForm.get('name').value).subscribe((response: any) => {
+          console.log("Hello");
           if ( response.error ) {
             M.toast({ html: response.msg , classes: 'roundeds'});
             this.getRoles(this.currentPage);
@@ -82,22 +83,22 @@ export class RoleComponent implements OnInit {
   }
   getRoles(page: any) {
     this.roleService.readRole(page).subscribe((response: any) => {
-     this.roles = response.docs;
+     this.roles = response.msg.docs;
     });
 
   }
   deleteRole(id: string) {
-  this.roleService.deleteRole(id).subscribe((response: any) => {
-    if ( response.error ) {
-      M.toast({ html: response.msg , classes: 'roundeds'});
-      this.getRoles(this.currentPage);
-      this.createForm();
-    } else {
-      M.toast({ html: response.msg , classes: 'roundeds'});
-      this.getRoles(this.currentPage);
-      this.createForm();
-    }
-  });
+    this.roleService.deleteRole(id).subscribe((response: any) => {
+      if ( response.error ) {
+        M.toast({ html: response.msg , classes: 'roundeds'});
+        this.getRoles(this.currentPage);
+        this.createForm();
+      } else {
+        M.toast({ html: response.msg , classes: 'roundeds'});
+        this.getRoles(this.currentPage);
+        this.createForm();
+      }
+    });
   }
   updateRole(id: string, name: string) {
     this.Button = 'Update';

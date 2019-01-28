@@ -79,6 +79,11 @@ export class EventService {
     return this.http.get(this.app.getUrl(this.baseUrl) +type+'/'+department+'/'+page);
   }
 
+  readWithPageAndDepartmentId(type: any, department_id:any){
+    const headers = new Headers();
+    return this.http.get(this.app.getUrl(this.baseUrl)+'event/' +type+'/id/'+department_id);
+  }
+
   updateEvent(id: String, title: String, category_id: String, department_id: String, description: String, image_name: String, rules: String, start_time: String, end_time: String, event_date: String, prelims: String, round_1: String, round_2: String, finals: String, min_members: Number, max_members: Number, max_limit: Number, contact_email: String, venue: String, amount: Number, allow_gender_mixing: Boolean,resource_person:String) {
     const body = {
       title: title,

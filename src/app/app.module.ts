@@ -76,6 +76,7 @@ import { AccFailureComponent } from './component/user/acc-failure/acc-failure.co
 import { AccSuccessComponent } from './component/user/acc-success/acc-success.component';
 import { PaymentComponent } from './component/admin/payment/payment.component';
 import { HowToReachUsComponent } from './component/user/how-to-reach-us/how-to-reach-us.component';
+import { AdminUserRolesComponent } from './component/admin/admin-user-roles/admin-user-roles.component';
 /////////////////////////////////////////////////////////////////
 
 @NgModule({
@@ -129,6 +130,7 @@ import { HowToReachUsComponent } from './component/user/how-to-reach-us/how-to-r
 	ContactUsComponent,
 	PaymentComponent,
 	HowToReachUsComponent,
+	AdminUserRolesComponent,
   ],
   imports: [
     BrowserModule,

@@ -15,10 +15,11 @@ import { AppService } from '../app/app.service';
 export class RoleUserService {
   readonly baseUrl = 'role_user/';
   constructor(private http: HttpClient, private app: AppService) { }
-  createRoleUser (role_id: String,user_id: String) {
+  createRoleUser (role_id: String,user_id: String,department_id) {
     const body = { 
       role_id: role_id,
-      user_id: user_id
+      user_id: user_id,
+      department_id: department_id
     };
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
@@ -29,11 +30,18 @@ export class RoleUserService {
     headers.append('Content-Type', 'application/json');
     return this.http.get(this.app.getUrl(this.baseUrl));
   }
-  updateRoleUser(id: String,role_id: String,user_id: String) {
+
+  readRoleUserById(id: String){ 
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.get(this.app.getUrl(this.baseUrl+`${id}`));
+  }
+
+  updateRoleUser(id: String,role_id: String,user_id: String,department_id: String) {
     const body = { 
-      _id: id,
       role_id: role_id,
-      user_id: user_id
+      user_id: user_id,
+      department_id: department_id
     };
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');

@@ -25,7 +25,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="participantModalLabel">Participant Details</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="editClick()">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -211,7 +211,10 @@
                     </div>
                     <div class="form-action left row">
                       <div class="col">
-                        <button type="submit" class="btn btn-outline-success right" (click)="updateUser()">Update</button>
+                        <button class="btn btn-outline-instagram right" (click)="editClick()">Back</button>
+                      </div>
+                      <div class="col">
+                          <button type="submit" class="btn btn-outline-success right" (click)="updateUser()">Update</button>
                       </div>
                     </div>
                   </form>
@@ -282,7 +285,7 @@
           </div>
           <div class="modal-footer">
             <!-- <button type="button" class="btn btn-danger" (click)="unfreezeEvents()">Unfreeze Events</button> -->
-            <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="viewed()">Close</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           </div>
         </div>
       </div>
