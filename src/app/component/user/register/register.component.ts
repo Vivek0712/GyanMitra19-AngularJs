@@ -6,6 +6,7 @@ import { CourseService } from 'src/app/services/course/course.service';
 import { CollegeService } from 'src/app/services/college/college.service';
 import { DegreeService } from 'src/app/services/degree/degree.service';
 import { YearService } from 'src/app/services/year/year.service';
+import { ConfigurationsService } from 'src/app/services/configurations/configurations.service';
 
 declare var M: any;
 @Component({
@@ -15,7 +16,7 @@ declare var M: any;
 })
 export class RegisterComponent implements OnInit {
 
-  constructor(private degreeservice: DegreeService,private yearService: YearService,private collegeservice:CollegeService,private courseservice: CourseService,private reg: UserregistrationService,private router: Router, private formBuilder: FormBuilder,private userRegisterService:UserregistrationService) { }
+  constructor(private degreeservice: DegreeService, private configService: ConfigurationsService, private yearService: YearService, private collegeservice: CollegeService, private courseservice: CourseService, private reg: UserregistrationService, private router: Router, private formBuilder: FormBuilder, private userRegisterService: UserregistrationService) { }
   registerForm: FormGroup;
   Button: any;
   submitted = false;
@@ -23,7 +24,15 @@ export class RegisterComponent implements OnInit {
   colleges: Array<any>;
   degrees: Array<any>
   years: Array<any>;
+  registrationEnabled: boolean =true;
   ngOnInit() {
+    this.configService.getConfig('UserRegistration').subscribe((response:any)=>{
+      if(response.error){
+        this.registrationEnabled = false
+      } else {
+        this.registrationEnabled = response.msg
+      }
+    })
     this.createForm();
     this.getCourses();
     this.getColleges();
@@ -32,58 +41,57 @@ export class RegisterComponent implements OnInit {
   }
   get f() { return this.registerForm.controls; }
   //Create Form is Used to Initalize the Values the Form
-  createForm(){
-    this.Button="Register"
-    this.submitted=false;
+  createForm() {
+    this.Button = "Register"
+    this.submitted = false;
     this.registerForm = this.formBuilder.group({
-      email_id:['',Validators.compose([Validators.required,Validators.email])],
-      name:['',Validators.required],
-      password:['',Validators.required],
-      conpassword:['',Validators.required],
-      mobile_number:['',Validators.compose([Validators.required,Validators.pattern("[0-9]{10}$")])],
-      degree_id:['',Validators.required],
-      college_id:['',Validators.required],
-      course_id:['',Validators.required],
-      gender:['',Validators.required],
-      year_id:['',Validators.required]
+      email_id: ['', Validators.compose([Validators.required, Validators.email])],
+      name: ['', Validators.required],
+      password: ['', Validators.required],
+      conpassword: ['', Validators.required],
+      mobile_number: ['', Validators.compose([Validators.required, Validators.pattern("[0-9]{10}$")])],
+      degree_id: ['', Validators.required],
+      college_id: ['', Validators.required],
+      course_id: ['', Validators.required],
+      gender: ['', Validators.required],
+      year_id: ['', Validators.required]
     });
   }
   //The action performed After the Button is Pressed
-  onSubmit(values: NgForm){
-    this.submitted=true;
-    this.Button="Checking...";
-    if(this.registerForm.valid) {
+  onSubmit(values: NgForm) {
+    this.submitted = true;
+    this.Button = "Checking...";
+    if (this.registerForm.valid) {
       const email_id = this.registerForm.get('email_id').value;
       const password = this.registerForm.get('password').value;
       const conpassword = this.registerForm.get('conpassword').value;
-      const name =this.registerForm.get('name').value;
+      const name = this.registerForm.get('name').value;
       const mobile_number = this.registerForm.get('mobile_number').value;
-      const gender =this.registerForm.get('gender').value;
+      const gender = this.registerForm.get('gender').value;
       const college_id = this.registerForm.get('college_id').value;
       const degree_id = this.registerForm.get('degree_id').value;
       const course_id = this.registerForm.get('course_id').value;
       const year = this.registerForm.get('year_id').value;
-      console.log(this.registerForm.get('email_id').value);
-      if(password !== conpassword){
+      if (password !== conpassword) {
         M.toast({ html: 'Passwords does not match', classes: 'rounded' });
         this.createForm();
       }
       else {
-        this.Button="Sending Mail......";
-        this.reg.createUser(name,college_id,course_id,degree_id,email_id,gender,mobile_number,password,year,false,"online").subscribe((response: any) => {
-		  if (response.error) {
+        this.Button = "Sending Mail......";
+        this.reg.createUser(name, college_id, course_id, degree_id, email_id, gender, mobile_number, password, year, false, "online").subscribe((response: any) => {
+          if (response.error) {
             M.toast({ html: response.msg, classes: 'roundeds' });
-			
+
           } else {
             M.toast({ html: response.msg, classes: 'roundeds' });
-            this.createForm();    
+            this.createForm();
           }
         });
       }
     }
-    else{
+    else {
       M.toast({ html: 'Please Check the Form', classes: 'rounded' });
-      this.Button="Register";
+      this.Button = "Register";
     }
   }
   getCourses() {

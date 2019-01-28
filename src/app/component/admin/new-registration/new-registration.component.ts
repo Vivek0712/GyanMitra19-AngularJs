@@ -93,7 +93,6 @@ export class NewRegistrationComponent implements OnInit {
   }
   getDepartments() {
     this.departmentservice.readDepartment(0).subscribe((response: any) => {
-      console.log(response);
       this.departments = response;
     });
   }

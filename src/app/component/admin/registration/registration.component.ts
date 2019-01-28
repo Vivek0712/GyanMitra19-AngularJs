@@ -7,6 +7,7 @@ import { YearService } from 'src/app/services/year/year.service';
 import { CourseService } from 'src/app/services/course/course.service';
 import { ExcelService } from 'src/app/services/excel.service';
 import { Location, DatePipe } from '@angular/common';
+import { ReportserviceService } from 'src/app/services/report/reportservice.service';
 import { EventRegistrationService } from 'src/app/services/eventRegistration/event-registration.service';
 
 
@@ -43,10 +44,10 @@ export class RegistrationComponent implements OnInit {
   degrees: Array<any>;
   years: Array<any>;
   departments: Array<any>;
-  registeredWorkshops: Array<any>=[];
-  registeredEvents: Array<any>=[];
+  registeredWorkshops: Array<any> = [];
+  registeredEvents: Array<any> = [];
 
-  constructor(private datePipe: DatePipe, private excelService: ExcelService, private yearService: YearService, private collegeService: CollegeService, private userService: UserService, private degreeService: DegreeService, private courseService: CourseService, private formBuilder: FormBuilder,private eventRegister: EventRegistrationService) { }
+  constructor(private reportserviceService: ReportserviceService, private datePipe: DatePipe, private excelService: ExcelService, private yearService: YearService, private collegeService: CollegeService, private userService: UserService, private degreeService: DegreeService, private courseService: CourseService, private formBuilder: FormBuilder, private eventRegister: EventRegistrationService) { }
 
   ngOnInit() {
     this.currentPage = 1;
@@ -61,14 +62,14 @@ export class RegistrationComponent implements OnInit {
     this.viewDetails = false;
   }
 
-  getRegisteredWorkshops(id:string) {
-    this.eventRegister.getRegisteredEvents(id,"Workshop").subscribe((response:any)=>{
+  getRegisteredWorkshops(id: string) {
+    this.eventRegister.getRegisteredEvents(id, "Workshop").subscribe((response: any) => {
       this.registeredWorkshops = response.doc;
     })
   }
 
-  getRegisteredEvents(id:string) {
-    this.eventRegister.getRegisteredEvents(id,"Event").subscribe((response:any)=>{
+  getRegisteredEvents(id: string) {
+    this.eventRegister.getRegisteredEvents(id, "Event").subscribe((response: any) => {
       this.registeredEvents = response.doc;
     })
   }
@@ -192,7 +193,7 @@ export class RegistrationComponent implements OnInit {
     this.userService.getAllParticipants().subscribe((response: any) => {
       this.participants = response;
     });
-    
+
   }
 
   // nextPage() {
@@ -262,6 +263,40 @@ export class RegistrationComponent implements OnInit {
       }
     });
   }
+  exportAsXLSXwithEvents() {
+    // var filename = 'All Participants - With Events - ' + this.datePipe.transform(Date.now(), 'dd-MM-yyyy');
+    // var reportArray: Array<any> = [];
+    // var slNo = 1;
+    // this.participants.forEach((ele) => {
+    //   var reportData:Array<any> = []
+    //   reportData["Sl. No"] = slNo++
+    //   reportData["Name"] = ele.name;
+    //   reportData["College"] = ele.college_id.name;
+    //   reportData["Degree"] = ele.degree_id.name;
+    //   reportData["Department"] = ele.department_id.name;
+    //   reportData["Year"] = ele.year_id.name;
+    //   reportData["Mobile Number"] = ele.mobile_number;
+    //   reportData["Gender"] = ele.gender;
+    //   reportData["E Mail ID"] = ele.email_id;
+    //   if (ele.cart_confirmed) {
+    //     reportData["Cart Confirmed"] = "Yes"
+    //   } else {
+    //     reportData["Cart Confirmed"] = "No"
+    //   }
+    //   var eventNo = 1;
+    //   this.eventRegister.getRegisteredEvents(ele._id, 'Event').subscribe((response: any)=>{
+    //     var respArray : Array<any> = response.doc
+    //     // respArray.forEach((event)=>{
+    //     //   var curNo = "Event "+eventNo
+    //     //   eventNo++;
+    //     //   reportData[curNo]=event.event_id.title
+    //     // })
+    //     reportData["Event 0"] = "respArray[0].event_id.title;"
+    //   })
+    //   reportArray.push(reportData);
+    // })
+    // this.excelService.exportAsExcelFile(reportArray, filename);
+  }
 
   exportAsXLSX() {
     var filename = 'All Participants - ' + this.datePipe.transform(Date.now(), 'dd-MM-yyyy');
@@ -278,12 +313,12 @@ export class RegistrationComponent implements OnInit {
       reportData["Mobile Number"] = ele.mobile_number;
       reportData["Gender"] = ele.gender;
       reportData["E Mail ID"] = ele.email_id;
-      if(ele.cart_confirmed){
+      if (ele.cart_confirmed) {
         reportData["Cart Confirmed"] = "Yes"
       } else {
         reportData["Cart Confirmed"] = "No"
       }
-      if(ele.cart_paid){
+      if (ele.cart_paid) {
         reportData["Payment Status"] = "Yes"
       } else {
         reportData["Payment Status"] = "No"

@@ -4,6 +4,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 import { DepartmentService } from 'src/app/services/department/department.service';
 import { EventRegistrationService } from 'src/app/services/eventRegistration/event-registration.service';
 import { UserService } from 'src/app/services/user/user.service';
+import { ConfigurationsService } from 'src/app/services/configurations/configurations.service';
 
 declare var M: any;
 
@@ -21,9 +22,16 @@ export class EventsComponent implements OnInit {
   currentPage: any = 1;
   user: any;
   registeredEvents: Array<string> = [];
+  registrationEnabled : boolean = true;
 
-  constructor(private userService: UserService, private eventRegistration: EventRegistrationService, private eventService: EventService, private eventRegistrationService: EventRegistrationService, private authService: AuthService, private deptService: DepartmentService) {
-
+  constructor(private userService: UserService, private configService: ConfigurationsService, private eventService: EventService, private eventRegistrationService: EventRegistrationService, private authService: AuthService, private deptService: DepartmentService) {
+    configService.getConfig('Registration').subscribe((response: any)=>{
+      if(response.error){
+        this.registrationEnabled = false
+      } else {
+        this.registrationEnabled = response.msg
+      }
+    })
   }
   ngOnInit() {
     if (this.currentUserId != '') {

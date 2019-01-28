@@ -360,10 +360,14 @@
                         <option value="false">Not paid</option>
                       </select>
                     </div>
-                    <div class="col-3">
+                    <div class="col-3 container">
                       <div class="btn-group">
-                        <input type="button" class="btn btn-success" (click)="filter()" value="Filter" />
-                        <input type="button" class="btn btn-secondary" (click)="exportAsXLSX()" value="Generte Excel" />
+                          <input type="button" class="btn btn-success" (click)="filter()" value="Filter" />
+                          <input type="button" class="btn btn-secondary" (click)="exportAsXLSX()" value="Generte Excel" />
+                      </div>
+                      <hr />
+                      <div class="btn-group">
+                        <input type="button" class="btn btn-outline-cyan" (click)="exportAsXLSXwithEvents()" value="Generte Excel with Events" />
                       </div>
                     </div>
                   </div>

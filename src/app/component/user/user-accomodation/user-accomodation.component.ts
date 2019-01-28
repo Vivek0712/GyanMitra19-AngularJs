@@ -3,6 +3,7 @@ import { AccomodationService } from 'src/app/services/accomodation/accomodation.
 import { FormGroup, FormBuilder, NgForm } from '@angular/forms';
 import { AppService } from 'src/app/services/app/app.service';
 import { PaymentService } from 'src/app/services/payment/payment.service';
+import { ConfigurationsService } from 'src/app/services/configurations/configurations.service';
 
 declare var M: any;
 
@@ -24,10 +25,19 @@ export class UserAccomodationComponent implements OnInit {
   hashString: string;
   totalAmount: number;
   user: any;
+  accomodationEnabled: boolean = true;
   constructor(private accomodationService: AccomodationService,
     public appService: AppService,
-    private paymentService:PaymentService,private formBuilder: FormBuilder) {
+    private paymentService:PaymentService,private formBuilder: FormBuilder, private configService: ConfigurationsService) {
       this.user = JSON.parse(localStorage.getItem('user'))
+      this.configService.getConfig('Accomodation').subscribe((response: any)=>{
+        if(response.error){
+          this.accomodationEnabled = false
+        } else {
+          this.accomodationEnabled = response.msg
+        }
+      })
+      
      }
 
   ngOnInit() {
@@ -107,9 +117,6 @@ export class UserAccomodationComponent implements OnInit {
     this.genTxnId(true);
 
     this.hashData(true);
-    console.log("Pay " + this.txnId)
-
-    console.log("HASH " + this.hashString)
 
   }
   genTxnId(value: Boolean) {
@@ -138,11 +145,7 @@ export class UserAccomodationComponent implements OnInit {
   }
     hashData(value: Boolean) {
       if (value) {
-        const tamount = 100 + (100* this.appService.getTransactionFee());
         var body = {
-          key: this.appService.getKey(),
-          salt: this.appService.getSalt(),
-          amount: tamount,
           txnId: this.txnId,
           productInfo: this.appService.getProductInfo(),
           name: JSON.parse(localStorage.getItem('user')).name,
