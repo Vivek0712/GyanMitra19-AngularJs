@@ -11,6 +11,7 @@ export const environment = {
     url: 'https://secure.payu.in/_payment',
     accomodation: 100,
     transcationFee: 0.04,
-    productInfo:'GyanMitra19'
+    productInfo:'GyanMitra19',
+	key: 'AFqk4w'
   }
 };
