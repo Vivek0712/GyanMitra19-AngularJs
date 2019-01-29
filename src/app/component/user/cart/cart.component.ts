@@ -152,8 +152,8 @@ export class CartComponent implements OnInit {
   }
   reverseString(str: String) {
     var splitString = str.split("");
-    var reverseArray = splitString.reverse(); 
-    var joinArray = reverseArray.join(""); 
+    var reverseArray = splitString.reverse();
+    var joinArray = reverseArray.join("");
     return joinArray;
   }
   hashData(value: Boolean) {
@@ -171,9 +171,7 @@ export class CartComponent implements OnInit {
         mobile_number: JSON.parse(localStorage.getItem('user')).mobile_number,
       }
       this.paymentService.genHash(body).subscribe((response: any) => {
-        if (response.error) {
-          this.hashString = response.hash;
-        }
+        this.hashString = response.hash;
       });
     }
   }
