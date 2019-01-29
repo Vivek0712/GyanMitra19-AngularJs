@@ -23,6 +23,13 @@ export class ConfigurationsService {
     headers.append('Content-Type', 'application/json');
     return this.http.get(this.app.getUrl(this.baseUrl));
   }
+
+  getConfig(config: string){
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.get(this.app.getUrl(this.baseUrl)+'getStatus/'+config);
+  }
+
   updateConfig(id: String, name: String,value: Boolean) {
     const body = { _id: id , name: name , value: value};
     const headers = new Headers();

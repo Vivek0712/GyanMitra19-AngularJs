@@ -29,7 +29,7 @@
                   <h6 class="card-subtitle text-muted">Add AdminUser</h6>
                 </div>
                 <div class="card-body">
-                  <form class="form" [formGroup]="userForm" (ngSubmit)=onSubmit(userForm.value)>
+                  <form class="form" [formGroup]="userForm" (ngSubmit)=onSubmit(userForm)>
                     <input type="hidden" formControlName="_id">
                     <div class="form-group">
                       <div class="row">
@@ -78,8 +78,6 @@
                           <p class="text-bold-600 font-medium-2">
                     
                           </p>
-
-                         
                         </div>
                       </div>
                     </div>
@@ -122,22 +120,14 @@
                         <th>Sl. No</th>
                         <th>AdminUser Name</th>
                         <th>Email_id</th>
-                        <th>Roles</th>
-                        <th>Update</th>
                         <th>Delete</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr *ngFor="let user of users | searchfilter : searchText ; let i = index;   ">
-
+                      <tr *ngFor="let user of users ; let i = index;   ">
                         <th scope="row">{{i+1}}</th>
                         <td>{{user.name}}</td>
                         <td>{{user.email_id}}</td>
-                        <td>
-                          <div class="fonticon-wrap icon-shadow icon-shadow-warning">
-                            <a (click)="updateUser(user._id,user.name)"> <i class="la la-pencil la-2x"></i></a>
-                          </div>
-                        </td>
                         <td>
                           <div class="fonticon-wrap icon-shadow icon-shadow-danger" (click)="deleteUser(user._id)">
                             <a> <i class="la la-trash la-2x"></i></a>

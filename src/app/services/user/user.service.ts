@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { AppService } from '../app/app.service';
-import { HttpClient , HttpHeaders} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { NodeStringDecoder } from 'string_decoder';
 
 
 @Injectable({
@@ -19,79 +20,96 @@ export class UserService {
   //   return this.http.post(this.app.getUrl(this.baseUrl + 'create'), body).pipe(map(res => res, {'headers': headers}));
   // }
 
-  refreshUser(){
+  forgotPassword(email_id: string) {
+    const body = { email_id: email_id };
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.get(this.app.getUrl('users/refreshUser/')+JSON.parse(localStorage.getItem('user')).id);
+    return this.http.post(this.app.getUrl(this.baseUrl + 'forgotPassword'), body).pipe(map(res => res, { 'headers': headers }));
   }
 
-  confirmPayment(_id: string){
-    const body = { _id: _id};
+  resetPassword(email_id: string, password: string, token: string) {
+    const body = {
+      email_id: email_id,
+      token: token,
+      password: password
+    };
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post(this.app.getUrl(this.baseUrl + 'confirmPayment'), body).pipe(map(res => res, {'headers': headers}));
+    return this.http.post(this.app.getUrl(this.baseUrl + 'resetPassword'), body).pipe(map(res => res, { 'headers': headers }));
   }
 
-  getAllParticipants(){
+  refreshUser() {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.get(this.app.getUrl(this.baseUrl)+'participants');
+    return this.http.get(this.app.getUrl('users/refreshUser/') + JSON.parse(localStorage.getItem('user')).id);
+  }
+
+  confirmPayment(_id: string) {
+    const body = { _id: _id };
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post(this.app.getUrl(this.baseUrl + 'confirmPayment'), body).pipe(map(res => res, { 'headers': headers }));
+  }
+
+  getAllParticipants() {
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.get(this.app.getUrl(this.baseUrl) + 'participants');
   }
 
   confirmDD(id: string) {
     let headers = new Headers();
     headers.append('Content-Type', 'multipart/form-data');
-    return this.http.post(this.app.getUrl(this.baseUrl) + 'uploadCartDDImage/'+id,{});
+    return this.http.post(this.app.getUrl(this.baseUrl) + 'uploadCartDDImage/' + id, {});
   }
 
-  confirmCart(_id){
+  confirmCart(_id) {
     let data = {
       user_id: _id
     }
-  const headers = new Headers();
-  headers.append('Content-Type', 'application/json');
-  return this.http.post(this.app.getUrl(this.baseUrl + 'confirmCart'), data).pipe(map(res => res, { 'headers': headers }));
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post(this.app.getUrl(this.baseUrl + 'confirmCart'), data).pipe(map(res => res, { 'headers': headers }));
   }
 
   getParticpants(page: any) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.get(this.app.getUrl(this.baseUrl)+'participants/?page='+page);
+    return this.http.get(this.app.getUrl(this.baseUrl) + 'participants/?page=' + page);
   }
 
-  getParticipant(_id: any){
+  getParticipant(_id: any) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.get(this.app.getUrl(this.baseUrl)+'participants/search/?id='+_id);
+    return this.http.get(this.app.getUrl(this.baseUrl) + 'participants/search/?id=' + _id);
   }
 
-  isCartConfirmed(_id: any){
+  isCartConfirmed(_id: any) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.get(this.app.getUrl(this.baseUrl)+'isCartConfirmed/'+_id);
+    return this.http.get(this.app.getUrl(this.baseUrl) + 'isCartConfirmed/' + _id);
   }
 
-  createUser(values:any) {
+  createUser(values: any) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post(this.app.getUrl(this.baseUrl +'create'),values).pipe(map(res => res, {'headers': headers}));
+    return this.http.post(this.app.getUrl(this.baseUrl + 'create'), values).pipe(map(res => res, { 'headers': headers }));
   }
-   deleteUser(id: String) {
-     const headers = new Headers();
-     headers.append('Content-Type', 'application/json');
-    return this.http.post(this.app.getUrl(this.baseUrl +"delete/"+ `${id}` ),{}).pipe(map(res => res, {'headers': headers}));
-   }
-   getAdmin(){
+  deleteUser(id: String) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.get(this.app.getUrl(this.baseUrl)+'/admin');
-   }
+    return this.http.post(this.app.getUrl(this.baseUrl + "delete/" + `${id}`), {}).pipe(map(res => res, { 'headers': headers }));
+  }
+  getAdmin() {
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.get(this.app.getUrl(this.baseUrl) + '/admin');
+  }
 
-   updateUser(values:any) {
-    console.log(values);
+  updateUser(values: any) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post(this.app.getUrl(this.baseUrl +'update/'+values._id),values).pipe(map(res => res, {'headers': headers}));
+    return this.http.post(this.app.getUrl(this.baseUrl + 'update/' + values._id), values).pipe(map(res => res, { 'headers': headers }));
   }
 
 }

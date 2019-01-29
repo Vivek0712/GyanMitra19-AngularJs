@@ -139,12 +139,8 @@ export class CartComponent implements OnInit {
     })
   }
   payOnline() {
-
     this.genTxnId(true);
-
     this.hashData(true);
-    //this.finished();
-
   }
   genTxnId(value: Boolean) {
     if (value) {
@@ -152,34 +148,22 @@ export class CartComponent implements OnInit {
       var d = new Date();
       this.txnId = JSON.parse(localStorage.getItem('user')).gmID + '_' + this.reverseString(d.getTime().toString());
       this.txnId = this.txnId.substr(0, 25);
-
     }
-    // console.log("In Gen TXN"+this.txnId);
-    //return this.txnId;
   }
   reverseString(str: String) {
-    // Step 1. Use the split() method to return a new array
-    var splitString = str.split(""); // var splitString = "hello".split("");
-    // ["h", "e", "l", "l", "o"]
-
-    // Step 2. Use the reverse() method to reverse the new created array
-    var reverseArray = splitString.reverse(); // var reverseArray = ["h", "e", "l", "l", "o"].reverse();
-    // ["o", "l", "l", "e", "h"]
-
-    // Step 3. Use the join() method to join all elements of the array into a string
-    var joinArray = reverseArray.join(""); // var joinArray = ["o", "l", "l", "e", "h"].join("");
-    // "olleh"
-
-    //Step 4. Return the reversed string
-    return joinArray; // "olleh"
+    var splitString = str.split("");
+    var reverseArray = splitString.reverse(); 
+    var joinArray = reverseArray.join(""); 
+    return joinArray;
   }
   hashData(value: Boolean) {
     if (value) {
-      const tamount = this.totalAmount + (this.totalAmount * this.appService.getTransactionFee());
       var body = {
-        key: this.appService.getKey(),
-        salt: this.appService.getSalt(),
-        amount: this.totalAmount,
+        /* 
+          Dont send salt,amount and key here because this is sent has json to the backend. 
+          Json is visible in the browser.
+          Salt is the unique identity given to us by payumoney.
+        */
         txnId: this.txnId,
         productInfo: this.appService.getProductInfo(),
         name: JSON.parse(localStorage.getItem('user')).name,

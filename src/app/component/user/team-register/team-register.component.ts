@@ -93,10 +93,8 @@ export class TeamRegisterComponent implements OnInit {
     }
   }
   getCollegeMates() {
-    //console.log(JSON.parse(localStorage.getItem('user')).id);
     this.eventRegister.getCollegeMates(this.event_id, JSON.parse(localStorage.getItem('user')).id).subscribe((response: any) => {
       if (response.error) {
-        console.log(response.error)
       }
       else {
         this.college_mates = response.msg;
@@ -117,7 +115,6 @@ export class TeamRegisterComponent implements OnInit {
     else {
       this.team_mates.push(value);
     }
-    console.log(this.team_mates);
   }
 
   getEventById(event_id: String) {

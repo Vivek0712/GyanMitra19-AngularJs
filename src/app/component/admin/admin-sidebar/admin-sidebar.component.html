@@ -3,7 +3,7 @@
     <ul class="nav navbar-nav flex-row">
       <li class="nav-item mr-auto">
         <a class="navbar-brand" href="index.html">
-          <h3 class="brand-text">GyanMitraAdmin </h3>
+          <h3 class="brand-text">GyanMitra{{role.role_id.name}} </h3>
         </a>
       </li>
       <li class="nav-item d-md-none"><a class="nav-link close-navbar"><i class="ft-x"></i></a></li>
@@ -14,78 +14,92 @@
       <li class="active"><a [routerLink]="['/admin/home']"><i class="ft-home"></i><span class="menu-title" data-i18n="">Home</span>
         </a>
       </li>
-      <li class="nav-item has-sub"><a><i class="fas fa-bed"></i><span class="menu-title" data-i18n="">Accomodation</span></a>
-        <ul class="menu-content">
-          <li class="menu-item"><a [routerLink]="['/admin']" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><span
-                class="menu-title" data-i18n="">New Accomodation</span></a></li>
-          <li class="menu-item"><a [routerLink]="['/admin/accomodation']" [routerLinkActive]="['active']"
-              [routerLinkActiveOptions]="{exact:true}"><span class="menu-title" data-i18n="">Requests</span></a></li>
-        </ul>
-      </li>
-      <li class="nav-item has-sub"><a><i class="far fa-registered"></i><span class="menu-title" data-i18n="">Registration</span></a>
-        <ul class="menu-content">
-          <li class="menu-item"><a [routerLink]="['/admin/new_registration']" [routerLinkActive]="['active']"
-              [routerLinkActiveOptions]="{exact:true}"><span class="menu-title" data-i18n="">New Registration</span></a></li>
-          <li class="menu-item"><a [routerLink]="['/admin/cartConfirmation']" [routerLinkActive]="['active']"
-              [routerLinkActiveOptions]="{exact:true}"><span class="menu-title" data-i18n="">Cart Payment</span></a></li>
-          <li class="menu-item"><a [routerLink]="['/admin/registration']" [routerLinkActive]="['active']"
-              [routerLinkActiveOptions]="{exact:true}"><span class="menu-title" data-i18n="">All Registration</span></a></li>
-          <li class="menu-item"><a [routerLink]="['/admin/payment']" [routerLinkActive]="['active']"
-              [routerLinkActiveOptions]="{exact:true}"><span class="menu-title" data-i18n="">Payed users</span></a></li>
-        </ul>
-      </li>
-      <li class="nav-item has-sub"><a><i class="fas fa-cog"></i><span class="menu-title" data-i18n="">EventForm</span></a>
-        <ul class="menu-content">
-          <li class="menu-item"><a [routerLink]="['/admin/events']" [routerLinkActive]="['active']"
-              [routerLinkActiveOptions]="{exact:true}"><span class="menu-title" data-i18n="">Events</span></a></li>
-          <li class="menu-item"><a [routerLink]="['/admin/category']" [routerLinkActive]="['active']"
-              [routerLinkActiveOptions]="{exact:true}"><span class="menu-title" data-i18n="">Event Category</span></a></li>
-          <li class="menu-item"><a [routerLink]="['/admin/department']" [routerLinkActive]="['active']"
-              [routerLinkActiveOptions]="{exact:true}"><span class="menu-title" data-i18n="">Department</span></a></li>
-          <li class="menu-item"><a [routerLink]="['/admin/participationstatus']" [routerLinkActive]="['active']"
-              [routerLinkActiveOptions]="{exact:true}"><span class="menu-title" data-i18n="">Participation Status</span></a></li>
-        </ul>
-      </li>
-      <li class="nav-item has-sub"><a><i class="fas fa-cog"></i><span class="menu-title" data-i18n="">RegistrationForm</span></a>
-        <ul class="menu-content">
-          <li class="menu-item"><a [routerLink]="['/admin/college']" [routerLinkActive]="['active']"
-              [routerLinkActiveOptions]="{exact:true}"><span class="menu-title" data-i18n="">College</span></a></li>
-          <li class="menu-item"><a [routerLink]="['/admin/degree']" [routerLinkActive]="['active']"
-              [routerLinkActiveOptions]="{exact:true}"><span class="menu-title" data-i18n="">Degree</span></a></li>
-          <li class="menu-item"><a [routerLink]="['/admin/course']" [routerLinkActive]="['active']"
-              [routerLinkActiveOptions]="{exact:true}"><span class="menu-title" data-i18n="">Course</span></a></li>
-          <li class="menu-item"><a [routerLink]="['/admin/year']" [routerLinkActive]="['active']"
-              [routerLinkActiveOptions]="{exact:true}"><span class="menu-title" data-i18n="">Year</span></a></li>
-        </ul>
-      </li>
-      <li class="nav-item has-sub"><a> <i class="fas fa-users-cog"></i><span class="menu-title" data-i18n="">Make Users</span></a>
-        <ul class="menu-content">
-          <li class="menu-item"><a [routerLink]="['/admin/users']" [routerLinkActive]="['active']"
-              [routerLinkActiveOptions]="{exact:true}"><span class="menu-title" data-i18n="">Users</span></a></li>
-          <li class="menu-item"><a [routerLink]="['/admin/role']" [routerLinkActive]="['active']"
-              [routerLinkActiveOptions]="{exact:true}"><span class="menu-title" data-i18n="">Roles</span></a></li>
-        </ul>
-      </li>
-      <li class="nav-item has-sub"><a><i class="fas fa-cube"></i><span class="menu-title" data-i18n="">Events</span></a>
-        <ul class="menu-content">
-          <li class="menu-item" *ngFor="let event of events"><a [routerLink]="['/admin/eventParticipants', event._id]"
-              [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><span class="menu-title"
-                data-i18n="">{{ event.title }}</span></a></li>
-        </ul>
-      </li>
-      <li class="nav-item has-sub"><a><i class="fas fa-graduation-cap"></i><span class="menu-title" data-i18n="">Workshops</span></a>
-        <ul class="menu-content">
-          <li class="menu-item" *ngFor="let workshop of workshops"><a [routerLink]="['/admin/eventParticipants', workshop._id ]"
-              [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><span class="menu-title"
-                data-i18n="">{{ workshop.title }} </span></a></li>
-        </ul>
-      </li>
-      <li class="nav-item has-sub"><a><i class="fas fa-cogs"></i><span class="menu-title" data-i18n="">Control Panel</span></a>
-        <ul class="menu-content">
-          <li class="menu-item"><a [routerLink]="['/admin/configurations']" [routerLinkActive]="['active']"
-              [routerLinkActiveOptions]="{exact:true}"><span class="menu-title" data-i18n="">Configurations</span></a></li>
-        </ul>
-      </li>
+
+      <ng-container *ngIf="(role.role_id.name == 'Admin') || (role.role_id.name=='Hostel')">
+        <li class="nav-item has-sub"><a><i class="fas fa-bed"></i><span class="menu-title" data-i18n="">Accomodation</span></a>
+          <ul class="menu-content">
+            <li class="menu-item"><a [routerLink]="['/admin']" [routerLinkActive]="['active']"
+                [routerLinkActiveOptions]="{exact:true}"><span class="menu-title" data-i18n="">New Accomodation</span></a></li>
+            <li class="menu-item"><a [routerLink]="['/admin/accomodation']" [routerLinkActive]="['active']"
+                [routerLinkActiveOptions]="{exact:true}"><span class="menu-title" data-i18n="">Requests</span></a></li>
+          </ul>
+        </li>
+      </ng-container>
+      <ng-container *ngIf="(role.role_id.name == 'Admin') || (role.role_id.name=='Registration')">
+        <li class="nav-item has-sub"><a><i class="far fa-registered"></i><span class="menu-title" data-i18n="">Registration</span></a>
+          <ul class="menu-content">
+            <li class="menu-item"><a [routerLink]="['/admin/new_registration']" [routerLinkActive]="['active']"
+                [routerLinkActiveOptions]="{exact:true}"><span class="menu-title" data-i18n="">New Registration</span></a></li>
+            <li class="menu-item"><a [routerLink]="['/admin/cartConfirmation']" [routerLinkActive]="['active']"
+                [routerLinkActiveOptions]="{exact:true}"><span class="menu-title" data-i18n="">Cart Payment</span></a></li>
+            <li class="menu-item"><a [routerLink]="['/admin/registration']" [routerLinkActive]="['active']"
+                [routerLinkActiveOptions]="{exact:true}"><span class="menu-title" data-i18n="">All Registration</span></a></li>
+            <li class="menu-item"><a [routerLink]="['/admin/payment']" [routerLinkActive]="['active']"
+                [routerLinkActiveOptions]="{exact:true}"><span class="menu-title" data-i18n="">Payed users</span></a></li>
+          </ul>
+        </li>
+      </ng-container>
+      <ng-container *ngIf="role.role_id.name == 'Admin'">
+        <li class="nav-item has-sub"><a><i class="fas fa-cog"></i><span class="menu-title" data-i18n="">EventForm</span></a>
+          <ul class="menu-content">
+            <li class="menu-item"><a [routerLink]="['/admin/events']" [routerLinkActive]="['active']"
+                [routerLinkActiveOptions]="{exact:true}"><span class="menu-title" data-i18n="">Events</span></a></li>
+            <li class="menu-item"><a [routerLink]="['/admin/category']" [routerLinkActive]="['active']"
+                [routerLinkActiveOptions]="{exact:true}"><span class="menu-title" data-i18n="">Event Category</span></a></li>
+            <li class="menu-item"><a [routerLink]="['/admin/department']" [routerLinkActive]="['active']"
+                [routerLinkActiveOptions]="{exact:true}"><span class="menu-title" data-i18n="">Department</span></a></li>
+            <li class="menu-item"><a [routerLink]="['/admin/participationstatus']" [routerLinkActive]="['active']"
+                [routerLinkActiveOptions]="{exact:true}"><span class="menu-title" data-i18n="">Participation Status</span></a></li>
+          </ul>
+        </li>
+        <li class="nav-item has-sub"><a><i class="fas fa-cog"></i><span class="menu-title" data-i18n="">RegistrationForm</span></a>
+          <ul class="menu-content">
+            <li class="menu-item"><a [routerLink]="['/admin/college']" [routerLinkActive]="['active']"
+                [routerLinkActiveOptions]="{exact:true}"><span class="menu-title" data-i18n="">College</span></a></li>
+            <li class="menu-item"><a [routerLink]="['/admin/degree']" [routerLinkActive]="['active']"
+                [routerLinkActiveOptions]="{exact:true}"><span class="menu-title" data-i18n="">Degree</span></a></li>
+            <li class="menu-item"><a [routerLink]="['/admin/course']" [routerLinkActive]="['active']"
+                [routerLinkActiveOptions]="{exact:true}"><span class="menu-title" data-i18n="">Course</span></a></li>
+            <li class="menu-item"><a [routerLink]="['/admin/year']" [routerLinkActive]="['active']"
+                [routerLinkActiveOptions]="{exact:true}"><span class="menu-title" data-i18n="">Year</span></a></li>
+          </ul>
+        </li>
+        <li class="nav-item has-sub"><a> <i class="fas fa-users-cog"></i><span class="menu-title" data-i18n="">Make
+              Users</span></a>
+          <ul class="menu-content">
+            <li class="menu-item"><a [routerLink]="['/admin/users']" [routerLinkActive]="['active']"
+                [routerLinkActiveOptions]="{exact:true}"><span class="menu-title" data-i18n="">Users</span></a></li>
+            <li class="menu-item"><a [routerLink]="['/admin/role']" [routerLinkActive]="['active']"
+                [routerLinkActiveOptions]="{exact:true}"><span class="menu-title" data-i18n="">Roles</span></a></li>
+            <li class="menu-item"><a [routerLink]="['/admin/roleUsers']" [routerLinkActive]="['active']"
+                [routerLinkActiveOptions]="{exact:true}"><span class="menu-title" data-i18n="">Set Roles for user</span></a></li>
+          </ul>
+        </li>
+      </ng-container>
+      <ng-container *ngIf="(role.role_id.name == 'Admin') || (role.role_id.name=='Organizer')">
+        <li class="nav-item has-sub"><a><i class="fas fa-cube"></i><span class="menu-title" data-i18n="">Events</span></a>
+          <ul class="menu-content">
+            <li class="menu-item" *ngFor="let event of events"><a [routerLink]="['/admin/eventParticipants', event._id]"
+                [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><span class="menu-title"
+                  data-i18n="">{{ event.title }}</span></a></li>
+          </ul>
+        </li>
+        <li class="nav-item has-sub"><a><i class="fas fa-graduation-cap"></i><span class="menu-title" data-i18n="">Workshops</span></a>
+          <ul class="menu-content">
+            <li class="menu-item" *ngFor="let workshop of workshops"><a [routerLink]="['/admin/eventParticipants', workshop._id ]"
+                [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><span class="menu-title"
+                  data-i18n="">{{ workshop.title }} </span></a></li>
+          </ul>
+        </li>
+      </ng-container>
+      <ng-container *ngIf="role.role_id.name == 'Admin'">
+        <li class="nav-item has-sub"><a><i class="fas fa-cogs"></i><span class="menu-title" data-i18n="">Control Panel</span></a>
+          <ul class="menu-content">
+            <li class="menu-item"><a [routerLink]="['/admin/configurations']" [routerLinkActive]="['active']"
+                [routerLinkActiveOptions]="{exact:true}"><span class="menu-title" data-i18n="">Configurations</span></a></li>
+          </ul>
+        </li>
+      </ng-container>
     </ul>
     <div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 3px;">
       <div class="ps-scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div>
