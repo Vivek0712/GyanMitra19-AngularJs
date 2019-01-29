@@ -263,39 +263,40 @@ export class RegistrationComponent implements OnInit {
       }
     });
   }
-  exportAsXLSXwithEvents() {
-    // var filename = 'All Participants - With Events - ' + this.datePipe.transform(Date.now(), 'dd-MM-yyyy');
-    // var reportArray: Array<any> = [];
-    // var slNo = 1;
-    // this.participants.forEach((ele) => {
-    //   var reportData:Array<any> = []
-    //   reportData["Sl. No"] = slNo++
-    //   reportData["Name"] = ele.name;
-    //   reportData["College"] = ele.college_id.name;
-    //   reportData["Degree"] = ele.degree_id.name;
-    //   reportData["Department"] = ele.department_id.name;
-    //   reportData["Year"] = ele.year_id.name;
-    //   reportData["Mobile Number"] = ele.mobile_number;
-    //   reportData["Gender"] = ele.gender;
-    //   reportData["E Mail ID"] = ele.email_id;
-    //   if (ele.cart_confirmed) {
-    //     reportData["Cart Confirmed"] = "Yes"
-    //   } else {
-    //     reportData["Cart Confirmed"] = "No"
-    //   }
-    //   var eventNo = 1;
-    //   this.eventRegister.getRegisteredEvents(ele._id, 'Event').subscribe((response: any)=>{
-    //     var respArray : Array<any> = response.doc
-    //     // respArray.forEach((event)=>{
-    //     //   var curNo = "Event "+eventNo
-    //     //   eventNo++;
-    //     //   reportData[curNo]=event.event_id.title
-    //     // })
-    //     reportData["Event 0"] = "respArray[0].event_id.title;"
-    //   })
-    //   reportArray.push(reportData);
-    // })
-    // this.excelService.exportAsExcelFile(reportArray, filename);
+
+  exportAsXLSXwithEventCount() {
+    var filename = 'Event Count - ' + this.datePipe.transform(Date.now(), 'dd-MM-yyyy');
+    var slNo = 1;
+    var reportArray: Array<any> = [];
+    var responseArray = []
+    this.reportserviceService.getEventCount().subscribe((res: any) => {
+      responseArray = res
+      responseArray.forEach((event) => {
+        var reportData: any = [];
+        reportData["Sl. No"] = slNo++
+        reportData["Name"] =  event.event[0].title;
+        reportData["Count"] = event.count
+        reportArray.push(reportData)
+      })
+      this.excelService.exportAsExcelFile(reportArray, filename);
+    })
+  }
+  exportAsXLSXwithWorkshopCount() {
+    var filename = 'Workshop Count - ' + this.datePipe.transform(Date.now(), 'dd-MM-yyyy');
+    var slNo = 1;
+    var reportArray: Array<any> = [];
+    var responseArray = []
+    this.reportserviceService.getWorkshopCount().subscribe((res: any) => {
+      responseArray = res
+      responseArray.forEach((event) => {
+        var reportData: any = [];
+        reportData["Sl. No"] = slNo++
+        reportData["Name"] =  event.event[0].title;
+        reportData["Count"] = event.count
+        reportArray.push(reportData)
+      })
+      this.excelService.exportAsExcelFile(reportArray, filename);
+    })
   }
 
   exportAsXLSX() {
