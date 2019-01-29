@@ -147,7 +147,7 @@ export class EventParticipantsComponent implements OnInit {
        reportData["Gender"] = ele.user_id.gender;
        reportData["E Mail ID"] = ele.user_id.email_id;
        reportData["Registration Type"] = ele.registration_type;
-       reportData["Payment Status"] = ele.status;
+       reportData["Payment Status"] = ele.user_id.cart_paid;
        reportArray.push(reportData)
     })
     this.excelService.exportAsExcelFile(reportArray, filename);
