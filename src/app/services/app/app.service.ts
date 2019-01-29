@@ -17,9 +17,6 @@ export class AppService {
   public getKey() {
     return environment.payment.key;
   }
-  public getSalt() {
-    return environment.payment.salt;
-  }
   public getPaymentUrl() {
     return environment.payment.url;
   }
