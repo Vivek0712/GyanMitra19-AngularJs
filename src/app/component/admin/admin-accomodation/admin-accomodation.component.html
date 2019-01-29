@@ -111,6 +111,7 @@
                       <tr>
                         <th>Sl. No</th>
                         <th>Name</th>
+                        <th>Gender</th>
                         <th>College</th>
                         <th>Mobile Number</th>
                         <th>Days of Accomodation</th>
@@ -127,6 +128,7 @@
                         [ngClass]="{'table-danger': accomodation.acc_payment_status=='Not Paid' && accomodation.acc_status == 'Not Confirmed'}">
                         <th scope="row">{{i+1}}</th>
                         <td>{{accomodation.user_id.name}}</td>
+                        <td>{{accomodation.user_id.gender}}</td>
                         <td>{{accomodation.user_id.college_id.name}}</td>
                         <td>{{accomodation.user_id.mobile_number}}</td>
                         <td>{{accomodation.acc_days}}</td>

@@ -113,22 +113,13 @@
                     </div>
                   </div><br><br>
                   <div class="row">
-                    <button type="button" class="btn btn-success" (click)="confirmPayment()">Confirm Payment</button>
+                      <button *ngIf="selectedParticipant.cart_paid" type="button" class="btn btn-dark" >Payment Made</button>
+                    <button *ngIf="!selectedParticipant.cart_paid" type="button" class="btn btn-success" (click)="confirmPayment()">Confirm
+                      Payment</button>
                   </div>
                 </div>
               </div>
             </div>
-
-            <!-- Name : {{selectedParticipant.name}} <br />
-            Gender : {{selectedParticipant.gender}} <br /> <br />
-            College: {{selectedParticipant.college_id.name}} <br />
-            Year : {{selectedParticipant.year_id.name }} <br />
-            Degree : {{selectedParticipant.degree_id.name}} <br />
-            Department : {{selectedParticipant.college_id.name}} <br /><br />
-            Mobile Number : {{selectedParticipant.mobile_number}} <br />
-            EMail ID : {{selectedParticipant.email_id}} <br /><br />
-            Registration Mode: {{ selectedParticipant.registration_mode }} -->
-
             <div class="card" *ngIf="edit">
               <div class="card-content">
                 <div class="card-body">
