@@ -96,8 +96,9 @@
                           <th>Sl. No</th>
                           <th>Participant Name</th>
                           <th>Email</th>
-                          <th>College</th>
                           <th>Phone No.</th>
+                          <th>College</th>
+                          <th>Payment</th>
                           <th>Attendance</th>
                           <th>Update Attendance</th>
                           <th>Delete</th>
@@ -107,9 +108,10 @@
                         <tr *ngFor="let participant of participants | searchfilter : searchText ; let i = index;   ">
                           <th scope="row">{{i+1}}</th>
                           <td>{{participant.user_id.name}}</td>
-                          <td>{{participant.user_id.email_id}}</td>
                           <td>{{participant.user_id.college_id.name}}</td>
+                          <td>{{participant.user_id.email_id}}</td>
                           <td>{{participant.user_id.mobile_number}}</td>
+                          <td>{{ participant.user_id.cart_paid }}</td>
                           <td>
                             <div class="row">
                               <div class="col-12">
