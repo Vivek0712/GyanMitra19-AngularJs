@@ -225,7 +225,35 @@ export class RegistrationComponent implements OnInit {
   filter() {
     this.userService.getAllParticipants().subscribe((response: any) => {
       this.participants = [];
-      if (this.selectedGender != "" && this.selectedCollegeId != "") {
+      let paid:Boolean;
+      if(this.paidStatus == "true") {
+        paid = true;
+      }
+      else {
+        paid = false;
+      }
+      if (this.selectedGender != "" && this.selectedCollegeId != "" && this.paidStatus != "") {
+        for (let user of response) {
+          if (user.gender == this.selectedGender && user.college_id._id == this.selectedCollegeId && user.cart_paid == paid) {
+            this.participants.push(user);
+          }
+        }
+      }
+      else if (this.selectedCollegeId != "" && this.paidStatus != "") {
+        for (let user of response) {
+          if (user.college_id._id == this.selectedCollegeId && user.cart_paid == paid) {
+            this.participants.push(user);
+          }
+        }
+      }
+      else if (this.selectedGender != "" && this.paidStatus != "") {
+        for (let user of response) {
+          if (user.gender == this.selectedGender && user.cart_paid == paid) {
+            this.participants.push(user);
+          }
+        }
+      }
+      else if (this.selectedGender != "" && this.selectedCollegeId != "") {
         for (let user of response) {
           if (user.gender == this.selectedGender && user.college_id._id == this.selectedCollegeId) {
             this.participants.push(user);
@@ -242,6 +270,13 @@ export class RegistrationComponent implements OnInit {
       else if (this.selectedCollegeId != "") {
         for (let user of response) {
           if (user.college_id._id == this.selectedCollegeId) {
+            this.participants.push(user);
+          }
+        }
+      }
+      else if(this.paidStatus != "") {
+        for (let user of response) {
+          if (user.cart_paid == paid) {
             this.participants.push(user);
           }
         }

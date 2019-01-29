@@ -80,6 +80,7 @@ import { AdminUserRolesComponent } from './component/admin/admin-user-roles/admi
 import { ReportserviceService } from './services/report/reportservice.service';
 import { ResetPasswordComponent } from './component/user/reset-password/reset-password.component';
 import { ForgotpasswordComponent } from './component/user/forgotpassword/forgotpassword.component';
+import { SearchFilterEventPipe } from './pipes/search-filter-event.pipe';
 /////////////////////////////////////////////////////////////////
 
 @NgModule({
@@ -136,6 +137,7 @@ import { ForgotpasswordComponent } from './component/user/forgotpassword/forgotp
     HowToReachUsComponent,
     ResetPasswordComponent,
     ForgotpasswordComponent,
+    SearchFilterEventPipe,
   ],
   imports: [
     BrowserModule,

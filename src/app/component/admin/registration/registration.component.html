@@ -214,7 +214,7 @@
                         <button class="btn btn-outline-instagram right" (click)="editClick()">Back</button>
                       </div>
                       <div class="col">
-                          <button type="submit" class="btn btn-outline-success right" (click)="updateUser()">Update</button>
+                        <button type="submit" class="btn btn-outline-success right" (click)="updateUser()">Update</button>
                       </div>
                     </div>
                   </form>
@@ -335,6 +335,9 @@
                     <div class="col-3">
                       Gender
                     </div>
+                    <div class="col-3">
+                        Payment
+                      </div>
                   </div>
                   <div class="row">
                     <div class="col-3">
@@ -350,24 +353,26 @@
                         <option value="Female">Female</option>
                       </select>
                     </div>
-                    <!-- <div class="col-3">
+                    <div class="col-3">
                       <select class="custom-select" [(ngModel)]="paidStatus" id="slctPaid">
                         <option value="" selected="true">ALL</option>
                         <option value="true">Paid</option>
                         <option value="false">Not paid</option>
                       </select>
-                    </div> -->
-                    <div class="col-3 container">
-                      <div class="btn-group">
-                          <input type="button" class="btn btn-success" (click)="filter()" value="Filter" />
-                          <input type="button" class="btn btn-secondary" (click)="exportAsXLSX()" value="Generte Excel" />
-                      </div>
-                      <hr />
-                      <div class="btn-group">
-                        <input type="button" class="btn btn-outline-cyan" (click)="exportAsXLSXwithEventCount()" value="Event Count" />
-                        <input type="button" class="btn btn-outline-cyan" (click)="exportAsXLSXwithWorkshopCount()" value="Workshop Count" />
-                      </div>
                     </div>
+                  </div>
+                </div>
+                <div class="row"><hr></div>
+                <div class="row">
+                  <div class="col-3">
+                    <input type="button" class="btn btn-success" (click)="filter()" value="Filter" />
+                  </div>
+                  <div class="col-3">
+                    <input type="button" class="btn btn-secondary" (click)="exportAsXLSX()" value="Generte Excel" />
+                  </div>
+                  <div class="btn-group">
+                    <input type="button" class="btn btn-outline-cyan" (click)="exportAsXLSXwithEventCount()" value="Event Count" />
+                    <input type="button" class="btn btn-outline-cyan" (click)="exportAsXLSXwithWorkshopCount()" value="Workshop Count" />
                   </div>
                 </div>
                 <br />

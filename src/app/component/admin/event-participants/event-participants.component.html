@@ -83,8 +83,11 @@
             <div class="card-content collapse show">
               <div class="card-body">
                 <div class="row">
+                  Search
+                </div>
+                <div class="row">
                   <div class="col-sm-12 col-md-6">
-                        Search : <input [(ngModel)]="searchText" placeholder="Search participants" class="form-control">
+                        <input [(ngModel)]="searchText" placeholder="Search participants" class="form-control">
                   </div>
                   <div class="col-sm-12 col-md-6">
                         <button (click)="exportAsXLSX()" class="btn btn-success">Generate Excel</button>
@@ -105,12 +108,12 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr *ngFor="let participant of participants | searchfilter : searchText ; let i = index;   ">
+                        <tr *ngFor="let participant of participants | searchFilterEvent : searchText ; let i = index;   ">
                           <th scope="row">{{i+1}}</th>
                           <td>{{participant.user_id.name}}</td>
-                          <td>{{participant.user_id.college_id.name}}</td>
                           <td>{{participant.user_id.email_id}}</td>
                           <td>{{participant.user_id.mobile_number}}</td>
+                          <td>{{participant.user_id.college_id.name}}</td>
                           <td>{{ participant.user_id.cart_paid }}</td>
                           <td>
                             <div class="row">
