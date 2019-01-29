@@ -22,7 +22,7 @@ export class ForgotpasswordComponent implements OnInit {
       email_id: ['', Validators.required],
     });
   }
-
+	get f() { return this.resetForm.controls; }
   onSubmit(values: any) {
     if (this.resetForm.valid) {
       const email_id = this.resetForm.value.email_id;
