@@ -29,7 +29,7 @@ export class ResetPasswordComponent implements OnInit {
       token: [this.token, Validators.required]
     });
   }
-
+	get f() { return this.resetForm.controls; }
   onSubmit(values: any) {
     if (this.resetForm.valid) {
       const email_id = this.resetForm.value.email_id;

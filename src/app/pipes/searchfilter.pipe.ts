@@ -22,6 +22,15 @@ export class SearchfilterPipe implements PipeTransform {
       if (it.mobile_number != undefined && !values) {
         values =  it.mobile_number.toLowerCase().includes(searchText);
       }
+      // if (it.user_id.name != undefined && !values) {
+      //   values =  it.user_id.name.toLowerCase().includes(searchText);
+      // }
+      // if (it.user_id.email_id != undefined && !values) {
+      //   values =  it.user_id.email_id.toLowerCase().includes(searchText);
+      // }
+      // if (it.user_id.mobile_number != undefined && !values) {
+      //   values =  it.user_id.mobile_number.toLowerCase().includes(searchText);
+      // }
       return values;
       
     });
