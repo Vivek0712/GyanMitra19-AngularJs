@@ -80,6 +80,7 @@ import { AdminUserRolesComponent } from './component/admin/admin-user-roles/admi
 import { ReportserviceService } from './services/report/reportservice.service';
 import { ResetPasswordComponent } from './component/user/reset-password/reset-password.component';
 import { ForgotpasswordComponent } from './component/user/forgotpassword/forgotpassword.component';
+import { FaqComponent } from './component/user/faq/faq.component';
 /////////////////////////////////////////////////////////////////
 
 @NgModule({
@@ -136,6 +137,7 @@ import { ForgotpasswordComponent } from './component/user/forgotpassword/forgotp
     HowToReachUsComponent,
     ResetPasswordComponent,
     ForgotpasswordComponent,
+    FaqComponent,
   ],
   imports: [
     BrowserModule,

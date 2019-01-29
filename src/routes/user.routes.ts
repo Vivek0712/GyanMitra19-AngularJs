@@ -20,6 +20,7 @@ import { AccFailureComponent } from 'src/app/component/user/acc-failure/acc-fail
 import { AccSuccessComponent } from 'src/app/component/user/acc-success/acc-success.component'; import { HowToReachUsComponent } from 'src/app/component/user/how-to-reach-us/how-to-reach-us.component';
 import { ResetPasswordComponent } from 'src/app/component/user/reset-password/reset-password.component';
 import { ForgotpasswordComponent } from 'src/app/component/user/forgotpassword/forgotpassword.component';
+import { FaqComponent } from 'src/app/component/user/faq/faq.component';
 export const USER_ROUTE: Routes = [
      { path: 'home', component: UserHomeComponent },
      { path: 'about', component: AboutComponent },
@@ -39,5 +40,6 @@ export const USER_ROUTE: Routes = [
      { path: 'acc/payment/failure', component: AccFailureComponent, canActivate: [AuthGuard] },
      { path: 'howtoreachus', component: HowToReachUsComponent },
      { path: 'resetPassword/:token', component: ResetPasswordComponent },
-     { path: 'forgotPassword', component: ForgotpasswordComponent }
+     { path: 'forgotPassword', component: ForgotpasswordComponent },
+     {path: 'faq',component: FaqComponent}
 ];
