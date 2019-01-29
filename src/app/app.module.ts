@@ -82,6 +82,7 @@ import { ResetPasswordComponent } from './component/user/reset-password/reset-pa
 import { ForgotpasswordComponent } from './component/user/forgotpassword/forgotpassword.component';
 import { FaqComponent } from './component/user/faq/faq.component';
 import { SearchFilterEventPipe } from './pipes/search-filter-event.pipe';
+import { QrService } from './services/qr/qr.service';
 /////////////////////////////////////////////////////////////////
 
 @NgModule({
@@ -168,7 +169,8 @@ import { SearchFilterEventPipe } from './pipes/search-filter-event.pipe';
     TeamMemberService,
     AuthGuard,
     EventRegistrationService,
-    ReportserviceService
+    ReportserviceService,
+    QrService
   ],
   bootstrap: [AppComponent]
 })

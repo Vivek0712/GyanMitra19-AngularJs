@@ -37,6 +37,6 @@ export const ADMIN_ROUTE: Routes = [
      { path: 'eventParticipants/:id', component: EventParticipantsComponent },
      { path: 'cartConfirmation', component: AdminCartConfirmationComponent },
      { path: 'configurations', component: ConfigurationsComponent },
-     { path: 'payment',component: PaymentComponent},
-     { path: 'roleUsers',component: AdminUserRolesComponent}
+     { path: 'payment', component: PaymentComponent },
+     { path: 'roleUsers', component: AdminUserRolesComponent }
 ];

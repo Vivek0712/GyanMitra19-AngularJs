@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
 import { CollegeService } from 'src/app/services/college/college.service';
 import { UserService } from 'src/app/services/user/user.service'
 import { DegreeService } from 'src/app/services/degree/degree.service';
@@ -9,7 +9,8 @@ import { ExcelService } from 'src/app/services/excel.service';
 import { Location, DatePipe } from '@angular/common';
 import { ReportserviceService } from 'src/app/services/report/reportservice.service';
 import { EventRegistrationService } from 'src/app/services/eventRegistration/event-registration.service';
-
+import { QrScannerComponent } from 'angular2-qrscanner';
+import { QrService } from 'src/app/services/qr/qr.service';
 
 declare var M: any;
 
@@ -22,7 +23,8 @@ export interface College {
   selector: 'app-registration',
   templateUrl: './registration.component.html',
   styleUrls: ['./registration.component.css'],
-  providers: [DatePipe]
+  providers: [DatePipe],
+  encapsulation: ViewEncapsulation.None
 })
 
 
@@ -46,8 +48,8 @@ export class RegistrationComponent implements OnInit {
   departments: Array<any>;
   registeredWorkshops: Array<any> = [];
   registeredEvents: Array<any> = [];
-
-  constructor(private reportserviceService: ReportserviceService, private datePipe: DatePipe, private excelService: ExcelService, private yearService: YearService, private collegeService: CollegeService, private userService: UserService, private degreeService: DegreeService, private courseService: CourseService, private formBuilder: FormBuilder, private eventRegister: EventRegistrationService) { }
+  @ViewChild(QrScannerComponent) qrScannerComponent: QrScannerComponent;
+  constructor(private qrService: QrService, private reportserviceService: ReportserviceService, private datePipe: DatePipe, private excelService: ExcelService, private yearService: YearService, private collegeService: CollegeService, private userService: UserService, private degreeService: DegreeService, private courseService: CourseService, private formBuilder: FormBuilder, private eventRegister: EventRegistrationService) { }
 
   ngOnInit() {
     this.currentPage = 1;
@@ -60,6 +62,42 @@ export class RegistrationComponent implements OnInit {
     this.selectedCollegeId = "";
     this.searchText = "";
     this.viewDetails = false;
+  }
+
+  scanQR(_id: string) {
+    this.qrScannerComponent.getMediaDevices().then(devices => {
+      console.log(devices);
+      const videoDevices: MediaDeviceInfo[] = [];
+      for (const device of devices) {
+        if (device.kind.toString() === 'videoinput') {
+          videoDevices.push(device);
+        }
+      }
+      if (videoDevices.length > 0) {
+        let choosenDev;
+        for (const dev of videoDevices) {
+          if (dev.label.includes('front')) {
+            choosenDev = dev;
+            break;
+          }
+        }
+        if (choosenDev) {
+          this.qrScannerComponent.chooseCamera.next(choosenDev);
+        } else {
+          this.qrScannerComponent.chooseCamera.next(videoDevices[0]);
+        }
+      }
+    });
+
+    this.qrScannerComponent.capturedQr.subscribe((result:string) => {
+      this.qrService.createMap(result, _id).subscribe((res: any)=>{
+        if(res.error){
+          M.toast({ html: 'An Error Occured. Scan Again', classes: 'roundeds' });
+        } else {
+          M.toast({ html: res.msg, classes: 'roundeds' });
+        }
+      })
+    });
   }
 
   getRegisteredWorkshops(id: string) {
@@ -225,8 +263,8 @@ export class RegistrationComponent implements OnInit {
   filter() {
     this.userService.getAllParticipants().subscribe((response: any) => {
       this.participants = [];
-      let paid:Boolean;
-      if(this.paidStatus == "true") {
+      let paid: Boolean;
+      if (this.paidStatus == "true") {
         paid = true;
       }
       else {
@@ -274,7 +312,7 @@ export class RegistrationComponent implements OnInit {
           }
         }
       }
-      else if(this.paidStatus != "") {
+      else if (this.paidStatus != "") {
         for (let user of response) {
           if (user.cart_paid == paid) {
             this.participants.push(user);
@@ -309,7 +347,7 @@ export class RegistrationComponent implements OnInit {
       responseArray.forEach((event) => {
         var reportData: any = [];
         reportData["Sl. No"] = slNo++
-        reportData["Name"] =  event.event[0].title;
+        reportData["Name"] = event.event[0].title;
         reportData["Count"] = event.count
         reportArray.push(reportData)
       })
@@ -326,7 +364,7 @@ export class RegistrationComponent implements OnInit {
       responseArray.forEach((event) => {
         var reportData: any = [];
         reportData["Sl. No"] = slNo++
-        reportData["Name"] =  event.event[0].title;
+        reportData["Name"] = event.event[0].title;
         reportData["Count"] = event.count
         reportArray.push(reportData)
       })
