@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { endTimeRange } from '@angular/core/src/profile/wtf_impl';
 
 @Component({
   selector: 'app-landing',
@@ -8,39 +9,30 @@ import { Component, OnInit } from '@angular/core';
 export class LandingComponent implements OnInit {
 
   constructor() { }
+  days: number;
+  hours: number;
+  minutes: number;
+  seconds: number;
 
   ngOnInit() {
-	(function init() {
-  function getTimeRemaining(endtime) {
-    var t = Date.parse(endtime) - Date.parse(new Date());
-    var seconds = Math.floor((t / 1000) % 60);
-    var minutes = Math.floor((t / 1000 / 60) % 60);
-    var hours = Math.floor((t / (1000 * 60 * 60)) % 24);
-    var days = Math.floor(t / (1000 * 60 * 60 * 24));
-    return {
-      'total': t,
-      'days': days,
-      'hours': hours,
-      'minutes': minutes,
-      'seconds': seconds
-    };
+    // function myFunc(endtime: any) {
+    //   
+    // }
+    setInterval(()=>{
+      var t = Date.parse("February 8, 2019 09:00:00 GMT+0530") - Date.parse(new Date().toString());
+      var seconds = Math.floor((t / 1000) % 60);
+      var minutes = Math.floor((t / 1000 / 60) % 60);
+      var hours = Math.floor((t / (1000 * 60 * 60)) % 24);
+      var days = Math.floor(t / (1000 * 60 * 60 * 24));
+      this.days = days;
+      this.hours = hours;
+      this.minutes = minutes;
+      this.seconds = seconds;
+    },1000)
   }
+
+
   
-  function initializeClock(endtime){
-  var timeinterval = setInterval(function(){
-    var t = getTimeRemaining(endtime);
-    document.querySelector(".days > .value").innerText=t.days;
-    document.querySelector(".hours > .value").innerText=t.hours;
-    document.querySelector(".minutes > .value").innerText=t.minutes;
-    document.querySelector(".seconds > .value").innerText=t.seconds;
-    if(t.total<=0){
-      clearInterval(timeinterval);
-    }
-  },1000);
-}
-initializeClock(new Date("February 8, 2019 9:00:00 GMT+0530"))
-})()
-  
-  }
+
 
 }
