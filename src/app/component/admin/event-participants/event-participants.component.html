@@ -19,6 +19,27 @@
       </div>
     </div>
     <div class="content-body">
+        <div class="modal fade" id="idModal" tabindex="-1" role="dialog" aria-labelledby="idModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="idModalLabel">Scan ID Card</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <qr-scanner [debug]="false"
+                    [stopAfterScan]="true"
+                    [updateTime]="100">
+                  </qr-scanner>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
       <section id="content-types">
         <div class="row match-height justify-content-md-center">
           <div class="col-xl-6 col-md-12">
@@ -92,6 +113,10 @@
                   <div class="col-sm-12 col-md-6">
                         <button (click)="exportAsXLSX()" class="btn btn-success">Generate Excel</button>
                   </div>
+                  <div class="col-sm-12 col-md-6">
+                      <button data-toggle="modal" data-target="#idModal"
+                      (click)="scanID()" class="btn btn-outline-bitbucket">Scan ID Card</button>
+                </div>
                   <div class="table-responsive">
                     <table class="table">
                       <thead>

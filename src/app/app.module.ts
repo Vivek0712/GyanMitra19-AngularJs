@@ -83,6 +83,7 @@ import { ForgotpasswordComponent } from './component/user/forgotpassword/forgotp
 import { FaqComponent } from './component/user/faq/faq.component';
 import { SearchFilterEventPipe } from './pipes/search-filter-event.pipe';
 import { LandingComponent } from './component/user/landing/landing.component';
+import { QrService } from './services/qr/qr.service';
 /////////////////////////////////////////////////////////////////
 
 @NgModule({
@@ -170,7 +171,8 @@ import { LandingComponent } from './component/user/landing/landing.component';
     TeamMemberService,
     AuthGuard,
     EventRegistrationService,
-    ReportserviceService
+    ReportserviceService,
+    QrService
   ],
   bootstrap: [AppComponent]
 })
