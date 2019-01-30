@@ -14,12 +14,9 @@
       <li class="active"><a [routerLink]="['/admin/home']"><i class="ft-home"></i><span class="menu-title" data-i18n="">Home</span>
         </a>
       </li>
-
       <ng-container *ngIf="(role.role_id.name == 'Admin') || (role.role_id.name=='Hostel')">
         <li class="nav-item has-sub"><a><i class="fas fa-bed"></i><span class="menu-title" data-i18n="">Accomodation</span></a>
           <ul class="menu-content">
-            <li class="menu-item"><a [routerLink]="['/admin']" [routerLinkActive]="['active']"
-                [routerLinkActiveOptions]="{exact:true}"><span class="menu-title" data-i18n="">New Accomodation</span></a></li>
             <li class="menu-item"><a [routerLink]="['/admin/accomodation']" [routerLinkActive]="['active']"
                 [routerLinkActiveOptions]="{exact:true}"><span class="menu-title" data-i18n="">Requests</span></a></li>
           </ul>

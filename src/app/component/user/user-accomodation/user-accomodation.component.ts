@@ -113,11 +113,8 @@ export class UserAccomodationComponent implements OnInit {
     }
   }
   payOnline() {
-    
     this.genTxnId(true);
-
     this.hashData(true);
-
   }
   genTxnId(value: Boolean) {
     if (value) {
@@ -152,13 +149,11 @@ export class UserAccomodationComponent implements OnInit {
           email: JSON.parse(localStorage.getItem('user')).email_id,
           mobile_number: JSON.parse(localStorage.getItem('user')).mobile_number,
         }
-        this.paymentService.genHash(body).subscribe((response: any) => {
+        this.paymentService.genAccHash(body).subscribe((response: any) => {
           if (response.error) {
             this.hashString = response.hash;
           }
         });
       }
     }
-  
-
 }
