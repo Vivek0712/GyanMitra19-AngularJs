@@ -60,11 +60,15 @@
             </div>
             <div class="card-reveal">
               <span class="card-title grey-text text-darken-4">Pre Requesites<i class="fas fa-times float-right"></i></span>
-              {{workshop.rules}}
+              <ul>
+                <li *ngFor="let rule of (workshop.rules | rulesTransform)">{{ rule }}</li>
+              </ul>
               <hr />
 
               <span class="card-title grey-text text-darken-4">Description</span>
-              {{workshop.description}}
+              <ul>
+                <li *ngFor="let desc of (workshop.description | rulesTransform)">{{ desc }}</li>
+              </ul>
               <hr>
               <h4>Timing</h4>
               Date : {{workshop.event_date | date}}
