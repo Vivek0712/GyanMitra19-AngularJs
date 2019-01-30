@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators, FormBuilder, FormArray, NgForm } fr
 import { Router, ActivatedRoute } from '@angular/router';
 import { EventRegistrationService } from 'src/app/services/eventRegistration/event-registration.service';
 import { RegistrationService } from 'src/app/services/registration/registration.service';
+import { UserService } from 'src/app/services/user/user.service';
 
 declare var M:any;
 @Component({
@@ -15,24 +16,25 @@ export class EventParticipantsTeamComponent implements OnInit {
   teamRegisterForm: FormGroup;
   Submitted: Boolean;
   event_id: String;
-  college_mates: Array<any>;
+  participants: Array<any>;
   team_mates: Array<any>;
   event: any;
   Button: any;
-  constructor(private router: Router,private route: ActivatedRoute, private registrationService:RegistrationService,private formbuilder: FormBuilder, private eventRegister: EventRegistrationService) {
+  constructor(private router: Router,private route: ActivatedRoute, private registrationService:RegistrationService,private formbuilder: FormBuilder, private eventRegister: EventRegistrationService,private userService: UserService) {
     this.route.params.subscribe(param => { this.event_id = param.id });
   }
   ngOnInit() {
     this.Button = 'Register Team';
     this.team_mates = [];
     this.createForm();
-    this.getCollegeMates();
+    this.getParticipants();
   }
   get f() { return this.teamRegisterForm.controls; }
   createForm() {
     this.teamRegisterForm = this.formbuilder.group({
       _id: '',
-      name: ['', Validators.required]
+      name: ['', Validators.required],
+      leader_id: ['',Validators.required]
       //collegeMates:[this.college_mates]
     });
     this.Submitted = false;
@@ -54,7 +56,7 @@ export class EventParticipantsTeamComponent implements OnInit {
       this.route.params.subscribe(param => { 
         this.eventRegister.getEventById(param.id).subscribe((res: any) => {
           if(res[0].max_members > user_ids.length){
-            this.eventRegister.createEventWithTeamRegistration(JSON.parse(localStorage.getItem('user')).id, this.event_id, this.teamRegisterForm.get('name').value, "leader").subscribe((response: any) => {
+            this.eventRegister.createEventWithTeamRegistration(this.teamRegisterForm.get('leader_id').value, this.event_id, this.teamRegisterForm.get('name').value, "leader").subscribe((response: any) => {
               if (response.error) {
                 M.toast({ html: response.msg, classes: 'roundeds danger' });
                 this.createForm();
@@ -75,9 +77,6 @@ export class EventParticipantsTeamComponent implements OnInit {
                   flag = flag+1;
                 }
               });
-              if(flag = user_ids.length){
-                this.router.navigate(['/user/cart']);
-              }
             }
           } else {
             M.toast({ html: "Maximum " + res[0].max_members + " are allowed.", classes: 'roundeds danger' });
@@ -87,15 +86,15 @@ export class EventParticipantsTeamComponent implements OnInit {
        });
     }
   }
-  getCollegeMates() {
-    this.eventRegister.getCollegeMates(this.event_id, JSON.parse(localStorage.getItem('user')).id).subscribe((response: any) => {
+  getParticipants() {
+    this.userService.getActivatedParticipants().subscribe((response: any) => {
       if (response.error) {
       }
       else {
-        this.college_mates = response.msg;
+        this.participants = response;
         $(document).ready(function () {
           $('#default-multiple').select2({
-            data: response.msg,
+            data: response,
             multiple: true,
             placeholder: 'Add TeamMates',
           });

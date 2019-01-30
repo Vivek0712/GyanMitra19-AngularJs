@@ -23,7 +23,11 @@
         <div class="form-group">
           <div class="row">
             <div class="col-12">
-              
+              Team leader
+              <select class="custom-select" formControlName="leader_id">
+                <option disabled value="">Team Leader</option>
+                <option *ngFor="let part of participants" value={{part._id}}>{{part.email_id}}</option>
+              </select>
             </div>
           </div>
         </div>

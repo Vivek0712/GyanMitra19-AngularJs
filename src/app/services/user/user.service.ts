@@ -57,6 +57,12 @@ export class UserService {
     return this.http.get(this.app.getUrl(this.baseUrl) + 'participants');
   }
 
+  getActivatedParticipants() {
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.get(this.app.getUrl(this.baseUrl) + 'participantsActivated');
+  }
+
   confirmDD(id: string) {
     let headers = new Headers();
     headers.append('Content-Type', 'multipart/form-data');
