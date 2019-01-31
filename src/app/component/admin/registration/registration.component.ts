@@ -436,7 +436,7 @@ export class RegistrationComponent implements OnInit {
     var slNo = 1;
     this.reportserviceService.getRegisteredEvents().subscribe((response: any) => {
       var reportArray: Array<any> = [];
-      var responseArray: Array<any> = response;
+      var responseArray: Array<any> = response.msg;
       responseArray.forEach((ele: any) => {
         var reportData: any = [];
         
