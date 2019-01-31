@@ -163,7 +163,12 @@
                           <td>{{participant.user_id.email_id}}</td>
                           <td>{{participant.user_id.mobile_number}}</td>
                           <td>{{participant.user_id.college_id.name}}</td>
-                          <td>{{ participant.user_id.cart_paid }}</td>
+                          <ng-container *ngIf="participant.user_id.cart_paid == true">
+                            <td>Paid</td>
+                          </ng-container>
+                          <ng-container *ngIf="participant.user_id.cart_paid == true">
+                            <td>Not Paid</td>
+                          </ng-container>
                           <td>
                             <div class="row">
                               <div class="col-12">
