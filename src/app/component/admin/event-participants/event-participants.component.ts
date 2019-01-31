@@ -48,22 +48,6 @@ export class EventParticipantsComponent implements OnInit {
     this.getParticipants();
     this.getParticipantStatus();
     this.searchText = "";
-
-
-    var urlParams = [];
-    window.location.search.replace("?", "").split("&").forEach(function (e, i) {
-      var p = e.split("=");
-      urlParams[p[0]] = p[1];
-    });
-
-    // We have all the params now -> you can access it by name
-    if (urlParams["loaded"]) { } else {
-
-      let win = (window as any);
-      win.location.search = '?loaded=1';
-      //win.location.reload('?loaded=1');
-    }
-
   }
 
   reload() {
@@ -120,7 +104,6 @@ export class EventParticipantsComponent implements OnInit {
     this.qrScannerComponent.capturedQr.subscribe((result: string) => {
       this.qrService.markPresent(result, this.event_id).subscribe((res: any) => {
         if (res.error) {
-          console.log(res.msg)
           M.toast({ html: 'An Error Occured. Scan Again', classes: 'roundeds' });
         } else {
           M.toast({ html: res.msg, classes: 'roundeds' });
@@ -198,7 +181,6 @@ export class EventParticipantsComponent implements OnInit {
   getEventById(event_id: String) {
     this.eventRegistration.getEventById(event_id).subscribe((response:any)=>{
       this.event = response;
-      console.log(response);
     });
   }
 
