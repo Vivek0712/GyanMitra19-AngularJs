@@ -3,7 +3,7 @@
     <div class="content-wrapper-before"></div>
     <div class="content-header row">
       <div class="content-header-left col-md-4 col-12 mb-2">
-        <h3 class="content-header-title">Manage Participants of {{ event[0].title }}</h3>
+        <h3 class="content-header-title">Manage Participants</h3>
       </div>
       <div class="content-header-right col-md-8 col-12">
         <div class="breadcrumbs-top float-md-right">
@@ -36,77 +36,33 @@
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
           </div>
+        </div>
+      </div>
 
-          <div class="modal fade" id="teamModal" tabindex="-1" role="dialog" aria-labelledby="teamModalLabel" aria-hidden="true">
-              <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="teamModalLabel">Team Register</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <div class="modal-body">
-                      <app-event-participants-team></app-event-participants-team>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  </div>
-                </div>
-              </div>
+      <div class="modal fade" id="teamModal" tabindex="-1" role="dialog" aria-labelledby="teamModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="teamModalLabel">Team Register</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
             </div>
-      <section id="content-types">
-        <div class="row match-height justify-content-md-center">
-          <div class="col-xl-6 col-md-12">
-            <div class="card">
-              <div class="card-content">
-                <div class="card-body">
-                  <h4 class="card-title">Participants</h4>
-                  <h6 class="card-subtitle text-muted">Add Participants</h6>
-                </div>
-                <div class="card-body">
-                  <form class="form" [formGroup]="participantForm" (ngSubmit)=onSubmit(participantForm)>
-                    <input type="hidden" formControlName="_id">
-                    <div class="form-group">
-                      <input type="text" class="form-control" placeholder="Participant mail" formControlName="email_id"
-                        [ngClass]="{'is-invalid': submitted &&f.email_id.errors}">
-                      <div *ngIf="submitted && f.email_id.errors" class="invalid-feedback">
-                        <div *ngIf="f.email_id.errors.required">Email_id is required
-                        </div>
-                      </div>
-
-                    </div>
-                    <div class="form-group">
-                      <div class="row">
-                        <div class="col-12">
-                          Participant Status
-                          <select class="custom-select" formControlName="participation">
-                            <option *ngFor="let participantStatus of participantStatuss" value="{{ participantStatus.name }}">{{
-                              participantStatus.name }}</option>
-                          </select>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="form-action left row">
-                      <div class="col">
-                        <span (click)="createForm()" class="btn btn-outline-danger left">Reset</span>
-                      </div>
-                      <div class="col">
-                        <button type="submit" class="btn btn-outline-success right">{{this.Button}}</button>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-              </div>
+            <div class="modal-body">
+              <app-event-participants-team></app-event-participants-team>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
           </div>
         </div>
-      </section>
+      </div>
+
       <div class="row">
         <div class="col-12">
           <div class="card">
             <div class="card-header">
-              <h4 class="card-title">Participant Tables</h4>
+              <h4 class="card-title">Participants</h4>
               <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
               <div class="heading-elements">
                 <ul class="list-inline mb-0">
@@ -134,13 +90,9 @@
                   <hr />
                   <br />
                   <div class="col-sm-12 col-md-6">
-                      <button data-toggle="modal" data-target="#idModal"
-                      (click)="scanID()" class="btn btn-outline-bitbucket">Scan ID Card</button>
-                </div>
-                <div class="col-sm-12 col-md-6">
-                    <button data-toggle="modal" data-target="#teamModal"
-                     class="btn btn-outline-bitbucket">Team Register</button>
-              </div>
+                    <button data-toggle="modal" data-target="#teamModal" class="btn btn-outline-bitbucket">Team
+                      Register</button>
+                  </div>
                   <div class="table-responsive">
                     <table class="table">
                       <thead>
@@ -201,3 +153,4 @@
       </div>
     </div>
   </div>
+</div>
