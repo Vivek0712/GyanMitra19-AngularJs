@@ -85,6 +85,7 @@ import { SearchFilterEventPipe } from './pipes/search-filter-event.pipe';
 import { LandingComponent } from './component/user/landing/landing.component';
 import { QrService } from './services/qr/qr.service';
 import { AdminHomeComponent } from './component/admin/admin-home/admin-home.component';
+import { ProbsComponent } from './component/admin/probs/probs.component';
 /////////////////////////////////////////////////////////////////
 
 @NgModule({
@@ -144,7 +145,8 @@ import { AdminHomeComponent } from './component/admin/admin-home/admin-home.comp
     FaqComponent,
     SearchFilterEventPipe,
     LandingComponent,
-    AdminHomeComponent
+    AdminHomeComponent,
+    ProbsComponent
   ],
   imports: [
     BrowserModule,

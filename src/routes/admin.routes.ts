@@ -18,6 +18,7 @@ import { AdminCartConfirmationComponent } from 'src/app/component/admin/admin-ca
 import { ConfigurationsComponent } from 'src/app/component/admin/configurations/configurations.component';
 import { PaymentComponent } from 'src/app/component/admin/payment/payment.component';
 import { AdminUserRolesComponent } from 'src/app/component/admin/admin-user-roles/admin-user-roles.component';
+import { ProbsComponent } from 'src/app/component/admin/probs/probs.component';
 
 export const ADMIN_ROUTE: Routes = [
      { path: 'home', component: HomeComponent },
@@ -38,5 +39,6 @@ export const ADMIN_ROUTE: Routes = [
      { path: 'cartConfirmation', component: AdminCartConfirmationComponent },
      { path: 'configurations', component: ConfigurationsComponent },
      { path: 'payment', component: PaymentComponent },
-     { path: 'roleUsers', component: AdminUserRolesComponent }
+     { path: 'roleUsers', component: AdminUserRolesComponent },
+     { path: 'probs', component: ProbsComponent}
 ];

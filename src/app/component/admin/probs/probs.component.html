@@ -1,0 +1,54 @@
+<div class="app-content content">
+  <div class="content-wrapper">
+      <div class="content-wrapper-before"></div>
+      <div class="content-header row">
+          <div class="content-header-left col-md-4 col-12 mb-2">
+              <h3 class="content-header-title">Problems</h3>
+          </div>
+          <div class="content-header-right col-md-8 col-12">
+              <div class="breadcrumbs-top float-md-right">
+                  <div class="breadcrumb-wrapper mr-1">
+                      <ol class="breadcrumb">
+                          <li class="breadcrumb-item"><a href="index.html">Home</a>
+                          </li>
+                          <li class="breadcrumb-item active">Problems
+                          </li>
+                      </ol>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="content-body">
+          <section id="content-types">
+              <div class="row match-height justify-content-md-center">
+                  <div class="col-xl-6 col-md-12">
+                      <div class="card">
+                          <div class="card-content">
+                              <div class="card-body">
+                                  <h4 class="card-title">Problems</h4>
+                                  <h6 class="card-subtitle text-muted">Report a Problem</h6>
+                              </div>
+                              <div class="card-body">
+                                  <form class="form" [formGroup]="probsForm" (ngSubmit)=onSubmit(probsForm)>
+                                      <input type="hidden" formControlName="_id">
+                                      <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Problem" formControlName="name">
+                                     </div>
+                                      <div class="form-action left row">
+                                          <div class="col">
+                                              <span (click)="createForm()" class="btn btn-outline-danger left">Reset</span>
+                                          </div>
+                                          <div class="col">
+                                              <button type="submit" class="btn btn-outline-success right">{{this.Button}}</button>
+                                          </div>
+                                      </div>
+                                  </form>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </section>
+      </div>
+    </div>
+  </div>
