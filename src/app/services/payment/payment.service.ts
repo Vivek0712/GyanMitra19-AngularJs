@@ -10,6 +10,13 @@ export class PaymentService {
 
   constructor(private http:HttpClient,private app:AppService,private paymentService:PaymentService) { }
   readonly baseUrl = 'payment/';
+
+  genAccHash(data:any){
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post(this.app.getUrl(this.baseUrl + 'getAccHash'), data).pipe(map(res => res, { 'headers': headers }));
+  }
+
   genHash(data:any) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');

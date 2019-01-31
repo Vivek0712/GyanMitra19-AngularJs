@@ -89,9 +89,9 @@ export class RegistrationComponent implements OnInit {
       }
     });
 
-    this.qrScannerComponent.capturedQr.subscribe((result:string) => {
-      this.qrService.createMap(result, _id).subscribe((res: any)=>{
-        if(res.error){
+    this.qrScannerComponent.capturedQr.subscribe((result: string) => {
+      this.qrService.createMap(result, _id).subscribe((res: any) => {
+        if (res.error) {
           M.toast({ html: 'An Error Occured. Scan Again', classes: 'roundeds' });
         } else {
           M.toast({ html: res.msg, classes: 'roundeds' });
@@ -371,9 +371,8 @@ export class RegistrationComponent implements OnInit {
       this.excelService.exportAsExcelFile(reportArray, filename);
     })
   }
-
-  exportAsXLSX() {
-    var filename = 'All Participants - ' + this.datePipe.transform(Date.now(), 'dd-MM-yyyy');
+  exportAsXLSXforWorkshops() {
+    var filename = 'Workshop Registrations - ' + this.datePipe.transform(Date.now(), 'dd-MM-yyyy');
     var slNo = 1;
     var reportArray: Array<any> = [];
     this.participants.forEach((ele: any) => {
@@ -400,5 +399,50 @@ export class RegistrationComponent implements OnInit {
       reportArray.push(reportData)
     })
     this.excelService.exportAsExcelFile(reportArray, filename);
+  }
+
+  exportAsXLSX() {
+    var filename = 'All Registrations - ' + this.datePipe.transform(Date.now(), 'dd-MM-yyyy');
+    var slNo = 1;
+    var reportArray: Array<any> = [];
+    this.participants.forEach((ele: any) => {
+      var reportData: any = [];
+      reportData["Sl. No"] = slNo++
+      reportData["Name"] = ele.name;
+      reportData["College"] = ele.college_id.name;
+      reportData["Degree"] = ele.degree_id.name;
+      reportData["Department"] = ele.department_id.name;
+      reportData["Year"] = ele.year_id.name;
+      reportData["Mobile Number"] = ele.mobile_number;
+      reportData["Gender"] = ele.gender;
+      reportData["E Mail ID"] = ele.email_id;
+      if (ele.cart_confirmed) {
+        reportData["Cart Confirmed"] = "Yes"
+      } else {
+        reportData["Cart Confirmed"] = "No"
+      }
+      if (ele.cart_paid) {
+        reportData["Payment Status"] = "Yes"
+      } else {
+        reportData["Payment Status"] = "No"
+      }
+      reportArray.push(reportData)
+    })
+    this.excelService.exportAsExcelFile(reportArray, filename);
+  }
+
+  exportAsXLSXforEvents() {
+    var filename = 'Event Registrations - ' + this.datePipe.transform(Date.now(), 'dd-MM-yyyy');
+    var slNo = 1;
+    this.reportserviceService.getRegisteredEvents().subscribe((response: any) => {
+      var reportArray: Array<any> = [];
+      var responseArray: Array<any> = response;
+      responseArray.forEach((ele: any) => {
+        var reportData: any = [];
+        
+        reportArray.push(reportData)
+      })
+      this.excelService.exportAsExcelFile(reportArray, filename);
+    })
   }
 }

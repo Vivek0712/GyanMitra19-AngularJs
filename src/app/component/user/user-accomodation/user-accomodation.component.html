@@ -1,6 +1,5 @@
 <div class="app-content content">
   <div class="content-wrapper">
-
     <div class="content-wrapper-before"></div>
     <div class="content-header row">
       <div class="content-header-left col-md-4 col-12 mb-2">
@@ -20,7 +19,7 @@
       </div>
     </div>
     <div class="content-body" *ngIf="accomodationEnabled">
-      <form action="https://test.payu.in/_payment" id="frm-payment" method="post">
+      <form action="https://secure.payu.in/_payment" id="frm-payment" method="post">
         <input type="hidden" name="key" value={{appService.getKey()}}>
         <input type="hidden" name="txnid" value={{txnId}}>
         <input type="hidden" name="amount" value={{totalAmount+(totalAmount*appService.getTransactionFee())}}>
@@ -147,9 +146,12 @@
                       <h2>Payment</h2>
                       <hr />
                       <div class="form-group">
-                        <div class="row">
-                          <button class="btn btn-bg-gradient-x-blue-cyan border-white border-2  float-right"
-                            data-toggle="modal" data-target="#DDModal">Pay Through DD</button>
+                        <div class="row btn-group">
+                            <button class="btn btn-info border-white border-2  float-right" data-toggle="modal"
+                            data-target="#PayOnline" (click)="payOnline()">Pay Online</button>
+                          <button class="btn btn-secondary border-white border-2  float-right" data-toggle="modal"
+                            data-target="#DDModal">Pay Through DD</button>
+                          
                         </div>
                       </div>
                       <div class="row">
