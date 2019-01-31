@@ -20,6 +20,18 @@ export class ReportserviceService {
     headers.append('Content-Type', 'application/json');
     return this.http.get(this.app.getUrl(this.baseUrl) + 'getEventCount');
   }
+
+  getWorkshopRegistrations(){
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.get(this.app.getUrl(this.baseUrl) + 'registeredInWorkshops');
+  }
+
+  getEventRegistrations(){
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.get(this.app.getUrl(this.baseUrl) + 'registeredInEvents');
+  }
   
   getWorkshopCount(){
     const headers = new Headers();
