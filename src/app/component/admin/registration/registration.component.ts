@@ -439,7 +439,25 @@ export class RegistrationComponent implements OnInit {
       var responseArray: Array<any> = response.msg;
       responseArray.forEach((ele: any) => {
         var reportData: any = [];
-        
+        reportData["Sl. No"] = slNo++
+        reportData["Name"] = ele.user_id.name;
+        reportData["College"] = ele.user_id.college_id.name;
+        reportData["Degree"] = ele.user_id.degree_id.name;
+        reportData["Department"] = ele.user_id.department_id.name;
+        reportData["Year"] = ele.user_id.year_id.name;
+        reportData["Mobile Number"] = ele.user_id.mobile_number;
+        reportData["Gender"] = ele.user_id.gender;
+        reportData["E Mail ID"] = ele.user_id.email_id;
+        if (ele.user_id.cart_confirmed) {
+          reportData["Cart Confirmed"] = "Yes"
+        } else {
+          reportData["Cart Confirmed"] = "No"
+        }
+        if (ele.user_id.cart_paid) {
+          reportData["Payment Status"] = "Yes"
+        } else {
+          reportData["Payment Status"] = "No"
+        }
         reportArray.push(reportData)
       })
       this.excelService.exportAsExcelFile(reportArray, filename);
