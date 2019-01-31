@@ -1,11 +1,10 @@
 .navbar-brand img {
     height: 50px;
-    width: 100%;
+    width: 220px;
 }
 
 img {
     vertical-align: middle;
-    border-style: none;
 }
 *, ::after, ::before {
     box-sizing: border-box;

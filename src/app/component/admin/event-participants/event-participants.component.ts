@@ -23,12 +23,14 @@ export class EventParticipantsComponent implements OnInit {
 
   event_id: String;
   currentAttendance: String;
+  event: any;
   @ViewChild(QrScannerComponent) qrScannerComponent: QrScannerComponent;
 
   constructor(private qrService: QrService, private datePipe: DatePipe, private participantStatusService: ParticipationstatusService, private excelService: ExcelService, private eventRegistration: EventRegistrationService, public authService: AuthService, private formBuilder: FormBuilder, private route: ActivatedRoute, private location: Location) {
     this.route.params.subscribe(param => {
       this.event_id = param.id
     });
+    this.getEventById(this.event_id);
   }
 
   participantStatuss: Array<any>
@@ -191,6 +193,13 @@ export class EventParticipantsComponent implements OnInit {
       reportArray.push(reportData)
     })
     this.excelService.exportAsExcelFile(reportArray, filename);
+  }
+
+  getEventById(event_id: String) {
+    this.eventRegistration.getEventById(event_id).subscribe((response:any)=>{
+      this.event = response;
+      console.log(response);
+    });
   }
 
 }
