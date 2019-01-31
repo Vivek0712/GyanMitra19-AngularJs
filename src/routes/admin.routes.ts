@@ -19,6 +19,7 @@ import { ConfigurationsComponent } from 'src/app/component/admin/configurations/
 import { PaymentComponent } from 'src/app/component/admin/payment/payment.component';
 import { AdminUserRolesComponent } from 'src/app/component/admin/admin-user-roles/admin-user-roles.component';
 import { ProbsComponent } from 'src/app/component/admin/probs/probs.component';
+import { ProblemsArisedComponent } from 'src/app/component/admin/problems-arised/problems-arised.component';
 
 export const ADMIN_ROUTE: Routes = [
      { path: 'home', component: HomeComponent },
@@ -40,5 +41,6 @@ export const ADMIN_ROUTE: Routes = [
      { path: 'configurations', component: ConfigurationsComponent },
      { path: 'payment', component: PaymentComponent },
      { path: 'roleUsers', component: AdminUserRolesComponent },
-     { path: 'probs', component: ProbsComponent}
+     { path: 'probs', component: ProbsComponent},
+     { path: 'viewProbs', component: ProblemsArisedComponent}
 ];
