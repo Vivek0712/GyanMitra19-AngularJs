@@ -115,12 +115,8 @@
                           <td>{{participant.user_id.email_id}}</td>
                           <td>{{participant.user_id.mobile_number}}</td>
                           <td>{{participant.user_id.college_id.name}}</td>
-                          <ng-container *ngIf="participant.user_id.cart_paid == true">
-                            <td>Paid</td>
-                          </ng-container>
-                          <ng-container *ngIf="participant.user_id.cart_paid == true">
-                            <td>Not Paid</td>
-                          </ng-container>
+                          <td *ngIf="participant.user_id.cart_paid == true">Paid</td>
+                          <td *ngIf="participant.user_id.cart_paid == false">Not Paid</td>
                           <td>
                             <div class="row">
                               <div class="col-12">

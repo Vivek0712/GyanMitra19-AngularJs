@@ -40,6 +40,7 @@ export class RegistrationComponent implements OnInit {
   selectedParticipant: any;
   viewDetails: Boolean;
   paidStatus: String = "";
+  activated: String = "";
   edit: Boolean = false;
   userForm: FormGroup;
   submitted: Boolean = false;
@@ -270,6 +271,14 @@ export class RegistrationComponent implements OnInit {
       else {
         paid = false;
       }
+      
+      let act: Boolean;
+      if(this.activated == "true") {
+        act = true;
+      }
+      else {
+        act = false;
+      }
       if (this.selectedGender != "" && this.selectedCollegeId != "" && this.paidStatus != "") {
         for (let user of response) {
           if (user.gender == this.selectedGender && user.college_id._id == this.selectedCollegeId && user.cart_paid == paid) {
@@ -315,6 +324,13 @@ export class RegistrationComponent implements OnInit {
       else if (this.paidStatus != "") {
         for (let user of response) {
           if (user.cart_paid == paid) {
+            this.participants.push(user);
+          }
+        }
+      }
+      else if(this.activated != "") {
+        for (let user of response) {
+          if (user.activated == act) {
             this.participants.push(user);
           }
         }

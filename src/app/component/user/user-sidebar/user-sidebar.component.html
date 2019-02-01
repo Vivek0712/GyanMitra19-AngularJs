@@ -35,11 +35,11 @@
       <li *ngIf="!authService.isLoggedIn()" class="nav-item"><a [routerLink]="['/user/register']" [routerLinkActive]="['active']"
           [routerLinkActiveOptions]="{exact:true}"><i class="far fa-edit"></i><span class="menu-title"
             data-i18n="">Register</span></a></li>
-	 <li *ngIf="!authService.isLoggedIn()" class="nav-item"><a [routerLink]="['/user/contactus']" [routerLinkActive]="['active']"
+	 <li class="nav-item"><a [routerLink]="['/user/contactus']" [routerLinkActive]="['active']"
           [routerLinkActiveOptions]="{exact:true}"><i class="far fa-user"></i><span class="menu-title"
             data-i18n="">Contact Us</span></a></li>
 
-            <li *ngIf="!authService.isLoggedIn()" class="nav-item"><a [routerLink]="['/user/faq']" [routerLinkActive]="['active']"
+            <li class="nav-item"><a [routerLink]="['/user/faq']" [routerLinkActive]="['active']"
               [routerLinkActiveOptions]="{exact:true}"><i class="fa fa-question-circle"></i><span class="menu-title"
                 data-i18n="">FAQ</span></a></li>    
     </ul>

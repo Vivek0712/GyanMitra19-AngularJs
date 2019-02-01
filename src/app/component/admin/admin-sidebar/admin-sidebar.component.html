@@ -97,9 +97,17 @@
           </ul>
         </li>
       </ng-container>
-      <li class="nav-item"><a  [routerLink]="['/admin/probs']" [routerLinkActive]="['active']"
-        [routerLinkActiveOptions]="{exact:true}"><i class="fas fa-cogs"></i><span class="menu-title" data-i18n="">Problems</span></a>
-        
+
+      <li class="nav-item has-sub"><a><i class="fas fa-cogs"></i><span class="menu-title" data-i18n="">Problems</span></a>
+        <ul class="menu-content">
+            <li class="nav-item"><a  [routerLink]="['/admin/probs']" [routerLinkActive]="['active']"
+              [routerLinkActiveOptions]="{exact:true}"> Add Problems</a>
+            </li>
+      
+            <li *ngIf="role.role_id.name == 'Admin'" class="nav-item"><a  [routerLink]="['/admin/viewProbs']" [routerLinkActive]="['active']"
+              [routerLinkActiveOptions]="{exact:true}">view Problems</a>
+            </li>  
+        </ul>
       </li>
   
     </ul>
