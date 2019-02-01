@@ -29,6 +29,4 @@ export class UserNavbarComponent implements OnInit {
     this.authService.destroySession();
     this.router.navigate(['/auth/login']);
    }
-
-
 }

@@ -19,6 +19,55 @@
       </div>
     </div>
     <div class="content-body">
+
+      <section id="content-types">
+        <div class="row match-height justify-content-md-center">
+          <div class="col-xl-6 col-md-12">
+            <div class="card">
+              <div class="card-content">
+                <div class="card-body">
+                  <h4 class="card-title">Participants</h4>
+                  <h6 class="card-subtitle text-muted">Add Participants</h6>
+                </div>
+                <div class="card-body">
+                  <form class="form" [formGroup]="participantForm" (ngSubmit)=onSubmit(participantForm)>
+                    <input type="hidden" formControlName="_id">
+                    <div class="form-group">
+                      <input type="text" class="form-control" placeholder="Participant mail" formControlName="email_id"
+                        [ngClass]="{'is-invalid': submitted &&f.email_id.errors}">
+                      <div *ngIf="submitted && f.email_id.errors" class="invalid-feedback">
+                        <div *ngIf="f.email_id.errors.required">Email_id is required
+                        </div>
+                      </div>
+
+                    </div>
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-12">
+                          Participant Status
+                          <select class="custom-select" formControlName="participation">
+                            <option *ngFor="let participantStatus of participantStatuss" value="{{ participantStatus.name }}">{{
+                              participantStatus.name }}</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-action left row">
+                      <div class="col">
+                        <span (click)="createForm()" class="btn btn-outline-danger left">Reset</span>
+                      </div>
+                      <div class="col">
+                        <button type="submit" class="btn btn-outline-success right">{{this.Button}}</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <div class="modal fade" id="idModal" tabindex="-1" role="dialog" aria-labelledby="idModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
           <div class="modal-content">

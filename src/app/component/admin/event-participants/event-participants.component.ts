@@ -59,7 +59,6 @@ export class EventParticipantsComponent implements OnInit {
     this.submitted = true;
     if (form.valid) {
       if (form.value._id === '') {
-        //this.event_id, this.participantForm.get('email_id').value, this.participantForm.get('participation').value
         // this.eventRegistration.createEventRegistration(,this.event_id).subscribe((response: any) => {
         //   if (response.error) {
         //     M.toast({ html: response.msg, classes: 'roundeds' });
