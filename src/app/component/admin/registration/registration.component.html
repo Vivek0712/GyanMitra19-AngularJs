@@ -289,8 +289,6 @@
                 </div>
               </div>
             </div>
-
-
           </div>
           <div class="modal-footer">
             <!-- <button type="button" class="btn btn-danger" (click)="unfreezeEvents()">Unfreeze Events</button> -->
@@ -347,6 +345,9 @@
                     <div class="col-3">
                       Payment
                     </div>
+                    <div class="col-3">
+                      Activated
+                    </div>
                   </div>
                   <div class="row">
                     <div class="col-3">
@@ -367,6 +368,13 @@
                         <option value="" selected="true">ALL</option>
                         <option value="true">Paid</option>
                         <option value="false">Not paid</option>
+                      </select>
+                    </div>
+                    <div class="col-3">
+                      <select class="custom-select" [(ngModel)]="activated" id="slctActivated">
+                        <option value="" selected="true">ALL</option>
+                        <option value="true">Activated</option>
+                        <option value="false">Not Activated</option>
                       </select>
                     </div>
                   </div>

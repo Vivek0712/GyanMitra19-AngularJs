@@ -40,6 +40,7 @@ export class RegistrationComponent implements OnInit {
   selectedParticipant: any;
   viewDetails: Boolean;
   paidStatus: String = "";
+  activated: String = "";
   edit: Boolean = false;
   userForm: FormGroup;
   submitted: Boolean = false;
@@ -270,6 +271,14 @@ export class RegistrationComponent implements OnInit {
       else {
         paid = false;
       }
+      
+      let act: Boolean;
+      if(this.activated == "true") {
+        act = true;
+      }
+      else {
+        act = false;
+      }
       if (this.selectedGender != "" && this.selectedCollegeId != "" && this.paidStatus != "") {
         for (let user of response) {
           if (user.gender == this.selectedGender && user.college_id._id == this.selectedCollegeId && user.cart_paid == paid) {
@@ -315,6 +324,13 @@ export class RegistrationComponent implements OnInit {
       else if (this.paidStatus != "") {
         for (let user of response) {
           if (user.cart_paid == paid) {
+            this.participants.push(user);
+          }
+        }
+      }
+      else if(this.activated != "") {
+        for (let user of response) {
+          if (user.activated == act) {
             this.participants.push(user);
           }
         }
@@ -372,33 +388,37 @@ export class RegistrationComponent implements OnInit {
     })
   }
   exportAsXLSXforWorkshops() {
-    var filename = 'Workshop Registrations - ' + this.datePipe.transform(Date.now(), 'dd-MM-yyyy');
+    var filename = 'Registrations for Workshops - ' + this.datePipe.transform(Date.now(), 'dd-MM-yyyy');
     var slNo = 1;
     var reportArray: Array<any> = [];
-    this.participants.forEach((ele: any) => {
-      var reportData: any = [];
-      reportData["Sl. No"] = slNo++
-      reportData["Name"] = ele.name;
-      reportData["College"] = ele.college_id.name;
-      reportData["Degree"] = ele.degree_id.name;
-      reportData["Department"] = ele.department_id.name;
-      reportData["Year"] = ele.year_id.name;
-      reportData["Mobile Number"] = ele.mobile_number;
-      reportData["Gender"] = ele.gender;
-      reportData["E Mail ID"] = ele.email_id;
-      if (ele.cart_confirmed) {
-        reportData["Cart Confirmed"] = "Yes"
-      } else {
-        reportData["Cart Confirmed"] = "No"
-      }
-      if (ele.cart_paid) {
-        reportData["Payment Status"] = "Yes"
-      } else {
-        reportData["Payment Status"] = "No"
-      }
-      reportArray.push(reportData)
+    this.reportserviceService.getWorkshopRegistrations().subscribe((response: any) => {
+      var reportArray: Array<any> = [];
+      var responseArray: Array<any> = response.msg;
+      responseArray.forEach((ele: any) => {
+          var reportData: any = [];
+          reportData["Sl. No"] = slNo++
+          reportData["Name"] = ele.user_id.name;
+          reportData["College"] = ele.user_id.college_id.name;
+          reportData["Degree"] = ele.user_id.degree_id.name;
+          reportData["Department"] = ele.user_id.department_id.name;
+          reportData["Year"] = ele.user_id.year_id.name;
+          reportData["Mobile Number"] = ele.user_id.mobile_number;
+          reportData["Gender"] = ele.user_id.gender;
+          reportData["E Mail ID"] = ele.user_id.email_id;
+          if (ele.user_id.cart_confirmed) {
+            reportData["Cart Confirmed"] = "Yes"
+          } else {
+            reportData["Cart Confirmed"] = "No"
+          }
+          if (ele.user_id.cart_paid) {
+            reportData["Payment Status"] = "Yes"
+          } else {
+            reportData["Payment Status"] = "No"
+          }
+          reportArray.push(reportData)
+      })
+      this.excelService.exportAsExcelFile(reportArray, filename);
     })
-    this.excelService.exportAsExcelFile(reportArray, filename);
   }
 
   exportAsXLSX() {
@@ -432,15 +452,33 @@ export class RegistrationComponent implements OnInit {
   }
 
   exportAsXLSXforEvents() {
-    var filename = 'Event Registrations - ' + this.datePipe.transform(Date.now(), 'dd-MM-yyyy');
+    var filename = 'Registrations for Events - ' + this.datePipe.transform(Date.now(), 'dd-MM-yyyy');
     var slNo = 1;
-    this.reportserviceService.getRegisteredEvents().subscribe((response: any) => {
+    this.reportserviceService.getEventRegistrations().subscribe((response: any) => {
       var reportArray: Array<any> = [];
       var responseArray: Array<any> = response.msg;
       responseArray.forEach((ele: any) => {
-        var reportData: any = [];
-        
-        reportArray.push(reportData)
+          var reportData: any = [];
+          reportData["Sl. No"] = slNo++
+          reportData["Name"] = ele.user_id.name;
+          reportData["College"] = ele.user_id.college_id.name;
+          reportData["Degree"] = ele.user_id.degree_id.name;
+          reportData["Department"] = ele.user_id.department_id.name;
+          reportData["Year"] = ele.user_id.year_id.name;
+          reportData["Mobile Number"] = ele.user_id.mobile_number;
+          reportData["Gender"] = ele.user_id.gender;
+          reportData["E Mail ID"] = ele.user_id.email_id;
+          if (ele.user_id.cart_confirmed) {
+            reportData["Cart Confirmed"] = "Yes"
+          } else {
+            reportData["Cart Confirmed"] = "No"
+          }
+          if (ele.user_id.cart_paid) {
+            reportData["Payment Status"] = "Yes"
+          } else {
+            reportData["Payment Status"] = "No"
+          }
+          reportArray.push(reportData)
       })
       this.excelService.exportAsExcelFile(reportArray, filename);
     })
