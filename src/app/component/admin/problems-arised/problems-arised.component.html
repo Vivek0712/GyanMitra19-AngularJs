@@ -36,23 +36,25 @@
               </div>
               <div class="card-content collapse show">
                 <div class="card-body">
+                  <h2>View your problems here</h2>
+                  <hr />
+                  <br />
                   <div class="table-responsive">
                     <table class="table">
                       <thead>
                         <tr>
                           <th>Sl. No</th>
                           <th>Problem Name</th>
-                          <th>Delete</th>
+                          <th>Resolve</th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr *ngFor="let prob of probs; let i = index;">
-
                           <th scope="row">{{i+1}}</th>
                           <td>{{prob.name}}</td>
                           <td>
-                            <div class="fonticon-wrap icon-shadow icon-shadow-danger" (click)="deleteProblem(prob._id)">
-                              <a> <i class="la la-trash la-2x"></i></a>
+                            <div class="fonticon-wrap icon-shadow icon-shadow-success" (click)="resolveProblem(prob._id)">
+                              <a> <i class="la la-check la-2x"></i></a>
                             </div>
                           </td>
                         </tr>

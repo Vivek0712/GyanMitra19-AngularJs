@@ -23,8 +23,8 @@ export class ProblemsArisedComponent implements OnInit {
     });
 
   }
-  deleteProblem(id: string) {
-    this.probService.deleteProb(id).subscribe((response: any) => {
+  resolveProblem(id: string) {
+    this.probService.resolveProblem(id).subscribe((response: any) => {
       if ( response.error ) {
         M.toast({ html: response.msg , classes: 'roundeds'});
         this.getProblems();
