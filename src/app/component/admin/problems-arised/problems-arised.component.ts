@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProbsService } from 'src/app/services/probs/probs.service';
+import { RoleUserService } from 'src/app/services/role_user/role-user.service';
 
 declare var M:any;
 
@@ -11,10 +12,12 @@ declare var M:any;
 export class ProblemsArisedComponent implements OnInit {
 
   probs: Array<any>;
-  constructor(private probService: ProbsService) { }
+  role: any;
+  constructor(private probService: ProbsService, private roleService: RoleUserService) { }
 
   ngOnInit() {
     this.getProblems();
+    this.checkForRole();
   }
 
   getProblems() {
@@ -33,6 +36,17 @@ export class ProblemsArisedComponent implements OnInit {
         this.getProblems();
       }
     });
+  }
+
+  checkForRole() {
+    this.roleService.readRoleUserById(JSON.parse(localStorage.getItem('user')).id).subscribe((response: any) => {
+      if (response.success) {
+        this.role = response.msg[0];
+      }
+      else {
+        M.toast({ html: response.msg, classes: 'roundeds' });
+      }
+    })
   }
 
 

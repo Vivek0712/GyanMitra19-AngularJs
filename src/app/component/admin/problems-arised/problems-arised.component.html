@@ -45,16 +45,19 @@
                         <tr>
                           <th>Sl. No</th>
                           <th>Problem Name</th>
-                          <th>Resolve</th>
+                          <th *ngIf="role.role_id.name == 'Admin'">Resolve</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr *ngFor="let prob of probs; let i = index;">
+                        <tr *ngFor="let prob of probs; let i = index;" [ngClass]="{'success': prob.resolved}">
                           <th scope="row">{{i+1}}</th>
                           <td>{{prob.name}}</td>
                           <td>
-                            <div class="fonticon-wrap icon-shadow icon-shadow-success" (click)="resolveProblem(prob._id)">
+                            <div *ngIf="role.role_id.name == 'Admin' && !prob.resolved" class="fonticon-wrap icon-shadow icon-shadow-success" (click)="resolveProblem(prob._id)">
                               <a> <i class="la la-check la-2x"></i></a>
+                            </div>
+                            <div *ngIf="prob.resolved">
+                              Resolved
                             </div>
                           </td>
                         </tr>
