@@ -20,7 +20,8 @@
       <div class="content-header-left col-4">
         <span class="float-right" *ngIf="workshops.length != 0 || events.length != 0" style="margin:2px">
           <ng-container *ngIf="!isCartConfirmed; else paymentEnable">
-            <button class="btn btn-bg-gradient-x-purple-red border-white border-2" (click)="confirmCart()">Confirm
+            <button class="btn btn-bg-gradient-x-purple-red border-white border-2" data-toggle="modal"
+            data-target="#ConfirmCartModal">Confirm
               Cart</button>
           </ng-container>
           <ng-template #paymentEnable>
@@ -72,6 +73,25 @@
         </div>
       </div>
     </div>
+    <div class="modal fade" id="ConfirmCartModal" tabindex="-1" role="dialog" aria-labelledby="ConfirmCartLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="ConfirmCartLabel">Confirm Your Cart</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <strong>Confirming your cart would freeze your event participation and you won't be able to add/remove any partiicpation. Are you sure you want to confirm your cart?</strong>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" onclick="confirmCart()" class="btn btn-success">Yes</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+            </div>
+          </div>
+        </div>
+      </div>
     <div class="content-body">
       <!-- Modal -->
       <div class="modal fade" id="DDModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
