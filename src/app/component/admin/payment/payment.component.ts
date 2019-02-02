@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PaymentService } from 'src/app/services/payment/payment.service';
 import { ExcelService } from 'src/app/services/excel.service';
 import { Location, DatePipe } from '@angular/common';
+import { EventRegistrationService } from 'src/app/services/eventRegistration/event-registration.service';
 
 @Component({
   selector: 'app-payment',
@@ -11,20 +12,22 @@ import { Location, DatePipe } from '@angular/common';
 })
 export class PaymentComponent implements OnInit {
 
-  payedUsers:Array<any>;
-  click:Boolean = false;
-  constructor(private payService: PaymentService, private datePipe: DatePipe, private excelService: ExcelService) { }
+  payedUsers: Array<any>;
+  events: Array<any>;
+  workshops: Array<any>;
+  click: Boolean = false;
+  constructor(private eventRegister: EventRegistrationService, private payService: PaymentService, private datePipe: DatePipe, private excelService: ExcelService) { }
 
   ngOnInit() {
   }
 
-  getDDPayedUsers(){
+  getDDPayedUsers() {
     this.click = true;
-    this.payService.getPaymentDetails().subscribe((response:any)=>{
-      if(response.success){
+    this.payService.getPaymentDetails().subscribe((response: any) => {
+      if (response.success) {
         this.payedUsers = [];
-        for(let user of response.msg){
-          if(user.mode_of_payment != "Online"){
+        for (let user of response.msg) {
+          if (user.mode_of_payment != "Online") {
             this.payedUsers.push(user);
           }
         }
@@ -34,13 +37,19 @@ export class PaymentComponent implements OnInit {
     })
   }
 
-  getOnlinePayedUsers(){
+  getOnlinePayedUsers() {
     this.click = true;
-    this.payService.getPaymentDetails().subscribe((response:any)=>{
-      if(response.success){
+    this.payService.getPaymentDetails().subscribe((response: any) => {
+      if (response.success) {
         this.payedUsers = [];
-        for(let user of response.msg){
-          if(user.mode_of_payment == "Online"){
+        for (let user of response.msg) {
+          if (user.mode_of_payment == "Online") {
+            // this.eventRegister.getRegisteredEvents(user.user_id._id, "Event").subscribe((res: any) => {
+            //   console.log(res.doc);
+            //   user.event = res.doc;
+            // })
+            //console.log(user.user_id._id);
+            //console.log(user.event);
             this.payedUsers.push(user);
           }
         }

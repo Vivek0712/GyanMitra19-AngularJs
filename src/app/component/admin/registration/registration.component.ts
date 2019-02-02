@@ -11,6 +11,7 @@ import { ReportserviceService } from 'src/app/services/report/reportservice.serv
 import { EventRegistrationService } from 'src/app/services/eventRegistration/event-registration.service';
 import { QrScannerComponent } from 'angular2-qrscanner';
 import { QrService } from 'src/app/services/qr/qr.service';
+import { EventService } from 'src/app/services/event/event.service';
 
 declare var M: any;
 
@@ -49,8 +50,12 @@ export class RegistrationComponent implements OnInit {
   departments: Array<any>;
   registeredWorkshops: Array<any> = [];
   registeredEvents: Array<any> = [];
+  events: Array<any>;
+  workshops: Array<any>;
+  selectedEventId: String;
+  selectedWorkshopId: String;
   @ViewChild(QrScannerComponent) qrScannerComponent: QrScannerComponent;
-  constructor(private qrService: QrService, private reportserviceService: ReportserviceService, private datePipe: DatePipe, private excelService: ExcelService, private yearService: YearService, private collegeService: CollegeService, private userService: UserService, private degreeService: DegreeService, private courseService: CourseService, private formBuilder: FormBuilder, private eventRegister: EventRegistrationService) { }
+  constructor(private eventService: EventService, private qrService: QrService, private reportserviceService: ReportserviceService, private datePipe: DatePipe, private excelService: ExcelService, private yearService: YearService, private collegeService: CollegeService, private userService: UserService, private degreeService: DegreeService, private courseService: CourseService, private formBuilder: FormBuilder, private eventRegister: EventRegistrationService) { }
 
   ngOnInit() {
     this.currentPage = 1;
@@ -59,10 +64,31 @@ export class RegistrationComponent implements OnInit {
     this.getDegrees();
     this.getYears();
     this.getDepartments();
+    this.getEvents();
+    this.getWorkshops();
     this.selectedGender = "";
     this.selectedCollegeId = "";
     this.searchText = "";
     this.viewDetails = false;
+  }
+
+  registerWorkshop() {
+    this.eventRegister.createEventRegistration(this.selectedParticipant._id, this.selectedWorkshopId).subscribe((response: any) => {
+      M.toast({ html: response.msg, classes: 'roundeds' });
+    })
+  }
+
+  getEvents() {
+    this.eventService.readWithEventCategory("Event", 0).subscribe((response: any) => {
+      this.events = response;
+      console.log(this.events);
+    })
+  }
+
+  getWorkshops() {
+    this.eventService.readWithEventCategory("Workshop", 0).subscribe((response: any) => {
+      this.workshops = response;
+    })
   }
 
   scanQR(_id: string) {
@@ -271,9 +297,9 @@ export class RegistrationComponent implements OnInit {
       else {
         paid = false;
       }
-      
+
       let act: Boolean;
-      if(this.activated == "true") {
+      if (this.activated == "true") {
         act = true;
       }
       else {
@@ -328,7 +354,7 @@ export class RegistrationComponent implements OnInit {
           }
         }
       }
-      else if(this.activated != "") {
+      else if (this.activated != "") {
         for (let user of response) {
           if (user.activated == act) {
             this.participants.push(user);
@@ -377,10 +403,12 @@ export class RegistrationComponent implements OnInit {
     var responseArray = []
     this.reportserviceService.getWorkshopCount().subscribe((res: any) => {
       responseArray = res
+      console.log(res);
       responseArray.forEach((event) => {
         var reportData: any = [];
         reportData["Sl. No"] = slNo++
         reportData["Name"] = event.event[0].title;
+        // reportData["Department Name"] = event.event[0].department_id.name;
         reportData["Count"] = event.count
         reportArray.push(reportData)
       })
@@ -395,27 +423,27 @@ export class RegistrationComponent implements OnInit {
       var reportArray: Array<any> = [];
       var responseArray: Array<any> = response.msg;
       responseArray.forEach((ele: any) => {
-          var reportData: any = [];
-          reportData["Sl. No"] = slNo++
-          reportData["Name"] = ele.user_id.name;
-          reportData["College"] = ele.user_id.college_id.name;
-          reportData["Degree"] = ele.user_id.degree_id.name;
-          reportData["Department"] = ele.user_id.department_id.name;
-          reportData["Year"] = ele.user_id.year_id.name;
-          reportData["Mobile Number"] = ele.user_id.mobile_number;
-          reportData["Gender"] = ele.user_id.gender;
-          reportData["E Mail ID"] = ele.user_id.email_id;
-          if (ele.user_id.cart_confirmed) {
-            reportData["Cart Confirmed"] = "Yes"
-          } else {
-            reportData["Cart Confirmed"] = "No"
-          }
-          if (ele.user_id.cart_paid) {
-            reportData["Payment Status"] = "Yes"
-          } else {
-            reportData["Payment Status"] = "No"
-          }
-          reportArray.push(reportData)
+        var reportData: any = [];
+        reportData["Sl. No"] = slNo++
+        reportData["Name"] = ele.user_id.name;
+        reportData["College"] = ele.user_id.college_id.name;
+        reportData["Degree"] = ele.user_id.degree_id.name;
+        reportData["Department"] = ele.user_id.department_id.name;
+        reportData["Year"] = ele.user_id.year_id.name;
+        reportData["Mobile Number"] = ele.user_id.mobile_number;
+        reportData["Gender"] = ele.user_id.gender;
+        reportData["E Mail ID"] = ele.user_id.email_id;
+        if (ele.user_id.cart_confirmed) {
+          reportData["Cart Confirmed"] = "Yes"
+        } else {
+          reportData["Cart Confirmed"] = "No"
+        }
+        if (ele.user_id.cart_paid) {
+          reportData["Payment Status"] = "Yes"
+        } else {
+          reportData["Payment Status"] = "No"
+        }
+        reportArray.push(reportData)
       })
       this.excelService.exportAsExcelFile(reportArray, filename);
     })
@@ -429,7 +457,6 @@ export class RegistrationComponent implements OnInit {
       var reportData: any = [];
       reportData["Sl. No"] = slNo++;
       reportData["Name"] = ele.name;
-      console.log(ele.name);
       reportData["College"] = ele.college_id.name;
       reportData["Degree"] = ele.degree_id.name;
       reportData["Department"] = ele.department_id.name;
@@ -459,27 +486,27 @@ export class RegistrationComponent implements OnInit {
       var reportArray: Array<any> = [];
       var responseArray: Array<any> = response.msg;
       responseArray.forEach((ele: any) => {
-          var reportData: any = [];
-          reportData["Sl. No"] = slNo++
-          reportData["Name"] = ele.user_id.name;
-          reportData["College"] = ele.user_id.college_id.name;
-          reportData["Degree"] = ele.user_id.degree_id.name;
-          reportData["Department"] = ele.user_id.department_id.name;
-          reportData["Year"] = ele.user_id.year_id.name;
-          reportData["Mobile Number"] = ele.user_id.mobile_number;
-          reportData["Gender"] = ele.user_id.gender;
-          reportData["E Mail ID"] = ele.user_id.email_id;
-          if (ele.user_id.cart_confirmed) {
-            reportData["Cart Confirmed"] = "Yes"
-          } else {
-            reportData["Cart Confirmed"] = "No"
-          }
-          if (ele.user_id.cart_paid) {
-            reportData["Payment Status"] = "Yes"
-          } else {
-            reportData["Payment Status"] = "No"
-          }
-          reportArray.push(reportData)
+        var reportData: any = [];
+        reportData["Sl. No"] = slNo++
+        reportData["Name"] = ele.user_id.name;
+        reportData["College"] = ele.user_id.college_id.name;
+        reportData["Degree"] = ele.user_id.degree_id.name;
+        reportData["Department"] = ele.user_id.department_id.name;
+        reportData["Year"] = ele.user_id.year_id.name;
+        reportData["Mobile Number"] = ele.user_id.mobile_number;
+        reportData["Gender"] = ele.user_id.gender;
+        reportData["E Mail ID"] = ele.user_id.email_id;
+        if (ele.user_id.cart_confirmed) {
+          reportData["Cart Confirmed"] = "Yes"
+        } else {
+          reportData["Cart Confirmed"] = "No"
+        }
+        if (ele.user_id.cart_paid) {
+          reportData["Payment Status"] = "Yes"
+        } else {
+          reportData["Payment Status"] = "No"
+        }
+        reportArray.push(reportData)
       })
       this.excelService.exportAsExcelFile(reportArray, filename);
     })

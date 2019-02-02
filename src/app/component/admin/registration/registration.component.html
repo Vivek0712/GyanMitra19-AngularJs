@@ -28,9 +28,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <qr-scanner [debug]="false"
-              [stopAfterScan]="true"
-              [updateTime]="100">
+            <qr-scanner [debug]="false" [stopAfterScan]="true" [updateTime]="100">
             </qr-scanner>
           </div>
           <div class="modal-footer">
@@ -261,13 +259,38 @@
                 </div>
               </div>
             </div>
+
+
+            <div class="card" *ngIf="registeredEvents.length == 0">
+              <div class="card-content">
+                <div class="card-title">
+                  Event Registrations
+                </div>
+                <div class="card-body">
+                  <h6>Events</h6>
+                  <div class="row">
+                    <div class="col-9">
+                      <select class="custom-select" placeholder="Events" [(ngModel)]="selectedEventId" id="slctEvnt">
+                        <option value="" selected>All</option>
+                        <option *ngFor="let event of events" value={{event._id}}>{{event.title}}</option>
+                      </select>
+                    </div>
+                    <div class="col-3">
+                      <button class="btn btn-blue-grey float-right">Add Event</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
             <div class="card" *ngIf="registeredWorkshops.length != 0">
               <div class="card-content">
                 <div class="card-title">
                   Workshop Registrations
                 </div>
                 <div class="card-body">
-                  <h6>Events</h6>
+                  <h6>Workshops</h6>
                   <div class="table-responsive">
                     <table class="table">
                       <thead>
@@ -289,6 +312,29 @@
                 </div>
               </div>
             </div>
+
+            <div class="card" *ngIf="registeredWorkshops.length == 0">
+              <div class="card-content">
+                <div class="card-title">
+                  Workshop Registrations
+                </div>
+                <div class="card-body">
+                  <h6>Workshop</h6>
+                  <div class="row">
+                    <div class="col-9">
+                      <select class="custom-select" placeholder="Workshops" [(ngModel)]="selectedWorkshopId" id="slctEvnt">
+                        <option value="" selected>All</option>
+                        <option *ngFor="let workshop of workshops" value={{workshop._id}}>{{workshop.title}}</option>
+                      </select>
+                    </div>
+                    <div class="col-3">
+                      <button class="btn btn-blue-grey float right" (click)="registerWorkshop()">Add Workshop</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </div>
           <div class="modal-footer">
             <!-- <button type="button" class="btn btn-danger" (click)="unfreezeEvents()">Unfreeze Events</button> -->
