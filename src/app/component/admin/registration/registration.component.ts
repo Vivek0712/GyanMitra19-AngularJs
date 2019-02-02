@@ -427,8 +427,9 @@ export class RegistrationComponent implements OnInit {
     var reportArray: Array<any> = [];
     this.participants.forEach((ele: any) => {
       var reportData: any = [];
-      reportData["Sl. No"] = slNo++
+      reportData["Sl. No"] = slNo++;
       reportData["Name"] = ele.name;
+      console.log(ele.name);
       reportData["College"] = ele.college_id.name;
       reportData["Degree"] = ele.degree_id.name;
       reportData["Department"] = ele.department_id.name;
@@ -446,7 +447,7 @@ export class RegistrationComponent implements OnInit {
       } else {
         reportData["Payment Status"] = "No"
       }
-      reportArray.push(reportData)
+      reportArray.push(reportData);
     })
     this.excelService.exportAsExcelFile(reportArray, filename);
   }

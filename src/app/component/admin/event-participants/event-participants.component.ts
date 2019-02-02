@@ -27,10 +27,7 @@ export class EventParticipantsComponent implements OnInit {
   @ViewChild(QrScannerComponent) qrScannerComponent: QrScannerComponent;
 
   constructor(private qrService: QrService, private datePipe: DatePipe, private participantStatusService: ParticipationstatusService, private excelService: ExcelService, private eventRegistration: EventRegistrationService, public authService: AuthService, private formBuilder: FormBuilder, private route: ActivatedRoute, private location: Location) {
-    this.route.params.subscribe(param => {
-      this.event_id = param.id
-    });
-    this.getEventById(this.event_id);
+    
   }
 
   participantStatuss: Array<any>
@@ -42,6 +39,11 @@ export class EventParticipantsComponent implements OnInit {
 
 
   ngOnInit() {
+    //new EventParticipantsComponent(this.qrService,this.datePipe,this.participantStatusService,this.excelService,this.eventRegistration,this.authService,this.formBuilder,this.route,this.location);
+    this.route.params.subscribe(param => {
+      this.event_id = param.id
+    });
+    this.getEventById(this.event_id);
     this.submitted = false;
     this.currentAttendance = '';
     this.createForm();
@@ -180,6 +182,7 @@ export class EventParticipantsComponent implements OnInit {
   getEventById(event_id: String) {
     this.eventRegistration.getEventById(event_id).subscribe((response:any)=>{
       this.event = response;
+      console.log(this.event);
     });
   }
 

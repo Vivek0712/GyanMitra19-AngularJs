@@ -42,6 +42,12 @@ export class EventRegistrationService {
     return this.http.get(this.app.getUrl(this.baseUrl) + 'registeredEvents/'+user_id+'/'+type);
   }
 
+  getGyanMates(){
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.get(this.app.getUrl(this.baseUrl) + 'getGyanMates');
+  }
+
   createWorkshopRegistration(event_id: String, id: String) {
     let data = {
       event_id: event_id,

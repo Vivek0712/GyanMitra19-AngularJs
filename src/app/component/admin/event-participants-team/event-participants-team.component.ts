@@ -87,14 +87,15 @@ export class EventParticipantsTeamComponent implements OnInit {
     }
   }
   getParticipants() {
-    this.userService.getActivatedParticipants().subscribe((response: any) => {
+    this.eventRegister.getGyanMates().subscribe((response: any) => {
+      console.log(response);
       if (response.error) {
       }
       else {
-        this.participants = response;
+        this.participants = response.msg;
         $(document).ready(function () {
           $('#default-multiple').select2({
-            data: response,
+            data: response.msg,
             multiple: true,
             placeholder: 'Add TeamMates',
           });
