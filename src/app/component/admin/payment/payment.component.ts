@@ -48,8 +48,8 @@ export class PaymentComponent implements OnInit {
             //   console.log(res.doc);
             //   user.event = res.doc;
             // })
-            //console.log(user.user_id._id);
-            //console.log(user.event);
+            // console.log(user.user_id._id);
+            // console.log(user.event);
             this.payedUsers.push(user);
           }
         }

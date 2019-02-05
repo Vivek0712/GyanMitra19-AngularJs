@@ -8,6 +8,7 @@ import { Location, DatePipe } from '@angular/common';
 import { ExcelService } from 'src/app/services/excel.service';
 import { QrScannerComponent } from 'angular2-qrscanner';
 import { QrService } from 'src/app/services/qr/qr.service';
+import { UserService } from 'src/app/services/user/user.service';
 
 
 declare var M: any;
@@ -26,8 +27,8 @@ export class EventParticipantsComponent implements OnInit {
   event: any;
   @ViewChild(QrScannerComponent) qrScannerComponent: QrScannerComponent;
 
-  constructor(private qrService: QrService, private datePipe: DatePipe, private participantStatusService: ParticipationstatusService, private excelService: ExcelService, private eventRegistration: EventRegistrationService, public authService: AuthService, private formBuilder: FormBuilder, private route: ActivatedRoute, private location: Location) {
-    
+  constructor(private userService: UserService, private qrService: QrService, private datePipe: DatePipe, private participantStatusService: ParticipationstatusService, private excelService: ExcelService, private eventRegistration: EventRegistrationService, public authService: AuthService, private formBuilder: FormBuilder, private route: ActivatedRoute, private location: Location) {
+
   }
 
   participantStatuss: Array<any>
@@ -36,7 +37,8 @@ export class EventParticipantsComponent implements OnInit {
   Button: any;
   submitted: boolean;
   searchText: String;
-
+  users: Array<any>;
+  paidStatus: String = "";
 
   ngOnInit() {
     //new EventParticipantsComponent(this.qrService,this.datePipe,this.participantStatusService,this.excelService,this.eventRegistration,this.authService,this.formBuilder,this.route,this.location);
@@ -50,29 +52,58 @@ export class EventParticipantsComponent implements OnInit {
     this.getParticipants();
     this.getParticipantStatus();
     this.searchText = "";
+    this.getUsers();
+  }
+
+  filter() {
+    let paid: Boolean;
+    if (this.paidStatus == "true") {
+      paid = true;
+    }
+    else {
+      paid = false;
+    }
+    this.eventRegistration.getEvents(this.event_id).subscribe((response: any) => {
+      this.participants = [];
+      if (this.paidStatus != "") {
+        for (let user of response) {
+          if (user.user_id.cart_paid == paid) {
+            this.participants.push(user);
+          }
+        }
+      }
+      else {
+        this.participants = response;
+      }
+    });
   }
 
   reload() {
     this.getParticipants();
   }
 
+  getUsers() {
+    this.userService.getAllParticipants().subscribe((response: any) => {
+      this.users = response;
+      this.users.sort();
+    })
+  }
+
   get f() { return this.participantForm.controls; }
   onSubmit(form: FormGroup) {
     this.submitted = true;
     if (form.valid) {
-      if (form.value._id === '') {
-        // this.eventRegistration.createEventRegistration(,this.event_id).subscribe((response: any) => {
-        //   if (response.error) {
-        //     M.toast({ html: response.msg, classes: 'roundeds' });
-        //     this.getParticipants();
-        //     this.createForm();
-        //   } else {
-        //     M.toast({ html: response.msg, classes: 'roundeds' });
-        //     this.getParticipants();
-        //     this.createForm();
-        //   }
-        // });
-      }
+      this.eventRegistration.createEventRegistration(this.participantForm.get('selectedUserId').value, this.event_id).subscribe((response: any) => {
+        if (response.error) {
+          M.toast({ html: response.msg, classes: 'roundeds' });
+          this.getParticipants();
+          this.createForm();
+        } else {
+          M.toast({ html: response.msg, classes: 'roundeds' });
+          this.getParticipants();
+          this.createForm();
+        }
+      });
     } else {
       M.toast({ html: 'Please Check The Form', classes: 'roundeds' });
     }
@@ -103,10 +134,12 @@ export class EventParticipantsComponent implements OnInit {
     });
 
     this.qrScannerComponent.capturedQr.subscribe((result: string) => {
+      console.log(result)
       this.qrService.markPresent(result, this.event_id).subscribe((res: any) => {
         if (res.error) {
           M.toast({ html: 'An Error Occured. Scan Again', classes: 'roundeds' });
         } else {
+          
           M.toast({ html: res.msg, classes: 'roundeds' });
         }
       })
@@ -123,7 +156,7 @@ export class EventParticipantsComponent implements OnInit {
     this.submitted = false;
     this.participantForm = this.formBuilder.group({
       _id: '',
-      email_id: ['', Validators.required],
+      selectedUserId: ['', Validators.required],
       participation: ['', Validators.required]
     });
     this.Button = 'Create';
@@ -142,6 +175,7 @@ export class EventParticipantsComponent implements OnInit {
       }
     });
   }
+
   updateAttendance(id: string) {
     this.eventRegistration.updateAttendance(id, this.currentAttendance).subscribe((response: any) => {
       if (response.error) {
@@ -180,7 +214,7 @@ export class EventParticipantsComponent implements OnInit {
   }
 
   getEventById(event_id: String) {
-    this.eventRegistration.getEventById(event_id).subscribe((response:any)=>{
+    this.eventRegistration.getEventById(event_id).subscribe((response: any) => {
       this.event = response;
       console.log(this.event);
     });

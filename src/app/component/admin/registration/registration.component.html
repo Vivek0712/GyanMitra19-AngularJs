@@ -129,11 +129,6 @@
                     <div class="col-3">
                       {{ selectedParticipant.registration_mode }}
                     </div>
-                  </div><br><br>
-                  <div class="row">
-                    <button *ngIf="selectedParticipant.cart_paid" type="button" class="btn btn-dark">Payment Made</button>
-                    <button *ngIf="!selectedParticipant.cart_paid" type="button" class="btn btn-success" (click)="confirmPayment()">Confirm
-                      Payment</button>
                   </div>
                 </div>
               </div>
@@ -270,14 +265,18 @@
                   <h6>Events</h6>
                   <div class="row">
                     <div class="col-9">
-                      <select class="custom-select" placeholder="Events" [(ngModel)]="selectedEventId" id="slctEvnt">
+                      <!-- <select class="custom-select" placeholder="Events" [(ngModel)]="selectedEventId" id="slctEvnt">
                         <option value="" selected>All</option>
                         <option *ngFor="let event of events" value={{event._id}}>{{event.title}}</option>
-                      </select>
+                      </select> -->
+                      <button (click)="toggle()" type="button" class="btn btn-lg btn-toggle" data-toggle="button"
+                        aria-pressed="false" autocomplete="off">
+                        <div class="handle"></div>
+                      </button>
                     </div>
-                    <div class="col-3">
-                      <button class="btn btn-blue-grey float-right">Add Event</button>
-                    </div>
+                    <!-- <div class="col-3">  
+                      <button class="btn btn-blue-grey float-right" (click)="registerEvent()">Add Event</button>
+                    </div> -->
                   </div>
                 </div>
               </div>
@@ -330,6 +329,23 @@
                     <div class="col-3">
                       <button class="btn btn-blue-grey float right" (click)="registerWorkshop()">Add Workshop</button>
                     </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card" *ngIf="!selectedParticipant.cart_paid && invoiceStatus">
+              <div class="card-content">
+                <div class="card-title">
+                  Invoice
+                </div>
+                <div class="card-body">
+                  <h6>Total Amount : {{ selectedParticipantAmount }}</h6>
+                  <br><br>
+                  <div class="row">
+                    <button *ngIf="selectedParticipant.cart_paid" type="button" class="btn btn-dark">Payment Made</button>
+                    <button *ngIf="!selectedParticipant.cart_paid" type="button" class="btn btn-success" (click)="confirmPayment()">Confirm
+                      Payment</button>
                   </div>
                 </div>
               </div>

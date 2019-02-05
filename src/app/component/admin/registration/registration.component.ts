@@ -12,6 +12,7 @@ import { EventRegistrationService } from 'src/app/services/eventRegistration/eve
 import { QrScannerComponent } from 'angular2-qrscanner';
 import { QrService } from 'src/app/services/qr/qr.service';
 import { EventService } from 'src/app/services/event/event.service';
+import { PaymentService } from 'src/app/services/payment/payment.service';
 
 declare var M: any;
 
@@ -54,8 +55,11 @@ export class RegistrationComponent implements OnInit {
   workshops: Array<any>;
   selectedEventId: String;
   selectedWorkshopId: String;
+  value: Boolean = false;
+  selectedParticipantAmount: number = 0;
+  invoiceStatus: Boolean = false;
   @ViewChild(QrScannerComponent) qrScannerComponent: QrScannerComponent;
-  constructor(private eventService: EventService, private qrService: QrService, private reportserviceService: ReportserviceService, private datePipe: DatePipe, private excelService: ExcelService, private yearService: YearService, private collegeService: CollegeService, private userService: UserService, private degreeService: DegreeService, private courseService: CourseService, private formBuilder: FormBuilder, private eventRegister: EventRegistrationService) { }
+  constructor(private payService: PaymentService, private eventService: EventService, private qrService: QrService, private reportserviceService: ReportserviceService, private datePipe: DatePipe, private excelService: ExcelService, private yearService: YearService, private collegeService: CollegeService, private userService: UserService, private degreeService: DegreeService, private courseService: CourseService, private formBuilder: FormBuilder, private eventRegister: EventRegistrationService) { }
 
   ngOnInit() {
     this.currentPage = 1;
@@ -72,11 +76,33 @@ export class RegistrationComponent implements OnInit {
     this.viewDetails = false;
   }
 
-  registerWorkshop() {
-    this.eventRegister.createEventRegistration(this.selectedParticipant._id, this.selectedWorkshopId).subscribe((response: any) => {
-      M.toast({ html: response.msg, classes: 'roundeds' });
+  toggle() {
+    if (this.value == true) {
+      this.value = false;
+      this.selectedParticipantAmount = this.selectedParticipantAmount - 200;
+    }
+    else {
+      this.value = true;
+      this.invoiceStatus = true;
+      this.selectedParticipantAmount = this.selectedParticipantAmount + 200;
+    }
+  }
+
+  calculateTotal(id: String) {
+    this.payService.calculateTotalAmount(id).subscribe((response: any) => {
+      this.selectedParticipantAmount = response.amount;
     })
   }
+
+  registerWorkshop() {
+    this.invoiceStatus = true;
+    this.eventRegister.createEventRegistration(this.selectedParticipant._id, this.selectedWorkshopId).subscribe((response: any) => {
+      M.toast({ html: response.msg, classes: 'roundeds' });
+      this.calculateTotal(this.selectedParticipant._id);
+    })
+    this.calculateTotal(this.selectedParticipant._id);
+  }
+
 
   getEvents() {
     this.eventService.readWithEventCategory("Event", 0).subscribe((response: any) => {
@@ -238,13 +264,15 @@ export class RegistrationComponent implements OnInit {
   }
 
   moreInfo(_id: string) {
+    this.invoiceStatus = false;
     this.viewDetails = true;
     this.userService.getParticipant(_id).subscribe((response: any) => {
       this.selectedParticipant = response;
     })
     this.getRegisteredEvents(_id);
     this.getRegisteredWorkshops(_id);
-
+    this.selectedParticipantAmount = 0;
+    this.calculateTotal(_id);
   }
 
   viewed() {
@@ -457,6 +485,7 @@ export class RegistrationComponent implements OnInit {
       var reportData: any = [];
       reportData["Sl. No"] = slNo++;
       reportData["Name"] = ele.name;
+      //console.log(ele.name);
       reportData["College"] = ele.college_id.name;
       reportData["Degree"] = ele.degree_id.name;
       reportData["Department"] = ele.department_id.name;

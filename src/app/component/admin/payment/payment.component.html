@@ -58,15 +58,15 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let pay of payedUsers;let event of events;let workshop of workshops let i = index;">
+                    <tr *ngFor="let pay of payedUsers; let i = index;">
                       <th scope="row">{{i+1}}</th>
                       <td>{{ pay.user_id.name }}</td>
                       <td>{{ pay.transaction_id }}</td>
                       <td>{{ pay.amount }}</td>
                       <td>{{ pay.user_id.email_id }}</td>
                       <td>{{ pay.user_id.mobile_number }}</td>
-                      <td>{{ event }}</td>
-                      <td>{{ workshop }}</td>
+                      <!-- <td>{{ event }}</td>
+                      <td>{{ workshop }}</td> -->
                     </tr>
                   </tbody>
                 </table>

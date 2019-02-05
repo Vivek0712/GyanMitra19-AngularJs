@@ -8,25 +8,31 @@ import { map } from 'rxjs/operators';
 })
 export class PaymentService {
 
-  constructor(private http:HttpClient,private app:AppService,private paymentService:PaymentService) { }
+  constructor(private http: HttpClient, private app: AppService, private paymentService: PaymentService) { }
   readonly baseUrl = 'payment/';
 
-  genAccHash(data:any){
+  genAccHash(data: any) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this.http.post(this.app.getUrl(this.baseUrl + 'getAccHash'), data).pipe(map(res => res, { 'headers': headers }));
   }
 
-  genHash(data:any) {
+  genHash(data: any) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this.http.post(this.app.getUrl(this.baseUrl + 'getHash'), data).pipe(map(res => res, { 'headers': headers }));
   }
 
-  getPaymentDetails(){
+  getPaymentDetails() {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.get(this.app.getUrl(this.baseUrl) + 'payedUsers/');    
+    return this.http.get(this.app.getUrl(this.baseUrl) + 'payedUsers/');
   }
-  
+
+  calculateTotalAmount(user_id: String) {
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.get(this.app.getUrl(this.baseUrl) + 'calculateTotalAmount/' + user_id);
+  }
+
 }
