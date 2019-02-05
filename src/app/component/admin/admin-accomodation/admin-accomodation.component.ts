@@ -23,7 +23,7 @@ export class AdminAccomodationComponent implements OnInit {
   selectedTransactionID: string;
   ddImage: string;
   selectedID: string;
-  constructor(public appService:AppService, private collegeService: CollegeService, private departmentService: DepartmentService, private accommodationService: AccomodationService) { }
+  constructor(public appService: AppService, private collegeService: CollegeService, private departmentService: DepartmentService, private accommodationService: AccomodationService) { }
 
   ngOnInit() {
     this.loadColleges();
@@ -37,11 +37,12 @@ export class AdminAccomodationComponent implements OnInit {
     this.selectedTransactionID = "";
     this.ddImage = "";
     this.selectedID = "";
+    
   }
 
   loadDD(id: string, tId: string, imgLoc: string) {
     this.selectedTransactionID = tId;
-    this.accommodationService.confirmAccomodation(id).subscribe((response:any )=>{
+    this.accommodationService.confirmAccomodation(id).subscribe((response: any) => {
       if (response.error) {
         M.toast({ html: response.msg, classes: 'roundeds' });
         this.loadAllAccomodations()
@@ -59,9 +60,9 @@ export class AdminAccomodationComponent implements OnInit {
     });
   }
 
-  deleteRequest(id: string){
-   
-    this.accommodationService.deleteAccomodation(id).subscribe((response: any)=>{
+  deleteRequest(id: string) {
+
+    this.accommodationService.deleteAccomodation(id).subscribe((response: any) => {
       if (response.error) {
         M.toast({ html: response.msg, classes: 'roundeds' });
         this.loadAllAccomodations()
@@ -72,20 +73,8 @@ export class AdminAccomodationComponent implements OnInit {
     })
   }
 
-  confirmAccomodation(id: string){
-    this.accommodationService.confirmAccomodation(id).subscribe((response:any )=>{
-      if (response.error) {
-        M.toast({ html: response.msg, classes: 'roundeds' });
-        this.loadAllAccomodations()
-      } else {
-        M.toast({ html: response.msg, classes: 'roundeds' });
-        this.loadAllAccomodations()
-      }
-    })
-  } 
-
-  refusePayment(id: string){
-    this.accommodationService.refusePayment(id).subscribe((response:any )=>{
+  confirmAccomodation(id: string) {
+    this.accommodationService.confirmAccomodation(id).subscribe((response: any) => {
       if (response.error) {
         M.toast({ html: response.msg, classes: 'roundeds' });
         this.loadAllAccomodations()
@@ -96,8 +85,8 @@ export class AdminAccomodationComponent implements OnInit {
     })
   }
 
-  deproveAccomodation(id: string){
-    this.accommodationService.deproveAccomodation(id).subscribe((response:any )=>{
+  refusePayment(id: string) {
+    this.accommodationService.refusePayment(id).subscribe((response: any) => {
       if (response.error) {
         M.toast({ html: response.msg, classes: 'roundeds' });
         this.loadAllAccomodations()
@@ -107,9 +96,21 @@ export class AdminAccomodationComponent implements OnInit {
       }
     })
   }
-  
-  approveAccomodation(id: string){
-    this.accommodationService.approveAccomodation(id).subscribe((response:any )=>{
+
+  deproveAccomodation(id: string) {
+    this.accommodationService.deproveAccomodation(id).subscribe((response: any) => {
+      if (response.error) {
+        M.toast({ html: response.msg, classes: 'roundeds' });
+        this.loadAllAccomodations()
+      } else {
+        M.toast({ html: response.msg, classes: 'roundeds' });
+        this.loadAllAccomodations()
+      }
+    })
+  }
+
+  approveAccomodation(id: string) {
+    this.accommodationService.approveAccomodation(id).subscribe((response: any) => {
       if (response.error) {
         M.toast({ html: response.msg, classes: 'roundeds' });
         this.loadAllAccomodations()
