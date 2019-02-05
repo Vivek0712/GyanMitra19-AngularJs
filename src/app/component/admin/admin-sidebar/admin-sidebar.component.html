@@ -76,14 +76,14 @@
       <ng-container *ngIf="(role.role_id.name == 'Admin') || (role.role_id.name=='Organizer')">
         <li class="nav-item has-sub"><a><i class="fas fa-cube"></i><span class="menu-title" data-i18n="">Events</span></a>
           <ul class="menu-content">
-            <li class="menu-item" *ngFor="let event of events"><a [routerLink]="['/admin/eventParticipants', event._id]"
+            <li class="menu-item" *ngFor="let event of events"><a target="none" [routerLink]="['/admin/eventParticipants', event._id]"
                 [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><span class="menu-title"
                   data-i18n="">{{ event.title }}</span></a></li>
           </ul>
         </li>
         <li class="nav-item has-sub"><a><i class="fas fa-graduation-cap"></i><span class="menu-title" data-i18n="">Workshops</span></a>
           <ul class="menu-content">
-            <li class="menu-item" *ngFor="let workshop of workshops"><a [routerLink]="['/admin/eventParticipants', workshop._id ]"
+            <li class="menu-item" *ngFor="let workshop of workshops"><a target="none" [routerLink]="['/admin/eventParticipants', workshop._id ]"
                 [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><span class="menu-title"
                   data-i18n="">{{ workshop.title }} </span></a></li>
           </ul>
@@ -100,16 +100,16 @@
 
       <li class="nav-item has-sub"><a><i class="fas fa-cogs"></i><span class="menu-title" data-i18n="">Problems</span></a>
         <ul class="menu-content">
-            <li class="nav-item"><a  [routerLink]="['/admin/probs']" [routerLinkActive]="['active']"
+          <li class="nav-item"><a [routerLink]="['/admin/probs']" [routerLinkActive]="['active']"
               [routerLinkActiveOptions]="{exact:true}"> Add Problems</a>
-            </li>
-      
-            <li class="nav-item"><a  [routerLink]="['/admin/viewProbs']" [routerLinkActive]="['active']"
+          </li>
+
+          <li class="nav-item"><a [routerLink]="['/admin/viewProbs']" [routerLinkActive]="['active']"
               [routerLinkActiveOptions]="{exact:true}">view Problems</a>
-            </li>  
+          </li>
         </ul>
       </li>
-  
+
     </ul>
     <div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 3px;">
       <div class="ps-scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div>

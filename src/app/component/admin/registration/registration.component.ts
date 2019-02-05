@@ -53,7 +53,7 @@ export class RegistrationComponent implements OnInit {
   registeredEvents: Array<any> = [];
   events: Array<any>;
   workshops: Array<any>;
-  selectedEventId: String;
+  selectedEventId: String = "";
   selectedWorkshopId: String;
   value: Boolean = false;
   selectedParticipantAmount: number = 0;
@@ -99,10 +99,31 @@ export class RegistrationComponent implements OnInit {
     this.eventRegister.createEventRegistration(this.selectedParticipant._id, this.selectedWorkshopId).subscribe((response: any) => {
       M.toast({ html: response.msg, classes: 'roundeds' });
       this.calculateTotal(this.selectedParticipant._id);
+      this.getRegisteredWorkshops(this.selectedParticipant._id);
     })
     this.calculateTotal(this.selectedParticipant._id);
+    this.getRegisteredWorkshops(this.selectedParticipant._id);
   }
 
+  registerEvent() {
+    this.invoiceStatus = true;
+    this.eventRegister.createEventRegistration(this.selectedParticipant._id, this.selectedEventId).subscribe((response: any) => {
+      M.toast({ html: response.msg, classes: 'roundeds' });
+      this.calculateTotal(this.selectedParticipant._id);
+      this.getRegisteredEvents(this.selectedParticipant._id);
+    })
+    this.calculateTotal(this.selectedParticipant._id);
+    this.getRegisteredEvents(this.selectedParticipant._id);
+  }
+
+  deleteEventRegistration(id: String) {
+    this.eventRegister.cancelEventRegistration(id).subscribe((response: any) => {
+      this.getRegisteredEvents(this.selectedParticipant._id);
+      this.getRegisteredWorkshops(this.selectedParticipant._id);
+      this.calculateTotal(this.selectedParticipant._id);
+      M.toast({ html: response.msg, classes: 'roundeds' });
+    })
+  }
 
   getEvents() {
     this.eventService.readWithEventCategory("Event", 0).subscribe((response: any) => {
@@ -258,16 +279,21 @@ export class RegistrationComponent implements OnInit {
   }
 
   confirmPayment() {
-    this.userService.confirmPayment(this.selectedParticipant._id).subscribe((response: any) => {
+    this.userService.confirmPaymentOffline(this.selectedParticipant._id).subscribe((response: any) => {
       M.toast({ html: response.msg, classes: 'roundeds' });
     })
   }
 
   moreInfo(_id: string) {
-    this.invoiceStatus = false;
     this.viewDetails = true;
     this.userService.getParticipant(_id).subscribe((response: any) => {
       this.selectedParticipant = response;
+      if (this.selectedParticipant.cart_paid) {
+        this.invoiceStatus = true;
+      }
+      else {
+        this.invoiceStatus = false;
+      }
     })
     this.getRegisteredEvents(_id);
     this.getRegisteredWorkshops(_id);
@@ -286,7 +312,6 @@ export class RegistrationComponent implements OnInit {
     this.userService.getAllParticipants().subscribe((response: any) => {
       this.participants = response;
     });
-
   }
 
   // nextPage() {

@@ -240,6 +240,7 @@
                           <th>Sl. No</th>
                           <th>Event Name</th>
                           <th>Department</th>
+                          <th>Delete</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -247,6 +248,11 @@
                           <th scope="row">{{i+1}}</th>
                           <td>{{event.event_id.title}}</td>
                           <td>{{event.event_id.department_id.name}}</td>
+                          <td>
+                            <div class="fonticon-wrap icon-shadow icon-shadow-danger" (click)="deleteEventRegistration(event._id)">
+                              <a> <i class="la la-trash la-2x"></i></a>
+                            </div>
+                          </td>
                         </tr>
                       </tbody>
                     </table>
@@ -265,18 +271,21 @@
                   <h6>Events</h6>
                   <div class="row">
                     <div class="col-9">
-                      <!-- <select class="custom-select" placeholder="Events" [(ngModel)]="selectedEventId" id="slctEvnt">
-                        <option value="" selected>All</option>
+                      <select class="custom-select" placeholder="Events" [(ngModel)]="selectedEventId" id="slctEvnt">
+                        <option value="" selected disabled>All</option>
                         <option *ngFor="let event of events" value={{event._id}}>{{event.title}}</option>
-                      </select> -->
-                      <button (click)="toggle()" type="button" class="btn btn-lg btn-toggle" data-toggle="button"
+                      </select>
+                    </div>
+
+                    <div class="col-3">
+                      <button class="btn btn-blue-grey float right" (click)="registerEvent()">Add Event</button>
+                    </div>
+                    <!-- <button (click)="toggle()" type="button" class="btn btn-lg btn-toggle" data-toggle="button"
                         aria-pressed="false" autocomplete="off">
                         <div class="handle"></div>
-                      </button>
-                    </div>
-                    <!-- <div class="col-3">  
-                      <button class="btn btn-blue-grey float-right" (click)="registerEvent()">Add Event</button>
-                    </div> -->
+                      </button> -->
+                    <!-- <input type="checkbox" id="eventValue" name="evntValue" [(ngModel)]="value"
+                        (click)="toggle()"> -->
                   </div>
                 </div>
               </div>
@@ -297,6 +306,7 @@
                           <th>Sl. No</th>
                           <th>Workshop Name</th>
                           <th>Department</th>
+                          <th>Delete</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -304,6 +314,11 @@
                           <th scope="row">{{i+1}}</th>
                           <td>{{event.event_id.title}}</td>
                           <td>{{event.event_id.department_id.name}}</td>
+                          <td>
+                            <div class="fonticon-wrap icon-shadow icon-shadow-danger" (click)="deleteEventRegistration(event._id)">
+                              <a> <i class="la la-trash la-2x"></i></a>
+                            </div>
+                          </td>
                         </tr>
                       </tbody>
                     </table>
@@ -322,7 +337,7 @@
                   <div class="row">
                     <div class="col-9">
                       <select class="custom-select" placeholder="Workshops" [(ngModel)]="selectedWorkshopId" id="slctEvnt">
-                        <option value="" selected>All</option>
+                        <option value="" selected disabled>All</option>
                         <option *ngFor="let workshop of workshops" value={{workshop._id}}>{{workshop.title}}</option>
                       </select>
                     </div>
@@ -334,7 +349,7 @@
               </div>
             </div>
 
-            <div class="card" *ngIf="!selectedParticipant.cart_paid && invoiceStatus">
+            <div class="card" *ngIf="!selectedParticipant.cart_paid">
               <div class="card-content">
                 <div class="card-title">
                   Invoice
@@ -343,13 +358,30 @@
                   <h6>Total Amount : {{ selectedParticipantAmount }}</h6>
                   <br><br>
                   <div class="row">
-                    <button *ngIf="selectedParticipant.cart_paid" type="button" class="btn btn-dark">Payment Made</button>
                     <button *ngIf="!selectedParticipant.cart_paid" type="button" class="btn btn-success" (click)="confirmPayment()">Confirm
                       Payment</button>
                   </div>
                 </div>
               </div>
             </div>
+
+            <div class="card" *ngIf="selectedParticipant.cart_paid">
+              <div class="card-content">
+                <div class="card-title">
+                  Invoice
+                </div>
+                <div class="card-body">
+                  <h6>Amount : {{ selectedParticipantAmount }}</h6>
+                  <br><br>
+                  <div class="row">
+                    <button *ngIf="selectedParticipant.cart_paid" type="button" class="btn btn-dark">Payment Made</button>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
 
           </div>
           <div class="modal-footer">
