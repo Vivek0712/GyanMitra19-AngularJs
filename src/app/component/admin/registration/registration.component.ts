@@ -438,31 +438,37 @@ export class RegistrationComponent implements OnInit {
     var reportArray: Array<any> = [];
     var responseArray = []
     this.reportserviceService.getEventCount().subscribe((res: any) => {
-      responseArray = res
-      responseArray.forEach((event) => {
+      var resp = {}
+      resp = res
+      var responseArray = []
+      responseArray = Object.entries(resp)
+      responseArray.forEach((entry) => {
         var reportData: any = [];
         reportData["Sl. No"] = slNo++
-        reportData["Name"] = event.event[0].title;
-        reportData["Count"] = event.count
+        reportData["Name"] = entry[0]
+        reportData["Not Paid"] = entry[1]["Not Paid"]
+        reportData["Paid"] = entry[1]["Paid"]
         reportArray.push(reportData)
       })
       this.excelService.exportAsExcelFile(reportArray, filename);
     })
   }
   exportAsXLSXwithWorkshopCount() {
-    var filename = 'Workshop Count - ' + this.datePipe.transform(Date.now(), 'dd-MM-yyyy');
+    var filename = 'Event Count - ' + this.datePipe.transform(Date.now(), 'dd-MM-yyyy');
     var slNo = 1;
     var reportArray: Array<any> = [];
     var responseArray = []
-    this.reportserviceService.getWorkshopCount().subscribe((res: any) => {
-      responseArray = res
-      console.log(res);
-      responseArray.forEach((event) => {
+    this.reportserviceService.getEventCount().subscribe((res: any) => {
+      var resp = {}
+      resp = res
+      var responseArray = []
+      responseArray = Object.entries(resp)
+      responseArray.forEach((entry) => {
         var reportData: any = [];
         reportData["Sl. No"] = slNo++
-        reportData["Name"] = event.event[0].title;
-        // reportData["Department Name"] = event.event[0].department_id.name;
-        reportData["Count"] = event.count
+        reportData["Name"] = entry[0]
+        reportData["Not Paid"] = entry[1]["Not Paid"]
+        reportData["Paid"] = entry[1]["Paid"]
         reportArray.push(reportData)
       })
       this.excelService.exportAsExcelFile(reportArray, filename);
