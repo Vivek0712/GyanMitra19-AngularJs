@@ -38,4 +38,10 @@ export class ReportserviceService {
     headers.append('Content-Type', 'application/json');
     return this.http.get(this.app.getUrl(this.baseUrl) + 'getWorkshopCount');
   }
+
+  getDayCount(){
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.get(this.app.getUrl(this.baseUrl) + 'getDayCount');
+  }
 }

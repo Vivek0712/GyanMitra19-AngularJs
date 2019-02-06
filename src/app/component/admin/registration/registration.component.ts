@@ -278,6 +278,63 @@ export class RegistrationComponent implements OnInit {
     this.getAllParticipants();
   }
 
+  loadDayCount() {
+    var filename = 'Event Count - ' + this.datePipe.transform(Date.now(), 'dd-MM-yyyy');
+    var reportArray: Array<any> = [];
+    var responseArray = []
+    this.reportserviceService.getDayCount().subscribe((res: any) => {
+      var resp = {}
+      resp = res
+      var responseArray = []
+      responseArray = Object.entries(resp)
+      var onlyEvents = responseArray.filter((doc) => {
+        return doc[1]["Event"] == true && doc[1]["Workshop"] == false
+      })
+      var onlyWorkshops = responseArray.filter((doc) => {
+        return doc[1]["Event"] == false && doc[1]["Workshop"] == true
+      })
+      var bothEventsAndWorkshops = responseArray.filter((doc) => {
+        return doc[1]["Event"] == true && doc[1]["Workshop"] == true
+      })
+      var paidOnlyEvents = onlyEvents.filter((doc)=>{
+        return doc[1]["Paid"]
+      }).length
+      var notPaidOnlyEvents = onlyEvents.filter((doc)=>{
+        return !doc[1]["Paid"]
+      }).length
+      var paidOnlyWoprkshops = onlyWorkshops.filter((doc)=>{
+        return doc[1]["Paid"]
+      }).length
+      var notPaidOnlyWorkshops = onlyWorkshops.filter((doc)=>{
+        return !doc[1]["Paid"]
+      }).length
+      var paidAll = bothEventsAndWorkshops.filter((doc)=>{
+        return doc[1]["Paid"]
+      }).length
+      var notPaidAll = bothEventsAndWorkshops.filter((doc)=>{
+        return !doc[1]["Paid"]
+      }).length
+      console.log(notPaidOnlyEvents)
+      console.log(notPaidOnlyWorkshops)
+      var reportData = []
+      reportData["Category"] = "Event Only"
+      reportData["Paid"] = paidOnlyEvents
+      reportData["Not Paid"] = notPaidOnlyEvents
+      reportArray.push(reportData)
+      var reportData2 = []
+      reportData2["Category"] = "Workshop Only"
+      reportData2["Paid"] = paidOnlyWoprkshops
+      reportData2["Not Paid"] = notPaidOnlyWorkshops
+      reportArray.push(reportData2)
+      var reportData3 = []
+      reportData3["Category"] = "Both Events and Workshops"
+      reportData3["Paid"] = paidAll
+      reportData3["Not Paid"] = notPaidAll
+      reportArray.push(reportData3)
+      this.excelService.exportAsExcelFile(reportArray, filename);
+    })
+  }
+
   confirmPayment() {
     this.userService.confirmPaymentOffline(this.selectedParticipant._id).subscribe((response: any) => {
       M.toast({ html: response.msg, classes: 'roundeds' });
@@ -454,11 +511,11 @@ export class RegistrationComponent implements OnInit {
     })
   }
   exportAsXLSXwithWorkshopCount() {
-    var filename = 'Event Count - ' + this.datePipe.transform(Date.now(), 'dd-MM-yyyy');
+    var filename = 'Workshop Count - ' + this.datePipe.transform(Date.now(), 'dd-MM-yyyy');
     var slNo = 1;
     var reportArray: Array<any> = [];
     var responseArray = []
-    this.reportserviceService.getEventCount().subscribe((res: any) => {
+    this.reportserviceService.getWorkshopCount().subscribe((res: any) => {
       var resp = {}
       resp = res
       var responseArray = []
