@@ -22,6 +22,7 @@ export class AdminAccomodationComponent implements OnInit {
   selectedTransactionID: string;
   ddImage: string;
   selectedID: string;
+  paidStatus: String;
   constructor(private datePipe: DatePipe, public appService: AppService, private collegeService: CollegeService, private departmentService: DepartmentService, private accommodationService: AccomodationService, private excelService: ExcelService) { }
   selectedGender: String;
 
@@ -32,6 +33,7 @@ export class AdminAccomodationComponent implements OnInit {
     this.ddImage = "";
     this.selectedID = "";
     this.selectedGender = "";
+    this.paidStatus = ""
   }
 
   loadDD(id: string, tId: string, imgLoc: string) {
@@ -50,9 +52,23 @@ export class AdminAccomodationComponent implements OnInit {
   filter() {
     this.accommodationService.populateAccomodation().subscribe((response: any) => {
       this.accomodations = [];
-      if (this.selectedGender != "") {
+      if (this.selectedGender != "" && this.paidStatus != "") {
+        for (let user of response) {
+          if (user.user_id.gender == this.selectedGender && user.acc_payment_status == this.paidStatus) {
+            this.accomodations.push(user);
+          }
+        }
+      }
+      else if (this.selectedGender != "") {
         for (let user of response) {
           if (user.user_id.gender == this.selectedGender) {
+            this.accomodations.push(user);
+          }
+        }
+      }
+      else if (this.paidStatus != "") {
+        for (let user of response) {
+          if (user.acc_payment_status == this.paidStatus) {
             this.accomodations.push(user);
           }
         }
