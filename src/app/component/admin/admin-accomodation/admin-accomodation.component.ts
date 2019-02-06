@@ -3,12 +3,16 @@ import { CollegeService } from 'src/app/services/college/college.service';
 import { DepartmentService } from 'src/app/services/department/department.service';
 import { AccomodationService } from 'src/app/services/accomodation/accomodation.service';
 import { AppService } from 'src/app/services/app/app.service';
+import { ExcelService } from 'src/app/services/excel.service';
+import { Location, DatePipe } from '@angular/common';
+
 declare var M: any;
 
 @Component({
   selector: 'app-admin-accomodation',
   templateUrl: './admin-accomodation.component.html',
-  styleUrls: ['./admin-accomodation.component.css']
+  styleUrls: ['./admin-accomodation.component.css'],
+  providers: [DatePipe]
 })
 export class AdminAccomodationComponent implements OnInit {
   colleges: any;
@@ -23,7 +27,7 @@ export class AdminAccomodationComponent implements OnInit {
   selectedTransactionID: string;
   ddImage: string;
   selectedID: string;
-  constructor(public appService: AppService, private collegeService: CollegeService, private departmentService: DepartmentService, private accommodationService: AccomodationService) { }
+  constructor(private datePipe: DatePipe, public appService: AppService, private collegeService: CollegeService, private departmentService: DepartmentService, private accommodationService: AccomodationService, private excelService: ExcelService) { }
 
   ngOnInit() {
     this.loadColleges();
@@ -37,7 +41,7 @@ export class AdminAccomodationComponent implements OnInit {
     this.selectedTransactionID = "";
     this.ddImage = "";
     this.selectedID = "";
-    
+
   }
 
   loadDD(id: string, tId: string, imgLoc: string) {
@@ -138,5 +142,24 @@ export class AdminAccomodationComponent implements OnInit {
     this.collegeService.readCollege(0).subscribe((response) => {
       this.colleges = response;
     })
+  }
+
+  exportAsExcel() {
+    var filename = 'All Accomodation - ' + this.datePipe.transform(Date.now(), 'dd-MM-yyyy');
+    var slNo = 1;
+    var reportArray: Array<any> = [];
+    this.accomodations.forEach((entry) => {
+      var reportData: any = [];
+      reportData["Sl. No"] = slNo++
+      reportData["Name"] = entry.user_id.name
+      reportData["Gender"] = entry.user_id.gender
+      reportData["College"] = entry.user_id.college_id.name
+      reportData["Mobile Number"] = entry.user_id.mobile_number
+      reportData["Email ID"] = entry.user_id.email_id
+      reportData["Application Status"] = entry.acc_status
+      reportData["Payment Status"] = entry.acc_payment_status
+      reportArray.push(reportData)
+    });
+    this.excelService.exportAsExcelFile(reportArray, filename);
   }
 }
