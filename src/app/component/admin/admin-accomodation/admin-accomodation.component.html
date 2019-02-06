@@ -3,7 +3,7 @@
     <div class="content-wrapper-before"></div>
     <div class="content-header row">
       <div class="content-header-left col-md-4 col-12 mb-2">
-        <h3 class="content-header-title">Accomodation Requests</h3>
+        <h3 class="content-header-title">Accomodation Requests (Count: {{accomodations.length}})</h3>
       </div>
       <div class="content-header-right col-md-8 col-12">
         <div class="breadcrumbs-top float-md-right">
@@ -70,15 +70,28 @@
                 <hr />
                 <div class="row">
                   <div class="col-3">
+                    Gender
                     <select class="custom-select" [(ngModel)]="selectedGender">
-                      <option value="" selected disabled>Gender</option>
+                      <option value="" selected>All</option>
                       <option value="Male">Male</option>
                       <option value="Female">Female</option>
                     </select>
                   </div>
-                  <input type="button" class="btn btn-secondary" (click)="exportAsExcel()" value="Generate Excel" />
+                  <div class="col-3">
+                    Paid
+                    <select class="custom-select" [(ngModel)]="paidStatus">
+                      <option value="" selected>All</option>
+                      <option value="Paid">Paid</option>
+                      <option value="Not Paid">Not Paid</option>
+                    </select>
+                  </div>
                   <div class="col-2">
+                    <br>
                     <button (click)="filter()" class="btn btn-success">Filter</button>
+                  </div>
+                  <div class="col-2">
+                    <br>
+                    <input type="button" class="btn btn-secondary" (click)="exportAsExcel()" value="Generate Excel" />
                   </div>
                 </div>
                 <br />
