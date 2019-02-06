@@ -85,7 +85,6 @@ export class EventParticipantsComponent implements OnInit {
   getUsers() {
     this.userService.getAllParticipants().subscribe((response: any) => {
       this.users = response;
-      this.users.sort();
     })
   }
 
@@ -139,7 +138,7 @@ export class EventParticipantsComponent implements OnInit {
         if (res.error) {
           M.toast({ html: 'An Error Occured. Scan Again', classes: 'roundeds' });
         } else {
-          
+
           M.toast({ html: res.msg, classes: 'roundeds' });
         }
       })

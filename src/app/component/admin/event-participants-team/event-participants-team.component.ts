@@ -5,7 +5,7 @@ import { EventRegistrationService } from 'src/app/services/eventRegistration/eve
 import { RegistrationService } from 'src/app/services/registration/registration.service';
 import { UserService } from 'src/app/services/user/user.service';
 
-declare var M:any;
+declare var M: any;
 @Component({
   selector: 'app-event-participants-team',
   templateUrl: './event-participants-team.component.html',
@@ -20,7 +20,8 @@ export class EventParticipantsTeamComponent implements OnInit {
   team_mates: Array<any>;
   event: any;
   Button: any;
-  constructor(private router: Router,private route: ActivatedRoute, private registrationService:RegistrationService,private formbuilder: FormBuilder, private eventRegister: EventRegistrationService,private userService: UserService) {
+  users: Array<any>;
+  constructor(private router: Router, private route: ActivatedRoute, private registrationService: RegistrationService, private formbuilder: FormBuilder, private eventRegister: EventRegistrationService, private userService: UserService) {
     this.route.params.subscribe(param => { this.event_id = param.id });
   }
   ngOnInit() {
@@ -28,13 +29,14 @@ export class EventParticipantsTeamComponent implements OnInit {
     this.team_mates = [];
     this.createForm();
     this.getParticipants();
+    this.getUsers();
   }
   get f() { return this.teamRegisterForm.controls; }
   createForm() {
     this.teamRegisterForm = this.formbuilder.group({
       _id: '',
       name: ['', Validators.required],
-      leader_id: ['',Validators.required]
+      leader_id: ['', Validators.required]
       //collegeMates:[this.college_mates]
     });
     this.Submitted = false;
@@ -45,17 +47,16 @@ export class EventParticipantsTeamComponent implements OnInit {
     this.Submitted = true;
     var iCnt = 0;
     var data = $('#default-multiple').select2('data');
-    var user_ids=[];
+    var user_ids = [];
     $.each(data, function () {
-     
       var user_id = $('#default-multiple').select2('data')[iCnt]['id'];
       user_ids.push(user_id);
       iCnt += 1;
     });
     if (form.valid) {
-      this.route.params.subscribe(param => { 
+      this.route.params.subscribe(param => {
         this.eventRegister.getEventById(param.id).subscribe((res: any) => {
-          if(res[0].max_members > user_ids.length){
+          if (res[0].max_members > user_ids.length) {
             this.eventRegister.createEventWithTeamRegistration(this.teamRegisterForm.get('leader_id').value, this.event_id, this.teamRegisterForm.get('name').value, "leader").subscribe((response: any) => {
               if (response.error) {
                 M.toast({ html: response.msg, classes: 'roundeds danger' });
@@ -74,7 +75,7 @@ export class EventParticipantsTeamComponent implements OnInit {
                 } else {
                   M.toast({ html: response.msg, classes: 'roundeds' });
                   this.createForm();
-                  flag = flag+1;
+                  flag = flag + 1;
                 }
               });
             }
@@ -83,7 +84,7 @@ export class EventParticipantsTeamComponent implements OnInit {
             this.createForm();
           }
         });
-       });
+      });
     }
   }
   getParticipants() {
@@ -112,8 +113,14 @@ export class EventParticipantsTeamComponent implements OnInit {
     }
   }
 
+  getUsers() {
+    this.userService.getAllParticipants().subscribe((response: any) => {
+      this.users = response;
+    })
+  }
+
   getEventById(event_id: String) {
-    this.eventRegister.getEventById(event_id).subscribe((response:any)=>{
+    this.eventRegister.getEventById(event_id).subscribe((response: any) => {
       this.event = response;
     });
   }
