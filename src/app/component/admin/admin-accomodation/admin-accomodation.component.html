@@ -77,6 +77,7 @@
                       <option value="Female">Female</option>
                     </select>
                   </div>
+                  <input type="button" class="btn btn-secondary" (click)="exportAsExcel()" value="Generate Excel" />
                   <div class="col-3">
                     Paid
                     <select class="custom-select" [(ngModel)]="paidStatus">
@@ -95,8 +96,6 @@
                   </div>
                 </div>
                 <br />
-                <hr />
-
                 <div class="row">
                   <div class="col-5">
                     Search Name
