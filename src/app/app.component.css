@@ -1,0 +1,11 @@
+html #footer {
+  bottom: 0;
+  width: 100%;
+  position: absolute;
+  height: 60px;
+  background-color: #f5f5f5;
+}
+
+html #footer .footer-block {
+  margin: 20px 0;
+}
