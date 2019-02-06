@@ -5,11 +5,11 @@
 </body>-->
 
 <div *ngIf="authService.isAdmin()">
-   <app-admin-navbar></app-admin-navbar>
-   <router-outlet></router-outlet>
+  <app-admin-navbar></app-admin-navbar>
+  <router-outlet></router-outlet>
 </div>
 
-<div *ngIf="!authService.isAdmin()" >
-   <app-user-navbar></app-user-navbar>
-   <router-outlet></router-outlet>
+<div *ngIf="!authService.isAdmin()">
+  <app-user-navbar></app-user-navbar>
+  <router-outlet></router-outlet>
 </div>

@@ -559,6 +559,7 @@ export class RegistrationComponent implements OnInit {
         } else {
           reportData["Payment Status"] = "No"
         }
+        reportData["Registered In"]=ele.event_id.title
         reportArray.push(reportData)
       })
       this.excelService.exportAsExcelFile(reportArray, filename);
@@ -573,7 +574,6 @@ export class RegistrationComponent implements OnInit {
       var reportData: any = [];
       reportData["Sl. No"] = slNo++;
       reportData["Name"] = ele.name;
-      //console.log(ele.name);
       reportData["College"] = ele.college_id.name;
       reportData["Degree"] = ele.degree_id.name;
       reportData["Department"] = ele.department_id.name;
@@ -591,6 +591,7 @@ export class RegistrationComponent implements OnInit {
       } else {
         reportData["Payment Status"] = "No"
       }
+      reportData["Registered In"]=ele.event_id.title
       reportArray.push(reportData);
     })
     this.excelService.exportAsExcelFile(reportArray, filename);
