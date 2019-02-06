@@ -68,43 +68,24 @@
               <div class="card-body">
                 <h4>Filter</h4>
                 <hr />
-                <form name="frmFilter">
-                  <div class="row">
-                    <div class="col-2">
-                      Search Name
-                      <input type="text" name="selectedName" [(ngModel)]="selectedName" class="form-control"
-                        placeholder="Name">
-                    </div>
-                    <div class="col-2">
-                      College <select name="selectedCollege" [(ngModel)]="selectedCollege" class="custom-select">
-                        <option *ngFor="let item of colleges" value={{item._id}}>{{item.name}}</option>
-                      </select>
-                    </div>
-                    <div class="col-2">
-                      Department <select name="selectedDepartment" [(ngModel)]="selectedDepartment" class="custom-select">
-                        <option *ngFor="let item of departments" value={{item._id}}>{{item.name}}</option>
-                      </select>
-                    </div>
-                    <div class="col-2">
-                      Mode of Payment <select name="selectedModeOfPayment" [(ngModel)]="selectedModeOfPayment" class="custom-select">
-                        <option value="Online">Online</option>
-                        <option value="Demand Draft">Demand Draft</option>
-                      </select>
-                    </div>
-                    <div class="col-2">
-                      Days <select [(ngModel)]="selectedDays" name="selectedDays" class="custom-select">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                      </select>
-                    </div>
-                    <div class="col-2">
-                      <br />
-                      <button (click)="filter()" class="btn btn-success">Filter</button>
-                    </div>
+                <div class="row">
+                  <div class="col-5">
+
                   </div>
-                </form>
+                  <div class="col-2">
+                    <br />
+                    <button (click)="filter()" class="btn btn-success">Filter</button>
+                  </div>
+                </div>
                 <br />
                 <hr />
+
+                <div class="row">
+                  <div class="col-5">
+                    Search Name
+                    <input type="text" name="selectedName" [(ngModel)]="selectedName" class="form-control" placeholder="Name">
+                  </div>
+                </div>
 
                 <div class="table-responsive">
                   <table class="table table-hover header-fixed">
@@ -114,6 +95,7 @@
                         <th>Name</th>
                         <th>Gender</th>
                         <th>College</th>
+                        <th>Email id</th>
                         <th>Mobile Number</th>
                         <th>Days of Accomodation</th>
                         <th>Payment Status</th>
@@ -131,6 +113,7 @@
                         <td>{{accomodation.user_id.name}}</td>
                         <td>{{accomodation.user_id.gender}}</td>
                         <td>{{accomodation.user_id.college_id.name}}</td>
+                        <td>{{ accomodation.user_id.email_id }}</td>
                         <td>{{accomodation.user_id.mobile_number}}</td>
                         <td>{{accomodation.acc_days}}</td>
                         <td>{{accomodation.acc_payment_status}}</td>
@@ -162,9 +145,10 @@
                           </div>
                         </td> -->
                         <td>
-                            <button type="button" class="btn btn-secondary" data-container="body" data-toggle="popover" data-placement="top" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
-                                Popover on top
-                              </button>
+                          <button type="button" class="btn btn-secondary" data-container="body" data-toggle="popover"
+                            data-placement="top" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
+                            Popover on top
+                          </button>
                         </td>
                       </tr>
                     </tbody>
