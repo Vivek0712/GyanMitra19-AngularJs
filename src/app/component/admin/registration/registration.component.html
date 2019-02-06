@@ -422,7 +422,7 @@
                     </div>
                     <div class="col-6">
                       <div class="btn-group">
-                        <button class="btn btn-outline-blue" (click)="loadDayCount()">Extract Count</button>                      
+                        <button class="btn btn-outline-blue" (click)="loadDayCount()">Extract Count</button>
                       </div>
                     </div>
                     <!-- <div class="col-4 ">
@@ -444,9 +444,9 @@
                     <div class="col-3">
                       Payment
                     </div>
-                    <div class="col-3">
+                    <!-- <div class="col-3">
                       Activated
-                    </div>
+                    </div> -->
                   </div>
                   <div class="row">
                     <div class="col-3">
@@ -470,12 +470,15 @@
                       </select>
                     </div>
                     <div class="col-3">
+                      <input type="button" class="btn btn-success" (click)="filter()" value="Filter" />
+                    </div>
+                    <!-- <div class="col-3">
                       <select class="custom-select" [(ngModel)]="activated" id="slctActivated">
                         <option value="" selected="true">ALL</option>
                         <option value="true">Activated</option>
                         <option value="false">Not Activated</option>
                       </select>
-                    </div>
+                    </div> -->
                   </div>
                 </div>
                 <div class="row">
@@ -483,7 +486,6 @@
                 </div>
                 <div class="row">
                   <div class="col-1">
-                    <input type="button" class="btn btn-success" (click)="filter()" value="Filter" />
                   </div>
                   <div class="col">
                     <div class="btn-group">
