@@ -14,30 +14,20 @@ export class AdminAccomodationComponent implements OnInit {
   colleges: any;
   departments: any;
   accomodations: any;
-  filteredAccomodations: any;
   selectedName: string;
-  selectedDays: string;
-  selectedCollege: string;
-  selectedDepartment: string;
-  selectedModeOfPayment: string;
   selectedTransactionID: string;
   ddImage: string;
   selectedID: string;
+  selectedGender: String;
   constructor(public appService: AppService, private collegeService: CollegeService, private departmentService: DepartmentService, private accommodationService: AccomodationService) { }
 
   ngOnInit() {
-    this.loadColleges();
-    this.loadDepartments();
     this.loadAllAccomodations();
     this.selectedName = "";
-    this.selectedCollege = "";
-    this.selectedDays = "";
-    this.selectedDepartment = "";
-    this.selectedModeOfPayment = "";
     this.selectedTransactionID = "";
     this.ddImage = "";
     this.selectedID = "";
-    
+    this.selectedGender = "";
   }
 
   loadDD(id: string, tId: string, imgLoc: string) {
@@ -54,10 +44,19 @@ export class AdminAccomodationComponent implements OnInit {
   }
 
   filter() {
-    this.filteredAccomodations = this.accomodations.filter((item) => {
-      let name: string = item.user_id.name;
-      return name.toLowerCase().includes(this.selectedName.toLowerCase()) && this.selectedCollege == item.user_id.college_id._id && this.selectedDays == item.acc_days && this.selectedDepartment == item.user_id.department_id._id && this.selectedModeOfPayment == item.acc_mode_of_payment
-    });
+    this.accommodationService.populateAccomodation().subscribe((response: any) => {
+      this.accomodations = [];
+      if (this.selectedGender != "") {
+        for (let user of response) {
+          if (user.user_id.gender == this.selectedGender) {
+            this.accomodations.push(user);
+          }
+        }
+      }
+      else {
+        this.accomodations = response;
+      }
+    })
   }
 
   deleteRequest(id: string) {
@@ -123,20 +122,7 @@ export class AdminAccomodationComponent implements OnInit {
 
   loadAllAccomodations() {
     this.accommodationService.populateAccomodation().subscribe((response) => {
-      this.filteredAccomodations = response;
       this.accomodations = response;
-    })
-  }
-
-  loadDepartments() {
-    this.departmentService.readDepartment(0).subscribe((response) => {
-      this.departments = response;
-    })
-  }
-
-  loadColleges() {
-    this.collegeService.readCollege(0).subscribe((response) => {
-      this.colleges = response;
     })
   }
 }
