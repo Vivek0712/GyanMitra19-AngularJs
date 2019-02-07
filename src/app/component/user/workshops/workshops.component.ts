@@ -25,6 +25,7 @@ export class WorkshopsComponent implements OnInit {
   currentPage: any = 1
   registrationEnabled: boolean = true;
   paymentForm: FormGroup;
+  workshopEnabled: Boolean = false; 
   constructor(private eventService: EventService,
     private eventRegistrationService: EventRegistrationService,
     public authService: AuthService,
@@ -44,6 +45,13 @@ export class WorkshopsComponent implements OnInit {
         this.registrationEnabled = false
       } else {
         this.registrationEnabled = response.msg
+      }
+    })
+    configService.getConfig('WorkshopRegistration').subscribe((response: any) => {
+      if (response.error) {
+        this.workshopEnabled = false
+      } else {
+        this.workshopEnabled = response.msg
       }
     })
   }
@@ -66,7 +74,7 @@ export class WorkshopsComponent implements OnInit {
         this.authService.refreshSession((response));
         this.user = (JSON.parse(localStorage.getItem('user')))
       })
-    }
+    }   
     this.getRegistrations();
     this.loadFull(this.currentPage);
   }

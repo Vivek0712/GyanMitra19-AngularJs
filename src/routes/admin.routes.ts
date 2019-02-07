@@ -20,7 +20,6 @@ import { PaymentComponent } from 'src/app/component/admin/payment/payment.compon
 import { AdminUserRolesComponent } from 'src/app/component/admin/admin-user-roles/admin-user-roles.component';
 import { ProbsComponent } from 'src/app/component/admin/probs/probs.component';
 import { ProblemsArisedComponent } from 'src/app/component/admin/problems-arised/problems-arised.component';
-import { OrganizerRoleGuard } from 'src/app/guard/OrganizerRole/organizer-role.guard';
 
 export const ADMIN_ROUTE: Routes = [
      { path: 'home', component: HomeComponent },
@@ -37,11 +36,11 @@ export const ADMIN_ROUTE: Routes = [
      { path: 'role', component: RoleComponent },
      { path: 'users', component: AdminUsersComponent },
      { path: 'accomodation', component: AdminAccomodationComponent },
-     { path: 'eventParticipants/:id', component: EventParticipantsComponent, canActivate: [OrganizerRoleGuard] },
+     { path: 'eventParticipants/:id', component: EventParticipantsComponent },
      { path: 'cartConfirmation', component: AdminCartConfirmationComponent },
      { path: 'configurations', component: ConfigurationsComponent },
      { path: 'payment', component: PaymentComponent },
      { path: 'roleUsers', component: AdminUserRolesComponent },
      { path: 'probs', component: ProbsComponent},
-     { path: 'viewProbs', component: ProblemsArisedComponent, canActivate:[OrganizerRoleGuard]}
+     { path: 'viewProbs', component: ProblemsArisedComponent}
 ];
