@@ -124,82 +124,85 @@
                   Search
                 </div>
                 <div class="row">
-                  <div class="col-sm-12 col-md-6">
-                    <input [(ngModel)]="searchText" placeholder="Search participants" class="form-control">
-                  </div>
-                  <div class="col-sm-12 col-md-6 btn-group-justified btn-group">
-                    <button (click)="exportAsXLSX()" class="btn btn-success">Generate Excel</button>
-                    <button data-toggle="modal" data-target="#idModal" (click)="scanID()" class="btn btn-soundcloud">Scan
-                      ID Card | Individual Event</button>
-                  </div>
-                  <br />
-                  <hr />
-                  <br />
                   <div class="row">
-                    <div class="col-9">
-                      <select class="custom-select" [(ngModel)]="paidStatus" id="slctPaid">
-                        <option value="" selected="true">ALL</option>
-                        <option value="true">Paid</option>
-                        <option value="false">Not paid</option>
-                      </select>
+                    <div class="col-sm-12 col-md-6">
+                      <input [(ngModel)]="searchText" placeholder="Search participants" class="form-control">
                     </div>
-                    <div class="col-3">
-                      <button class="btn btn-primary" (click)="filter()">filter</button>
+                    <div class="col-sm-12 col-md-6 btn-group-justified btn-group">
+                      <button (click)="exportAsXLSX()" class="btn btn-success">Generate Excel</button>
+                      <button data-toggle="modal" data-target="#idModal" (click)="scanID()" class="btn btn-soundcloud">Scan
+                        ID Card | Individual Event</button>
                     </div>
-                  </div>
+                    <br />
+                    <hr />
+                    <br />
+                    <div class="row">
+                      <div class="col-1"></div>
+                      <div class="col-7">
+                        <select class="custom-select" [(ngModel)]="paidStatus" id="slctPaid">
+                          <option value="" selected="true">ALL</option>
+                          <option value="true">Paid</option>
+                          <option value="false">Not paid</option>
+                        </select>
+                      </div>
+                      <div class="col-3">
+                        <button class="btn btn-primary" (click)="filter()">filter</button>
+                      </div>
+                    </div>
 
-                  <!-- <div class="col-sm-12 col-md-6">
+                    <!-- <div class="col-sm-12 col-md-6">
                     <button data-toggle="modal" data-target="#teamModal" class="btn btn-outline-bitbucket">Team
                       Register</button>
                   </div> -->
-                  <div class="table-responsive">
-                    <table class="table">
-                      <thead>
-                        <tr>
-                          <th>Sl. No</th>
-                          <th>Participant Name</th>
-                          <th>Email</th>
-                          <th>Phone No.</th>
-                          <th>College</th>
-                          <th>Payment</th>
-                          <th>Attendance</th>
-                          <th>Update Attendance</th>
-                          <th>Delete</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr *ngFor="let participant of participants | searchFilterEvent : searchText ; let i = index;   ">
-                          <th scope="row">{{i+1}}</th>
-                          <td>{{participant.user_id.name}}</td>
-                          <td>{{participant.user_id.email_id}}</td>
-                          <td>{{participant.user_id.mobile_number}}</td>
-                          <td>{{participant.user_id.college_id.name}}</td>
-                          <td *ngIf="participant.user_id.cart_paid == true">Paid</td>
-                          <td *ngIf="participant.user_id.cart_paid == false">Not Paid</td>
-                          <td>
-                            <div class="row">
-                              <div class="col-12">
-                                <select class="custom-select" [(ngModel)]="currentAttendance">
-                                  <option selected value="" disabled>Attendance</option>
-                                  <option *ngFor="let participantStatus of participantStatuss" value="{{ participantStatus.name }}">{{
-                                    participantStatus.name }}</option>
-                                </select>
+                    <div class="table-responsive">
+                      <table class="table">
+                        <thead>
+                          <tr>
+                            <th>Sl. No</th>
+                            <th>Participant Name</th>
+                            <th>Email</th>
+                            <th>Phone No.</th>
+                            <th>College</th>
+                            <th>Payment</th>
+                            <th>Attendance</th>
+                            <th>Update Attendance</th>
+                            <th>Delete</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let participant of participants | searchFilterEvent : searchText ; let i = index;   ">
+                            <th scope="row">{{i+1}}</th>
+                            <td>{{participant.user_id.name}}</td>
+                            <td>{{participant.user_id.email_id}}</td>
+                            <td>{{participant.user_id.mobile_number}}</td>
+                            <td>{{participant.user_id.college_id.name}}</td>
+                            <td *ngIf="participant.user_id.cart_paid == true">Paid</td>
+                            <td *ngIf="participant.user_id.cart_paid == false">Not Paid</td>
+                            <td>
+                              <div class="row">
+                                <div class="col-12">
+                                  <select class="custom-select" [(ngModel)]="currentAttendance">
+                                    <option selected value="" disabled>Attendance</option>
+                                    <option *ngFor="let participantStatus of participantStatuss" value="{{ participantStatus.name }}">{{
+                                      participantStatus.name }}</option>
+                                  </select>
+                                </div>
                               </div>
-                            </div>
-                          </td>
-                          <td>
-                            <div class="fonticon-wrap icon-shadow icon-shadow-warning">
-                              <a (click)="updateAttendance(participant._id)"> <i class="la la-upload la-2x"></i></a>
-                            </div>
-                          </td>
-                          <td>
-                            <div class="fonticon-wrap icon-shadow icon-shadow-danger" (click)="deleteParticipant(participant._id)">
-                              <a> <i class="la la-trash la-2x"></i></a>
-                            </div>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
+                            </td>
+                            <td>
+                              <div class="fonticon-wrap icon-shadow icon-shadow-warning">
+                                <a (click)="updateAttendance(participant._id)"> <i class="la la-upload la-2x"></i></a>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="fonticon-wrap icon-shadow icon-shadow-danger" (click)="deleteParticipant(participant._id)">
+                                <a> <i class="la la-trash la-2x"></i></a>
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -209,4 +212,3 @@
       </div>
     </div>
   </div>
-</div>
