@@ -105,18 +105,18 @@
                       to Register</a>
                   </ng-template>
                 </div>
-                <div *ngIf="!registrationEnabled">
-                  <div *ngIf="workshopEnabled">
-                    <button type="button" class="btn btn-sm round btn-bg-gradient-x-purple-red" style="width:100%">
-                      Registrations are Closed
-                    </button>
-                  </div>
-                  <div *ngIf="!workshopEnabled">
-                    <button type="button" class="btn btn-sm round btn-bg-gradient-x-purple-red" style="width:100%">
-                      Workshop Registrations are Closed
-                    </button>
-                  </div>
+                <!-- <div *ngIf="!registrationEnabled"> -->
+                <!-- <div *ngIf="workshopEnabled">
+                  <button type="button" class="btn btn-sm round btn-bg-gradient-x-purple-red" style="width:100%">
+                    Registrations are Closed
+                  </button>
+                </div> -->
+                <div *ngIf="!workshopEnabled">
+                  <button type="button" class="btn btn-sm round btn-bg-gradient-x-purple-red" style="width:100%">
+                    Workshop Registrations are Closed
+                  </button>
                 </div>
+                <!-- </div> -->
               </span>
             </div>
           </div>
