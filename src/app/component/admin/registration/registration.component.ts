@@ -579,7 +579,7 @@ export class RegistrationComponent implements OnInit {
       var responseArray: Array<any> = response.msg;
       responseArray.forEach((ele: any) => {
         var reportData: any = [];
-        reportData["Sl. No"] = slNo++
+        reportData["Sl. No"] = " "
         reportData["Name"] = ele.user_id.name;
         reportData["College"] = ele.user_id.college_id.name;
         reportData["Degree"] = ele.user_id.degree_id.name;
@@ -595,6 +595,17 @@ export class RegistrationComponent implements OnInit {
         reportData["Registered In"] = ele.event_id.title
         reportData["Signature"] = " "
         reportArray.push(reportData)
+      })
+      reportArray.sort((a, b)=>{
+        return a["Name"].localeCompare(b["Name"])
+      })
+      
+      reportArray.sort((a, b)=>{
+        return a["College"].localeCompare(b["College"])
+      })
+      slNo = 1;
+      reportArray.forEach((doc)=>{
+        doc["Sl. No"] = slNo++;
       })
       this.excelService.exportAsExcelFile(reportArray, filename);
     })
@@ -672,7 +683,7 @@ export class RegistrationComponent implements OnInit {
       var responseArray: Array<any> = response.msg;
       responseArray.forEach((ele: any) => {
         var reportData: any = [];
-        reportData["Sl. No"] = slNo++
+        reportData["Sl. No"] = " "
         reportData["Name"] = ele.user_id.name;
         reportData["College"] = ele.user_id.college_id.name;
         reportData["Degree"] = ele.user_id.degree_id.name;
@@ -685,7 +696,19 @@ export class RegistrationComponent implements OnInit {
         } else {
           reportData["Payment Status"] = "Not Paid"
         }
+        reportData["Signature"] = " "
         reportArray.push(reportData)
+      })
+      reportArray.sort((a, b)=>{
+        return a["Name"].localeCompare(b["Name"])
+      })
+      
+      reportArray.sort((a, b)=>{
+        return a["College"].localeCompare(b["College"])
+      })
+      slNo = 1;
+      reportArray.forEach((doc)=>{
+        doc["Sl. No"] = slNo++;
       })
       this.excelService.exportAsExcelFile(reportArray, filename);
     })
