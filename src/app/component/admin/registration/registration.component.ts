@@ -296,22 +296,22 @@ export class RegistrationComponent implements OnInit {
       var bothEventsAndWorkshops = responseArray.filter((doc) => {
         return doc[1]["Event"] == true && doc[1]["Workshop"] == true
       })
-      var paidOnlyEvents = onlyEvents.filter((doc)=>{
+      var paidOnlyEvents = onlyEvents.filter((doc) => {
         return doc[1]["Paid"]
       }).length
-      var notPaidOnlyEvents = onlyEvents.filter((doc)=>{
+      var notPaidOnlyEvents = onlyEvents.filter((doc) => {
         return !doc[1]["Paid"]
       }).length
-      var paidOnlyWoprkshops = onlyWorkshops.filter((doc)=>{
+      var paidOnlyWoprkshops = onlyWorkshops.filter((doc) => {
         return doc[1]["Paid"]
       }).length
-      var notPaidOnlyWorkshops = onlyWorkshops.filter((doc)=>{
+      var notPaidOnlyWorkshops = onlyWorkshops.filter((doc) => {
         return !doc[1]["Paid"]
       }).length
-      var paidAll = bothEventsAndWorkshops.filter((doc)=>{
+      var paidAll = bothEventsAndWorkshops.filter((doc) => {
         return doc[1]["Paid"]
       }).length
-      var notPaidAll = bothEventsAndWorkshops.filter((doc)=>{
+      var notPaidAll = bothEventsAndWorkshops.filter((doc) => {
         return !doc[1]["Paid"]
       }).length
       console.log(notPaidOnlyEvents)
@@ -335,10 +335,14 @@ export class RegistrationComponent implements OnInit {
     })
   }
 
-  confirmPayment() {
-    this.userService.confirmPaymentOffline(this.selectedParticipant._id).subscribe((response: any) => {
+  confirmPayment(event_id: String) {
+    this.userService.confirmPaymentOffline(this.selectedParticipant._id, event_id).subscribe((response: any) => {
       M.toast({ html: response.msg, classes: 'roundeds' });
+      this.getRegisteredEvents(this.selectedParticipant._id);
+      this.getRegisteredWorkshops(this.selectedParticipant._id);
     })
+    this.getRegisteredEvents(this.selectedParticipant._id);
+    this.getRegisteredWorkshops(this.selectedParticipant._id);
   }
 
   moreInfo(_id: string) {
@@ -559,7 +563,7 @@ export class RegistrationComponent implements OnInit {
         } else {
           reportData["Payment Status"] = "No"
         }
-        reportData["Registered In"]=ele.event_id.title
+        reportData["Registered In"] = ele.event_id.title
         reportArray.push(reportData)
       })
       this.excelService.exportAsExcelFile(reportArray, filename);
@@ -591,7 +595,7 @@ export class RegistrationComponent implements OnInit {
       } else {
         reportData["Payment Status"] = "No"
       }
-      reportData["Registered In"]=ele.event_id.title
+      reportData["Registered In"] = ele.event_id.title
       reportArray.push(reportData);
     })
     this.excelService.exportAsExcelFile(reportArray, filename);
