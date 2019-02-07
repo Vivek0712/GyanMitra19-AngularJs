@@ -4,7 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { EventRegistrationService } from 'src/app/services/eventRegistration/event-registration.service';
 import { RegistrationService } from 'src/app/services/registration/registration.service';
 import { UserService } from 'src/app/services/user/user.service';
-
+declare var $: any;
 declare var M: any;
 @Component({
   selector: 'app-event-participants-team',

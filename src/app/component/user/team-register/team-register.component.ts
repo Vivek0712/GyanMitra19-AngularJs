@@ -23,7 +23,7 @@ export class TeamRegisterComponent implements OnInit {
   event: any;
   Button: any;
 
-  constructor(private router: Router,private route: ActivatedRoute, private registrationService:RegistrationService,private formbuilder: FormBuilder, private eventRegister: EventRegistrationService) {
+  constructor(private router: Router, private route: ActivatedRoute, private registrationService: RegistrationService, private formbuilder: FormBuilder, private eventRegister: EventRegistrationService) {
     this.route.params.subscribe(param => { this.event_id = param.id });
   }
 
@@ -48,17 +48,17 @@ export class TeamRegisterComponent implements OnInit {
     this.Submitted = true;
     var iCnt = 0;
     var data = $('#default-multiple').select2('data');
-    var user_ids=[];
+    var user_ids = [];
     $.each(data, function () {
-     
+
       var user_id = $('#default-multiple').select2('data')[iCnt]['id'];
       user_ids.push(user_id);
       iCnt += 1;
     });
     if (form.valid) {
-      this.route.params.subscribe(param => { 
+      this.route.params.subscribe(param => {
         this.eventRegister.getEventById(param.id).subscribe((res: any) => {
-          if(res[0].max_members > user_ids.length){
+          if (res[0].max_members > user_ids.length) {
             this.eventRegister.createEventWithTeamRegistration(JSON.parse(localStorage.getItem('user')).id, this.event_id, this.teamRegisterForm.get('name').value, "leader").subscribe((response: any) => {
               if (response.error) {
                 M.toast({ html: response.msg, classes: 'roundeds danger' });
@@ -77,10 +77,10 @@ export class TeamRegisterComponent implements OnInit {
                 } else {
                   M.toast({ html: response.msg, classes: 'roundeds' });
                   this.createForm();
-                  flag = flag+1;
+                  flag = flag + 1;
                 }
               });
-              if(flag = user_ids.length){
+              if (flag = user_ids.length) {
                 this.router.navigate(['/user/cart']);
               }
             }
@@ -89,10 +89,11 @@ export class TeamRegisterComponent implements OnInit {
             this.createForm();
           }
         });
-       });
+      });
     }
   }
   getCollegeMates() {
+    console.log('hello');
     this.eventRegister.getCollegeMates(this.event_id, JSON.parse(localStorage.getItem('user')).id).subscribe((response: any) => {
       if (response.error) {
       }
@@ -118,7 +119,7 @@ export class TeamRegisterComponent implements OnInit {
   }
 
   getEventById(event_id: String) {
-    this.eventRegister.getEventById(event_id).subscribe((response:any)=>{
+    this.eventRegister.getEventById(event_id).subscribe((response: any) => {
       this.event = response;
     });
   }

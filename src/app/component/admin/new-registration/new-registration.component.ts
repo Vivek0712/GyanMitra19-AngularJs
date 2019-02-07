@@ -47,8 +47,8 @@ export class NewRegistrationComponent implements OnInit {
     this.registerForm = this.formBuilder.group({
       email_id: ['', Validators.required],
       name: ['', Validators.required],
-      password: ['', Validators.required],
-      conpassword: ['', Validators.required],
+      // password: ['', Validators.required],
+      // conpassword: ['', Validators.required],
       mobile_number: ['', Validators.required],
       degree_id: [''],
       college_id: [''],
@@ -63,8 +63,8 @@ export class NewRegistrationComponent implements OnInit {
     this.Button = "Checking...";
     if (this.registerForm.valid) {
       const email_id = this.registerForm.get('email_id').value;
-      const password = this.registerForm.get('password').value;
-      const conpassword = this.registerForm.get('conpassword').value;
+      // const password = this.registerForm.get('password').value;
+      // const conpassword = this.registerForm.get('conpassword').value;
       const name = this.registerForm.get('name').value;
       const mobile_number = this.registerForm.get('mobile_number').value;
       const gender = this.registerForm.get('gender').value;
@@ -73,20 +73,14 @@ export class NewRegistrationComponent implements OnInit {
       const department_id = this.registerForm.get('department_id').value;
       const year_id = this.registerForm.get('year_id').value;
 
-      if (password !== conpassword) {
-        M.toast({ html: 'Passwords does not match', classes: 'rounded' });
-        this.createForm();
-      }
-      else {
-        this.reg.createUser(name, college_id, department_id, degree_id, email_id, gender, mobile_number, password, year_id, true, "offline").subscribe((response: any) => {
-          if (response.error) {
-            M.toast({ html: response.msg, classes: 'roundeds' });
-          } else {
-            M.toast({ html: response.msg, classes: 'roundeds' });
-            this.createForm();
-          }
-        });
-      }
+      this.reg.createUser(name, college_id, department_id, degree_id, email_id, gender, mobile_number, email_id, year_id, true, "offline").subscribe((response: any) => {
+        if (response.error) {
+          M.toast({ html: response.msg, classes: 'roundeds' });
+        } else {
+          M.toast({ html: response.msg, classes: 'roundeds' });
+          this.createForm();
+        }
+      });
     }
     else {
       M.toast({ html: 'Please Check the Form', classes: 'rounded' });

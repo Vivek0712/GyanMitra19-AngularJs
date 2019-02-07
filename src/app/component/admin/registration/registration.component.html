@@ -238,9 +238,13 @@
                       <thead>
                         <tr>
                           <th>Sl. No</th>
-                          <th>Event Name</th>
+                          <th>Event</th>
                           <th>Department</th>
-                          <th>Delete</th>
+                          <th>Amount</th>
+                          <th>Payment</th>
+                          <th>
+                            Delete
+                          </th>
                         </tr>
                       </thead>
                       <tbody>
@@ -248,7 +252,14 @@
                           <th scope="row">{{i+1}}</th>
                           <td>{{event.event_id.title}}</td>
                           <td>{{event.event_id.department_id.name}}</td>
-                          <td>
+                          <td>{{event.event_id.amount}}</td>
+                          <td *ngIf="event.status == 'Paid'">{{event.status}}</td>
+                          <td *ngIf="event.status != 'Paid'">
+                            <div class="fonticon-wrap icon-shadow icon-shadow-success" (click)="confirmPayment(event._id)">
+                              <a> <i class="la la-check la-2x"></i></a>
+                            </div>
+                          </td>
+                          <td *ngIf="event.status != 'Paid'">
                             <div class="fonticon-wrap icon-shadow icon-shadow-danger" (click)="deleteEventRegistration(event._id)">
                               <a> <i class="la la-trash la-2x"></i></a>
                             </div>
@@ -304,9 +315,13 @@
                       <thead>
                         <tr>
                           <th>Sl. No</th>
-                          <th>Workshop Name</th>
+                          <th>Workshop</th>
                           <th>Department</th>
-                          <th>Delete</th>
+                          <th>Amount</th>
+                          <th>Payment</th>
+                          <th>
+                            Delete
+                          </th>
                         </tr>
                       </thead>
                       <tbody>
@@ -314,7 +329,14 @@
                           <th scope="row">{{i+1}}</th>
                           <td>{{event.event_id.title}}</td>
                           <td>{{event.event_id.department_id.name}}</td>
-                          <td>
+                          <td>{{event.event_id.amount}}</td>
+                          <td *ngIf="event.status == 'Paid'">{{event.status}}</td>
+                          <td *ngIf="event.status != 'Paid'">
+                            <div class="fonticon-wrap icon-shadow icon-shadow-success" (click)="confirmPayment(event._id)">
+                              <a> <i class="la la-check la-2x"></i></a>
+                            </div>
+                          </td>
+                          <td *ngIf="event.status != 'Paid'">
                             <div class="fonticon-wrap icon-shadow icon-shadow-danger" (click)="deleteEventRegistration(event._id)">
                               <a> <i class="la la-trash la-2x"></i></a>
                             </div>
@@ -349,6 +371,22 @@
               </div>
             </div>
 
+            <!-- <div class="card" *ngIf="invoiceStatus">
+              <div class="card-content">
+                <div class="card-title">
+                  Invoice
+                </div>
+                <div class="card-body">
+                  <h6>Total Amount to be Paid : {{ selectedParticipantAmount }}</h6>
+                  <br><br>
+                  <div class="row">
+                    <button type="button" class="btn btn-success" (click)="confirmPayment()">Confirm
+                      Payment</button>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+            <!-- 
             <div class="card" *ngIf="!selectedParticipant.cart_paid">
               <div class="card-content">
                 <div class="card-title">
@@ -363,9 +401,39 @@
                   </div>
                 </div>
               </div>
+            </div> -->
+
+            <!-- <div class="card" *ngIf="registeredWorkshops.length != 0 && registeredEvents.length != 0">
+              <div class="card-content" *ngIf="selectedParticipant.cart_paid">
+                <div class="card-title">
+                  Invoice
+                </div>
+                <div class="card-body">
+                  <h6>Amount : {{ selectedParticipantAmount }}</h6>
+                  <br><br>
+                  <div class="row">
+                    <button *ngIf="selectedParticipant.cart_paid" type="button" class="btn btn-dark">Payment Made</button>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <div class="card" *ngIf="selectedParticipant.cart_paid">
+            <div class="card" *ngIf="registeredWorkshops.length != 0">
+              <div class="card-content" *ngIf="selectedParticipant.cart_paid">
+                <div class="card-title">
+                  Invoice
+                </div>
+                <div class="card-body">
+                  <h6>Amount : {{ selectedParticipantAmount }}</h6>
+                  <br><br>
+                  <div class="row">
+                    <button *ngIf="selectedParticipant.cart_paid" type="button" class="btn btn-dark">Payment Made</button>
+                  </div>
+                </div>
+              </div>
+            </div>-->
+
+            <!-- <div class="card" *ngIf="selectedParticipant.cart_paid">
               <div class="card-content">
                 <div class="card-title">
                   Invoice
@@ -375,13 +443,10 @@
                   <br><br>
                   <div class="row">
                     <button *ngIf="selectedParticipant.cart_paid" type="button" class="btn btn-dark">Payment Made</button>
-
                   </div>
                 </div>
               </div>
-            </div>
-
-
+            </div> -->
 
           </div>
           <div class="modal-footer">
@@ -422,7 +487,7 @@
                     </div>
                     <div class="col-6">
                       <div class="btn-group">
-                        <button class="btn btn-outline-blue" (click)="loadDayCount()">Extract Count</button>                      
+                        <button class="btn btn-outline-blue" (click)="loadDayCount()">Extract Count</button>
                       </div>
                     </div>
                     <!-- <div class="col-4 ">
@@ -444,9 +509,9 @@
                     <div class="col-3">
                       Payment
                     </div>
-                    <div class="col-3">
+                    <!-- <div class="col-3">
                       Activated
-                    </div>
+                    </div> -->
                   </div>
                   <div class="row">
                     <div class="col-3">
@@ -470,12 +535,15 @@
                       </select>
                     </div>
                     <div class="col-3">
+                      <input type="button" class="btn btn-success" (click)="filter()" value="Filter" />
+                    </div>
+                    <!-- <div class="col-3">
                       <select class="custom-select" [(ngModel)]="activated" id="slctActivated">
                         <option value="" selected="true">ALL</option>
                         <option value="true">Activated</option>
                         <option value="false">Not Activated</option>
                       </select>
-                    </div>
+                    </div> -->
                   </div>
                 </div>
                 <div class="row">
@@ -483,7 +551,6 @@
                 </div>
                 <div class="row">
                   <div class="col-1">
-                    <input type="button" class="btn btn-success" (click)="filter()" value="Filter" />
                   </div>
                   <div class="col">
                     <div class="btn-group">
@@ -548,3 +615,4 @@
       </div>
     </div>
   </div>
+</div>
