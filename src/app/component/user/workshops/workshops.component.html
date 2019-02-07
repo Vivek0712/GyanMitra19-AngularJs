@@ -91,7 +91,6 @@
                           style="width:100%">
                           Register Now <i class="la la-angle-right"></i>
                         </button>
-                      </button>
                       </div>
                       <div *ngIf="registeredEvents.length != 0">
                         <button type="button" class="btn btn-sm round btn-bg-gradient-x-purple-red" style="width:100%">
@@ -108,14 +107,14 @@
                 </div>
                 <div *ngIf="!registrationEnabled">
                   <div *ngIf="workshopEnabled">
-                      <button type="button" class="btn btn-sm round btn-bg-gradient-x-purple-red" style="width:100%">
-                          Registrations are Closed
-                        </button>
+                    <button type="button" class="btn btn-sm round btn-bg-gradient-x-purple-red" style="width:100%">
+                      Registrations are Closed
+                    </button>
                   </div>
                   <div *ngIf="!workshopEnabled">
-                      <button type="button" class="btn btn-sm round btn-bg-gradient-x-purple-red" style="width:100%">
-                          Workshop Registrations are Closed
-                        </button>
+                    <button type="button" class="btn btn-sm round btn-bg-gradient-x-purple-red" style="width:100%">
+                      Workshop Registrations are Closed
+                    </button>
                   </div>
                 </div>
               </span>
