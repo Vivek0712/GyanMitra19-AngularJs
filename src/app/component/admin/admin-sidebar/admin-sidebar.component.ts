@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { EventService } from 'src/app/services/event/event.service';
-import { Router } from '@angular/router';
 import { RoleUserService } from 'src/app/services/role_user/role-user.service';
 
 declare var M: any;

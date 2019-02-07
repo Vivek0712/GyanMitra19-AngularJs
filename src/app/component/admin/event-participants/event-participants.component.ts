@@ -41,7 +41,6 @@ export class EventParticipantsComponent implements OnInit {
   paidStatus: String = "";
 
   ngOnInit() {
-    //new EventParticipantsComponent(this.qrService,this.datePipe,this.participantStatusService,this.excelService,this.eventRegistration,this.authService,this.formBuilder,this.route,this.location);
     this.route.params.subscribe(param => {
       this.event_id = param.id
     });
@@ -133,13 +132,12 @@ export class EventParticipantsComponent implements OnInit {
     });
 
     this.qrScannerComponent.capturedQr.subscribe((result: string) => {
-      console.log(result)
       this.qrService.markPresent(result, this.event_id).subscribe((res: any) => {
         if (res.error) {
           M.toast({ html: 'An Error Occured. Scan Again', classes: 'roundeds' });
         } else {
-
           M.toast({ html: res.msg, classes: 'roundeds' });
+          this.reload()
         }
       })
     });
