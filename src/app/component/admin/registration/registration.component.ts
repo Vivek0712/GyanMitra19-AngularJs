@@ -569,7 +569,7 @@ export class RegistrationComponent implements OnInit {
       this.excelService.exportAsExcelFile(reportArray, filename);
     })
   }
-  
+
   exportAsXLSXforWorkshopsAttendance() {
     var filename = 'Attendance for Workshops - ' + this.datePipe.transform(Date.now(), 'dd-MM-yyyy');
     var slNo = 1;
@@ -625,7 +625,7 @@ export class RegistrationComponent implements OnInit {
       } else {
         reportData["Payment Status"] = "No"
       }
-      reportData["Registered In"] = ele.event_id.title
+      //reportData["Registered In"] = ele.event_id.title
       reportArray.push(reportData);
     })
     this.excelService.exportAsExcelFile(reportArray, filename);
@@ -663,7 +663,7 @@ export class RegistrationComponent implements OnInit {
       this.excelService.exportAsExcelFile(reportArray, filename);
     })
   }
-  
+
   exportAsXLSXforEventsAttendance() {
     var filename = 'Attendance for Events - ' + this.datePipe.transform(Date.now(), 'dd-MM-yyyy');
     var slNo = 1;

@@ -21,6 +21,7 @@ import { AccSuccessComponent } from 'src/app/component/user/acc-success/acc-succ
 import { ResetPasswordComponent } from 'src/app/component/user/reset-password/reset-password.component';
 import { ForgotpasswordComponent } from 'src/app/component/user/forgotpassword/forgotpassword.component';
 import { FaqComponent } from 'src/app/component/user/faq/faq.component';
+import { ScheduleComponent } from 'src/app/component/user/schedule/schedule.component';
 export const USER_ROUTE: Routes = [
      { path: 'home', component: UserHomeComponent },
      { path: 'about', component: AboutComponent },
@@ -41,5 +42,6 @@ export const USER_ROUTE: Routes = [
      { path: 'howtoreachus', component: HowToReachUsComponent },
      { path: 'resetPassword/:token', component: ResetPasswordComponent },
      { path: 'forgotPassword', component: ForgotpasswordComponent },
-     {path: 'faq',component: FaqComponent}
+     { path: 'faq', component: FaqComponent },
+     { path: 'schedule', component: ScheduleComponent }
 ];
