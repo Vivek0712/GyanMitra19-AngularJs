@@ -9,6 +9,8 @@ import { ExcelService } from 'src/app/services/excel.service';
 import { QrScannerComponent } from 'angular2-qrscanner';
 import { QrService } from 'src/app/services/qr/qr.service';
 import { UserService } from 'src/app/services/user/user.service';
+import { Certificate } from 'crypto';
+import { CertificateService } from 'src/app/services/certificate/certificate.service';
 
 
 declare var M: any;
@@ -25,9 +27,10 @@ export class EventParticipantsComponent implements OnInit {
   event_id: String;
   currentAttendance: String;
   event: any;
+  isParticipantEntry = true;
   @ViewChild(QrScannerComponent) qrScannerComponent: QrScannerComponent;
 
-  constructor(private userService: UserService, private qrService: QrService, private datePipe: DatePipe, private participantStatusService: ParticipationstatusService, private excelService: ExcelService, private eventRegistration: EventRegistrationService, public authService: AuthService, private formBuilder: FormBuilder, private route: ActivatedRoute, private location: Location) {
+  constructor(private certificateService: CertificateService, private userService: UserService, private qrService: QrService, private datePipe: DatePipe, private participantStatusService: ParticipationstatusService, private excelService: ExcelService, private eventRegistration: EventRegistrationService, public authService: AuthService, private formBuilder: FormBuilder, private route: ActivatedRoute, private location: Location) {
 
   }
 
@@ -39,7 +42,7 @@ export class EventParticipantsComponent implements OnInit {
   searchText: String;
   users: Array<any>;
   paidStatus: String = "";
-
+  certificates: Array<any> = []
   ngOnInit() {
     this.route.params.subscribe(param => {
       this.event_id = param.id
@@ -52,6 +55,12 @@ export class EventParticipantsComponent implements OnInit {
     this.getParticipantStatus();
     this.searchText = "";
     this.getUsers();
+  }
+
+  loadCertificates(){
+    this.certificateService.loadCertificates(this.event_id).subscribe((res: any)=>{
+      this.certificates = res.msg
+    })
   }
 
   filter() {
@@ -107,7 +116,7 @@ export class EventParticipantsComponent implements OnInit {
     }
   }
 
-  scanID() {
+  openQR() {
     this.qrScannerComponent.getMediaDevices().then(devices => {
       const videoDevices: MediaDeviceInfo[] = [];
       for (const device of devices) {
@@ -130,54 +139,36 @@ export class EventParticipantsComponent implements OnInit {
         }
       }
     });
-
     this.qrScannerComponent.capturedQr.subscribe((result: string) => {
-      this.qrService.markPresent(result, this.event_id).subscribe((res: any) => {
-        if (res.error) {
-          M.toast({ html: 'An Error Occured. Scan Again', classes: 'roundeds' });
-        } else {
-          M.toast({ html: res.msg, classes: 'roundeds' });
-          this.reload()
-        }
-      })
+      if(this.isParticipantEntry){
+        this.qrService.markPresent(result, this.event_id).subscribe((res: any) => {
+          if (res.error) {
+            M.toast({ html: 'An Error Occured. Scan Again', classes: 'roundeds' });
+          } else {
+            M.toast({ html: res.msg, classes: 'roundeds' });
+            this.reload()
+          }
+        })
+      } else {
+        this.certificateService.issueCertificate(result).subscribe((res: any)=>{
+          if (res.error) {
+            M.toast({ html: 'An Error Occured. Scan Again', classes: 'roundeds' });
+          } else {
+            M.toast({ html: res.msg, classes: 'roundeds' });
+          }
+        })
+      }
     });
   }
 
+  scanID() {
+    this.isParticipantEntry = true;
+    this.openQR();
+  }
 
-  scanIDforCertificate() {
-    this.qrScannerComponent.getMediaDevices().then(devices => {
-      const videoDevices: MediaDeviceInfo[] = [];
-      for (const device of devices) {
-        if (device.kind.toString() === 'videoinput') {
-          videoDevices.push(device);
-        }
-      }
-      if (videoDevices.length > 0) {
-        let choosenDev;
-        for (const dev of videoDevices) {
-          if (dev.label.includes('front')) {
-            choosenDev = dev;
-            break;
-          }
-        }
-        if (choosenDev) {
-          this.qrScannerComponent.chooseCamera.next(choosenDev);
-        } else {
-          this.qrScannerComponent.chooseCamera.next(videoDevices[0]);
-        }
-      }
-    });
-
-    this.qrScannerComponent.capturedQr.subscribe((result: string) => {
-      this.qrService.markPresent(result, this.event_id).subscribe((res: any) => {
-        if (res.error) {
-          M.toast({ html: 'An Error Occured. Scan Again', classes: 'roundeds' });
-        } else {
-          M.toast({ html: res.msg, classes: 'roundeds' });
-          this.reload()
-        }
-      })
-    });
+  scanIDforCertificate(){
+    this.isParticipantEntry = false;
+    this.openQR();
   }
 
   getParticipants() {
