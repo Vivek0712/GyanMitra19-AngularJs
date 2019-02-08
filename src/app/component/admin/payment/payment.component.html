@@ -28,22 +28,26 @@
             <div class="card-title">
               Mode of Payment
               <div class="row">
-                <div class="col-1"></div>
                 <div class="col-3">
                   <button class="btn btn-outline-black" (click)="getDDPayedUsers()">DD Paid Users</button>
                 </div>
-                <div class="col-1"></div>
                 <div class="col-3">
                   <button class="btn btn-outline-black" (click)="getOnlinePayedUsers()">Online Paid Users</button>
                 </div>
-                <div class="col-1"></div>
+                <div class="col-3">
+                  <button class="btn btn-outline-black" (click)="getOfflinePayedUsers()">Offline Paid Users</button>
+                </div>
                 <div class="col-3">
                   <button class="btn btn-outline-success" (click)="exportAsXLSX()">Generate Excel</button>
                 </div>
               </div>
             </div>
             <div class="card-body">
-
+              <div class="row">
+                <div class="col-12">
+                  <input [(ngModel)]="searchText" placeholder="Search Participants" class="form-control">
+                </div>
+              </div>
 
               <div class="table-responsive" *ngIf="click">
                 <table class="table">
@@ -58,7 +62,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let pay of payedUsers; let i = index;">
+                    <tr *ngFor="let pay of payedUsers | searchFilterEvent : searchText; let i = index;">
                       <th scope="row">{{i+1}}</th>
                       <td>{{ pay.user_id.name }}</td>
                       <td>{{ pay.transaction_id }}</td>
