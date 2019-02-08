@@ -13,6 +13,7 @@ import { QrScannerComponent } from 'angular2-qrscanner';
 import { QrService } from 'src/app/services/qr/qr.service';
 import { EventService } from 'src/app/services/event/event.service';
 import { PaymentService } from 'src/app/services/payment/payment.service';
+import { RoleUserService } from 'src/app/services/role_user/role-user.service';
 
 declare var M: any;
 
@@ -58,8 +59,9 @@ export class RegistrationComponent implements OnInit {
   value: Boolean = false;
   selectedParticipantAmount: number = 0;
   invoiceStatus: Boolean = false;
+  role: any;
   @ViewChild(QrScannerComponent) qrScannerComponent: QrScannerComponent;
-  constructor(private payService: PaymentService, private eventService: EventService, private qrService: QrService, private reportserviceService: ReportserviceService, private datePipe: DatePipe, private excelService: ExcelService, private yearService: YearService, private collegeService: CollegeService, private userService: UserService, private degreeService: DegreeService, private courseService: CourseService, private formBuilder: FormBuilder, private eventRegister: EventRegistrationService) { }
+  constructor(private roleUserService: RoleUserService, private payService: PaymentService, private eventService: EventService, private qrService: QrService, private reportserviceService: ReportserviceService, private datePipe: DatePipe, private excelService: ExcelService, private yearService: YearService, private collegeService: CollegeService, private userService: UserService, private degreeService: DegreeService, private courseService: CourseService, private formBuilder: FormBuilder, private eventRegister: EventRegistrationService) { }
 
   ngOnInit() {
     this.currentPage = 1;
@@ -74,6 +76,15 @@ export class RegistrationComponent implements OnInit {
     this.selectedCollegeId = "";
     this.searchText = "";
     this.viewDetails = false;
+    this.checkForRole();
+  }
+
+  checkForRole() {
+    this.roleUserService.readRoleUserById(JSON.parse(localStorage.getItem('user')).id).subscribe((response: any) => {
+      if (response.success) {
+        this.role = response.msg[0];
+      }
+    })
   }
 
   toggle() {
@@ -737,6 +748,7 @@ export class RegistrationComponent implements OnInit {
         reportData["Degree"] = ele.user_id.degree_id.name;
         reportData["Department"] = ele.user_id.department_id.name;
         reportData["Year"] = ele.user_id.year_id.name;
+        reportData["Email_id"] = ele.user_id.email_id;
         reportData["Mobile Number"] = ele.user_id.mobile_number;
         reportData["Gender"] = ele.user_id.gender;
         if (ele.user_id.cart_paid) {

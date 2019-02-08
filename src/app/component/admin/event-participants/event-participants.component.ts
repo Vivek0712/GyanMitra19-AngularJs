@@ -143,6 +143,43 @@ export class EventParticipantsComponent implements OnInit {
     });
   }
 
+
+  scanIDforCertificate() {
+    this.qrScannerComponent.getMediaDevices().then(devices => {
+      const videoDevices: MediaDeviceInfo[] = [];
+      for (const device of devices) {
+        if (device.kind.toString() === 'videoinput') {
+          videoDevices.push(device);
+        }
+      }
+      if (videoDevices.length > 0) {
+        let choosenDev;
+        for (const dev of videoDevices) {
+          if (dev.label.includes('front')) {
+            choosenDev = dev;
+            break;
+          }
+        }
+        if (choosenDev) {
+          this.qrScannerComponent.chooseCamera.next(choosenDev);
+        } else {
+          this.qrScannerComponent.chooseCamera.next(videoDevices[0]);
+        }
+      }
+    });
+
+    this.qrScannerComponent.capturedQr.subscribe((result: string) => {
+      this.qrService.markPresent(result, this.event_id).subscribe((res: any) => {
+        if (res.error) {
+          M.toast({ html: 'An Error Occured. Scan Again', classes: 'roundeds' });
+        } else {
+          M.toast({ html: res.msg, classes: 'roundeds' });
+          this.reload()
+        }
+      })
+    });
+  }
+
   getParticipants() {
     this.eventRegistration.getEvents(this.event_id).subscribe((response: any) => {
       this.participants = response;

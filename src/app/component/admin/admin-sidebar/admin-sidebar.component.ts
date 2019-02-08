@@ -23,7 +23,7 @@ export class AdminSidebarComponent implements OnInit {
 
   loadEvents() {
     if (this.role.role_id.name == "Organizer") {
-      this.eventService.readWithPageAndDepartmentId('Event',this.role.department_id._id).subscribe((response:any)=>{
+      this.eventService.readWithPageAndDepartmentId('Event', this.role.department_id._id).subscribe((response: any) => {
         this.events = response;
       })
     }
@@ -35,7 +35,7 @@ export class AdminSidebarComponent implements OnInit {
   }
   loadWorkshops() {
     if (this.role.role_id.name == "Organizer") {
-      this.eventService.readWithPageAndDepartmentId('Workshop',this.role.department_id._id).subscribe((response:any)=>{
+      this.eventService.readWithPageAndDepartmentId('Workshop', this.role.department_id._id).subscribe((response: any) => {
         this.workshops = response;
       })
     }

@@ -84,7 +84,25 @@
           </div>
         </div>
       </div>
-
+      <div class="modal fade" id="certModal" tabindex="-1" role="dialog" aria-labelledby="certModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3 class="modal-title" id="certModalLabel">Scan ID Card</h3>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <qr-scanner [debug]="false" [stopAfterScan]="false" [updateTime]="100">
+              </qr-scanner>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
       <!-- <div class="modal fade" id="teamModal" tabindex="-1" role="dialog" aria-labelledby="teamModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
           <div class="modal-content">
@@ -131,7 +149,9 @@
                     <div class="col-sm-12 col-md-6 btn-group-justified btn-group">
                       <button (click)="exportAsXLSX()" class="btn btn-success">Generate Excel</button>
                       <button data-toggle="modal" data-target="#idModal" (click)="scanID()" class="btn btn-soundcloud">Scan
-                        ID Card | Individual Event</button>
+                        ID Card</button>
+                      <button data-toggle="modal" data-target="#certModal" (click)="scanIDforCertificate()" class="btn btn-soundcloud">Issue
+                        Certificate</button>
                     </div>
                     <br />
                     <hr />
