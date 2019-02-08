@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient , HttpHeaders} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -17,22 +17,26 @@ export class CertificateService {
     const body = {};
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post(this.app.getUrl(this.baseUrl + 'create'), body).pipe(map(res => res, {'headers': headers}));
+    return this.http.post(this.app.getUrl(this.baseUrl + 'create'), body).pipe(map(res => res, { 'headers': headers }));
   }
-  readCollege(page: any) {
+
+  writeCertificate(id: any) {
+    const body = { id: id };
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.get(this.app.getUrl(this.baseUrl)+ "?page="+page);
+    return this.http.post(this.app.getUrl(this.baseUrl + 'writeCertificate'), body).pipe(map(res => res, { 'headers': headers }));
   }
-  updateCollege(id: String, name: String,locale: String) {
-    const body = { _id: id , name: name, locale: locale };
+
+  issueCertificate(qr_code: any) {
+    const body = { qr_code: qr_code };
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post(this.app.getUrl(this.baseUrl + "update/"+`${id}`), body).pipe(map(res => res, {'headers': headers}));
+    return this.http.post(this.app.getUrl(this.baseUrl + 'issueCertificate'), body).pipe(map(res => res, { 'headers': headers }));
   }
-  deleteCollege(id: String) {
+
+  loadCertificates(event_id: String) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post(this.app.getUrl(this.baseUrl + "delete/"+`${id}` ),{} ).pipe(map(res => res, {'headers': headers}));
+    return this.http.get(this.app.getUrl(this.baseUrl+event_id));
   }
 }
