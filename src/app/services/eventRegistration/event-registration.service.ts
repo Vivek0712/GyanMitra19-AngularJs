@@ -24,6 +24,19 @@ export class EventRegistrationService {
     return this.http.post(this.app.getUrl(this.baseUrl + 'newEventRegistration'), data).pipe(map(res => res, { 'headers': headers }));
   }
 
+  createEventRegistrationOffline(user_id: String, event_id: String, participation: String) {
+    let data = {
+      event_id: event_id,
+      user_id: user_id,
+      registration_type: "Single",
+      participation: participation,
+      status: "Paid"
+    }
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post(this.app.getUrl(this.baseUrl + 'newEventRegistrationOffline'), data).pipe(map(res => res, { 'headers': headers }));
+  }
+
   createEventWithTeamRegistration(user_id: String, event_id: String, name: String, position: String) {
     let data = {
       user_id: user_id,
@@ -36,13 +49,13 @@ export class EventRegistrationService {
     return this.http.post(this.app.getUrl(this.baseUrl + 'newTeamEventRegistration'), data).pipe(map(res => res, { 'headers': headers }));
   }
 
-  getRegisteredEvents(user_id: string, type: string){
+  getRegisteredEvents(user_id: string, type: string) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.get(this.app.getUrl(this.baseUrl) + 'registeredEvents/'+user_id+'/'+type);
+    return this.http.get(this.app.getUrl(this.baseUrl) + 'registeredEvents/' + user_id + '/' + type);
   }
 
-  getGyanMates(){
+  getGyanMates() {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this.http.get(this.app.getUrl(this.baseUrl) + 'getGyanMates');
@@ -106,10 +119,10 @@ export class EventRegistrationService {
     return this.http.post(this.app.getUrl(this.baseUrl + 'confirmCartPayment'), data).pipe(map(res => res, { 'headers': headers }));
   }
 
-  checkRegistration(event_id: string, user_id: string){
+  checkRegistration(event_id: string, user_id: string) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.get(this.app.getUrl(this.baseUrl) + '/checkRegistration/'+event_id+'/'+user_id);
+    return this.http.get(this.app.getUrl(this.baseUrl) + '/checkRegistration/' + event_id + '/' + user_id);
   }
 
   getUnconfirmedDDPayments() {
@@ -127,13 +140,13 @@ export class EventRegistrationService {
   cancelWorkshopRegistration(_id: String) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post(this.app.getUrl(this.baseUrl) + _id , {});
+    return this.http.post(this.app.getUrl(this.baseUrl) + _id, {});
   }
 
   cancelEventRegistration(_id: String) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post(this.app.getUrl(this.baseUrl)+'delete/' + _id , {});
+    return this.http.post(this.app.getUrl(this.baseUrl) + 'delete/' + _id, {});
   }
 
   getUserByEmail(email_id: String) {
@@ -148,7 +161,7 @@ export class EventRegistrationService {
     };
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post(this.app.getUrl(this.baseUrl +"update/"+ `${id}`), body).pipe(map(res => res, { 'headers': headers }));
+    return this.http.post(this.app.getUrl(this.baseUrl + "update/" + `${id}`), body).pipe(map(res => res, { 'headers': headers }));
   }
   getCollegeMates(event_id: String, user_id: String) {
     const headers = new Headers();
@@ -168,10 +181,10 @@ export class EventRegistrationService {
     return this.http.get(this.app.getUrl(this.baseUrl) + 'getCollegeParticipant/' + college);
   }
 
-  checkEventRegistrationStatus(user_id:String,event_id:String){
+  checkEventRegistrationStatus(user_id: String, event_id: String) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    this.http.get(this.app.getUrl(this.baseUrl) + 'checkEventRegistrationStatus/'+event_id+'/'+user_id).subscribe((response:any)=>{
+    this.http.get(this.app.getUrl(this.baseUrl) + 'checkEventRegistrationStatus/' + event_id + '/' + user_id).subscribe((response: any) => {
       return response.registered;
     });
   }

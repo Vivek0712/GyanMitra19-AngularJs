@@ -107,12 +107,13 @@
                       <th scope="row">{{i+1}}</th>
                       <td>{{certificate.user_id.name}}</td>
                       <td>{{certificate.user_id.college_id.name}}</td>
-                      <td><ng-container *ngIf="certificate.issued; else certNotIssued">
-                        Yes
-                      </ng-container>
-                      <ng-template #elseTemplate>
-                        No
-                      </ng-template>
+                      <td>
+                        <ng-container *ngIf="certificate.issued; else certNotIssued">
+                          Yes
+                        </ng-container>
+                        <ng-template #elseTemplate>
+                          No
+                        </ng-template>
                       </td>
                     </tr>
                   </tbody>
@@ -178,10 +179,9 @@
                     <br />
                     <div class="container">
                       <div class="row">
-                        <div class="col-2">Payment </div>
                         <div class="col-6">
                           <select class="custom-select" [(ngModel)]="paidStatus" id="slctPaid">
-                            <option value="" selected="true">ALL</option>
+                            <option value="" selected="true">Payment Status</option>
                             <option value="true">Paid</option>
                             <option value="false">Not paid</option>
                           </select>
@@ -230,8 +230,9 @@
                             <td>{{participant.user_id.email_id}}</td>
                             <td>{{participant.user_id.mobile_number}}</td>
                             <td>{{participant.user_id.college_id.name}}</td>
-                            <td *ngIf="participant.user_id.cart_paid == true">Paid</td>
-                            <td *ngIf="participant.user_id.cart_paid == false">Not Paid</td>
+                            <!-- <td *ngIf="participant.user_id.cart_paid == true">Paid</td>
+                            <td *ngIf="participant.user_id.cart_paid == false">Not Paid</td> -->
+                            <td>{{participant.status}}</td>
                             <td>
                               <div class="row">
                                 <div class="col-12">

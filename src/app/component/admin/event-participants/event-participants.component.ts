@@ -57,8 +57,8 @@ export class EventParticipantsComponent implements OnInit {
     this.getUsers();
   }
 
-  loadCertificates(){
-    this.certificateService.loadCertificates(this.event_id).subscribe((res: any)=>{
+  loadCertificates() {
+    this.certificateService.loadCertificates(this.event_id).subscribe((res: any) => {
       this.certificates = res.msg
     })
   }
@@ -75,8 +75,15 @@ export class EventParticipantsComponent implements OnInit {
       this.participants = [];
       if (this.paidStatus != "") {
         for (let user of response) {
-          if (user.user_id.cart_paid == paid) {
-            this.participants.push(user);
+          if (paid == true) {
+            if (user.status == "Paid") {
+              this.participants.push(user);
+            }
+          }
+          else {
+            if (user.status != "Paid") {
+              this.participants.push(user);
+            }
           }
         }
       }
@@ -100,7 +107,7 @@ export class EventParticipantsComponent implements OnInit {
   onSubmit(form: FormGroup) {
     this.submitted = true;
     if (form.valid) {
-      this.eventRegistration.createEventRegistration(this.participantForm.get('selectedUserId').value, this.event_id).subscribe((response: any) => {
+      this.eventRegistration.createEventRegistrationOffline(this.participantForm.get('selectedUserId').value, this.event_id, this.participantForm.get('participation').value).subscribe((response: any) => {
         if (response.error) {
           M.toast({ html: response.msg, classes: 'roundeds' });
           this.getParticipants();
@@ -140,7 +147,7 @@ export class EventParticipantsComponent implements OnInit {
       }
     });
     this.qrScannerComponent.capturedQr.subscribe((result: string) => {
-      if(this.isParticipantEntry){
+      if (this.isParticipantEntry) {
         this.qrService.markPresent(result, this.event_id).subscribe((res: any) => {
           if (res.error) {
             M.toast({ html: 'An Error Occured. Scan Again', classes: 'roundeds' });
@@ -150,7 +157,7 @@ export class EventParticipantsComponent implements OnInit {
           }
         })
       } else {
-        this.certificateService.issueCertificate(result).subscribe((res: any)=>{
+        this.certificateService.issueCertificate(result).subscribe((res: any) => {
           if (res.error) {
             M.toast({ html: 'An Error Occured. Scan Again', classes: 'roundeds' });
           } else {
@@ -167,7 +174,7 @@ export class EventParticipantsComponent implements OnInit {
     this.openQR();
   }
 
-  scanIDforCertificate(){
+  scanIDforCertificate() {
     this.isParticipantEntry = false;
     this.openQR();
   }
@@ -233,7 +240,7 @@ export class EventParticipantsComponent implements OnInit {
       reportData["Gender"] = ele.user_id.gender;
       reportData["E Mail ID"] = ele.user_id.email_id;
       reportData["Registration Type"] = ele.registration_type;
-      reportData["Payment Status"] = ele.user_id.cart_paid;
+      reportData["Payment Status"] = ele.status;
       reportArray.push(reportData)
     })
     this.excelService.exportAsExcelFile(reportArray, filename);
