@@ -16,6 +16,7 @@ export class PaymentComponent implements OnInit {
   events: Array<any>;
   workshops: Array<any>;
   click: Boolean = false;
+  searchText: String = "";
   constructor(private eventRegister: EventRegistrationService, private payService: PaymentService, private datePipe: DatePipe, private excelService: ExcelService) { }
 
   ngOnInit() {
@@ -44,6 +45,28 @@ export class PaymentComponent implements OnInit {
         this.payedUsers = [];
         for (let user of response.msg) {
           if (user.mode_of_payment == "Online") {
+            // this.eventRegister.getRegisteredEvents(user.user_id._id, "Event").subscribe((res: any) => {
+            //   console.log(res.doc);
+            //   user.event = res.doc;
+            // })
+            // console.log(user.user_id._id);
+            // console.log(user.event);
+            this.payedUsers.push(user);
+          }
+        }
+      }
+      else {
+      }
+    })
+  }
+
+  getOfflinePayedUsers() {
+    this.click = true;
+    this.payService.getPaymentDetails().subscribe((response: any) => {
+      if (response.success) {
+        this.payedUsers = [];
+        for (let user of response.msg) {
+          if (user.mode_of_payment == "Offline") {
             // this.eventRegister.getRegisteredEvents(user.user_id._id, "Event").subscribe((res: any) => {
             //   console.log(res.doc);
             //   user.event = res.doc;

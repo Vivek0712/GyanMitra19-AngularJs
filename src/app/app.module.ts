@@ -88,6 +88,7 @@ import { AdminHomeComponent } from './component/admin/admin-home/admin-home.comp
 import { ProbsComponent } from './component/admin/probs/probs.component';
 import { ProblemsArisedComponent } from './component/admin/problems-arised/problems-arised.component';
 import { ScheduleComponent } from './component/user/schedule/schedule.component';
+import { EventScheduleComponent } from './component/user/event-schedule/event-schedule.component';
 /////////////////////////////////////////////////////////////////
 
 @NgModule({
@@ -150,7 +151,8 @@ import { ScheduleComponent } from './component/user/schedule/schedule.component'
     AdminHomeComponent,
     ProbsComponent,
     ProblemsArisedComponent,
-    ScheduleComponent
+    ScheduleComponent,
+    EventScheduleComponent
   ],
   imports: [
     BrowserModule,
