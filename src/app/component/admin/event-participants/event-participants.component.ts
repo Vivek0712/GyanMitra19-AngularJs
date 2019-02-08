@@ -134,6 +134,7 @@ export class EventParticipantsComponent implements OnInit {
     this.qrScannerComponent.capturedQr.subscribe((result: string) => {
       this.qrService.markPresent(result, this.event_id).subscribe((res: any) => {
         if (res.error) {
+          alert(res.msg)
           M.toast({ html: 'An Error Occured. Scan Again', classes: 'roundeds' });
         } else {
           M.toast({ html: res.msg, classes: 'roundeds' });
