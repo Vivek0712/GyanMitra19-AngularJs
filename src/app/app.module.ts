@@ -87,6 +87,7 @@ import { QrService } from './services/qr/qr.service';
 import { AdminHomeComponent } from './component/admin/admin-home/admin-home.component';
 import { ProbsComponent } from './component/admin/probs/probs.component';
 import { ProblemsArisedComponent } from './component/admin/problems-arised/problems-arised.component';
+import { ScheduleComponent } from './component/user/schedule/schedule.component';
 /////////////////////////////////////////////////////////////////
 
 @NgModule({
@@ -148,7 +149,8 @@ import { ProblemsArisedComponent } from './component/admin/problems-arised/probl
     LandingComponent,
     AdminHomeComponent,
     ProbsComponent,
-    ProblemsArisedComponent
+    ProblemsArisedComponent,
+    ScheduleComponent
   ],
   imports: [
     BrowserModule,

@@ -335,6 +335,54 @@ export class RegistrationComponent implements OnInit {
     })
   }
 
+  exportCollegeWiseEventCount() {
+    var filename = 'College wise Event Count - ' + this.datePipe.transform(Date.now(), 'dd-MM-yyyy');
+    var reportArray: Array<any> = [];
+    var responseArray = []
+    this.reportserviceService.getCollegeCountForEvents().subscribe((res: any) => {
+      var resp = {}
+      resp = res
+      var responseArray = []
+      responseArray = Object.entries(resp);
+      console.log(responseArray)
+      var slNo = 1;
+      responseArray.forEach((doc) => {
+        var reportData = []
+        reportData["Sl. No"] = slNo++;
+        reportData["College Name"] = doc[0];
+        reportData["Paid"] = doc[1]["Paid"];
+        reportData["Not Paid"] = doc[1]["Not Paid"]
+        reportData["Total"] = doc[1]["Total"]
+        reportArray.push(reportData)
+      })
+      this.excelService.exportAsExcelFile(reportArray, filename);
+    })
+  }
+
+  exportCollegeWiseWorkshopCount() {
+    var filename = 'College wise Event Count - ' + this.datePipe.transform(Date.now(), 'dd-MM-yyyy');
+    var reportArray: Array<any> = [];
+    var responseArray = []
+    this.reportserviceService.getCollegeCountForWorkshop().subscribe((res: any) => {
+      var resp = {}
+      resp = res
+      var responseArray = []
+      responseArray = Object.entries(resp);
+      console.log(responseArray)
+      var slNo = 1;
+      responseArray.forEach((doc) => {
+        var reportData = []
+        reportData["Sl. No"] = slNo++;
+        reportData["College Name"] = doc[0];
+        reportData["Paid"] = doc[1]["Paid"];
+        reportData["Not Paid"] = doc[1]["Not Paid"]
+        reportData["Total"] = doc[1]["Total"]
+        reportArray.push(reportData)
+      })
+      this.excelService.exportAsExcelFile(reportArray, filename);
+    })
+  }
+
   confirmPayment(event_id: String) {
     this.userService.confirmPaymentOffline(this.selectedParticipant._id, event_id).subscribe((response: any) => {
       M.toast({ html: response.msg, classes: 'roundeds' });
@@ -569,7 +617,7 @@ export class RegistrationComponent implements OnInit {
       this.excelService.exportAsExcelFile(reportArray, filename);
     })
   }
-  
+
   exportAsXLSXforWorkshopsAttendance() {
     var filename = 'Attendance for Workshops - ' + this.datePipe.transform(Date.now(), 'dd-MM-yyyy');
     var slNo = 1;
@@ -596,15 +644,15 @@ export class RegistrationComponent implements OnInit {
         reportData["Signature"] = " "
         reportArray.push(reportData)
       })
-      reportArray.sort((a, b)=>{
+      reportArray.sort((a, b) => {
         return a["Name"].localeCompare(b["Name"])
       })
-      
-      reportArray.sort((a, b)=>{
+
+      reportArray.sort((a, b) => {
         return a["College"].localeCompare(b["College"])
       })
       slNo = 1;
-      reportArray.forEach((doc)=>{
+      reportArray.forEach((doc) => {
         doc["Sl. No"] = slNo++;
       })
       this.excelService.exportAsExcelFile(reportArray, filename);
@@ -636,7 +684,7 @@ export class RegistrationComponent implements OnInit {
       } else {
         reportData["Payment Status"] = "No"
       }
-      reportData["Registered In"] = ele.event_id.title
+      //reportData["Registered In"] = ele.event_id.title
       reportArray.push(reportData);
     })
     this.excelService.exportAsExcelFile(reportArray, filename);
@@ -674,7 +722,7 @@ export class RegistrationComponent implements OnInit {
       this.excelService.exportAsExcelFile(reportArray, filename);
     })
   }
-  
+
   exportAsXLSXforEventsAttendance() {
     var filename = 'Attendance for Events - ' + this.datePipe.transform(Date.now(), 'dd-MM-yyyy');
     var slNo = 1;
@@ -699,15 +747,15 @@ export class RegistrationComponent implements OnInit {
         reportData["Signature"] = " "
         reportArray.push(reportData)
       })
-      reportArray.sort((a, b)=>{
+      reportArray.sort((a, b) => {
         return a["Name"].localeCompare(b["Name"])
       })
-      
-      reportArray.sort((a, b)=>{
+
+      reportArray.sort((a, b) => {
         return a["College"].localeCompare(b["College"])
       })
       slNo = 1;
-      reportArray.forEach((doc)=>{
+      reportArray.forEach((doc) => {
         doc["Sl. No"] = slNo++;
       })
       this.excelService.exportAsExcelFile(reportArray, filename);

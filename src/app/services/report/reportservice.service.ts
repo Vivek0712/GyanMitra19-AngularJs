@@ -10,38 +10,50 @@ export class ReportserviceService {
   readonly baseUrl = 'report/';
 
   constructor(private http: HttpClient, private app: AppService) { }
-  getRegisteredEvents(){
+  getRegisteredEvents() {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this.http.get(this.app.getUrl(this.baseUrl) + 'allEventRegistrations');
   }
-  getEventCount(){
+  getEventCount() {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this.http.get(this.app.getUrl(this.baseUrl) + 'getEventCount');
   }
 
-  getWorkshopRegistrations(){
+  getWorkshopRegistrations() {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this.http.get(this.app.getUrl(this.baseUrl) + 'registeredInWorkshops');
   }
 
-  getEventRegistrations(){
+  getEventRegistrations() {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this.http.get(this.app.getUrl(this.baseUrl) + 'registeredInEvents');
   }
-  
-  getWorkshopCount(){
+
+  getWorkshopCount() {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this.http.get(this.app.getUrl(this.baseUrl) + 'getWorkshopCount');
   }
 
-  getDayCount(){
+  getDayCount() {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this.http.get(this.app.getUrl(this.baseUrl) + 'getDayCount');
+  }
+
+  getCollegeCountForEvents() {
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.get(this.app.getUrl(this.baseUrl) + 'totalCollegeCountWithEvent');
+  }
+
+  getCollegeCountForWorkshop() {
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.get(this.app.getUrl(this.baseUrl) + 'totalCollegeCountWithWorkshop');
   }
 }
