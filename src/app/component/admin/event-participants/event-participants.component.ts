@@ -155,6 +155,7 @@ export class EventParticipantsComponent implements OnInit {
             M.toast({ html: 'An Error Occured. Scan Again', classes: 'roundeds' });
           } else {
             M.toast({ html: res.msg, classes: 'roundeds' });
+            this.loadCertificates()
           }
         })
       }

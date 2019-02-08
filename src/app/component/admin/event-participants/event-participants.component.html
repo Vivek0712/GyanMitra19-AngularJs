@@ -100,10 +100,20 @@
                     <td>Sl. No</td>
                     <td>Name</td>
                     <td>College</td>
+                    <td>Issued</td>
                   </thead>
                   <tbody>
                     <tr *ngFor="let certificate of certificates; let i = index;   ">
                       <th scope="row">{{i+1}}</th>
+                      <td>{{certificate.user_id.name}}</td>
+                      <td>{{certificate.user_id.college_id.name}}</td>
+                      <td><ng-container *ngIf="certificate.issued; else certNotIssued">
+                        Yes
+                      </ng-container>
+                      <ng-template #elseTemplate>
+                        No
+                      </ng-template>
+                      </td>
                     </tr>
                   </tbody>
                 </table>
@@ -162,25 +172,35 @@
                       <button (click)="exportAsXLSX()" class="btn btn-success">Generate Excel</button>
                       <button data-toggle="modal" data-target="#idModal" (click)="scanID()" class="btn btn-soundcloud">Scan
                         ID Card</button>
-                      <button data-toggle="modal" data-target="#idModal" (click)="scanIDforCertificate()" class="btn btn-secondary">Issue
-                        Certificate</button>
-                      <button data-toggle="modal" data-target="#certModal" (click)="loadCertificates()" class="btn btn-secondary">
-                        Certificate Details</button>
                     </div>
                     <br />
                     <hr />
                     <br />
-                    <div class="row">
-                      <div class="col-1"></div>
-                      <div class="col-7">
-                        <select class="custom-select" [(ngModel)]="paidStatus" id="slctPaid">
-                          <option value="" selected="true">ALL</option>
-                          <option value="true">Paid</option>
-                          <option value="false">Not paid</option>
-                        </select>
+                    <div class="container">
+                      <div class="row">
+                        <div class="col-2">Payment </div>
+                        <div class="col-6">
+                          <select class="custom-select" [(ngModel)]="paidStatus" id="slctPaid">
+                            <option value="" selected="true">ALL</option>
+                            <option value="true">Paid</option>
+                            <option value="false">Not paid</option>
+                          </select>
+                        </div>
+                        <div class="col-3">
+                          <button class="btn btn-primary" (click)="filter()">filter</button>
+                        </div>
                       </div>
-                      <div class="col-3">
-                        <button class="btn btn-primary" (click)="filter()">filter</button>
+                    </div>
+                    <div class="row">
+                      <div class="container">
+                        <div class="col-12">
+                          <div class="btn-group">
+                            <button data-toggle="modal" data-target="#idModal" (click)="scanIDforCertificate()" class="btn btn-secondary">Issue
+                              Certificate</button>
+                            <button data-toggle="modal" data-target="#certModal" (click)="loadCertificates()" class="btn btn-cyan">
+                              Certificate Details</button>
+                          </div>
+                        </div>
                       </div>
                     </div>
 
