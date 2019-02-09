@@ -9,6 +9,8 @@ import { ExcelService } from 'src/app/services/excel.service';
 import { QrScannerComponent } from 'angular2-qrscanner';
 import { QrService } from 'src/app/services/qr/qr.service';
 import { UserService } from 'src/app/services/user/user.service';
+import { Certificate } from 'crypto';
+import { CertificateService } from 'src/app/services/certificate/certificate.service';
 
 
 declare var M: any;
@@ -25,9 +27,10 @@ export class EventParticipantsComponent implements OnInit {
   event_id: String;
   currentAttendance: String;
   event: any;
+  isParticipantEntry = true;
   @ViewChild(QrScannerComponent) qrScannerComponent: QrScannerComponent;
 
-  constructor(private userService: UserService, private qrService: QrService, private datePipe: DatePipe, private participantStatusService: ParticipationstatusService, private excelService: ExcelService, private eventRegistration: EventRegistrationService, public authService: AuthService, private formBuilder: FormBuilder, private route: ActivatedRoute, private location: Location) {
+  constructor(private certificateService: CertificateService, private userService: UserService, private qrService: QrService, private datePipe: DatePipe, private participantStatusService: ParticipationstatusService, private excelService: ExcelService, private eventRegistration: EventRegistrationService, public authService: AuthService, private formBuilder: FormBuilder, private route: ActivatedRoute, private location: Location) {
 
   }
 
@@ -39,7 +42,7 @@ export class EventParticipantsComponent implements OnInit {
   searchText: String;
   users: Array<any>;
   paidStatus: String = "";
-
+  certificates: Array<any> = []
   ngOnInit() {
     this.route.params.subscribe(param => {
       this.event_id = param.id
@@ -54,6 +57,12 @@ export class EventParticipantsComponent implements OnInit {
     this.getUsers();
   }
 
+  loadCertificates() {
+    this.certificateService.loadCertificates(this.event_id).subscribe((res: any) => {
+      this.certificates = res.msg
+    })
+  }
+
   filter() {
     let paid: Boolean;
     if (this.paidStatus == "true") {
@@ -66,8 +75,15 @@ export class EventParticipantsComponent implements OnInit {
       this.participants = [];
       if (this.paidStatus != "") {
         for (let user of response) {
-          if (user.user_id.cart_paid == paid) {
-            this.participants.push(user);
+          if (paid == true) {
+            if (user.status == "Paid") {
+              this.participants.push(user);
+            }
+          }
+          else {
+            if (user.status != "Paid") {
+              this.participants.push(user);
+            }
           }
         }
       }
@@ -91,7 +107,7 @@ export class EventParticipantsComponent implements OnInit {
   onSubmit(form: FormGroup) {
     this.submitted = true;
     if (form.valid) {
-      this.eventRegistration.createEventRegistration(this.participantForm.get('selectedUserId').value, this.event_id).subscribe((response: any) => {
+      this.eventRegistration.createEventRegistrationOffline(this.participantForm.get('selectedUserId').value, this.event_id, this.participantForm.get('participation').value).subscribe((response: any) => {
         if (response.error) {
           M.toast({ html: response.msg, classes: 'roundeds' });
           this.getParticipants();
@@ -107,7 +123,7 @@ export class EventParticipantsComponent implements OnInit {
     }
   }
 
-  scanID() {
+  openQR() {
     this.qrScannerComponent.getMediaDevices().then(devices => {
       const videoDevices: MediaDeviceInfo[] = [];
       for (const device of devices) {
@@ -130,17 +146,37 @@ export class EventParticipantsComponent implements OnInit {
         }
       }
     });
-
     this.qrScannerComponent.capturedQr.subscribe((result: string) => {
-      this.qrService.markPresent(result, this.event_id).subscribe((res: any) => {
-        if (res.error) {
-          M.toast({ html: 'An Error Occured. Scan Again', classes: 'roundeds' });
-        } else {
-          M.toast({ html: res.msg, classes: 'roundeds' });
-          this.reload()
-        }
-      })
+      if (this.isParticipantEntry) {
+        this.qrService.markPresent(result, this.event_id).subscribe((res: any) => {
+          if (res.error) {
+            M.toast({ html: 'An Error Occured. Scan Again', classes: 'roundeds' });
+          } else {
+            M.toast({ html: res.msg, classes: 'roundeds' });
+            this.reload()
+          }
+        })
+      } else {
+        this.certificateService.issueCertificate(result).subscribe((res: any) => {
+          if (res.error) {
+            M.toast({ html: 'An Error Occured. Scan Again', classes: 'roundeds' });
+          } else {
+            M.toast({ html: res.msg, classes: 'roundeds' });
+            this.loadCertificates()
+          }
+        })
+      }
     });
+  }
+
+  scanID() {
+    this.isParticipantEntry = true;
+    this.openQR();
+  }
+
+  scanIDforCertificate() {
+    this.isParticipantEntry = false;
+    this.openQR();
   }
 
   getParticipants() {
@@ -204,7 +240,7 @@ export class EventParticipantsComponent implements OnInit {
       reportData["Gender"] = ele.user_id.gender;
       reportData["E Mail ID"] = ele.user_id.email_id;
       reportData["Registration Type"] = ele.registration_type;
-      reportData["Payment Status"] = ele.user_id.cart_paid;
+      reportData["Payment Status"] = ele.status;
       reportArray.push(reportData)
     })
     this.excelService.exportAsExcelFile(reportArray, filename);
