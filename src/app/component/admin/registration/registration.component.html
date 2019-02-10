@@ -592,7 +592,7 @@
                         <th>Mobile Number</th>
                         <th>Issue ID Card</th>
                         <th>Info</th>
-                        <th>Delete</th>
+                        <th *ngIf="role.role_id.name == 'Admin'">Delete</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -614,7 +614,7 @@
                             <a> <i class="la la-info-circle la-2x"></i></a>
                           </div>
                         </td>
-                        <td>
+                        <td *ngIf="role.role_id.name == 'Admin'">
                           <div class="fonticon-wrap icon-shadow icon-shadow-danger" (click)="deleteParticipant(participant._id)">
                             <a> <i class="la la-trash la-2x"></i></a>
                           </div>

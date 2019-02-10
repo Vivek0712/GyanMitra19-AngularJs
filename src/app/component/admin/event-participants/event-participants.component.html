@@ -75,7 +75,7 @@
               </button>
             </div>
             <div class="modal-body">
-              <qr-scanner [debug]="false" [stopAfterScan]="false" [updateTime]="100">
+              <qr-scanner [debug]="false" [stopAfterScan]="true" [updateTime]="250">
               </qr-scanner>
             </div>
             <div class="modal-footer">
@@ -84,7 +84,48 @@
           </div>
         </div>
       </div>
-
+      <div class="modal fade" id="certModal" tabindex="-1" role="dialog" aria-labelledby="certModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3 class="modal-title" id="certModalLabel">Certificate Writing</h3>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="table-responsive">
+                <table class="table table-hover table-dark">
+                  <thead>
+                    <td>Sl. No</td>
+                    <td>Name</td>
+                    <td>College</td>
+                    <td>Issued</td>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let certificate of certificates; let i = index;   ">
+                      <th scope="row">{{i+1}}</th>
+                      <td>{{certificate.user_id.name}}</td>
+                      <td>{{certificate.user_id.college_id.name}}</td>
+                      <td>
+                        <ng-container *ngIf="certificate.issued; else certNotIssued">
+                          Yes
+                        </ng-container>
+                        <ng-template #elseTemplate>
+                          No
+                        </ng-template>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
       <!-- <div class="modal fade" id="teamModal" tabindex="-1" role="dialog" aria-labelledby="teamModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
           <div class="modal-content">
@@ -131,22 +172,35 @@
                     <div class="col-sm-12 col-md-6 btn-group-justified btn-group">
                       <button (click)="exportAsXLSX()" class="btn btn-success">Generate Excel</button>
                       <button data-toggle="modal" data-target="#idModal" (click)="scanID()" class="btn btn-soundcloud">Scan
-                        ID Card | Individual Event</button>
+                        ID Card</button>
                     </div>
                     <br />
                     <hr />
                     <br />
-                    <div class="row">
-                      <div class="col-1"></div>
-                      <div class="col-7">
-                        <select class="custom-select" [(ngModel)]="paidStatus" id="slctPaid">
-                          <option value="" selected="true">ALL</option>
-                          <option value="true">Paid</option>
-                          <option value="false">Not paid</option>
-                        </select>
+                    <div class="container">
+                      <div class="row">
+                        <div class="col-6">
+                          <select class="custom-select" [(ngModel)]="paidStatus" id="slctPaid">
+                            <option value="" selected="true">Payment Status</option>
+                            <option value="true">Paid</option>
+                            <option value="false">Not paid</option>
+                          </select>
+                        </div>
+                        <div class="col-3">
+                          <button class="btn btn-primary" (click)="filter()">filter</button>
+                        </div>
                       </div>
-                      <div class="col-3">
-                        <button class="btn btn-primary" (click)="filter()">filter</button>
+                    </div>
+                    <div class="row">
+                      <div class="container">
+                        <div class="col-12">
+                          <div class="btn-group">
+                            <button data-toggle="modal" data-target="#idModal" (click)="scanIDforCertificate()" class="btn btn-secondary">Issue
+                              Certificate</button>
+                            <button data-toggle="modal" data-target="#certModal" (click)="loadCertificates()" class="btn btn-cyan">
+                              Certificate Details</button>
+                          </div>
+                        </div>
                       </div>
                     </div>
 
@@ -176,8 +230,9 @@
                             <td>{{participant.user_id.email_id}}</td>
                             <td>{{participant.user_id.mobile_number}}</td>
                             <td>{{participant.user_id.college_id.name}}</td>
-                            <td *ngIf="participant.user_id.cart_paid == true">Paid</td>
-                            <td *ngIf="participant.user_id.cart_paid == false">Not Paid</td>
+                            <!-- <td *ngIf="participant.user_id.cart_paid == true">Paid</td>
+                            <td *ngIf="participant.user_id.cart_paid == false">Not Paid</td> -->
+                            <td>{{participant.status}}</td>
                             <td>
                               <div class="row">
                                 <div class="col-12">

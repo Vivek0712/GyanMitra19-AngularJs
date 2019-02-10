@@ -41,7 +41,8 @@ import { RoleUserService } from './services/role_user/role-user.service';
 import { TeamService } from './services/team/team.service';
 import { TeamMemberService } from './services/team_member/team-member.service';
 import { ResolvecollegePipe } from './pipes/resolvecollege.pipe';
-import { EventRegistrationService } from './services/eventRegistration/event-registration.service'
+import { EventRegistrationService } from './services/eventRegistration/event-registration.service';
+import { CertificateService } from './services/certificate/certificate.service'
 ///////////////////////////////////////////////////////////////////////////////////////
 import { RegistrationComponent } from './component/admin/registration/registration.component';
 import { ParticipantstatusComponent } from './component/admin/participantstatus/participantstatus.component';
@@ -88,6 +89,7 @@ import { AdminHomeComponent } from './component/admin/admin-home/admin-home.comp
 import { ProbsComponent } from './component/admin/probs/probs.component';
 import { ProblemsArisedComponent } from './component/admin/problems-arised/problems-arised.component';
 import { ScheduleComponent } from './component/user/schedule/schedule.component';
+import { EventScheduleComponent } from './component/user/event-schedule/event-schedule.component';
 /////////////////////////////////////////////////////////////////
 
 @NgModule({
@@ -150,7 +152,8 @@ import { ScheduleComponent } from './component/user/schedule/schedule.component'
     AdminHomeComponent,
     ProbsComponent,
     ProblemsArisedComponent,
-    ScheduleComponent
+    ScheduleComponent,
+    EventScheduleComponent
   ],
   imports: [
     BrowserModule,
@@ -180,7 +183,8 @@ import { ScheduleComponent } from './component/user/schedule/schedule.component'
     AuthGuard,
     EventRegistrationService,
     ReportserviceService,
-    QrService
+    QrService,
+    CertificateService
   ],
   bootstrap: [AppComponent]
 })
