@@ -25,6 +25,7 @@
     "angular2-qrscanner": "^1.0.7",
     "angularx-qrcode": "^1.5.1",
     "core-js": "^2.5.4",
+    "crypto": "^1.0.1",
     "crypto-ts": "^1.0.2",
     "file-saver": "^2.0.0",
     "jquery": "^3.3.1",
