@@ -9,7 +9,6 @@ import { ExcelService } from 'src/app/services/excel.service';
 import { QrScannerComponent } from 'angular2-qrscanner';
 import { QrService } from 'src/app/services/qr/qr.service';
 import { UserService } from 'src/app/services/user/user.service';
-import { Certificate } from 'crypto';
 import { CertificateService } from 'src/app/services/certificate/certificate.service';
 
 
